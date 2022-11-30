@@ -37,6 +37,13 @@ module.exports = {
       console.log(error.message);
     }
   },
-  getOnePost: async (req, res) => {},
+  getOnePost: async (req, res) => {
+    try {
+      const data = await Post.findById({ _id: req.params.id });
+      res.status(201).json(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
   getAllPost: async (req, res) => {},
 };
