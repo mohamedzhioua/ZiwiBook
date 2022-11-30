@@ -11,6 +11,9 @@ router.get("/getOnePost", PostController.getOnePost);
 // GET request
 router.get("/getAllPost", PostController.getAllPost);
 
+// GET request
+router.get("/getAllPostbyUser", PostController.getAllPostbyUser);
+
 // PUT request
 
 router.put("/updatePost", PostController.updatePost);
