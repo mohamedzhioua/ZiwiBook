@@ -30,7 +30,12 @@ module.exports = {
     }
   },
   deletePost: async (req, res) => {
-
+    try {
+      await Post.deleteOne({ _id: req.params.id });
+      res.status(201).json({ message: "post deleted with success" });
+    } catch (error) {
+      console.log(error.message);
+    }
   },
   getOnePost: async (req, res) => {},
   getAllPost: async (req, res) => {},
