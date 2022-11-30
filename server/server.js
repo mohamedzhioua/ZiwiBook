@@ -1,7 +1,7 @@
 // Import dependencies
 const express = require("express");
 const db = require("./config/db");
-
+const cors = require("cors");
 //load env variables
 require("dotenv").config();
 
