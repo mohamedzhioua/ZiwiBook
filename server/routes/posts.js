@@ -21,3 +21,5 @@ router.put("/updatePost", PostController.updatePost);
 // DELETE request
 
 router.delete("/deletePost", PostController.deletePost);
+
+module.exports = router;

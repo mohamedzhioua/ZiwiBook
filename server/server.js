@@ -21,6 +21,12 @@ const postRoutes = require("./routes/posts");
 app.use("/user", userRoutes);
 app.use("/post", postRoutes);
 
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    methods: "GET,POST,PUT,DELETE,OPTIONS",
+  })
+);
 app.listen(PORT, function () {
   console.log(`Server Runs Perfectly at http://localhost:${PORT}`);
 });
