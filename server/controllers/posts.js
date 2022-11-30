@@ -45,5 +45,12 @@ module.exports = {
       console.log(error.message);
     }
   },
-  getAllPost: async (req, res) => {},
+  getAllPost: async (req, res) => {
+    try {
+      const data = await Post.find();
+      res.status(201).json(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
 };
