@@ -63,13 +63,13 @@ module.exports = {
       console.log(error.message);
     }
   },
-    //  --------------------------------------- //getAllPost by userID method to add a new user//--------------------------- //
-    getAllPostbyUser: async (req, res) => {
-        try {
-          const data = await Post.find({userID:req.params.userID});
-          res.status(201).json(data);
-        } catch (error) {
-          console.log(error.message);
-        }
-      },
+  //  --------------------------------------- //getAllPost by userID method to add a new user//--------------------------- //
+  getAllPostbyUser: async (req, res) => {
+    try {
+      const data = await Post.find({ userID: req.params.userID });
+      res.status(201).json(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
 };
