@@ -10,15 +10,15 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // express app config
-// parse requests of content-type - application/x-www-form-urlencoded
+// Middleware
 app.use(express.json());
+// parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/../client/public"));
 
 //Require application Route modules
 const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
-
 app.use("/user", userRoutes);
 app.use("/post", postRoutes);
 

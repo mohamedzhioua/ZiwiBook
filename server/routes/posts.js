@@ -15,11 +15,9 @@ router.get("/getAllPost", PostController.getAllPost);
 router.get("/getAllPostbyUser", PostController.getAllPostbyUser);
 
 // PUT request
-
 router.put("/updatePost", PostController.updatePost);
 
 // DELETE request
-
 router.delete("/deletePost", PostController.deletePost);
 
 module.exports = router;
