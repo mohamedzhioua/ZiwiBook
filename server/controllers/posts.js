@@ -2,12 +2,14 @@
 const Post = require("../models/post");
 // Load input validation
 const PostValidation = require("../validator/PostValidation");
+// Load cloudinary methods 
+const cloudinary = require("../utils/cloudinary")
 
 module.exports = {
   //  ----------------------//addPost method to add a new user//--------------------------- //
 
   addPost: async (req, res) => {
-    // const { errors, isValid } = PostValidation(req.body);
+    const { errors, isValid } = PostValidation(req.body);
     // try {
     //   if (!isValid) {
     //     res.status(404).json(errors);
@@ -18,7 +20,6 @@ module.exports = {
     // } catch (error) {
     //   console.log(error.message);
     // }
-    console.log("req.file : ", req.file);
   },
   //  ----------------------//updatePost method to add a new user//--------------------------- //
 
