@@ -11,6 +11,7 @@ const PostSchema = new Schema(
       type: String,
       required: true,
     },
+    img:String,
     cloudinary_id: String,
     userID: {
       type: String,
