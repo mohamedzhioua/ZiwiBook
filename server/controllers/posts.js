@@ -2,24 +2,40 @@
 const Post = require("../models/post");
 // Load input validation
 const PostValidation = require("../validator/PostValidation");
-// Load cloudinary methods 
-const cloudinary = require("../utils/cloudinary")
+// Load cloudinary methods
+const cloudinary = require("../utils/cloudinary");
+// Load Datauri method
+const { bufferToDataURI } = require("../utils/Datauri");
 
 module.exports = {
   //  ----------------------//addPost method to add a new user//--------------------------- //
 
   addPost: async (req, res) => {
     const { errors, isValid } = PostValidation(req.body);
-    // try {
-    //   if (!isValid) {
-    //     res.status(404).json(errors);
-    //   } else {
-    //     await Post.create(req.body);
-    //     res.status(201).json({ message: "post added with success" });
-    //   }
-    // } catch (error) {
-    //   console.log(error.message);
-    // }
+    const { title, body, userID } = req.body;
+    const { file } = req;
+    try {
+      if (!isValid) {
+        res.status(404).json(errors);
+      } else {
+        const fileFormat = file.mimetype.split("/")[1];
+        const { base64 } = bufferToDataURI(fileFormat, file.buffer);
+        const imageDetails = await cloudinary.uploadToCloudinary(
+          base64,
+          fileFormat
+        );
+        await Post.create({
+          title,
+          body,
+          userID,
+          image: imageDetails.url,
+          cloudinary_id: imageDetails.public_id,
+        });
+        res.status(201).json({ message: "post added with success" });
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   },
   //  ----------------------//updatePost method to add a new user//--------------------------- //
 
