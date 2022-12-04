@@ -22,5 +22,12 @@ module.exports = {
       throw new ErrorHandler(500, error);
     }
 },
+//  delete imgage from cloudinary
+removeFromCloudinary : async (public_id) => {
+  await cloudinary.uploader.destroy(public_id, function (error, result) {
+    console.log("result API--->", result);
+    console.log("err--->api", error);
+  });
+},
 
 };
