@@ -8,26 +8,26 @@ cloudinary.config({
 });
 
 module.exports = {
- // Upload image to cloudinary
- uploadToCloudinary : async (fileString, format) => {
+  // Upload image to cloudinary
+  uploadToCloudinary: async (fileString, format) => {
     try {
       const { uploader } = cloudinary;
-  
+
       const res = await uploader.upload(
         `data:image/${format};base64,${fileString}`
       );
-  
+
       return res;
     } catch (error) {
-      throw new ErrorHandler(500, error);
+      console.log(error);
     }
-},
-//  delete imgage from cloudinary
-removeFromCloudinary : async (public_id) => {
-  await cloudinary.uploader.destroy(public_id, function (error, result) {
-    console.log("result API--->", result);
-    console.log("err--->api", error);
-  });
-},
-
+  },
+  //  delete image from cloudinary
+  removeFromCloudinary: async (public_id) => {
+    await cloudinary.uploader.destroy(public_id, function (error, result) {
+      console.log("result--->", result);
+      console.log("cloudinaryError--->", error);
+    });
+  },
+  
 };

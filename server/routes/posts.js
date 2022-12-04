@@ -6,7 +6,7 @@ const multerUploads = require("../middlewares/multerMiddleware")
 router.post("/addPost",multerUploads, PostController.addPost);
 
 // GET request
-router.get("/getOnePost", PostController.getOnePost);
+router.get("/getOnePost/:id", PostController.getOnePost);
 
 // GET request
 router.get("/getAllPost", PostController.getAllPost);
@@ -15,9 +15,9 @@ router.get("/getAllPost", PostController.getAllPost);
 router.get("/getAllPostbyUser", PostController.getAllPostbyUser);
 
 // PUT request
-router.put("/updatePost", PostController.updatePost);
+router.put("/updatePost/:id",multerUploads, PostController.updatePost);
 
 // DELETE request
-router.delete("/deletePost", PostController.deletePost);
+router.delete("/deletePost/:id", PostController.deletePost);
 
 module.exports = router;
