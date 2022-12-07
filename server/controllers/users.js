@@ -59,9 +59,21 @@ module.exports = {
             res.status(404).json(errors);
           } else {
             // generate a token and send to client
-            const token = jwt.sign({ _id: user._id }, "zhioua_DOING_GOOD", {
-              expiresIn: "3d",
-            });
+            const exp = Date.now() + 1000 * 60 * 60 * 24 * 30;
+            const token = jwt.sign(
+              { sub: user._id, exp },
+              "zhioua_DOING_GOOD",
+              {
+                expiresIn: "3d",
+              }
+            );
+            // Authorization
+            const options = {
+              expires: new Date(exp),
+              httpOnly: true,
+              sameSite: "lax",
+            };
+            res.cookie("Authorization", token, options);
             res.status(201).json({
               message: "welcom " + user.firstname + " to your home page",
               token,

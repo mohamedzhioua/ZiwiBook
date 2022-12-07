@@ -6,8 +6,7 @@ const PostValidation = require("../validator/PostValidation");
 const cloudinary = require("../utils/cloudinary");
 // Load Datauri method
 const { bufferToDataURI } = require("../utils/Datauri");
-const post = require("../models/post");
-
+ 
 module.exports = {
   //  ----------------------//addPost method to add a new user//--------------------------- //
 
@@ -57,8 +56,8 @@ module.exports = {
           fileFormat
         );
         const post = {
-         title:req.body.title ||data.title ,
-          body:req.body.body ||data.body ,
+          title: req.body.title || data.title,
+          body: req.body.body || data.body,
           image: imageDetails.url,
           cloudinary_id: imageDetails.public_id,
         };
