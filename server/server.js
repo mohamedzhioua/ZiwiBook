@@ -1,6 +1,8 @@
 // Import dependencies
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require('cookie-parser')
+
 // database
 const db = require("./config/db");
 //load env variables
@@ -15,6 +17,7 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/../client/public"));
+app.use(cookieParser())
 
 //Require application Route modules
 const userRoutes = require("./routes/users");
