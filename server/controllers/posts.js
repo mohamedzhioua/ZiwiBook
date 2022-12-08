@@ -6,7 +6,7 @@ const PostValidation = require("../validator/PostValidation");
 const cloudinary = require("../utils/cloudinary");
 // Load Datauri method
 const { bufferToDataURI } = require("../utils/Datauri");
- 
+
 module.exports = {
   //  ----------------------//addPost method to add a new user//--------------------------- //
 

@@ -1,9 +1,9 @@
-const User = require('../models/user')
-const jwt = require('jsonwebtoken');
+const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 
 async function checkAuth() {
   try {
-     const token = req.cookies.Authorization;
+    const token = req.cookies.Authorization;
     //decoding the token
     var decoded = jwt.verify(token, "zhioua_DOING_GOOD");
     // checking the ExpirationTime
