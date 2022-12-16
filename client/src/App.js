@@ -1,8 +1,11 @@
+import Navbar from "./common/Navbar";
 
-function App() {
+ 
+ function App() {
   return (
-    <div className="App">
-      <h1>hello ziwi</h1>
+    <div>
+      <Navbar />
+      <h1 className="text-3xl font-bold">Hello world!</h1>
     </div>
   );
 }
