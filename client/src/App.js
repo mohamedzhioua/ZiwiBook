@@ -1,12 +1,15 @@
-import Navbar from "./common/Navbar";
+import Header from "./common/Navbar/Navbar";
+import "./index.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
- 
- function App() {
+function App() {
   return (
-    <div>
-      <Navbar />
-      <h1 className="text-3xl font-bold">Hello world!</h1>
+    <BrowserRouter>
+    <div >
+      <Header />
+       <h1>hello ziwi wiwi</h1>
     </div>
+    </BrowserRouter>
   );
 }
 
