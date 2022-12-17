@@ -10,18 +10,18 @@ function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse >
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="#" className="link">
+            <Nav.Link as={Link} to="/" className="link">
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="#" className="link">
+            <Nav.Link as={Link} to="/profile" className="link">
               profile
             </Nav.Link>
           </Nav>
           <Nav className="ms-auto">
-            <Nav.Link as={Link} to="#" className="link">
+            <Nav.Link as={Link} to="/login" className="link">
               login
             </Nav.Link>
-            <Nav.Link as={Link} to="#" className="link">
+            <Nav.Link as={Link} to="/register" className="link">
               register
             </Nav.Link>
           </Nav>
