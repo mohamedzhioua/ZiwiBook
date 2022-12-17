@@ -1,14 +1,15 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./Navbar.css";
+import "./Header.css";
+
 function Header() {
   return (
-    <Navbar  bg="white" expand="lg">
+    <Navbar bg="white" expand="lg">
       <Navbar.Brand>Memories</Navbar.Brand>
       <Container fluid>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse >
+        <Navbar.Collapse>
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/" className="link">
               Home
