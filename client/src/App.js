@@ -7,12 +7,10 @@ import { Footer } from "./layouts/Footer/Footer";
 function App() {
   return (
     <BrowserRouter>
-    <div >
-      <Header/>
+       <Header/>
       <Router/>
       <Footer/>
-     </div>
-    </BrowserRouter>
+     </BrowserRouter>
   );
 }
 

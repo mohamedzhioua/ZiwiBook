@@ -1,0 +1,33 @@
+.Navbar {
+  background-color: #34495e;
+  height: 80px;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.Navbar .Nav-link {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9em;
+
+  color: white !important;
+  margin: 0 10px; /* adding space between navbar items */
+}
+.Navbar .Nav-link:hover {
+  border-bottom: 2px solid white;
+  color: #11b08f !important;
+}
+
+.Navbar .Nav-Brand {
+  color: white;
+  font-size: larger;
+  margin-left: 1em;
+}
+.Navbar .Nav-Brand:hover {
+  color: white;
+}
+
+.Navbar .hamburger {
+  background-color: #34495e;
+}
+
