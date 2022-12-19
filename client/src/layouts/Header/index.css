@@ -19,7 +19,7 @@
 }
 
 .Navbar .Nav-Brand {
-  color: white;
+  color: white !important;
   font-size: larger;
   margin-left: 1em;
 }
