@@ -1,9 +1,21 @@
-import React from 'react'
-
-function CustomInput() {
+import React from "react";
+import classnames from "classnames";
+ 
+function CustomInput({ name, label, type, onChange, error, placeholder }) {
   return (
-    <div>CustomInput</div>
-  )
+   
+ <div class="form-floating mb-3">
+      <input
+        type={type}
+        name={name}
+        onChange={onChange}
+        className={classnames("form-control", { "is-invalid": error })}
+        placeholder={placeholder}
+      />
+      <label>{label}</label>
+      {error && <div class="invalid-feedback">{error}</div>}{" "}
+    </div>
+   );
 }
 
-export default CustomInput
+export default CustomInput;

@@ -10,4 +10,14 @@ h1{
   }
   
   
+  .container {
+    margin: 3em 0;
+    padding: 1em;
+    padding-top: 0;
+    box-shadow: 0 6px 16px 0 rgb(0 0 0 / 20%);
+     /* align-items: center;
+    justify-content: center;
+    border: 1px solid black; */
   
+      }
+ 
