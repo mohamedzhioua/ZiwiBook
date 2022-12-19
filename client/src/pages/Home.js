@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import CustomInput from "../components/CustomInput";
 import "../index.css";
-import { AiOutlineHome, AiFillHome } from "react-icons/ai";
+// import { AiOutlineHome, AiFillHome } from "react-icons/ai";
 
 function Home() {
   const [form, setForm] = useState({});
-  const [error, setError] = useState({ name: "rrzarzaer" });
+  const [error, setError] = useState({name:"gezgdsgsdg"  });
 
   const onChangeHandler = (event) => {
     setForm({
@@ -15,8 +15,32 @@ function Home() {
   };
   console.log(form);
   return (
-    <div class="container py-5 h-100">
-      <form>
+     <div className="container py-5 h-10">
+      <form className="Form">
+      <CustomInput
+          type="text"
+          name="name"
+          label="Name"
+          onChange={onChangeHandler}
+          error={error.name}
+          placeholder="name"
+         />
+         <CustomInput
+         type="text"
+         name="name"
+         label="Name"
+         onChange={onChangeHandler}
+         error={error.name}
+         placeholder="name"
+        />
+        <CustomInput
+        type="text"
+        name="name"
+        label="Name"
+        onChange={onChangeHandler}
+        error={error.name}
+        placeholder="name"
+       />
         <CustomInput
           type="text"
           name="name"
@@ -27,7 +51,7 @@ function Home() {
          />
       </form>
     </div>
-  );
+   );
 }
 
 export default Home;

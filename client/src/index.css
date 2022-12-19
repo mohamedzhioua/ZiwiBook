@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Edu+SA+Beginner&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Mochiy+Pop+One&family=Roboto:ital,wght@0,300;0,400;1,300;1,500&family=Rubik+Gemstones&family=Rubik+Moonrocks&display=swap'); 
  
 *{
-    font-family: 'Edu SA Beginner', cursive;
-     font-weight: bolder;
-     
+      font-weight: bolder;
+     font-family: 'Edu VIC WA NT Beginner', cursive;
  }
 h1{
     text-align: center;
@@ -11,13 +10,16 @@ h1{
   
   
   .container {
-    margin: 3em 0;
+    margin: 8em 0;
     padding: 1em;
     padding-top: 0;
     box-shadow: 0 6px 16px 0 rgb(0 0 0 / 20%);
-     /* align-items: center;
-    justify-content: center;
-    border: 1px solid black; */
-  
-      }
- 
+
+   }
+   .Form{
+    max-width: 480px;
+    margin: auto ;
+  }
+  .Login{
+    background-color:#465e76 !important;
+  }
