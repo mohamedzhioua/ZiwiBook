@@ -56,7 +56,7 @@ function Register() {
 
         <button
           type="button"
-          class="btn btn-primary btn-lg btn-block mb-4 Login"
+          class="btn btn-primary btn-lg btn-block mb-4 Signup"
         >
           Sign up
         </button>
