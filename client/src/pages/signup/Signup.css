@@ -1,0 +1,32 @@
+body {
+  background-color: #ffffff;
+}
+.container {
+  height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 460px;
+  height: 500px !important;
+  border-radius: 10px;
+  border: none;
+  padding: 30px;
+  box-shadow: 0 6px 16px 0 rgb(0 0 0 / 10%);
+}
+.login-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+.form {
+  margin-top: 15px;
+}
+.o {
+  margin-top: 25px;
+}
+
+.Login {
+  background-color: #465e76 !important;
+  margin: 4px 2px;
+}
