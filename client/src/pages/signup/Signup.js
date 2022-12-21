@@ -5,10 +5,7 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 
 function Register() {
   const [form, setForm] = useState({});
-  const [error, setError] = useState({
-    name: "name required",
-    email: "format email required",
-  });
+  const [error, setError] = useState({});
 
   const onChangeHandler = (event) => {
     setForm({
@@ -16,7 +13,7 @@ function Register() {
       [event.target.name]: event.target.value,
     });
   };
-  console.log(form);
+  
   return (
     <div class="container">
       <div class="login-card">
@@ -26,11 +23,21 @@ function Register() {
         <div class="form">
           <CustomInput
             type="text"
-            name="name"
-            label="Name"
+            name="firstname"
+            label="firstname"
             onChange={onChangeHandler}
-            error={error.name}
-            placeholder="name"
+            error={error.firstname}
+            placeholder="firstname"
+          />
+        </div>
+        <div class="form">
+          <CustomInput
+            type="text"
+            name="lastname"
+            label="lastname"
+            onChange={onChangeHandler}
+            error={error.lastname}
+            placeholder="lastname"
           />
         </div>
         <div class="form">
@@ -40,7 +47,7 @@ function Register() {
             label="Email"
             onChange={onChangeHandler}
             error={error.email}
-            placeholder="name"
+            placeholder="email"
           />
         </div>
         <div class="form">
@@ -50,7 +57,7 @@ function Register() {
             label="Password"
             onChange={onChangeHandler}
             error={error.password}
-            placeholder="name"
+            placeholder="password"
           />
         </div>
 
@@ -64,7 +71,7 @@ function Register() {
           <p>
             Have already an account?{" "}
             <Link to="/login" class="fw-bold text-body">
-              <u>Login here</u>
+              <u className="link">Login here</u>
             </Link>
           </p>
         </div>

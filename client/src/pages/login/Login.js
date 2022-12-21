@@ -12,21 +12,21 @@ function Login() {
         <div class="form">
           <CustomInput
             type="text"
-            name="name"
-            label="Name"
+            name="email"
+            label="Email"
             // onChange={onChangeHandler}
             // error={error.name}
-            placeholder="name"
+            placeholder="Email"
           />
         </div>
         <div class="form">
           <CustomInput
             type="text"
-            name="name"
-            label="Name"
+            name="password"
+            label="password"
             // onChange={onChangeHandler}
             // error={error.name}
-            placeholder="name"
+            placeholder="password"
           />
         </div>
 
@@ -41,7 +41,7 @@ function Login() {
           <p>
             Not a member?
             <Link to="/signup" class="fw-bold text-body">
-              <u> Register</u>
+              <u className="link"> Register</u>
             </Link>
           </p>
         </div>
