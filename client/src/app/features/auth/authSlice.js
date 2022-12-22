@@ -3,12 +3,11 @@ import authService from "./authService";
 
 const initialState = {
   user: "",
-  userToken :"",
+  userToken: "",
   error: "",
   message: "",
   isConnected: false,
   isLoading: false,
-  
 };
 
 //Register user
@@ -70,7 +69,8 @@ export const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        state.error = action.payload;
+        state.userToken = action.payload.token;
+        state.error = "";
         state.message = action.payload.message;
         state.isConnected = true;
         state.isLoading = false;
@@ -79,7 +79,7 @@ export const authSlice = createSlice({
         state.user = "";
         state.error = action.payload;
         state.message = "";
-        state.isConnected = true;
+        state.isConnected = false;
         state.isLoading = false;
       });
   },

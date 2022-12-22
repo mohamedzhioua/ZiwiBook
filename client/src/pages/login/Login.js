@@ -1,9 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaSignInAlt } from "react-icons/fa";
+import { Loader } from "../../components/Loader/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../app/features/auth/authSlice";
 function Login() {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+  const {email, password } = form;
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { error, message, isLoading, isConnected } = useSelector(
+    (state) => state.auth
+  );
+console.log(isConnected);
+  useEffect(() => {
+    if (isConnected || message) {
+      navigate("/");
+
+    }
+  }, [error, message, isLoading, isConnected, navigate, dispatch]);
+
+    //onChangeHandler
+    const onChangeHandler = (event) => {
+      setForm({
+        ...form,
+        [event.target.name]: event.target.value,
+      });
+    };
+  
+    //onsubmitHandler
+    const onsubmitHandler = (event) => {
+      event.preventDefault();
+      dispatch(login(form));
+    };
+  
+    if (isLoading) {
+      return <Loader />;
+    }
+  
   return (
     <div class="container">
       <div class="signup-card">
@@ -12,30 +53,34 @@ function Login() {
             <FaSignInAlt /> Sing In
           </h1>
         </div>
+        <form onSubmit={onsubmitHandler}>
         <CustomInput
           type="text"
           name="email"
           label="Email"
-          // onChange={onChangeHandler}
-          // error={error.name}
+          onChange={onChangeHandler}
+          error={error.email}
           placeholder="Email"
+          value={email}
         />
 
         <CustomInput
           type="text"
           name="password"
           label="password"
-          // onChange={onChangeHandler}
-          // error={error.name}
+          onChange={onChangeHandler}
+          error={error.password}
           placeholder="password"
+          value={password}
         />
 
         <button
-          type="button"
+          type="submit"
           class="btn btn-primary btn-lg btn-block mb-4 Login"
         >
           Sign in
         </button>
+        </form>
         <div class="text-center">
           <p>
             Not a member?
