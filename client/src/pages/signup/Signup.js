@@ -2,25 +2,40 @@ import React, { useState } from "react";
 import "./Signup.css";
 import { Link } from "react-router-dom";
 import CustomInput from "../../components/CustomInput/CustomInput";
+import { FaUser } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { register } from "../../app/features/auth/authSlice";
 
 function Register() {
   const [form, setForm] = useState({});
-  const [error, setError] = useState({});
-
+  // const [error, setError] = useState({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.auth);
+  console.log('errrrrr',error);
+console.log(form);
   const onChangeHandler = (event) => {
     setForm({
       ...form,
       [event.target.name]: event.target.value,
     });
   };
-  
+  const onsubmitHandler = (event) => {
+    event.preventDefault();
+    dispatch(register(form));
+ 
+  };
   return (
     <div class="container">
       <div class="login-card">
+      <form onSubmit={onsubmitHandler} >
         <div class="d-flex justify-content-center">
-          <h1>Create an account</h1>
+          <h1>
+            <FaUser /> Create an account
+          </h1>
         </div>
-        <div class="form">
+     
           <CustomInput
             type="text"
             name="firstname"
@@ -29,8 +44,7 @@ function Register() {
             error={error.firstname}
             placeholder="firstname"
           />
-        </div>
-        <div class="form">
+
           <CustomInput
             type="text"
             name="lastname"
@@ -39,8 +53,7 @@ function Register() {
             error={error.lastname}
             placeholder="lastname"
           />
-        </div>
-        <div class="form">
+
           <CustomInput
             type="text"
             name="email"
@@ -49,8 +62,7 @@ function Register() {
             error={error.email}
             placeholder="email"
           />
-        </div>
-        <div class="form">
+
           <CustomInput
             type="password"
             name="password"
@@ -59,14 +71,14 @@ function Register() {
             error={error.password}
             placeholder="password"
           />
-        </div>
 
-        <button
-          type="button"
-          class="btn btn-primary btn-lg btn-block mb-4 Signup"
-        >
-          Sign up
-        </button>
+          <button
+            type="submit"
+            class="btn btn-primary btn-lg btn-block mb-4 Signup"
+          >
+            Sign up
+          </button>
+        </form>
         <div class="text-center">
           <p>
             Have already an account?{" "}

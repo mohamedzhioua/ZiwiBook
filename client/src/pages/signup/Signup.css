@@ -19,9 +19,7 @@ body {
 .login-card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
-.form {
-  margin-top: 15px;
-}
+
 .o {
   margin-top: 25px;
 }
@@ -29,6 +27,8 @@ body {
 .Signup {
   background-color: #465e76 !important;
   margin: 4px 2px;
+  top: 10px; 
+  position: relative;
 }
 .link{
   color: #11b08f
@@ -36,3 +36,4 @@ body {
 .link:hover{
   color: #11b08f
 }
+ 

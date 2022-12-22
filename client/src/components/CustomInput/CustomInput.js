@@ -4,6 +4,7 @@ import "./CustomInput.css";
 
 function CustomInput({ name, label, type, onChange, error, placeholder }) {
   return (
+    <div class="form">
     <div class="form-floating mb-4">
       <input
         type={type}
@@ -13,7 +14,8 @@ function CustomInput({ name, label, type, onChange, error, placeholder }) {
         placeholder={placeholder}
       />
       <label>{label}</label>
-      {error && <div class="invalid-feedback">{error}</div>}{" "}
+      {error && <div class="invalid-tooltip">{error}</div>}{" "}
+    </div>
     </div>
   );
 }

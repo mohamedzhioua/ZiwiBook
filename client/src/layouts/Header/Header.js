@@ -21,7 +21,8 @@ function Header() {
               to="/"
               onClick={handleClick}
             >
-              {click ? <AiOutlineHome size={20} /> : <AiFillHome size={20}/>} Home
+              {click ? <AiOutlineHome size={20} /> : <AiFillHome size={20} />}{" "}
+              Home
             </Nav.Link>
             <Nav.Link
               className="Nav-link"
@@ -29,7 +30,12 @@ function Header() {
               to="/profile"
               onClick={handleClick}
             >
-              {click ? <FaUserCircle size={20}/> : <FaRegUserCircle size={20} />} profile
+              {click ? (
+                <FaUserCircle size={20} />
+              ) : (
+                <FaRegUserCircle size={20} />
+              )}{" "}
+              profile
             </Nav.Link>
           </Nav>
           <Nav className="ms-auto">
