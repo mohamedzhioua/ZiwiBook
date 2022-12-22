@@ -2,14 +2,14 @@ import React from "react";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import "./Login.css";
 import { Link } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
+import { FaSignInAlt } from "react-icons/fa";
 function Login() {
   return (
     <div class="container">
       <div class="signup-card">
         <div class="d-flex justify-content-center">
           <h1>
-            <FaUser /> Sing In
+            <FaSignInAlt /> Sing In
           </h1>
         </div>
         <CustomInput
