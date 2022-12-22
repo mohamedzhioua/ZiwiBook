@@ -9,17 +9,26 @@ import { register, reset } from "../../app/features/auth/authSlice";
 import { Loader } from "../../components/Loader/Loader";
 
 function Register() {
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+  const { firstname, lastname, email, password } = form;
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error ,message ,isLoading ,isConnected} = useSelector((state) => state.auth);
+  const { error, message, isLoading, isConnected } = useSelector(
+    (state) => state.auth
+  );
 
-  useEffect(()=>{
-    if(isConnected || message){
-      navigate('/login')
+  useEffect(() => {
+    if (isConnected || message) {
+      navigate("/login");
+      dispatch(reset());
     }
-    // dispatch(reset())
-  },[error ,message ,isLoading ,isConnected,navigate ,dispatch])
+  }, [error, message, isLoading, isConnected, navigate, dispatch]);
 
   //onChangeHandler
   const onChangeHandler = (event) => {
@@ -35,8 +44,8 @@ function Register() {
     dispatch(register(form));
   };
 
-  if(isLoading){
-   return <Loader/>
+  if (isLoading) {
+    return <Loader />;
   }
 
   return (
@@ -47,7 +56,7 @@ function Register() {
             <FaUser /> Create an account
           </h1>
         </div>
-        <form onSubmit={onsubmitHandler} >
+        <form onSubmit={onsubmitHandler}>
           <CustomInput
             type="text"
             name="firstname"
@@ -55,6 +64,7 @@ function Register() {
             onChange={onChangeHandler}
             error={error.firstname}
             placeholder="firstname"
+            value={firstname}
           />
 
           <CustomInput
@@ -64,6 +74,7 @@ function Register() {
             onChange={onChangeHandler}
             error={error.lastname}
             placeholder="lastname"
+            value={lastname}
           />
 
           <CustomInput
@@ -73,6 +84,7 @@ function Register() {
             onChange={onChangeHandler}
             error={error.email}
             placeholder="email"
+            value={email}
           />
 
           <CustomInput
@@ -82,14 +94,15 @@ function Register() {
             onChange={onChangeHandler}
             error={error.password}
             placeholder="password"
+            value={password}
           />
-           <button
+          <button
             type="submit"
             class="btn btn-primary btn-lg btn-block mb-4 Signup"
           >
             Sign up
           </button>
-         </form>
+        </form>
         <div class="text-center">
           <p>
             Have already an account?{" "}
