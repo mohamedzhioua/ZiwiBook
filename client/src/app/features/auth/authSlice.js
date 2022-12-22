@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
 
+// Get token from localStorage
+const token = JSON.parse(localStorage.getItem('token'))
 const initialState = {
   user: "",
-  userToken: "",
+ token: token ,
   error: "",
   message: "",
   isConnected: false,
@@ -44,6 +46,7 @@ export const authSlice = createSlice({
   reducers: {
     reset: (state) => {
       state.user = "";
+      state.token = "";
       state.error = "";
       state.message = "";
       state.isConnected = false;
@@ -58,14 +61,12 @@ export const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.error = "";
         state.message = action.payload.message;
-        state.isConnected = true;
         state.isLoading = false;
       })
       .addCase(register.rejected, (state, action) => {
         state.user = "";
         state.error = action.payload;
         state.message = "";
-        state.isConnected = false;
         state.isLoading = false;
       })
       .addCase(login.pending, (state) => {
@@ -73,8 +74,7 @@ export const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        state.userToken = action.payload.token;
-        state.error = "";
+         state.error = "";
         state.message = action.payload.message;
         state.isConnected = true;
         state.isLoading = false;
@@ -83,7 +83,6 @@ export const authSlice = createSlice({
         state.user = "";
         state.error = action.payload;
         state.message = "";
-        state.isConnected = false;
         state.isLoading = false;
       })
       .addCase(logout.fulfilled, (state) => {

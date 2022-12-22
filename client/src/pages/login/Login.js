@@ -16,16 +16,17 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { error, message, isLoading, isConnected } = useSelector(
+  const {token, error, message, isLoading  } = useSelector(
     (state) => state.auth
   );
-console.log(isConnected);
+
   useEffect(() => {
-    if (isConnected || message) {
+    if (token||message) {
+      window.location.reload(false);
       navigate("/");
 
     }
-  }, [error, message, isLoading, isConnected, navigate, dispatch]);
+  }, [error, message, isLoading, token, navigate, dispatch]);
 
     //onChangeHandler
     const onChangeHandler = (event) => {

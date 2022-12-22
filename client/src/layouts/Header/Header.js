@@ -17,11 +17,12 @@ function Header() {
   const handleClick = () => setClick(!click);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isConnected } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
 
   const LogoutHandler = () => {
     dispatch(logout());
     dispatch(reset());
+    localStorage.clear();
     navigate("/login");
   };
 
@@ -32,25 +33,20 @@ function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="hamburger" id="basic-navbar-nav">
           <Nav className="me-auto">
-            {!isConnected ? (
-              <>
-                {" "}
-                <Nav.Link
-                  className="Nav-link"
-                  as={Link}
-                  to="/"
-                  onClick={handleClick}
-                >
-                  {click ? (
-                    <AiOutlineHome size={20} />
-                  ) : (
-                    <AiFillHome size={20} />
-                  )}{" "}
-                  Home
-                </Nav.Link>
-              </>
+            <Nav.Link
+              className="Nav-link"
+              as={Link}
+              to="/"
+              onClick={handleClick}
+            >
+              {click ? <AiOutlineHome size={20} /> : <AiFillHome size={20} />}{" "}
+              Home
+            </Nav.Link>
+            {!token ? (
+              ""
             ) : (
               <>
+                {" "}
                 <Nav.Link
                   className="Nav-link"
                   as={Link}
@@ -63,12 +59,12 @@ function Header() {
                     <FaRegUserCircle size={20} />
                   )}{" "}
                   profile
-                </Nav.Link>{" "}
+                </Nav.Link>
               </>
             )}
           </Nav>
           <Nav className="ms-auto">
-            {!isConnected ? (
+            {!token ? (
               <>
                 {" "}
                 <Nav.Link className="Nav-link" as={Link} to="/login">
