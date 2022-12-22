@@ -33,6 +33,10 @@ export const login = createAsyncThunk(
     }
   }
 );
+//logout user
+export const logout = createAsyncThunk("auth/logout", async () => {
+  await authService.logout();
+});
 
 export const authSlice = createSlice({
   name: "auth",
@@ -81,6 +85,9 @@ export const authSlice = createSlice({
         state.message = "";
         state.isConnected = false;
         state.isLoading = false;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.user = "";
       });
   },
 });
