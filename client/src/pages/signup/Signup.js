@@ -1,41 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Signup.css";
 import { Link } from "react-router-dom";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import { FaUser } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { register } from "../../app/features/auth/authSlice";
+import { register, reset } from "../../app/features/auth/authSlice";
+import { Loader } from "../../components/Loader/Loader";
 
 function Register() {
   const [form, setForm] = useState({});
-  // const [error, setError] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.auth);
-  console.log('errrrrr',error);
-console.log(form);
+  const { error ,message ,isLoading ,isConnected} = useSelector((state) => state.auth);
+
+  useEffect(()=>{
+    if(isConnected || message){
+      navigate('/login')
+    }
+    // dispatch(reset())
+  },[error ,message ,isLoading ,isConnected,navigate ,dispatch])
+
+  //onChangeHandler
   const onChangeHandler = (event) => {
     setForm({
       ...form,
       [event.target.name]: event.target.value,
     });
   };
+
+  //onsubmitHandler
   const onsubmitHandler = (event) => {
     event.preventDefault();
     dispatch(register(form));
- 
   };
+
+  if(isLoading){
+   return <Loader/>
+  }
+
   return (
     <div class="container">
       <div class="login-card">
-      <form onSubmit={onsubmitHandler} >
         <div class="d-flex justify-content-center">
           <h1>
             <FaUser /> Create an account
           </h1>
         </div>
-     
+        <form onSubmit={onsubmitHandler} >
           <CustomInput
             type="text"
             name="firstname"
@@ -71,14 +83,13 @@ console.log(form);
             error={error.password}
             placeholder="password"
           />
-
-          <button
+           <button
             type="submit"
             class="btn btn-primary btn-lg btn-block mb-4 Signup"
           >
             Sign up
           </button>
-        </form>
+         </form>
         <div class="text-center">
           <p>
             Have already an account?{" "}
