@@ -1,0 +1,28 @@
+/* .auth {
+  background-color: #F4DB7D !important;
+  margin: 4px 2px;
+  top: 5px;
+  position: relative;
+}
+ */
+ .button {
+    /* background-color:#438945;   */
+    background-color:#5C6E58;
+    /* border-color:#5C6E58 ;
+    border-style: solid; */
+    border-radius: 10px;
+    color:#F7F4E9;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight:900;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  .button2 {background-color: #1D1D2C;}  
+  .button3 {background-color: #F7F4E9;}   
+  .button4 {background-color:#3CBCC3; color: #EBA63F;}  
+  .button5 {background-color: #E40C2B;}  
+  .button5 {background-color:#5C6E58;}  

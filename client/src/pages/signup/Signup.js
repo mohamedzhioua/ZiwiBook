@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { register, reset } from "../../app/features/auth/authSlice";
 import { Loader } from "../../components/Loader/Loader";
+import CustomButton from "../../components/CustomButton/CustomButton";
 
 function Register() {
   const [form, setForm] = useState({
@@ -49,8 +50,8 @@ function Register() {
   }
 
   return (
-    <div class="container">
-      <div class="login-card">
+    <div class="signup-container ">
+      <div class="signup-card">
         <div class="d-flex justify-content-center">
           <h1>
             <FaUser /> Create an account
@@ -96,18 +97,18 @@ function Register() {
             placeholder="password"
             value={password}
           />
-          <button
+         <CustomButton
+            className="button"
             type="submit"
-            class="btn btn-primary btn-lg btn-block mb-4 Signup"
-          >
-            Sign up
-          </button>
+            value="register"
+
+          />
         </form>
         <div class="text-center">
           <p>
             Have already an account?{" "}
             <Link to="/login" class="fw-bold text-body">
-              <u className="link">Login here</u>
+              <u className="Link">Login here</u>
             </Link>
           </p>
         </div>

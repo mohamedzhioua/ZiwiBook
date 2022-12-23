@@ -7,9 +7,11 @@ import { Footer } from "./layouts/Footer/Footer";
 function App() {
   return (
     <BrowserRouter>
+    <div className="app">
         <Header/>
       <Router/>
       <Footer/>
+      </div>
       </BrowserRouter>
   );
 }

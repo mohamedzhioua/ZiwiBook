@@ -27,11 +27,11 @@ function Header() {
   };
 
   return (
-    <Navbar className="Navbar" expand="lg">
+    <Navbar className="Navbar" expand="lg"  variant="light">
       <Container fluid>
         <Navbar.Brand className="Nav-Brand">Memories</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse className="hamburger" id="basic-navbar-nav">
+        <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+        <Navbar.Collapse className="hamburger" id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link
               className="Nav-link"
@@ -40,7 +40,7 @@ function Header() {
               onClick={handleClick}
             >
               {click ? <AiOutlineHome size={20} /> : <AiFillHome size={20} />}{" "}
-              Home
+              <b>Home</b>
             </Nav.Link>
             {!(isConnected||token) ? (
               ""
@@ -58,7 +58,7 @@ function Header() {
                   ) : (
                     <FaRegUserCircle size={20} />
                   )}{" "}
-                  profile
+                 <b>profile</b> 
                 </Nav.Link>
               </>
             )}
@@ -68,7 +68,7 @@ function Header() {
               <>
                 {" "}
                 <Nav.Link className="Nav-link" as={Link} to="/login">
-                  <FaSignInAlt size={20} /> login
+                  <FaSignInAlt size={20} /> <b>login</b>
                 </Nav.Link>
               </>
             ) : (
@@ -80,7 +80,7 @@ function Header() {
                   to="#"
                   onClick={LogoutHandler}
                 >
-                  <FaSignOutAlt size={20} /> logout
+                  <FaSignOutAlt size={20} /> <b>logout</b>
                 </Nav.Link>
               </>
             )}

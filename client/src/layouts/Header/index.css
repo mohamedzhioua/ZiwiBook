@@ -1,5 +1,5 @@
 .Navbar {
-  background-color: #34495e;
+  background-color: #1D1D2C;
   height: 80px;
   width: 100%;
   top: 0;
@@ -10,25 +10,25 @@
   font-family: "Roboto", sans-serif;
   font-size: 0.9em;
 
-  color: white !important;
+  color: #F7F4E9 !important;
   margin: 0 10px; /* adding space between navbar items */
 }
 .Navbar .Nav-link:hover {
-  border-bottom: 2px solid white;
-  color: #11b08f !important;
+  border-bottom: 2px solid #F7F4E9;
+  /* color: #F7F4E9 !important; */
 }
 
 .Navbar .Nav-Brand {
-  color: white !important;
-  font-size: larger;
+  color: #F7F4E9 !important;
   margin-left: 1em;
-}
-.Navbar .Nav-Brand:hover {
-  color: white;
+  /* font-weight:500; */
+  font-family: 'Pacifico', cursive;
+ 
 }
 
+
 .Navbar .hamburger {
-  background-color: #34495e;
+  background-color: #1D1D2C;
 }
 
 

@@ -1,14 +1,14 @@
 body {
   background-color: #eee;
 }
-.container {
+.login-container {
   height: 85vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.signup-card {
+.login-card {
   width: 480px;
   height: 400px !important;
   border-radius: 10px;
@@ -16,7 +16,7 @@ body {
   padding: 30px;
   box-shadow: 0 6px 16px 0 rgb(0 0 0 / 10%);
 }
-.signup-card:hover {
+.login-card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -24,9 +24,6 @@ body {
   margin-top: 15px;
 }
 
-.Login {
-  background-color: #465e76 !important;
-  margin: 4px 2px;
-  top: 10px; 
-  position: relative;
+h1{
+  font-family: 'Pacifico', cursive;
 }

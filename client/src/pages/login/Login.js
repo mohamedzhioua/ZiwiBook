@@ -6,87 +6,86 @@ import { FaSignInAlt } from "react-icons/fa";
 import { Loader } from "../../components/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../app/features/auth/authSlice";
+import CustomButton from "../../components/CustomButton/CustomButton";
 
 function Login() {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-  const {email, password } = form;
+  const { email, password } = form;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { error, message, isLoading ,isConnected  } = useSelector(
+  const { error, message, isLoading, isConnected } = useSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
     if (isConnected || message) {
-       navigate("/");
-
+      navigate("/");
     }
-  }, [error, message, isLoading, navigate, dispatch ,isConnected]);
+  }, [error, message, isLoading, navigate, dispatch, isConnected]);
 
-    //onChangeHandler
-    const onChangeHandler = (event) => {
-      setForm({
-        ...form,
-        [event.target.name]: event.target.value,
-      });
-    };
-  
-    //onsubmitHandler
-    const onsubmitHandler = (event) => {
-      event.preventDefault();
-      dispatch(login(form));
-    };
-  
-    if (isLoading) {
-      return <Loader />;
-    }
-  
+  //onChangeHandler
+  const onChangeHandler = (event) => {
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  //onsubmitHandler
+  const onsubmitHandler = (event) => {
+    event.preventDefault();
+    dispatch(login(form));
+  };
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
-    <div class="container">
-      <div class="signup-card">
+    <div class="login-container">
+      <div class="login-card">
         <div class="d-flex justify-content-center">
           <h1>
             <FaSignInAlt /> Sing In
           </h1>
         </div>
         <form onSubmit={onsubmitHandler}>
-        <CustomInput
-          type="text"
-          name="email"
-          label="Email"
-          onChange={onChangeHandler}
-          error={error.email}
-          placeholder="Email"
-          value={email}
-        />
+          <CustomInput
+            type="text"
+            name="email"
+            label="Email"
+            onChange={onChangeHandler}
+            error={error.email}
+            placeholder="Email"
+            value={email}
+          />
 
-        <CustomInput
-          type="text"
-          name="password"
-          label="password"
-          onChange={onChangeHandler}
-          error={error.password}
-          placeholder="password"
-          value={password}
-        />
+          <CustomInput
+            type="text"
+            name="password"
+            label="password"
+            onChange={onChangeHandler}
+            error={error.password}
+            placeholder="password"
+            value={password}
+          />
+          <CustomButton
+            className="button"
+            type="submit"
+            value="submit"
 
-        <button
-          type="submit"
-          class="btn btn-primary btn-lg btn-block mb-4 Login"
-        >
-          Sign in
-        </button>
+          />
         </form>
         <div class="text-center">
           <p>
             Not a member?
             <Link to="/signup" class="fw-bold text-body">
-              <u className="link"> Register</u>
+              <u className="Link"> Register</u>
             </Link>
           </p>
         </div>
