@@ -6,6 +6,7 @@ import { FaSignInAlt } from "react-icons/fa";
 import { Loader } from "../../components/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../app/features/auth/authSlice";
+
 function Login() {
   const [form, setForm] = useState({
     email: "",
@@ -16,17 +17,16 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const {token, error, message, isLoading  } = useSelector(
+  const { error, message, isLoading ,isConnected  } = useSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
-    if (token||message) {
-      window.location.reload(false);
-      navigate("/");
+    if (isConnected || message) {
+       navigate("/");
 
     }
-  }, [error, message, isLoading, token, navigate, dispatch]);
+  }, [error, message, isLoading, navigate, dispatch ,isConnected]);
 
     //onChangeHandler
     const onChangeHandler = (event) => {

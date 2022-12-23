@@ -17,7 +17,7 @@ function Header() {
   const handleClick = () => setClick(!click);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.auth);
+  const { token , isConnected } = useSelector((state) => state.auth);
 
   const LogoutHandler = () => {
     dispatch(logout());
@@ -42,7 +42,7 @@ function Header() {
               {click ? <AiOutlineHome size={20} /> : <AiFillHome size={20} />}{" "}
               Home
             </Nav.Link>
-            {!token ? (
+            {!(isConnected||token) ? (
               ""
             ) : (
               <>
@@ -64,7 +64,7 @@ function Header() {
             )}
           </Nav>
           <Nav className="ms-auto">
-            {!token ? (
+            {!(isConnected||token) ? (
               <>
                 {" "}
                 <Nav.Link className="Nav-link" as={Link} to="/login">

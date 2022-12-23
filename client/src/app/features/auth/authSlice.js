@@ -4,7 +4,7 @@ import authService from "./authService";
 // Get token from localStorage
 const token = JSON.parse(localStorage.getItem('token'))
 const initialState = {
-  user: "",
+  user: null,
  token: token ,
   error: "",
   message: "",
@@ -45,8 +45,8 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.user = "";
-      state.token = "";
+      state.user = null;
+      state.token = null;
       state.error = "";
       state.message = "";
       state.isConnected = false;
@@ -80,13 +80,12 @@ export const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(login.rejected, (state, action) => {
-        state.user = "";
-        state.error = action.payload;
+         state.error = action.payload;
         state.message = "";
         state.isLoading = false;
       })
       .addCase(logout.fulfilled, (state) => {
-        state.user = "";
+        state.user = null;
       });
   },
 });
