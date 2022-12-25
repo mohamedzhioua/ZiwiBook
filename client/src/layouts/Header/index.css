@@ -1,34 +1,31 @@
 .Navbar {
-  background-color: #1D1D2C;
+  background-color: #5c6e58;
   height: 80px;
   width: 100%;
   top: 0;
   left: 0;
+border-bottom: 1px solid;  
 }
 
 .Navbar .Nav-link {
   font-family: "Roboto", sans-serif;
   font-size: 0.9em;
-
-  color: #F7F4E9 !important;
+  color: #f7f4e9 !important;
   margin: 0 10px; /* adding space between navbar items */
-}
-.Navbar .Nav-link:hover {
-  border-bottom: 2px solid #F7F4E9;
-  /* color: #F7F4E9 !important; */
-}
-
-.Navbar .Nav-Brand {
-  color: #F7F4E9 !important;
-  margin-left: 1em;
-  /* font-weight:500; */
-  font-family: 'Pacifico', cursive;
  
 }
-
-
-.Navbar .hamburger {
-  background-color: #1D1D2C;
+.Navbar .Nav-link:hover {
+  border-bottom: 2px solid #f7f4e9;
+  /* color: #F7F4E9 !important; */
+}
+ 
+.Navbar .Nav-Brand {
+  color: #f7f4e9 !important;
+  margin-left: 1em;
+  /* font-weight:500; */
+  font-family: "Pacifico", cursive;
 }
 
-
+.Navbar .hamburger {
+  background-color: #5c6e58;
+}

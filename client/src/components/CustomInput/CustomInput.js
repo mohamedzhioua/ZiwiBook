@@ -5,7 +5,7 @@ import "./CustomInput.css";
 function CustomInput({ name, label, type, onChange, error, placeholder ,value }) {
   return (
     <div class="form">
-    <div class="form-floating mb-4">
+    <div class="form-floating mb-2">
       <input
         type={type}
         name={name}

@@ -1,6 +1,6 @@
-body {
+/* body {
   background-color: #ffffff;
-}
+} */
 .signup-container {
   height: 85vh;
   display: flex;
@@ -8,6 +8,7 @@ body {
   align-items: center;
 }
 
+ 
 .signup-card {
   width: 480px;
   height: 550px !important;
@@ -28,4 +29,3 @@ body {
   color:#5C6E58
 }
 
- 

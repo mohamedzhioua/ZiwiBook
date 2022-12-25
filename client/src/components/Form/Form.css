@@ -1,0 +1,24 @@
+.blog-list-item {
+  width: 590px;
+  min-height: 250px;
+  margin: auto;
+  margin-top: 10px;
+  border: 1px solid #77777769;
+  border-radius: 4px;
+  padding: 20px 60px;
+  box-shadow: 0 0 1em #80808066;
+}
+/* form {
+    display: grid !important;
+  } */
+
+form textarea {
+  width: 100%;
+  height: 100px;
+  font-size: 12px;
+  margin-top: 2px;
+  resize: none;
+  border-radius: 4px;
+}
+ 
+ 

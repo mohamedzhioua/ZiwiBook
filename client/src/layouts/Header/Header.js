@@ -42,9 +42,7 @@ function Header() {
               {click ? <AiOutlineHome size={20} /> : <AiFillHome size={20} />}{" "}
               <b>Home</b>
             </Nav.Link>
-            {!(isConnected||token) ? (
-              ""
-            ) : (
+            {(isConnected||token)&&(
               <>
                 {" "}
                 <Nav.Link
