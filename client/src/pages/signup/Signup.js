@@ -10,12 +10,7 @@ import { Loader } from "../../components/Loader/Loader";
 import CustomButton from "../../components/CustomButton/CustomButton";
 
 function Register() {
-  const [form, setForm] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-  });
+  const [form, setForm] = useState({});
   const { firstname, lastname, email, password } = form;
 
   const navigate = useNavigate();

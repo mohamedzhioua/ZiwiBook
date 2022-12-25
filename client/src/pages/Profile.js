@@ -1,8 +1,12 @@
 import React from 'react'
+import Form from '../components/MemorieForm/Form'
 
 function Profile() {
   return (
-    <div>Profile</div>
+    <>
+    <Form/>
+    </>
+
   )
 }
 
