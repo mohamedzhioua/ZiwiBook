@@ -19,12 +19,13 @@ function Register() {
     (state) => state.auth
   );
 
+ 
   useEffect(() => {
     if (isConnected || message) {
       navigate("/login");
       dispatch(reset());
-    }
-  }, [error, message, isLoading, isConnected, navigate, dispatch]);
+  }
+  },[error, message, isLoading, isConnected,  dispatch]);
 
   //onChangeHandler
   const onChangeHandler = (event) => {
@@ -45,14 +46,14 @@ function Register() {
   }
 
   return (
-    <div class="signup-container ">
+    <div class="signup-container">
       <div class="signup-card">
         <div class="d-flex justify-content-center">
           <h1>
             <FaUser /> Create an account
           </h1>
         </div>
-        <form onSubmit={onsubmitHandler}>
+        <form  onSubmit={onsubmitHandler}>
           <CustomInput
             type="text"
             name="firstname"
@@ -102,7 +103,7 @@ function Register() {
         <div class="text-center">
           <p>
             Have already an account?{" "}
-            <Link to="/login" class="fw-bold text-body">
+            <Link to="/" class="fw-bold text-body">
               <u className="Link">Login here</u>
             </Link>
           </p>

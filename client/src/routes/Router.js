@@ -5,13 +5,27 @@ import Login from "../pages/login/Login";
 import Signup from "../pages/signup/Signup";
 import NotFound from "../pages/404/NotFound ";
 import ForceRedirect from "./ForceRedirect";
-import { PrivateRoute } from "./PrivateRoute";
+import PrivateRoute  from "./PrivateRoute";
 
-function Router() {
+const Router =()=> {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        }
+      />
       <Route
         path="/login"
         element={

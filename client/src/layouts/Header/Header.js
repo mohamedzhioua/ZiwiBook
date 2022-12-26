@@ -12,12 +12,12 @@ import { AiOutlineHome, AiFillHome } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, reset } from "../../app/features/auth/authSlice";
 
-function Header() {
+const Header = () => {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token , isConnected } = useSelector((state) => state.auth);
+  const { token, isConnected } = useSelector((state) => state.auth);
 
   const LogoutHandler = () => {
     dispatch(logout());
@@ -27,10 +27,10 @@ function Header() {
   };
 
   return (
-    <Navbar className="Navbar" expand="lg"  variant="light">
+    <Navbar className="Navbar" expand="lg" variant="light">
       <Container fluid>
         <Navbar.Brand className="Nav-Brand">Memories</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse className="hamburger" id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link
@@ -42,7 +42,7 @@ function Header() {
               {click ? <AiOutlineHome size={20} /> : <AiFillHome size={20} />}{" "}
               <b>Home</b>
             </Nav.Link>
-            {(isConnected||token)&&(
+            {(isConnected || token) && (
               <>
                 {" "}
                 <Nav.Link
@@ -56,13 +56,13 @@ function Header() {
                   ) : (
                     <FaRegUserCircle size={20} />
                   )}{" "}
-                 <b>profile</b> 
+                  <b>profile</b>
                 </Nav.Link>
               </>
             )}
           </Nav>
           <Nav className="ms-auto">
-            {!(isConnected||token) ? (
+            {!(isConnected || token) ? (
               <>
                 {" "}
                 <Nav.Link className="Nav-link" as={Link} to="/login">
@@ -87,6 +87,6 @@ function Header() {
       </Container>
     </Navbar>
   );
-}
+};
 
 export default Header;

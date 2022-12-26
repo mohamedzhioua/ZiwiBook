@@ -1,34 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import "./Form.css";
 
-const Form = () => {
+const Form = ({ onsubmitHandler, onChangeHandler }) => {
   const [picture, setPicture] = useState(null);
-  const[form,setForm]=useState({})
-const {title,body,image}=form
-
-const navigate = useNavigate();
-const dispatch = useDispatch();
 
   //displaying picture after upload handler
   const onChangePicture = (e) => {
     setPicture(URL.createObjectURL(e.target.files[0]));
-  };
-
-  //onChangeHandler
-  const onChangeHandler =(e)=>{
-const {name,value}= e.target
-    setForm({
-      ...Form,
-      [name]:value
-    })
-  }
-
-   //onsubmitHandler
-   const onsubmitHandler = (event) => {
-    event.preventDefault();
-    dispatch( (form));
   };
 
   return (
@@ -45,7 +23,7 @@ const {name,value}= e.target
             placeholder="title..."
             name="title"
             onChange={onChangeHandler}
-           />
+          />
         </div>
 
         <div class="mb-3">
@@ -61,8 +39,11 @@ const {name,value}= e.target
           <input
             type="file"
             accept="image/gif, image/jpeg, image/png"
-            onChange={(e)=>{onChangePicture(e) ; onChangeHandler(e)}}
-           />
+            onChange={(e) => {
+              onChangePicture(e);
+              onChangeHandler(e);
+            }}
+          />
         </div>
 
         <div class="mb-3">
@@ -75,7 +56,7 @@ const {name,value}= e.target
             placeholder="content...."
             name="body"
             onChange={onChangeHandler}
-           />
+          />
         </div>
         <div class="d-grid">
           <input className="btn btn-secondary" type="submit" value="submit" />

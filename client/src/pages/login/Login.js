@@ -13,20 +13,24 @@ function Login() {
     email: "",
     password: "",
   });
+  
   const { email, password } = form;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { error, message, isLoading, isConnected } = useSelector(
+  const { error, token, isLoading, isConnected } = useSelector(
     (state) => state.auth
   );
+ 
+  
+  
 
   useEffect(() => {
-    if (isConnected || message) {
+    if (isConnected || token) {
       navigate("/");
-    }
-  }, [error, message, isLoading, navigate, dispatch, isConnected]);
+     } 
+   }, [error, token, isLoading , dispatch, isConnected]);
 
   //onChangeHandler
   const onChangeHandler = (event) => {
@@ -40,6 +44,7 @@ function Login() {
   const onsubmitHandler = (event) => {
     event.preventDefault();
     dispatch(login(form));
+   
   };
 
   if (isLoading) {

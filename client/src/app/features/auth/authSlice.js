@@ -15,11 +15,11 @@ const initialState = {
 //Register user
 export const register = createAsyncThunk(
   "auth/register",
-  async (user, { rejectWithValue }) => {
+  async (user, thunkAPI) => {
     try {
       return await authService.register(user);
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
@@ -27,11 +27,11 @@ export const register = createAsyncThunk(
 //login user
 export const login = createAsyncThunk(
   "auth/login",
-  async (user, { rejectWithValue }) => {
+  async (user, thunkAPI) => {
     try {
       return await authService.login(user);
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
