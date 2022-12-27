@@ -62,6 +62,7 @@ function Register() {
             error={error.firstname}
             placeholder="firstname"
             value={firstname}
+            float
           />
 
           <CustomInput
@@ -72,6 +73,7 @@ function Register() {
             error={error.lastname}
             placeholder="lastname"
             value={lastname}
+            float
           />
 
           <CustomInput
@@ -82,6 +84,7 @@ function Register() {
             error={error.email}
             placeholder="email"
             value={email}
+            float
           />
 
           <CustomInput
@@ -92,6 +95,7 @@ function Register() {
             error={error.password}
             placeholder="password"
             value={password}
+            float
           />
          <CustomButton
             className="button"

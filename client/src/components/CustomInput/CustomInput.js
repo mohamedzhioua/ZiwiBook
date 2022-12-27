@@ -10,20 +10,37 @@ const CustomInput = ({
   error,
   placeholder,
   value,
+  float,
 }) => {
   return (
-    <div class="form-group mb-4">
-      <div class="form-floating">
-        <input
-          type={type}
-          name={name}
-          onChange={onChange}
-          className={classnames("form-control", { "is-invalid": error })}
-          placeholder={placeholder}
-          value={value}
-        />
-        {label && <label>{label}</label>}{" "}
-        {error && <div class="invalid-tooltip">{error}</div>}{" "}
+    <div className={!float ? "form-group mb-2" : "form-group mb-4"}>
+      <div className={float && "form-floating"}>
+        {!float && <label className="form-label">{label}</label>}
+        {type === "textarea" ? (
+          <textarea
+            name={name}
+            onChange={onChange}
+            className={classnames("form-control", { "is-invalid": error })}
+            placeholder={placeholder}
+            value={value}
+          />
+        ) : (
+          <input
+            type={type}
+            name={name}
+            onChange={onChange}
+            className={classnames("form-control", { "is-invalid": error })}
+            placeholder={placeholder}
+            value={value}
+          />
+        )}
+
+        {float && <label>{label}</label>}
+        {error && (
+          <div className={!float ? "invalid-feedback" : "invalid-tooltip"}>
+            {error}
+          </div>
+        )}
       </div>
     </div>
   );

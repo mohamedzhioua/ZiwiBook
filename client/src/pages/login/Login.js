@@ -68,6 +68,7 @@ function Login() {
             error={error.email}
             placeholder="Email"
             value={email}
+            float
           />
 
           <CustomInput
@@ -78,6 +79,7 @@ function Login() {
             error={error.password}
             placeholder="password"
             value={password}
+            float
           />
           <CustomButton
             className="button"
