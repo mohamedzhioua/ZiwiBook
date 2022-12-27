@@ -12,7 +12,11 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 function Register() {
   const [form, setForm] = useState({});
   const { firstname, lastname, email, password } = form;
-
+// eye show hide handler
+const [passwordVisible, setPasswordVisible] = useState(password);
+const Eye =()=>{
+  setPasswordVisible(!passwordVisible)
+}
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { error, message, isLoading, isConnected } = useSelector(
@@ -62,7 +66,7 @@ function Register() {
             error={error.firstname}
             placeholder="firstname"
             value={firstname}
-            float
+            float // to make the label floating
           />
 
           <CustomInput
@@ -73,7 +77,7 @@ function Register() {
             error={error.lastname}
             placeholder="lastname"
             value={lastname}
-            float
+            float // to make the label floating
           />
 
           <CustomInput
@@ -84,19 +88,21 @@ function Register() {
             error={error.email}
             placeholder="email"
             value={email}
-            float
+            float // to make the label floating
           />
 
           <CustomInput
-            type="password"
-            name="password"
+             name="password"
             label="Password"
             onChange={onChangeHandler}
             error={error.password}
             placeholder="password"
             value={password}
-            float
-          />
+            float // to make the label floating
+            type={passwordVisible ? 'text' : 'password'} 
+            onClick={Eye}           
+
+           />
          <CustomButton
             className="button"
             type="submit"

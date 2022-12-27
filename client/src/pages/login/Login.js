@@ -13,24 +13,25 @@ function Login() {
     email: "",
     password: "",
   });
-  
-  const { email, password } = form;
-
+ const { email, password } = form;
+// eye show hide handler
+ const [passwordVisible, setPasswordVisible] = useState(password);
+ const Eye =()=>{
+   setPasswordVisible(!passwordVisible)
+ }
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { error, token, isLoading, isConnected } = useSelector(
     (state) => state.auth
   );
- 
-  
-  
 
   useEffect(() => {
     if (isConnected || token) {
       navigate("/");
-     } 
-   }, [error, token, isLoading , dispatch, isConnected]);
+    }
+  }, [error, token, isLoading, dispatch, isConnected]);
+
 
   //onChangeHandler
   const onChangeHandler = (event) => {
@@ -44,7 +45,6 @@ function Login() {
   const onsubmitHandler = (event) => {
     event.preventDefault();
     dispatch(login(form));
-   
   };
 
   if (isLoading) {
@@ -68,25 +68,21 @@ function Login() {
             error={error.email}
             placeholder="Email"
             value={email}
-            float
+            float // to make the label floating
           />
 
           <CustomInput
-            type="text"
             name="password"
             label="password"
             onChange={onChangeHandler}
             error={error.password}
             placeholder="password"
             value={password}
-            float
-          />
-          <CustomButton
-            className="button"
-            type="submit"
-            value="submit"
-
-          />
+            float // to make the label floating
+            type={passwordVisible ? 'text' : 'password'} 
+            onClick={Eye}           
+            />
+          <CustomButton className="button" type="submit" value="submit" />
         </form>
         <div class="text-center">
           <p>

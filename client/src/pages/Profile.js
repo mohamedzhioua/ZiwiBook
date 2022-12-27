@@ -1,8 +1,9 @@
 import React from 'react'
+import AddMemo from './AddMemorie/AddMemo'
 
 function Profile() {
   return (
-    <div>Profile</div>
+    <div><AddMemo/></div>
   )
 }
 
