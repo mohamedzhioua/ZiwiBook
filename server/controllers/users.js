@@ -82,6 +82,8 @@ module.exports = {
       console.log(error.message);
     }
   },
+    //  --------------------------------------- // logout method //--------------------------- //
+
   logout: async (req, res) => {
     try {
       res.clearCookie("Authorization");

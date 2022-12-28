@@ -8,12 +8,13 @@ const cloudinary = require("../utils/cloudinary");
 const { bufferToDataURI } = require("../utils/Datauri");
 
 module.exports = {
-  //  ----------------------//addPost method to add a new user//--------------------------- //
+  //  ----------------------//addPost method //--------------------------- //
 
   addPost: async (req, res) => {
     const { errors, isValid } = PostValidation(req.body);
     const { title, body, userID } = req.body;
     const { file } = req;
+    console.log("🚀 ~ file: posts.js:17 ~ addPost: ~ file", file)
     try {
       if (!isValid) {
         res.status(404).json(errors);
@@ -37,7 +38,7 @@ module.exports = {
       console.log(error.message);
     }
   },
-  //  ----------------------//updatePost method to add a new user//--------------------------- //
+  //  ----------------------//updatePost method //--------------------------- //
 
   updatePost: async (req, res) => {
     const { errors, isValid } = PostValidation(req.body);
@@ -73,7 +74,7 @@ module.exports = {
       console.log(error.message);
     }
   },
-  //  ----------------------//deletePost method to add a new user//--------------------------- //
+  //  ----------------------//deletePost method //--------------------------- //
 
   deletePost: async (req, res) => {
     try {
@@ -85,7 +86,7 @@ module.exports = {
       console.log(error.message);
     }
   },
-  //  -----------------------//getOnePost method to add a new user//--------------------------- //
+  //  -----------------------//getOnePost method //--------------------------- //
 
   getOnePost: async (req, res) => {
     try {
@@ -95,7 +96,7 @@ module.exports = {
       console.log(error.message);
     }
   },
-  //  -----------------------//getAllPost method to add a new user//--------------------------- //
+  //  -----------------------//getAllPost method //--------------------------- //
 
   getAllPost: async (req, res) => {
     try {
@@ -105,7 +106,7 @@ module.exports = {
       console.log(error.message);
     }
   },
-  //  -----------------------//getAllPost by userID method to add a new user//--------------------------- //
+  //  -----------------------//getAllPost by userID method //--------------------------- //
   getAllPostbyUser: async (req, res) => {
     try {
       const data = await Post.find({ userID: req.params.userID });
