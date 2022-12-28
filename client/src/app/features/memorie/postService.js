@@ -2,7 +2,13 @@ import axios from "axios";
 
 //add post
 const addPost = async (postData) => {
-  const response = await axios.post("/post/addPost", postData);
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+     },
+  }
+ 
+  const response = await axios.post("/post/addPost", postData,config);
   return response.data;
 };
 

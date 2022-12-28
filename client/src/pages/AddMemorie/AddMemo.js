@@ -3,49 +3,26 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
-import  "./AddMemo.css"
-function AddMemo() {
-  const [form, setForm] = useState({
-    title:"",
-    body:"",
-    image:"",
-  });
-  const { title, body, image } = form;
+import "./AddMemo.css";
+function AddMemo({ onChangeHandler, onsubmitHandler, error ,onChangefile }) {
   const [picture, setPicture] = useState(null);
-
+ 
   //displaying picture after upload handler
   const onChangePicture = (e) => {
     setPicture(URL.createObjectURL(e.target.files[0]));
   };
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  //onChangeHandler
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
-
-  //onsubmitHandler
-  const onsubmitHandler = (event) => {
-    event.preventDefault();
-    dispatch(form);
-  };
-
   return (
     <div className="blog-list-item">
       <h1 className="New-Post-Title">Share a Memorie</h1>
-      <form className="New-Post-Form" onSubmit={onsubmitHandler}>
+      <form className="New-Post-Form" onSubmit={onsubmitHandler}  >
         <CustomInput
-           type="text"
+          type="text"
           placeholder="title..."
           label="Title :"
           name="title"
           onChange={onChangeHandler}
+          error={error.title}
         />
         <hr />
         <img
@@ -61,15 +38,17 @@ function AddMemo() {
           accept="image/gif, image/jpeg, image/png"
           onChange={(e) => {
             onChangePicture(e);
-            onChangeHandler(e);
+            onChangefile(e);
           }}
+          name="image"
         />
         <CustomInput
-        label="Description :"
+          label="Description :"
           type="textarea"
-           placeholder="content...."
+          placeholder="content...."
           name="body"
           onChange={onChangeHandler}
+          error={error.body}
         />
 
         <CustomButton className="button button8" value="submit" type="submit" />

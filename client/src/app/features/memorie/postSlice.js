@@ -13,7 +13,7 @@ export const addPost = createAsyncThunk("post/add", async (post, thunkAPI) => {
   try {
     return await postService.addPost(post);
   } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+    return thunkAPI.rejectWithValue(error.response.data);
   }
 });
 
