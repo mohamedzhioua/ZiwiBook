@@ -5,7 +5,11 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import  "./AddMemo.css"
 function AddMemo() {
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({
+    title:"",
+    body:"",
+    image:"",
+  });
   const { title, body, image } = form;
   const [picture, setPicture] = useState(null);
 
@@ -68,7 +72,7 @@ function AddMemo() {
           onChange={onChangeHandler}
         />
 
-        <CustomButton className="btn btn-secondary button" value="submit" type="submit" />
+        <CustomButton className="button button8" value="submit" type="submit" />
       </form>
     </div>
   );

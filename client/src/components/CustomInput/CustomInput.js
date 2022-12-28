@@ -43,24 +43,12 @@ const CustomInput = ({
             {type === "password" ? (
               <FaRegEyeSlash
                 onClick={onClick}
-                style={{
-                  position: "absolute",
-                  right: "10px",
-                  top: " 22px",
-                  fontsize: "17px",
-                  cursor: "pointer",
-                }}
+                className="Icon"
               />
             ) : (
               <FaRegEye 
               onClick={onClick}
-                style={{
-                  position: "absolute",
-                  right: "10px",
-                  top: " 22px",
-                  fontsize: "17px",
-                  cursor: "pointer",
-                }}
+            className="Icon"
               />
             )}
           </>

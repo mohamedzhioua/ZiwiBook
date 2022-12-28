@@ -13,12 +13,13 @@ function Login() {
     email: "",
     password: "",
   });
- const { email, password } = form;
-// eye show hide handler
- const [passwordVisible, setPasswordVisible] = useState(password);
- const Eye =()=>{
-   setPasswordVisible(!passwordVisible)
- }
+  const { email, password } = form;
+
+  // eye show hide handler
+  const [passwordVisible, setPasswordVisible] = useState(password);
+  const Eye = () => {
+    setPasswordVisible(!passwordVisible);
+  };
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,8 +31,7 @@ function Login() {
     if (isConnected || token) {
       navigate("/");
     }
-  }, [error, token, isLoading, dispatch, isConnected]);
-
+  }, [error, token,navigate, isLoading, dispatch, isConnected]);
 
   //onChangeHandler
   const onChangeHandler = (event) => {
@@ -79,9 +79,9 @@ function Login() {
             placeholder="password"
             value={password}
             float // to make the label floating
-            type={passwordVisible ? 'text' : 'password'} 
-            onClick={Eye}           
-            />
+            type={passwordVisible ? "text" : "password"}
+            onClick={Eye}
+          />
           <CustomButton className="button" type="submit" value="submit" />
         </form>
         <div class="text-center">

@@ -1,6 +1,12 @@
- label{
+label{
     font-weight: 600;
     font-size:14px;
 }
 
- 
+.Icon{
+    position: absolute;
+    right: 9px;
+    top: 22px;
+    font-size: 17px;
+    cursor: "pointer";
+  }
