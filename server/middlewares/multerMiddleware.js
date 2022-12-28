@@ -17,5 +17,5 @@ module.exports = multer({
     }
     //pass the file
     cb(null, true);
-  },
+  },   
 }).single("image"); //single for accepting only one file from 'image' form-data key

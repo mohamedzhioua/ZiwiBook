@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const PostController = require("../controllers/posts");
 const multerUploads = require("../middlewares/multerMiddleware")
+const checkAuth = require ("../middlewares/checkAuth")
 // POST request
-router.post("/addPost",multerUploads, PostController.addPost);
+router.post("/addPost",checkAuth,multerUploads, PostController.addPost);
 
 // GET request
 router.get("/getOnePost/:id", PostController.getOnePost);

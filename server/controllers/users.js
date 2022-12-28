@@ -60,9 +60,7 @@ module.exports = {
           } else {
             // generate a token and send to client
             const exp = Date.now() + 1000 * 60 * 60 * 24 * 30;
-            const token = jwt.sign({ sub: user._id }, "zhioua_DOING_GOOD", {
-              expiresIn: "3d",
-            });
+            const token = jwt.sign({ sub: user._id , exp }, "zhioua_DOING_GOOD");
             // Authorization
             const options = {
               expires: new Date(exp),
