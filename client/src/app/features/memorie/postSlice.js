@@ -1,13 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import postService from "./postService";
 
-// Get token from localStorage
 const initialState = {
   post: [],
   error: "",
   message: "",
   isLoading: false,
 };
+
+//add post
+export const addPost = createAsyncThunk("post/add", async (post, thunkAPI) => {
+  try {
+    return await postService.addPost(post);
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 
 export const postSlice = createSlice({
   name: "post",
@@ -17,9 +25,18 @@ export const postSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase((state, action) => {})
-      .addCase((state, action) => {})
-      .addCase((state, action) => {});
+      .addCase(addPost.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(addPost.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.message = action.payload.message;
+        state.error = "";
+      })
+      .addCase(addPost.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
   },
 });
 
