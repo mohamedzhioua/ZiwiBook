@@ -3,16 +3,18 @@ import authService from "./authService";
 
 // Get token & user from localStorage
 const token = JSON.parse(localStorage.getItem("token"));
-const user = JSON.parse(localStorage.getItem("user"));
+const userInfo = JSON.parse(localStorage.getItem("user"));
+console.log("🚀 ~ file: authSlice.js:7 ~ userInfo", userInfo)
 
 const initialState = {
-  user: user ? user : null,
-  token: token ? token : null ,
+  user: null || userInfo ,
+  token: token ? token : null,
   error: "",
   message: "",
   isConnected: false,
   isLoading: false,
 };
+console.log("🚀 ~ file: authSlice.js:17 ~ initialState", initialState)
 
 //Register user
 export const register = createAsyncThunk(
@@ -71,8 +73,9 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(login.fulfilled, (state, action) => {
-         state.error = "";
+        state.error = "";
         state.message = action.payload.message;
+        state.user = action.payload.user;
         state.isConnected = true;
         state.isLoading = false;
       })

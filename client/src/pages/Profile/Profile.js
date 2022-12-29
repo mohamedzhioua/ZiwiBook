@@ -1,26 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddMemo from "../AddMemorie/AddMemo";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../components/Loader/Loader";
-import { addPost } from "../../app/features/memorie/postSlice";
+import { addPost, reset } from "../../app/features/memorie/postSlice";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Profile() {
-  const { error, isLoading, message } = useSelector((state) => state.post);
-   const { user } = useSelector((state) => state.auth);
-
+  const { error, isLoading, message, fulfilled } = useSelector(
+    (state) => state.post
+  );
+  const { user } = useSelector((state) => state.auth);
   const [form, setForm] = useState({
     title: "",
     body: "",
-    image:"" ,
+    image: "",
     userID: user._id,
   });
-  console.log("🚀 ~ file: Profile.js:18 ~ Profile ~ form", form)
-  const { title, body, image, userID } = form;
-
-
+ 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    message && toast.success(message, { position: toast.POSITION.TOP_RIGHT });
+    if (!isLoading && fulfilled) {
+      dispatch(reset());
+    }
+  }, [user, error, message, fulfilled, dispatch, isLoading, navigate]);
 
   //onChangeHandler
   const onChangeHandler = (e) => {
@@ -30,11 +37,11 @@ function Profile() {
       [name]: value,
     });
   };
-   //onChangefile
-   const onChangefile = (e) => {
-     setForm({
+  //onChangefile
+  const onChangefile = (e) => {
+    setForm({
       ...form,
-      [e.target.name]:  e.target.files[0],
+      [e.target.name]: e.target.files[0],
     });
   };
 
@@ -43,19 +50,19 @@ function Profile() {
     event.preventDefault();
     dispatch(addPost(form));
   };
-  console.log(form);
-  if (isLoading) {
-    return <Loader />;
-  }
-  return (
-    <div>
+
+  return isLoading ? (
+    <Loader />
+  ) : (
+    <>
       <AddMemo
         onChangeHandler={onChangeHandler}
         onsubmitHandler={onsubmitHandler}
         error={error}
         onChangefile={onChangefile}
       />
-    </div>
+      <ToastContainer />
+    </>
   );
 }
 

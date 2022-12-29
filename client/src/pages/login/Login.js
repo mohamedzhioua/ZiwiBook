@@ -29,8 +29,8 @@ function Login() {
 
   useEffect(() => {
     if (isConnected || token) {
-      navigate("/");
-    }
+         navigate("/"); 
+     }
   }, [error, token,navigate, isLoading, dispatch, isConnected]);
 
   //onChangeHandler

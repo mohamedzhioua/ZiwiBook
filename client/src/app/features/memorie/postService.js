@@ -12,8 +12,15 @@ const addPost = async (postData) => {
   return response.data;
 };
 
+// fetch all posts
+const fetchAll = async () =>{
+  const response = await axios.get("/post/getAllPost")
+  return response.data
+}
+
 const postService = {
   addPost,
+  fetchAll,
 };
 
 export default postService;

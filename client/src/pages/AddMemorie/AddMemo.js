@@ -13,7 +13,8 @@ function AddMemo({ onChangeHandler, onsubmitHandler, error ,onChangefile }) {
   };
 
   return (
-    <div className="blog-list-item">
+
+    <div className="Post-list-item">
       <h1 className="New-Post-Title">Share a Memorie</h1>
       <form className="New-Post-Form" onSubmit={onsubmitHandler}  >
         <CustomInput

@@ -6,7 +6,7 @@ const ForceRedirect = ({ children }) => {
  const { token ,isConnected} = useSelector((state) => state.auth);
 
   if (isConnected ||token) {
-    return <Navigate to="/profile" replace/>;
+    return <Navigate to="/" replace/>;
   }
   return children;
 };
