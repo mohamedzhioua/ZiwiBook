@@ -4,7 +4,6 @@ import authService from "./authService";
 // Get token & user from localStorage
 const token = JSON.parse(localStorage.getItem("token"));
 const userInfo = JSON.parse(localStorage.getItem("user"));
-console.log("🚀 ~ file: authSlice.js:7 ~ userInfo", userInfo)
 
 const initialState = {
   user: null || userInfo ,
@@ -14,7 +13,6 @@ const initialState = {
   isConnected: false,
   isLoading: false,
 };
-console.log("🚀 ~ file: authSlice.js:17 ~ initialState", initialState)
 
 //Register user
 export const register = createAsyncThunk(

@@ -1,14 +1,16 @@
 import React from "react";
-
-const Card = ({id, title, body, image }) => {
+import   "./Card.css";
+import moment from "moment"
+const Card = ({post}) => {
   return (
-    <div class="card">
-      <img src={image} class="card-img-top" alt="..." />
+    <div class="card h-100" >
+      <img src={post.image} class="card-img-top" alt="..." />
       <div class="card-body">
-        <h5 class="card-title">{title}</h5>
-        <p class="card-text">{body}</p>
+        <h5 class="card-title">{post.title}</h5>
+        <p class="card-text">{post.body.substring(0,20)}</p>
+        <p>{moment(post.createdAt).fromNow()}</p>
       </div>
-    </div>
+     </div>
   );
 };
 
