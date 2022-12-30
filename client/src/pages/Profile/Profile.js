@@ -16,8 +16,9 @@ function Profile() {
     title: "",
     body: "",
     image: "",
-    userID: user._id,
+    userID :user._id
   });
+  
  
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,9 +27,12 @@ function Profile() {
     message && toast.success(message, { position: toast.POSITION.TOP_RIGHT });
     if (!isLoading && fulfilled) {
       dispatch(reset());
+      clear()
     }
   }, [user, error, message, fulfilled, dispatch, isLoading, navigate]);
-
+  const clear = () => {
+    setForm({ title: "", body: "", image: "" });
+  };
   //onChangeHandler
   const onChangeHandler = (e) => {
     const { name, value } = e.target;

@@ -23,7 +23,7 @@ function Feed() {
       ) : (
         <div class="row g-3">
           {posts.map((post) => (
-            <div class="col-12 col-md-6 col-lg-4" key={post._id} >
+            <div class="col-12 col-md-6 col-lg-4" key={post._id}>
               <Card post={post} />
             </div>
           ))}
