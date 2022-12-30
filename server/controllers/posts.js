@@ -12,9 +12,7 @@ module.exports = {
 
   addPost: async (req, res) => {
     const { errors, isValid } = PostValidation(req.body);
-    const { title, body, userID } = req.body;
     const { file } = req;
-    console.log("🚀 ~ file: posts.js:17 ~ addPost: ~ file", file)
     try {
       if (!isValid) {
         res.status(404).json(errors);
@@ -25,14 +23,11 @@ module.exports = {
           base64,
           fileFormat
         );
-        await Post.create({
-          title,
-          body,
-          userID,
-          image: imageDetails.url,
-          cloudinary_id: imageDetails.public_id,
-        });
-        res.status(201).json({ message: "post added with success" });
+        req.body.user= req.user.id
+        req.body.image = imageDetails.url;
+        req.body.cloudinary_id = imageDetails.public_id;
+        await Post.create(req.body);
+        res.status(200).json({ message: "post added with success" });
       }
     } catch (error) {
       console.log(error.message);
@@ -43,7 +38,6 @@ module.exports = {
   updatePost: async (req, res) => {
     const { errors, isValid } = PostValidation(req.body);
     const { file } = req;
-    console.log(req.file);
     try {
       if (!isValid) {
         res.status(404).json(errors);

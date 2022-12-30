@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 const PostSchema = new Schema(
   {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -16,10 +21,6 @@ const PostSchema = new Schema(
     likeCount: {
       type: Number,
       default: 0,
-    },
-    userID: {
-      type: String,
-      required: true,
     },
   },
   { timestamps: true }
