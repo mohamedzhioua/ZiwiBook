@@ -80,6 +80,8 @@ export const postSlice = createSlice({
       .addCase(deleteOne.fulfilled, (state, action) => {
         state.isLoading = false;
         state.message = action.payload.message;
+        state.fulfilled = true;
+
       })
       .addCase(deleteOne.rejected, (state, action) => {
         state.isLoading = false;

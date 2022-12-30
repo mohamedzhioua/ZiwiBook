@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
-import { fetchPosts } from "../../app/features/memorie/postSlice";
+import { fetchPosts,reset } from "../../app/features/memorie/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card/Card";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Feed() {
-  const { posts } = useSelector((state) => state.post);
+  const { message ,posts ,fulfilled } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    message && toast.success(message, { position: toast.POSITION.TOP_RIGHT });
     dispatch(fetchPosts());
-  }, []);
+    if (fulfilled) {
+      dispatch(reset())
+    }
+  }, [message,posts,fulfilled,dispatch]);
 
 
   return (
@@ -31,6 +37,7 @@ function Feed() {
           ))}
         </div>
       )}
+         <ToastContainer />
     </div>
   );
 }

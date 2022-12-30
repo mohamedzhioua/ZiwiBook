@@ -7,7 +7,7 @@ import { deleteOne } from "../../app/features/memorie/postSlice";
 import { useDispatch } from "react-redux";
 
 const Card = ({ post, userId }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   return (
     <div class="card h-100">
       <img src={post.image} class="card-img-top" alt="..." />
@@ -21,8 +21,10 @@ const Card = ({ post, userId }) => {
           <AiFillLike fontSize={"20px"} /> like
         </div>
         {userId === post.user && (
-          <div class="col d-flex justify-content-end" onClick={ ()=>dispatch(deleteOne(post._id))
-          }>
+          <div
+            class="col d-flex justify-content-end"
+            onClick={() => dispatch(deleteOne(post._id))}
+          >
             <MdDelete fontSize={"20px"} /> Delete
           </div>
         )}
@@ -30,11 +32,5 @@ const Card = ({ post, userId }) => {
     </div>
   );
 };
-// style={{
-//   position: 'absolute',
-//    right: '10px',
-//    fontSize:"15px",
-//    fontWeight:"bold",
-//   top:'460px'
-// }}
+
 export default Card;
