@@ -6,6 +6,7 @@ import ForceRedirect from "./ForceRedirect";
 import PrivateRoute  from "./PrivateRoute";
 import Profile from "../pages/Profile/Profile";
 import Feed from "../pages/Feed/Feed";
+import EditMemo from "../pages/EditMemorie/EditMemo";
 
 const Router =()=> {
   return (
@@ -42,6 +43,14 @@ const Router =()=> {
           </ForceRedirect>
         }
       />
+       <Route
+      path="/edit/:id"
+      element={
+        <PrivateRoute>
+          <EditMemo />
+        </PrivateRoute>
+      }
+    />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
