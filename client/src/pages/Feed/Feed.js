@@ -12,6 +12,7 @@ function Feed() {
     dispatch(fetchPosts());
   }, []);
 
+
   return (
     <div
       className="container"
@@ -25,7 +26,7 @@ function Feed() {
         <div class="row g-3">
           {posts.map((post) => (
             <div class="col-12 col-md-6 col-lg-4" key={post._id}>
-              <Card post={post} userId={user._id}/>
+              <Card post={post} userId={user._id} />
             </div>
           ))}
         </div>

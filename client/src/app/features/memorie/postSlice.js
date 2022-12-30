@@ -6,7 +6,7 @@ const initialState = {
   error: "",
   message: "",
   isLoading: false,
-  fulfilled:false,
+  fulfilled: false,
 };
 
 //add post
@@ -30,6 +30,18 @@ export const fetchPosts = createAsyncThunk(
   }
 );
 
+// delete one post
+export const deleteOne = createAsyncThunk(
+  "post/deleteOne",
+  async (id,thunkAPI) => {
+    try {
+      return await postService.deleteOne(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
@@ -45,7 +57,7 @@ export const postSlice = createSlice({
         state.isLoading = false;
         state.message = action.payload.message;
         state.error = "";
-        state.fulfilled=true;
+        state.fulfilled = true;
       })
       .addCase(addPost.rejected, (state, action) => {
         state.isLoading = false;
@@ -56,12 +68,23 @@ export const postSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.posts=action.payload
+        state.posts = action.payload;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.isLoading = false;
-        state.error=action.payload
-      });
+        state.error = action.payload;
+      })
+      .addCase(deleteOne.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteOne.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.message = action.payload.message;
+      })
+      .addCase(deleteOne.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
   },
 });
 

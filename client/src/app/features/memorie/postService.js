@@ -18,9 +18,15 @@ const fetchAll = async () =>{
   return response.data
 }
 
+// delete one post
+const deleteOne = async (id) =>{
+  const response = await axios.delete(`/post/deletePost/${id}`)
+  return response.data
+}
 const postService = {
   addPost,
   fetchAll,
+  deleteOne,
 };
 
 export default postService;
