@@ -8,20 +8,19 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Profile() {
-  const { error, isLoading, message, fulfilled } = useSelector(
+const navigate = useNavigate();
+const dispatch = useDispatch();
+const { error, isLoading, message, fulfilled } = useSelector(
     (state) => state.post
   );
-  const { user } = useSelector((state) => state.auth);
-  const [form, setForm] = useState({
-    title: "",
-    body: "",
-    image: "",
-    userID :user._id
-  });
-  
- 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+   const [form, setForm] = useState({
+    title: "",  body: "",  image: "",
+   });
+   console.log("🚀 ~ file: Profile.js:19 ~ Profile ~ form", form)
+  //clearing the state for the newest user inputs 
+  const clear = () => {
+    setForm({ title: "", body: "", image: "" });
+  };
 
   useEffect(() => {
     message && toast.success(message, { position: toast.POSITION.TOP_RIGHT });
@@ -29,10 +28,8 @@ function Profile() {
       dispatch(reset());
       clear()
     }
-  }, [user, error, message, fulfilled, dispatch, isLoading, navigate]);
-  const clear = () => {
-    setForm({ title: "", body: "", image: "" });
-  };
+  }, [error, message, fulfilled, dispatch, isLoading, navigate]);
+
   //onChangeHandler
   const onChangeHandler = (e) => {
     const { name, value } = e.target;

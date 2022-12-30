@@ -5,6 +5,7 @@ import Card from "../../components/Card/Card";
 
 function Feed() {
   const { posts } = useSelector((state) => state.post);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function Feed() {
         <div class="row g-3">
           {posts.map((post) => (
             <div class="col-12 col-md-6 col-lg-4" key={post._id}>
-              <Card post={post} />
+              <Card post={post} userId={user._id}/>
             </div>
           ))}
         </div>
