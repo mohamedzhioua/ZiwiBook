@@ -10,7 +10,8 @@ const CustomInput = ({
   error,
   placeholder,
   value,
-  accept,
+  defaultValue,
+   accept,
   float,
   onClick
 }) => {
@@ -26,7 +27,8 @@ const CustomInput = ({
             className={classnames("form-control", { "is-invalid": error })}
             placeholder={placeholder}
             value={value}
-          />
+            defaultValue={defaultValue}
+           />
         ) : (
           <input
             type={type}
@@ -35,8 +37,9 @@ const CustomInput = ({
             className={classnames("form-control", { "is-invalid": error })}
             placeholder={placeholder}
             value={value}
+            defaultValue={defaultValue}
             accept={accept}
-          />
+           />
         )}
         {name === "password" ? (
           <>

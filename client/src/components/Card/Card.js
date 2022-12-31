@@ -14,8 +14,8 @@ const Card = ({ post, userId }) => {
   return (
     <div class="card h-100">
       {userId === post.user && (
-        <div className="edit">
-          {userId === post.user && <Link to={`/edit/${post._id}`}><HiDotsHorizontal fontSize={"20px"} /></Link>}
+        <div className="d-flex justify-content-end">
+          {userId === post.user && <Link className="edit-link" to={`/${post._id}`}><HiDotsHorizontal fontSize={"20px"} /></Link>}
         </div>
       )}
       <img src={post.image} class="card-img-top" alt="..." />

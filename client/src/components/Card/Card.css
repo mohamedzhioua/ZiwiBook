@@ -4,17 +4,12 @@
   /* position: relative; */
 }
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.01);
 }
 
 .card-img-top {
   height: 350px;
 }
-.edit {
-  position: inherit;
-  z-index: 1;
-  top: 0%;
-  left: 93%;
-  color: black;
-  /* transform: translate(-50%, -50%); */
+.edit-link{
+  color: black !important;
 }

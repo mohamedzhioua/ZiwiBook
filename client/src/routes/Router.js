@@ -1,14 +1,14 @@
 import { Route, Routes } from "react-router-dom";
- import Login from "../pages/login/Login";
+import Login from "../pages/login/Login";
 import Signup from "../pages/signup/Signup";
 import NotFound from "../pages/404/NotFound ";
 import ForceRedirect from "./ForceRedirect";
-import PrivateRoute  from "./PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
 import Profile from "../pages/Profile/Profile";
 import Feed from "../pages/Feed/Feed";
-import EditMemo from "../pages/EditMemorie/EditMemo";
+import AddEditMemo from "../pages/AddEditMemorie/AddEditMemorie";
 
-const Router =()=> {
+const Router = () => {
   return (
     <Routes>
       <Route
@@ -43,17 +43,17 @@ const Router =()=> {
           </ForceRedirect>
         }
       />
-       <Route
-      path="/edit/:id"
-      element={
-        <PrivateRoute>
-          <EditMemo />
-        </PrivateRoute>
-      }
-    />
+      <Route
+        path="/:id"
+        element={
+          <PrivateRoute>
+            <AddEditMemo />
+          </PrivateRoute>
+        }
+      />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
-}
+};
 
 export default Router;
