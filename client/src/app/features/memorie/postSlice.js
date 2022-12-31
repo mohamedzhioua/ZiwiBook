@@ -30,12 +30,24 @@ export const fetchPosts = createAsyncThunk(
   }
 );
 
-// delete one post
+// delete a post
 export const deleteOne = createAsyncThunk(
   "post/deleteOne",
-  async (id,thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
       return await postService.deleteOne(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// update a post
+export const updatePost = createAsyncThunk(
+  "post/updatePost",
+  async ({ id, post }, thunkAPI) => {
+    try {
+      return await postService.updatePost({ id, post });
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -81,12 +93,23 @@ export const postSlice = createSlice({
         state.isLoading = false;
         state.message = action.payload.message;
         state.fulfilled = true;
-
       })
       .addCase(deleteOne.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })
+      .addCase(updatePost.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.message = action.payload.message;
+        state.fulfilled = true;
+      })
+      .addCase(updatePost.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
   },
 });
 

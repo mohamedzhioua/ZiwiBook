@@ -13,13 +13,9 @@ function AddEditMemo() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [form, setForm] = useState({
-    title: "",
-    body: "",
-    image: "",
-  });
+  const [form, setForm] = useState({});
+  console.log("🚀 ~ file: AddEditMemorie.js:17 ~ AddEditMemo ~ form", form)
   const [memo, setMemo] = useState({});
-   console.log("🚀 ~ file: AddEditMemorie.js:22 ~ AddEditMemo ~ memo", memo)
    const [picture, setPicture] = useState(null);
   const { error, posts, isLoading, message, fulfilled } = useSelector(
     (state) => (state.post)
@@ -38,7 +34,7 @@ function AddEditMemo() {
   useEffect(() => {
     if (id) {
       const memorie = posts.find((post) => post._id === id);
-       setMemo({...memorie});
+      setForm({...memorie});
     }
   }, [id]);
 
@@ -89,7 +85,7 @@ function AddEditMemo() {
           name="title"
           onChange={onChangeHandler}
           error={error.title}
-          defaultValue={memo.title}
+          value={form.title}
         />
         <hr />
         <img
@@ -116,7 +112,7 @@ function AddEditMemo() {
           name="body"
           onChange={onChangeHandler}
           error={error.body}
-          defaultValue={memo.body}
+          value={form.body}
         />
 
         <CustomButton
