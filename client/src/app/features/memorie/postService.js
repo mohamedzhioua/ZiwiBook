@@ -24,11 +24,17 @@ const deleteOne = async (id) =>{
   return response.data
 }
 // update a post 
-const updatePost = async ({post,id }) =>{
-  const response = await axios.put(`/post/updatePost/${id}`,post)
+const updatePost = async (form,id) =>{
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+     },
+  }
+   const response = await axios.put(`/post/updatePost/${id}`, form,config)
   return response.data
 }
-const postService = {
+
+ const postService = {
   addPost,
   fetchAll,
   deleteOne,

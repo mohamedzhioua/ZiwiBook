@@ -45,9 +45,12 @@ export const deleteOne = createAsyncThunk(
 // update a post
 export const updatePost = createAsyncThunk(
   "post/updatePost",
-  async ({ id, post }, thunkAPI) => {
+  async ({ id, form }, thunkAPI) => {
+    console.log("🚀 ~ file: postSlice.js:49 ~ form88", form)
+    console.log("🚀 ~ file: postSlice.js:49 ~ id", id)
+    
     try {
-      return await postService.updatePost({ id, post });
+      return await postService.updatePost( id, form );
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }

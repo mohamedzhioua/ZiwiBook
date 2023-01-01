@@ -16,7 +16,7 @@ function Feed() {
     if (fulfilled) {
       dispatch(reset())
     }
-  }, [message,posts,fulfilled,dispatch]);
+  }, [message,fulfilled,dispatch]);
 
 
   return (

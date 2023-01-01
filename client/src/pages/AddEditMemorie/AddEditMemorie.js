@@ -4,7 +4,7 @@ import { Loader } from "../../components/Loader/Loader";
 import { useNavigate, useParams } from "react-router-dom";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
-import { addPost, reset } from "../../app/features/memorie/postSlice";
+import { addPost, reset , updatePost } from "../../app/features/memorie/postSlice";
 import "./AddEditMemo.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,9 +13,7 @@ function AddEditMemo() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [form, setForm] = useState({});
-  console.log("🚀 ~ file: AddEditMemorie.js:17 ~ AddEditMemo ~ form", form)
-  const [memo, setMemo] = useState({});
+  const [form, setForm] = useState({title:"" , body:"",image:""});
    const [picture, setPicture] = useState(null);
   const { error, posts, isLoading, message, fulfilled } = useSelector(
     (state) => (state.post)
@@ -25,6 +23,7 @@ function AddEditMemo() {
   const onChangePicture = (e) => {
     setPicture(URL.createObjectURL(e.target.files[0]));
   };
+
   //clearing the state for the newest user inputs
   const clear = () => {
     setForm({ title: "", body: "", image: "" });
@@ -65,8 +64,13 @@ function AddEditMemo() {
   //onsubmitHandler
   const onsubmitHandler = (event) => {
     event.preventDefault();
-    dispatch(addPost(form));
-  };
+    var formData = new FormData()
+     formData.append('title',form.title)
+    formData.append('body',form.body)
+     formData.append('image',form.image)
+    id ?  dispatch(updatePost({id,formData})) : dispatch(addPost(formData)) 
+    clear()
+    };
 
   if (isLoading) {
     return <Loader />;
@@ -77,7 +81,7 @@ function AddEditMemo() {
       <h1 className="New-Post-Title">
         {id ? "Update Your Memorie" : "Share a Memorie"}
       </h1>
-      <form className="New-Post-Form" onSubmit={onsubmitHandler}>
+      <form className="New-Post-Form" onSubmit={onsubmitHandler} >
         <CustomInput
           type="text"
           placeholder="title..."
@@ -85,8 +89,8 @@ function AddEditMemo() {
           name="title"
           onChange={onChangeHandler}
           error={error.title}
-          value={form.title}
-        />
+          value={form.title }
+         />
         <hr />
         <img
           id="output"
@@ -113,7 +117,7 @@ function AddEditMemo() {
           onChange={onChangeHandler}
           error={error.body}
           value={form.body}
-        />
+         />
 
         <CustomButton
           className="button button8"
