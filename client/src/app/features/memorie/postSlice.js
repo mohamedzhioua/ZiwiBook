@@ -11,6 +11,7 @@ const initialState = {
 
 //add post
 export const addPost = createAsyncThunk("post/add", async (post, thunkAPI) => {
+  console.log("🚀 ~ file: postSlice.js:14 ~ addPost ~ post", post)
   try {
     return await postService.addPost(post);
   } catch (error) {
@@ -45,10 +46,8 @@ export const deleteOne = createAsyncThunk(
 // update a post
 export const updatePost = createAsyncThunk(
   "post/updatePost",
-  async ({ id, form }, thunkAPI) => {
-    console.log("🚀 ~ file: postSlice.js:49 ~ form88", form)
-    console.log("🚀 ~ file: postSlice.js:49 ~ id", id)
-    
+  async ({ id, form }, thunkAPI) => {  
+    console.log("🚀 ~ file: postSlice.js:50 ~ formData", form)
     try {
       return await postService.updatePost( id, form );
     } catch (error) {

@@ -23,14 +23,17 @@ const deleteOne = async (id) =>{
   const response = await axios.delete(`/post/deletePost/${id}`)
   return response.data
 }
+
 // update a post 
-const updatePost = async (form,id) =>{
+const updatePost = async (id,form) =>{
+  console.log("wiiiiiiiiiiiiiiiiiiiiiiiiw" ,form);
+  console.log("wiiiiiiiiiiiiiiiiiiiiiiiiw" ,id);
   const config = {
     headers: {
       "Content-Type": "multipart/form-data",
      },
   }
-   const response = await axios.put(`/post/updatePost/${id}`, form,config)
+   const response = await axios.put(`/post/updatePost/${id}`, form ,config)
   return response.data
 }
 

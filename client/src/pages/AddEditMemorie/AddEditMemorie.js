@@ -64,11 +64,7 @@ function AddEditMemo() {
   //onsubmitHandler
   const onsubmitHandler = (event) => {
     event.preventDefault();
-    var formData = new FormData()
-     formData.append('title',form.title)
-    formData.append('body',form.body)
-     formData.append('image',form.image)
-    id ?  dispatch(updatePost({id,formData})) : dispatch(addPost(formData)) 
+    id ?  dispatch(updatePost({id,form})) : dispatch(addPost(form)) 
     clear()
     };
 
