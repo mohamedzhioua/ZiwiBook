@@ -82,9 +82,14 @@ module.exports = {
   deletePost: async (req, res) => {
     try {
       const data = await Post.findById({ _id: req.params.id });
-      await cloudinary.removeFromCloudinary(data.cloudinary_id);
-      await data.remove();
-      res.status(201).json({ message: "post deleted with success" });
+      if (data.cloudinary_id) {
+        await cloudinary.removeFromCloudinary(data.cloudinary_id);
+        await data.remove();
+        return res.status(201).json({ message: "post deleted with success" });
+      } else {
+        await data.remove();
+        return res.status(201).json({ message: "post deleted with success" });
+      }
     } catch (error) {
       console.log(error.message);
     }
