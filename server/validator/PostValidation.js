@@ -9,6 +9,7 @@ module.exports = function PostValidation(data) {
   if (validator.isEmpty(data.title)) {
     errors.title = "Required title";
   }
+
   if (validator.isEmpty(data.body)) {
     errors.body = "Required blog content";
   }

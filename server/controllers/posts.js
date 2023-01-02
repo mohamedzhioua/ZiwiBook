@@ -15,17 +15,22 @@ module.exports = {
     const { file } = req;
     try {
       if (!isValid) {
-        res.status(404).json(errors);
-      } else {
+        return res.status(404).json(errors);
+      }
+      if (file) {
         const fileFormat = file.mimetype.split("/")[1];
         const { base64 } = bufferToDataURI(fileFormat, file.buffer);
         const imageDetails = await cloudinary.uploadToCloudinary(
           base64,
           fileFormat
         );
-        req.body.user= req.user.id
+        req.body.user = req.user.id;
         req.body.image = imageDetails.url;
         req.body.cloudinary_id = imageDetails.public_id;
+        await Post.create(req.body);
+        res.status(200).json({ message: "post added with success" });
+      } else {
+        req.body.user = req.user.id;
         await Post.create(req.body);
         res.status(200).json({ message: "post added with success" });
       }
@@ -39,10 +44,11 @@ module.exports = {
     const { errors, isValid } = PostValidation(req.body);
     const { file } = req;
     try {
+      const data = await Post.findById({ _id: req.params.id });
       if (!isValid) {
-        res.status(404).json(errors);
-      } else if (file) {
-        const data = await Post.findById({ _id: req.params.id });
+        return res.status(404).json(errors);
+      }
+      if (file) {
         await cloudinary.removeFromCloudinary(data.cloudinary_id);
         const fileFormat = file.mimetype.split("/")[1];
         const { base64 } = bufferToDataURI(fileFormat, file.buffer);
@@ -56,12 +62,15 @@ module.exports = {
           image: imageDetails.url,
           cloudinary_id: imageDetails.public_id,
         };
-        await Post.findByIdAndUpdate({ _id: req.params.id }, post, {
+        const y = await Post.findByIdAndUpdate({ _id: req.params.id }, post, {
           new: true,
         });
         res.status(201).json({ message: "post updated with success" });
       } else {
-        await Post.findByIdAndUpdate({ _id: req.params.id }, req.body);
+        const x = await Post.findByIdAndUpdate(
+          { _id: req.params.id },
+          req.body
+        );
         res.status(201).json({ message: "post updated with success" });
       }
     } catch (error) {
