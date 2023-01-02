@@ -45,11 +45,12 @@ module.exports = {
     const { file } = req;
     try {
       const data = await Post.findById({ _id: req.params.id });
+      if (data.cloudinary_id)
+        await cloudinary.removeFromCloudinary(data.cloudinary_id);
       if (!isValid) {
         return res.status(404).json(errors);
       }
       if (file) {
-        await cloudinary.removeFromCloudinary(data.cloudinary_id);
         const fileFormat = file.mimetype.split("/")[1];
         const { base64 } = bufferToDataURI(fileFormat, file.buffer);
         const imageDetails = await cloudinary.uploadToCloudinary(
@@ -59,8 +60,8 @@ module.exports = {
         const post = {
           title: req.body.title || data.title,
           body: req.body.body || data.body,
-          image: imageDetails.url,
-          cloudinary_id: imageDetails.public_id,
+          image: imageDetails.url || data.image,
+          cloudinary_id: imageDetails.public_id || data.cloudinary_id,
         };
         const y = await Post.findByIdAndUpdate({ _id: req.params.id }, post, {
           new: true,
@@ -82,14 +83,11 @@ module.exports = {
   deletePost: async (req, res) => {
     try {
       const data = await Post.findById({ _id: req.params.id });
-      if (data.cloudinary_id) {
-        await cloudinary.removeFromCloudinary(data.cloudinary_id);
-        await data.remove();
-        return res.status(201).json({ message: "post deleted with success" });
-      } else {
-        await data.remove();
-        return res.status(201).json({ message: "post deleted with success" });
+      if (data.cloudinary_id){
+        await cloudinary.removeFromCloudinary(data.cloudinary_id)
       }
+      await data.remove();
+      return res.status(201).json({ message: "post deleted with success" });
     } catch (error) {
       console.log(error.message);
     }
