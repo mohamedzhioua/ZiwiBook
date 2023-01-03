@@ -6,7 +6,7 @@ const token = JSON.parse(localStorage.getItem("token"));
 const userInfo = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
-  user: null || userInfo ,
+  user: null || userInfo,
   token: token ? token : null,
   error: "",
   message: "",

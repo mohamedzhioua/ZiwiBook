@@ -13,8 +13,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, reset } from "../../app/features/auth/authSlice";
 
 const Header = () => {
-  const [click, setClick] = useState(false);
-  const handleClick = () => setClick(!click);
+  const [home, setHome] = useState(true);
+  const [profile, setProfile] = useState(false);
+  const homeClick = () => {
+    setHome(true);
+    setProfile(false);
+  };
+  const profileClick = () => {
+    setProfile(true);
+    setHome(false);
+  };
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { token, isConnected } = useSelector((state) => state.auth);
@@ -33,13 +42,8 @@ const Header = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse className="hamburger" id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link
-              className="Nav-link"
-              as={Link}
-              to="/"
-              onClick={handleClick}
-            >
-              {click ? <AiOutlineHome size={20} /> : <AiFillHome size={20} />}{" "}
+            <Nav.Link className="Nav-link" as={Link} to="/" onClick={homeClick}>
+              {!home ? <AiOutlineHome size={20} /> : <AiFillHome size={20} />}{" "}
               <b>Home</b>
             </Nav.Link>
             {(isConnected || token) && (
@@ -49,9 +53,9 @@ const Header = () => {
                   className="Nav-link"
                   as={Link}
                   to="/profile"
-                  onClick={handleClick}
+                  onClick={profileClick}
                 >
-                  {click ? (
+                  {profile ? (
                     <FaUserCircle size={20} />
                   ) : (
                     <FaRegUserCircle size={20} />
@@ -71,15 +75,30 @@ const Header = () => {
               </>
             ) : (
               <>
-                {" "}
-                <Nav.Link
-                  className="Nav-link"
-                  as={Link}
-                  to="#"
-                  onClick={LogoutHandler}
-                >
-                  <FaSignOutAlt size={20} /> <b>logout</b>
-                </Nav.Link>
+                {home ? (
+                  <>
+                    <form class="d-flex" id="Search">
+                      <input
+                        class="form-control me-2"
+                        type="search"
+                        placeholder="Search"
+                        aria-label="Search"
+                      />
+                      <button class="btn btn-light" type="submit">
+                        search
+                      </button>
+                    </form>
+                  </>
+                ) : (
+                  <Nav.Link
+                    className="Nav-link"
+                    as={Link}
+                    to="#"
+                    onClick={LogoutHandler}
+                  >
+                    <FaSignOutAlt size={20} /> <b>logout</b>
+                  </Nav.Link>
+                )}
               </>
             )}
           </Nav>

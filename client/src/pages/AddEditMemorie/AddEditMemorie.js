@@ -4,7 +4,11 @@ import { Loader } from "../../components/Loader/Loader";
 import { useNavigate, useParams } from "react-router-dom";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
-import { addPost, reset , updatePost } from "../../app/features/memorie/postSlice";
+import {
+  addPost,
+  reset,
+  updatePost,
+} from "../../app/features/memorie/postSlice";
 import "./AddEditMemo.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,10 +17,14 @@ function AddEditMemo() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [form, setForm] = useState({title:"" , body:"",image:""});
-   const [picture, setPicture] = useState(null);
-  const { error, posts, isLoading, message, fulfilled } = useSelector(
-    (state) => (state.post)
+  const [form, setForm] = useState({ title: "", body: "", image: "" });
+  const [picture, setPicture] = useState(null);
+  const { error, isLoading, message, fulfilled } = useSelector(
+    (state) => state.post
+  );
+
+  const memorie = useSelector((state) =>
+    id ? state.post.posts.find((post) => post._id === id) : null
   );
 
   //displaying picture after upload handler
@@ -31,19 +39,16 @@ function AddEditMemo() {
 
   //handling the memorie old fields for the update
   useEffect(() => {
-    if (id) {
-      const memorie = posts.find((post) => post._id === id);
-      setForm({...memorie});
-    }
-  }, [id]);
+    if (memorie) setForm({ ...memorie });
+  }, [memorie]);
 
   useEffect(() => {
     message && toast.success(message, { position: toast.POSITION.TOP_RIGHT });
-    if (!isLoading && fulfilled) {
+    if ((!isLoading && fulfilled) || (!isLoading && fulfilled && id)) {
       dispatch(reset());
-      clear();
+      navigate("/");
     }
-  }, [error, message, fulfilled, dispatch, isLoading, navigate]);
+  }, [id, error, message, fulfilled, dispatch, isLoading, navigate]);
 
   //onChangeHandler
   const onChangeHandler = (e) => {
@@ -64,9 +69,13 @@ function AddEditMemo() {
   //onsubmitHandler
   const onsubmitHandler = (event) => {
     event.preventDefault();
-    id ?  dispatch(updatePost({id,form})) : dispatch(addPost(form)) 
-    clear()
-    };
+    if (id) {
+      dispatch(updatePost({ id, form }));
+    } else {
+      dispatch(addPost(form));
+    }
+    clear();
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -77,7 +86,7 @@ function AddEditMemo() {
       <h1 className="New-Post-Title">
         {id ? "Update Your Memorie" : "Share a Memorie"}
       </h1>
-      <form className="New-Post-Form" onSubmit={onsubmitHandler} >
+      <form className="New-Post-Form" onSubmit={onsubmitHandler}>
         <CustomInput
           type="text"
           placeholder="title..."
@@ -85,8 +94,8 @@ function AddEditMemo() {
           name="title"
           onChange={onChangeHandler}
           error={error.title}
-          value={form.title }
-         />
+          value={form.title}
+        />
         <hr />
         <img
           id="output"
@@ -113,7 +122,7 @@ function AddEditMemo() {
           onChange={onChangeHandler}
           error={error.body}
           value={form.body}
-         />
+        />
 
         <CustomButton
           className="button button8"

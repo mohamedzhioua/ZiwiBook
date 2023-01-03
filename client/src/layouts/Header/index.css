@@ -29,3 +29,7 @@ border-bottom: 1px solid;
 .Navbar .hamburger {
   background-color: #5c6e58;
 }
+
+#Search {
+  display: none;
+}
