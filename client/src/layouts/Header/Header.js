@@ -11,6 +11,7 @@ import {
 import { AiOutlineHome, AiFillHome } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, reset } from "../../app/features/auth/authSlice";
+import Search from "../../components/SearchBar/Search";
 
 const Header = () => {
   const [home, setHome] = useState(true);
@@ -77,17 +78,9 @@ const Header = () => {
               <>
                 {home ? (
                   <>
-                    <form class="d-flex" id="Search">
-                      <input
-                        class="form-control me-2"
-                        type="search"
-                        placeholder="Search"
-                        aria-label="Search"
-                      />
-                      <button class="btn btn-light" type="submit">
-                        search
-                      </button>
-                    </form>
+                      <form class="d-flex" id="Search">
+                  <Search />
+                  </form>
                   </>
                 ) : (
                   <Nav.Link

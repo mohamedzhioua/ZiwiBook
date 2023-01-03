@@ -1,20 +1,28 @@
-import React, { useEffect } from "react";
-import { fetchPosts } from "../../app/features/memorie/postSlice";
+import React, { useEffect, useState } from "react";
+import { fetchPosts} from "../../app/features/memorie/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card/Card";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CustomButton from "../../components/CustomButton/CustomButton";
-import CustomInput from "../../components/CustomInput/CustomInput";
 import "./Home.css";
+//   const[input,setInput]=useState('')
+
 function Home() {
-  const { posts } = useSelector((state) => state.post);
+  const[input,setInput]=useState('')
+  const { posts} = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
-  useEffect(() => {
+  // let location = useLocation();
+  // console.log("🚀 ~ file: Home.js:15 ~ Home ~ location", location)
+  // const { input} = location.state;
+  // console.log("🚀 ~ file: Home.js:17 ~ Home ~ input", input)
+  useEffect(()=>{
     dispatch(fetchPosts());
-  }, [dispatch]);
+  },[dispatch])
+
+ 
+
+ 
 
   return (
     <div
@@ -25,7 +33,9 @@ function Home() {
         <h1 className="text-center">No Memories Found!....You can Share One</h1>
       ) : (
         <div class="row g-3">
-          {posts.map((post) => (
+          {posts
+          .filter(post=>post.body.includes(input) || post.title.includes(input))
+          .map((post) => (
             <div class="col-12 col-md-6 col-lg-4" key={post._id}>
               <Card post={post} userId={user._id} />
             </div>
