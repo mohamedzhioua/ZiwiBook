@@ -90,9 +90,13 @@ export const postSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(deleteOne.fulfilled, (state, action) => {
+        console.log("🚀 ~ file: postSlice.js:93 ~ .addCase ~ action", action)
         state.isLoading = false;
         state.message = action.payload.message;
         state.fulfilled = true;
+        const {arg} =action.meta 
+        if(arg){state.posts = state.posts.filter((post)=>post._id !== arg)
+        }
       })
       .addCase(deleteOne.rejected, (state, action) => {
         state.isLoading = false;
