@@ -1,24 +1,22 @@
-import React, { useState } from 'react'
-import {GoSearch} from "react-icons/go"
-import "./Search.css"
-const Search = () => {
-    const[input,setInput]=useState('')
-
+import React from "react";
+import { GoSearch } from "react-icons/go";
+import CustomInput from "../CustomInput/CustomInput";
+import "./Search.css";
+const Search = ({ onChange }) => { 
+  
   return (
-    <div className='searchInputs'>
-    <input
-    className='search-input'
-      type="search"
-      placeholder="Search"
-      aria-label="Search"
-      onChange={(e)=>setInput(e.target.value)}
-    />
-          <div className="searchIcon">
-            <GoSearch/>
-          </div>
-
+    <div className="searchInputs">
+      <CustomInput
+        className="search-input"
+        type="search"
+        placeholder="Search Memories . . . . ."
+        onChange={onChange}
+      />
+      <div className="searchIcon">
+        <GoSearch />
+      </div>
     </div>
-   )
-}
+  );
+};
 
-export default Search
+export default Search;

@@ -1,5 +1,4 @@
-import React  from "react";
-import classnames from "classnames";
+import React from "react";
 import "./CustomInput.css";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 const CustomInput = ({
@@ -11,11 +10,11 @@ const CustomInput = ({
   placeholder,
   value,
   defaultValue,
-   accept,
+  accept,
   float,
-  onClick
+  onClick,
+  className
 }) => {
-
   return (
     <div className={!float ? "form-group mb-2" : "form-group mb-4"}>
       <div className={float && "form-floating"}>
@@ -24,35 +23,29 @@ const CustomInput = ({
           <textarea
             name={name}
             onChange={onChange}
-            className={classnames("form-control", { "is-invalid": error })}
+            className={error ? "form-control is-invalid" : "form-control"}
             placeholder={placeholder}
             value={value}
             defaultValue={defaultValue}
-           />
+          />
         ) : (
           <input
             type={type}
             name={name}
             onChange={onChange}
-            className={classnames("form-control", { "is-invalid": error })}
+            className={className ? (className) : (error ? "form-control is-invalid" : "form-control" ) }
             placeholder={placeholder}
             value={value}
             defaultValue={defaultValue}
             accept={accept}
-           />
+          />
         )}
         {name === "password" ? (
           <>
             {type === "password" ? (
-              <FaRegEyeSlash
-                onClick={onClick}
-                className="Icon"
-              />
+              <FaRegEyeSlash onClick={onClick} className="Icon" />
             ) : (
-              <FaRegEye 
-              onClick={onClick}
-            className="Icon"
-              />
+              <FaRegEye onClick={onClick} className="Icon" />
             )}
           </>
         ) : (

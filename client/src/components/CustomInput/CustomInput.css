@@ -10,3 +10,17 @@ label{
     font-size: 17px;
     cursor: "pointer";
   }
+  .search-input {
+    background-color: white;
+    border: 0;
+    border-radius: 10px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    font-size: 16px;
+    padding: 15px;
+    height: 40px;
+    width: 300px;
+  }
+  .search-input:focus {
+    outline: none;
+  }

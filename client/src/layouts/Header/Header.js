@@ -11,7 +11,6 @@ import {
 import { AiOutlineHome, AiFillHome } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, reset } from "../../app/features/auth/authSlice";
-import Search from "../../components/SearchBar/Search";
 
 const Header = () => {
   const [home, setHome] = useState(true);
@@ -43,8 +42,17 @@ const Header = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse className="hamburger" id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link className="Nav-link" as={Link} to="/" onClick={homeClick}>
-              {!home ? <AiOutlineHome size={20} /> : <AiFillHome size={20} />}{" "}
+            <Nav.Link
+              className="Nav-link"
+              as={Link}
+              to="/"
+              onClick={homeClick}
+            >
+              {!home ? (
+                <AiOutlineHome className="Navbar-icon" />
+              ) : (
+                <AiFillHome className="Navbar-icon" />
+              )}{" "}
               <b>Home</b>
             </Nav.Link>
             {(isConnected || token) && (
@@ -57,9 +65,9 @@ const Header = () => {
                   onClick={profileClick}
                 >
                   {profile ? (
-                    <FaUserCircle size={20} />
+                    <FaUserCircle className="Navbar-icon" />
                   ) : (
-                    <FaRegUserCircle size={20} />
+                    <FaRegUserCircle className="Navbar-icon" />
                   )}{" "}
                   <b>profile</b>
                 </Nav.Link>
@@ -71,27 +79,19 @@ const Header = () => {
               <>
                 {" "}
                 <Nav.Link className="Nav-link" as={Link} to="/login">
-                  <FaSignInAlt size={20} /> <b>login</b>
+                  <FaSignInAlt className="Navbar-icon" /> <b>login</b>
                 </Nav.Link>
               </>
             ) : (
               <>
-                {home ? (
-                  <>
-                      <form class="d-flex" id="Search">
-                  <Search />
-                  </form>
-                  </>
-                ) : (
-                  <Nav.Link
-                    className="Nav-link"
-                    as={Link}
-                    to="#"
-                    onClick={LogoutHandler}
-                  >
-                    <FaSignOutAlt size={20} /> <b>logout</b>
-                  </Nav.Link>
-                )}
+                <Nav.Link
+                  className="Nav-link"
+                  as={Link}
+                  to="#"
+                  onClick={LogoutHandler}
+                >
+                  <FaSignOutAlt className="Navbar-icon" /> <b>logout</b>
+                </Nav.Link>
               </>
             )}
           </Nav>

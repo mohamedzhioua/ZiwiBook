@@ -10,6 +10,9 @@
 .card-img-top {
   height: 350px;
 }
-.edit-link{
+.edit-link {
   color: black !important;
 }
+.card-icon {
+  font-size: 20px
+ }

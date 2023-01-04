@@ -15,7 +15,7 @@ const Card = ({ post, userId }) => {
     <div class="card h-100">
       {userId === post.user && (
         <div className="d-flex justify-content-end">
-          {userId === post.user && <Link className="edit-link" to={`/${post._id}`}><HiDotsHorizontal fontSize={"20px"} /></Link>}
+          {userId === post.user && <Link className="edit-link" to={`/${post._id}`}><HiDotsHorizontal className="card-icon"  /></Link>}
         </div>
       )}
       <img src={post.image} class="card-img-top" alt="..." />
@@ -27,7 +27,7 @@ const Card = ({ post, userId }) => {
 
       <div class="row" style={{ padding: "10px" }}>
         <div class="col d-flex justify-content-start">
-          <AiFillLike fontSize={"20px"} /> like
+         <AiFillLike  className="card-icon" /> like  
         </div>
         {userId === post.user && (
           <>
@@ -35,7 +35,7 @@ const Card = ({ post, userId }) => {
               class="col d-flex justify-content-end"
               onClick={() => dispatch(deleteOne(post._id))}
             >
-              <MdDelete fontSize={"20px"} /> Delete
+              <MdDelete className="card-icon" /> Delete  
             </div>
           </>
         )}
