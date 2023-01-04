@@ -2,8 +2,7 @@ import React from "react";
 import { GoSearch } from "react-icons/go";
 import CustomInput from "../CustomInput/CustomInput";
 import "./Search.css";
-const Search = ({ onChange }) => { 
-  
+const Search = ({ onChange }) => {
   return (
     <div className="searchInputs">
       <CustomInput

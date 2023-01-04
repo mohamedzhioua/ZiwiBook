@@ -12,7 +12,3 @@
   display: grid;
   place-items: center;
 }
-
-.searchIcon svg {
-  font-size: 20px;
-}
