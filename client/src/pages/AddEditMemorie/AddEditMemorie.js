@@ -46,7 +46,6 @@ function AddEditMemo() {
     message && toast.success(message, { position: toast.POSITION.TOP_RIGHT });
     if ((!isLoading && fulfilled) || (!isLoading && fulfilled && id)) {
       dispatch(reset());
-      navigate("/");
     }
   }, [id, error, message, fulfilled, dispatch, isLoading, navigate]);
 
@@ -91,7 +90,7 @@ function AddEditMemo() {
     <div class="modal-content">
       <div class="modal-header">
       
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={(e)=>{ clear(); dispatch(reset())}}></button>
       </div>
       <div class="modal-body">
     <div className="Post-list-item">

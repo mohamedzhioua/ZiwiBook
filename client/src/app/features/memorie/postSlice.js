@@ -58,7 +58,12 @@ export const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: (state) => {
+      state.error= "";
+      state.message= "";
+      state.isLoading= false;
+      state.fulfilled= false;
+    },
   },
   extraReducers: (builder) => {
     builder
