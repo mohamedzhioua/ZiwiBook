@@ -13,8 +13,8 @@ const CustomInput = ({
   accept,
   float,
   onClick,
-  className
-}) => {
+   className,
+ }) => {
    return (
     <div className={!float ? "form-group mb-2" : "form-group mb-4"}>
       <div className={float && "form-floating"}>
@@ -37,8 +37,8 @@ const CustomInput = ({
             placeholder={placeholder}
             value={value}
             defaultValue={defaultValue}
-            accept={accept}
-          />
+            accept={accept} 
+            />
         )}
         {name === "password" ? (
           <>

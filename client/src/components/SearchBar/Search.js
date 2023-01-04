@@ -1,5 +1,5 @@
 import React from "react";
-import { GoSearch } from "react-icons/go";
+import { ImSearch } from "react-icons/im";
 import CustomInput from "../CustomInput/CustomInput";
 import "./Search.css";
 const Search = ({ onChange }) => {
@@ -12,7 +12,7 @@ const Search = ({ onChange }) => {
         onChange={onChange}
       />
       <div className="searchIcon">
-        <GoSearch />
+        <ImSearch />
       </div>
     </div>
   );

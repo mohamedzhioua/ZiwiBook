@@ -1,7 +1,8 @@
-.Post-list-item {
+
+/* .Post-list-item {
   width: 590px;
-  max-width: 100%; /* make the container responsive with all devices */
-  max-height: 100%; /* make the container responsive with all devices */
+  max-width: 100%; 
+  max-height: 100%;  
   min-height: 250px;
   margin: auto;
   margin-top: 20px;
@@ -9,10 +10,8 @@
   border-radius: 4px;
   padding: 20px 60px;
   box-shadow: 0 0 1em #80808066;
-}
-/* form {
-      display: grid !important;
-    } */
+}  */
+ 
 
 form textarea {
   width: 100%;

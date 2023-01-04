@@ -6,7 +6,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Home.css";
 import Search from "../../components/SearchBar/Search";
-
+ import AddEditMemorie from "../AddEditMemorie/AddEditMemorie"
+ 
 function Home() {
   const [wordEntered, setWordEntered] = useState("");
   const { posts } = useSelector((state) => state.post);
@@ -24,11 +25,18 @@ function Home() {
 
   return (
     <>
-      <Search onChange={FilterQuery} />
       <div
         className="container"
         style={{ marginTop: "10px", marginBottom: "40px" }}
-      >
+      > 
+       <div class="row" >
+      <div class="col-md-8">
+        <Search onChange={FilterQuery} />
+      </div>
+      <div class="col-6 col-md-4">
+<AddEditMemorie/>
+       </div>
+     </div>
         {!posts.length ? (
           <h1 className="text-center">
             No Memories Found!....You can Share One
@@ -46,7 +54,11 @@ function Home() {
         )}
         <ToastContainer />
       </div>
-    </>
+ 
+
+
+  
+     </>
   );
 }
 
