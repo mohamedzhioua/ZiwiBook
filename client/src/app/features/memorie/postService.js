@@ -29,11 +29,18 @@ const updatePost = async (id, form) => {
   return response.data;
 };
 
+// Find a post by ID
+const FindPost = async (id) => {
+  const response = await axios.get(`/post/getOnePost/${id}`);
+  return response.data;
+};
+
 const postService = {
   addPost,
   fetchAll,
   deleteOne,
   updatePost,
+  FindPost,
 };
 
 export default postService;

@@ -3,10 +3,9 @@ import "./Card.css";
 import moment from "moment";
 import { MdDelete } from "react-icons/md";
 import { AiFillLike } from "react-icons/ai";
-import { HiDotsHorizontal } from "react-icons/hi";
 import { deleteOne } from "../../app/features/memorie/postSlice";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import Modal from "../Modal";
 
 const Card = ({ post, userId }) => {
   const dispatch = useDispatch();
@@ -15,7 +14,11 @@ const Card = ({ post, userId }) => {
     <div class="card h-100">
       {userId === post.user && (
         <div className="d-flex justify-content-end">
-          {userId === post.user && <Link className="edit-link" to={`/${post._id}`}><HiDotsHorizontal className="card-icon"  /></Link>}
+          {userId === post.user && (
+            <>
+              <Modal EDIT />{" "}
+            </>
+          )}
         </div>
       )}
       <img src={post.image} class="card-img-top" alt="..." />
@@ -27,7 +30,7 @@ const Card = ({ post, userId }) => {
 
       <div class="row" style={{ padding: "10px" }}>
         <div class="col d-flex justify-content-start">
-         <AiFillLike  className="card-icon" /> like  
+          <AiFillLike className="card-icon" /> like
         </div>
         {userId === post.user && (
           <>
@@ -35,7 +38,7 @@ const Card = ({ post, userId }) => {
               class="col d-flex justify-content-end"
               onClick={() => dispatch(deleteOne(post._id))}
             >
-              <MdDelete className="card-icon" /> Delete  
+              <MdDelete className="card-icon" /> Delete
             </div>
           </>
         )}

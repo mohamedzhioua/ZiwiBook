@@ -3,6 +3,7 @@ import postService from "./postService";
 
 const initialState = {
   posts: [],
+  post: {},
   error: "",
   message: "",
   isLoading: false,
@@ -54,15 +55,28 @@ export const updatePost = createAsyncThunk(
   }
 );
 
+//find a post by id
+export const FindPost = createAsyncThunk(
+  "post/FindPost",
+  async (id, thunkAPI) => {
+    try {
+      return await postService.FindPost(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {
     reset: (state) => {
-      state.error= "";
-      state.message= "";
-      state.isLoading= false;
-      state.fulfilled= false;
+      state.error = "";
+      state.message = "";
+      state.isLoading = false;
+      state.fulfilled = false;
+      state.post = {};
     },
   },
   extraReducers: (builder) => {
@@ -95,12 +109,13 @@ export const postSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(deleteOne.fulfilled, (state, action) => {
-        console.log("🚀 ~ file: postSlice.js:93 ~ .addCase ~ action", action)
+        console.log("🚀 ~ file: postSlice.js:93 ~ .addCase ~ action", action);
         state.isLoading = false;
         state.message = action.payload.message;
         state.fulfilled = true;
-        const {arg} =action.meta 
-        if(arg){state.posts = state.posts.filter((post)=>post._id !== arg)
+        const { arg } = action.meta;
+        if (arg) {
+          state.posts = state.posts.filter((post) => post._id !== arg);
         }
       })
       .addCase(deleteOne.rejected, (state, action) => {
@@ -116,6 +131,17 @@ export const postSlice = createSlice({
         state.fulfilled = true;
       })
       .addCase(updatePost.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(FindPost.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(FindPost.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.post = action.payload;
+      })
+      .addCase(FindPost.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });
