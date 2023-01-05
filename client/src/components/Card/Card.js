@@ -6,6 +6,7 @@ import { AiFillLike } from "react-icons/ai";
 import { deleteOne } from "../../app/features/memorie/postSlice";
 import { useDispatch } from "react-redux";
 import Modal from "../Modal";
+import { FindPost } from "../../app/features/memorie/postSlice";
 
 const Card = ({ post, userId }) => {
   const dispatch = useDispatch();
@@ -15,9 +16,9 @@ const Card = ({ post, userId }) => {
       {userId === post.user && (
         <div className="d-flex justify-content-end">
           {userId === post.user && (
-            <>
+            <div  onClick={() => dispatch(FindPost(post._id))}>
               <Modal EDIT />{" "}
-            </>
+            </div>
           )}
         </div>
       )}
