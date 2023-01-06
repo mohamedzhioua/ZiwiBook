@@ -28,11 +28,11 @@ module.exports = {
         req.body.image = imageDetails.url;
         req.body.cloudinary_id = imageDetails.public_id;
         await Post.create(req.body);
-        res.status(200).json({ message: "post added with success" });
+        return res.status(200).json({ message: "post added with success" });
       } else {
         req.body.user = req.user.id;
         await Post.create(req.body);
-        res.status(200).json({ message: "post added with success" });
+        return res.status(200).json({ message: "post added with success" });
       }
     } catch (error) {
       console.log(error.message);
@@ -45,8 +45,9 @@ module.exports = {
     const { file } = req;
     try {
       const data = await Post.findById({ _id: req.params.id });
-      if (data.cloudinary_id)
+      if (data.cloudinary_id) {
         await cloudinary.removeFromCloudinary(data.cloudinary_id);
+      }
       if (!isValid) {
         return res.status(404).json(errors);
       }
@@ -83,8 +84,8 @@ module.exports = {
   deletePost: async (req, res) => {
     try {
       const data = await Post.findById({ _id: req.params.id });
-      if (data.cloudinary_id){
-        await cloudinary.removeFromCloudinary(data.cloudinary_id)
+      if (data.cloudinary_id) {
+        await cloudinary.removeFromCloudinary(data.cloudinary_id);
       }
       await data.remove();
       return res.status(201).json({ message: "post deleted with success" });

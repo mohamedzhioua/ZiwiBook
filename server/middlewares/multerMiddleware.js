@@ -9,7 +9,7 @@ module.exports = multer({
   //accepting only jpg jpeg png files
   fileFilter: function (req, file, cb) {
     const fileRegex = new RegExp(".(jpg|jpeg|png)$");
-    const fileName = file.originalname  
+    const fileName = file.originalname;
 
     if (!fileName.match(fileRegex)) {
       //throw exception
@@ -17,5 +17,5 @@ module.exports = multer({
     }
     //pass the file
     cb(null, true);
-  },   
+  },
 }).single("image"); //single for accepting only one file from 'image' form-data key
