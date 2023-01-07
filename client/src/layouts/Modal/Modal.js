@@ -1,21 +1,24 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Close from "../../images/Close.png";
 import "./Modal.css";
-import AddEditForm from "../../components/AddEditForm/AddEditForm";
+import { useSelector } from "react-redux";
 
 const Modal = () => {
+  const { isOpen } = useSelector((state) => state.modal);
   return (
-    <div className="container">
-      <div className="modal-backDrop"></div>
-      <div className="modal-container">
+    <Fragment>
+      <div
+        className={`modal-backDrop ${isOpen ? "modal-show" : "modal-hide"}`}
+      ></div>
+      <div
+        className={`modal-container ${isOpen ? "modal-show" : "modal-hide"}`}
+      >
         <div className="modal-close">
           <img src={Close} className="modal-close-icon" alt="X" />
         </div>
-        <div className="modal-content">
-          <AddEditForm />
-        </div>
+        <div className="modal-content"></div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 
