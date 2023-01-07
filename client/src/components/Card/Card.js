@@ -3,10 +3,10 @@ import "./Card.css";
 import moment from "moment";
 import { MdDelete } from "react-icons/md";
 import { AiFillLike } from "react-icons/ai";
+import {BsThreeDots} from "react-icons/bs"
 import { deleteOne } from "../../app/features/memorie/postSlice";
 import { useDispatch } from "react-redux";
-import Modal from "../../layouts/Modal/Modal";
- 
+import { openModal } from "../../app/features/modal/modalSlice";  
 const Card = ({ post, userId }) => {
   const dispatch = useDispatch();
 
@@ -15,10 +15,8 @@ const Card = ({ post, userId }) => {
       {userId === post.user && (
         <div className="d-flex justify-content-end">
           {userId === post.user && (
-            // <div  onClick={() => dispatch(FindPost(post._id))}>
-               <div>
-              {/* <Modal EDIT post={post}/>{" "} */}
-            </div>
+            <BsThreeDots className="card-icon" onClick={() => dispatch(openModal('AddEditForm'))}>
+            </BsThreeDots>
           )}
         </div>
       )}
@@ -37,7 +35,7 @@ const Card = ({ post, userId }) => {
           <>
             <div
               class="col d-flex justify-content-end"
-              onClick={() => dispatch(deleteOne(post._id))}
+              onClick={() => {dispatch(deleteOne(post._id)) ; dispatch(openModal('DeleteConfirm'))}}
             >
               <MdDelete className="card-icon" /> Delete
             </div>

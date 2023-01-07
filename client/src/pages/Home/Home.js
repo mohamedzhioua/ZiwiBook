@@ -6,8 +6,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Home.css";
 import Search from "../../components/SearchBar/Search";
-import Modal from "../../layouts/Modal/Modal";
- 
+import CustomButton from "../../components/CustomButton/CustomButton";
+import { openModal } from "../../app/features/modal/modalSlice";
+
 function Home() {
   const [wordEntered, setWordEntered] = useState("");
   const { posts } = useSelector((state) => state.post);
@@ -34,7 +35,7 @@ function Home() {
             <Search onChange={FilterQuery} />
           </div>
           <div class="col-6 col-md-4">
-            <Modal />
+            <CustomButton className="button2" value="add Memorie" onClick={()=>dispatch(openModal('AddEditForm'))} />
           </div>
         </div>
         {!posts.length ? (
