@@ -1,0 +1,87 @@
+/* modal */
+.modal-backDrop {
+  position: fixed;
+  z-index: 1000;
+  background: rgb(0 0 0 / 0.4);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s;
+}
+
+.modal-container {
+  position: absolute;
+  z-index: 1500;
+  background-color: white;
+  max-width: 100%;
+  max-height: 100%;
+  width: 450px;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0px 0px 16px 1px rgba(0, 0, 0, 0.1);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s;
+  padding: 20px 40px;
+}
+
+.modal-close {
+  top: 6px;
+  right: 6px;
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.modal-close-icon {
+  top: 5px;
+  right: 5px;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  -webkit-transition: -webkit-transform 0.25s, opacity 0.25s;
+  -moz-transition: -moz-transform 0.25s, opacity 0.25s;
+  transition: transform 0.25s, opacity 0.25s;
+  opacity: 0.25;
+}
+.modal-close-icon:hover {
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  transform: rotate(270deg);
+  opacity: 1;
+}
+
+.modal-content {
+  width: 100%;
+  height: 100%;
+}
+
+.modal-hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal-show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* custom modal class */
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}

@@ -12,24 +12,3 @@
   box-shadow: 0 0 1em #80808066;
 }  */
  
-
-form textarea {
-  width: 100%;
-  height: 100px;
-  font-size: 12px;
-  margin-top: 2px;
-  resize: none;
-  border-radius: 4px;
-}
-
-.New-Post-Title 
-{
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  margin-top: 0;
-  font-size: 35px;
-  margin-bottom: 20px;
-  padding: 5px;
-  color: #2c3e50;
-}

@@ -6,8 +6,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Home.css";
 import Search from "../../components/SearchBar/Search";
-import Modal from "../../components/Modal";
-
+import Modal from "../../layouts/Modal/Modal";
+ 
 function Home() {
   const [wordEntered, setWordEntered] = useState("");
   const { posts } = useSelector((state) => state.post);
