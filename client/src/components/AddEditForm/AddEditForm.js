@@ -3,8 +3,7 @@ import CustomButton from "../CustomButton/CustomButton";
 import CustomInput from "../CustomInput/CustomInput";
 import "./AddEditForm.css";
 
-const AddEditForm = (props) => {
-  console.log("🚀 ~ file: AddEditForm.js:7 ~ AddEditForm ~ props", props)
+const AddEditForm = ({ Edit }) => {
   const [form, setForm] = useState({ title: "", body: "", image: "" });
   const [picture, setPicture] = useState(null);
 
@@ -41,7 +40,9 @@ const AddEditForm = (props) => {
   return (
     <>
       <div className="Post-list-item">
-        <h1 className="New-Post-Title">Share a Memorie</h1>
+        <h1 className="New-Post-Title">
+          {Edit ? "Update your " : "Share a "}Memorie
+        </h1>
         <form className="New-Post-Form" onSubmit={onsubmitHandler}>
           <CustomInput
             type="text"
@@ -82,7 +83,7 @@ const AddEditForm = (props) => {
 
           <CustomButton
             className="button button8"
-            value="submit"
+            value={Edit ? "update" : "submit"}
             type="submit"
             disabled={!form.body || !form.title}
           />
