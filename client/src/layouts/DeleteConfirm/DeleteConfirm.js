@@ -5,7 +5,7 @@ import "./DeleteConfirm.css";
 import { useDispatch } from "react-redux";
 import { deleteOne } from "../../app/features/memorie/postSlice";
 import { closeModal } from "../../app/features/modal/modalSlice";
-const DeleteConfirm = ({ id }) => {
+const DeleteConfirm = ({id}) => {
   const dispatch = useDispatch();
 
   return (

@@ -14,7 +14,7 @@ const Card = ({ post, userId }) => {
       {userId === post.user && (
         <div className="d-flex justify-content-end">
           {userId === post.user && (
-            <BsThreeDots className="card-icon" onClick={() => dispatch(openModal({name:'AddEditForm',childrenProps:{Edit:"edit"}}))}>
+            <BsThreeDots className="card-icon" onClick={() => dispatch(openModal({name:'AddEditForm',childrenProps:{post:post}}))}>
             </BsThreeDots>
           )}
         </div>

@@ -109,15 +109,15 @@ export const postSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(deleteOne.fulfilled, (state, action) => {
-        console.log("🚀 ~ file: postSlice.js:93 ~ .addCase ~ action", action);
         state.isLoading = false;
         state.message = action.payload.message;
+        console.log("🚀 ~ file: postSlice.js:114 ~ .addCase ~ action", action)
         state.fulfilled = true;
-        const { arg } = action.meta;
-        if (arg) {
-          state.posts = state.posts.filter((post) => post._id !== arg);
+        const {arg:{id}}=action.meta
+        if (id){
+          state.posts = state.posts.filter((item) => item._id !== id);
         }
-      })
+        })
       .addCase(deleteOne.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
@@ -128,7 +128,12 @@ export const postSlice = createSlice({
       .addCase(updatePost.fulfilled, (state, action) => {
         state.isLoading = false;
         state.message = action.payload.message;
+        console.log("🚀 ~ file: postSlice.js:130 ~ .addCase ~ action", action)
         state.fulfilled = true;
+        const {arg:{id}}=action.meta
+        if (id){
+          state.posts = state.posts.map((item) => item._id === id ? action.payload : item);
+        }
       })
       .addCase(updatePost.rejected, (state, action) => {
         state.isLoading = false;

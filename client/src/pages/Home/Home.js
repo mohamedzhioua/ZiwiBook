@@ -45,7 +45,7 @@ function Home() {
         ) : (
           <div class="row g-3">
             {posts
-              .filter((post) => post.title.toLowerCase().includes(wordEntered))
+              .filter((post) => post.title.includes(wordEntered.toLowerCase()))
               .map((post) => (
                 <div class="col-12 col-md-6 col-lg-4" key={post._id}>
                   <Card post={post} userId={user._id} />

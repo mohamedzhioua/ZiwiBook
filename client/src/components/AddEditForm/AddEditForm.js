@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addPost, updatePost } from "../../app/features/memorie/postSlice";
 import CustomButton from "../CustomButton/CustomButton";
 import CustomInput from "../CustomInput/CustomInput";
 import "./AddEditForm.css";
 
-const AddEditForm = ({ Edit }) => {
+const AddEditForm = ({ Edit, post }) => {
   const [form, setForm] = useState({ title: "", body: "", image: "" });
   const [picture, setPicture] = useState(null);
+  const dispatch = useDispatch();
+  // post id
+  const id = form._id || null;
 
   //displaying picture after upload handler
   const onChangePicture = (e) => {
     setPicture(URL.createObjectURL(e.target.files[0]));
   };
+
+  //handling the memorie old fields for the update
+  useEffect(() => {
+    if (post) setForm({ ...post });
+  }, [post]);
 
   //clearing the state for the newest user inputs
   const clear = () => {
@@ -33,15 +43,23 @@ const AddEditForm = ({ Edit }) => {
       [e.target.name]: e.target.files[0],
     });
   };
+  
   //onsubmitHandler
   const onsubmitHandler = (event) => {
     event.preventDefault();
+    if (post) {
+      dispatch(updatePost({ id, form }));
+    } else {
+      dispatch(addPost(form));
+    }
+    clear();
   };
+
   return (
     <>
       <div className="Post-list-item">
         <h1 className="New-Post-Title">
-          {Edit ? "Update your " : "Share a "}Memorie
+          {post ? "Update your " : "Share a "}Memorie
         </h1>
         <form className="New-Post-Form" onSubmit={onsubmitHandler}>
           <CustomInput
@@ -83,7 +101,7 @@ const AddEditForm = ({ Edit }) => {
 
           <CustomButton
             className="button button8"
-            value={Edit ? "update" : "submit"}
+            value={post ? "update" : "submit"}
             type="submit"
             disabled={!form.body || !form.title}
           />
