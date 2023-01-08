@@ -35,7 +35,7 @@ function Home() {
             <Search onChange={FilterQuery} />
           </div>
           <div class="col-6 col-md-4">
-            <CustomButton className="button2" value="add Memorie" onClick={()=>dispatch(openModal('AddEditForm'))} />
+            <CustomButton className="button2" value="add Memorie" onClick={()=>dispatch(openModal({name:'AddEditForm'}))} />
           </div>
         </div>
         {!posts.length ? (

@@ -43,14 +43,7 @@ const Router = () => {
           </ForceRedirect>
         }
       />
-      <Route
-        path="/:id"
-        element={
-          <PrivateRoute>
-            <AddEditMemo />
-          </PrivateRoute>
-        }
-      />
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

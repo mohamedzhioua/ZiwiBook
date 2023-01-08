@@ -1,22 +1,24 @@
-import React, { useState } from 'react'
-import CustomButton from '../CustomButton/CustomButton';
-import CustomInput from '../CustomInput/CustomInput';
-import  "./AddEditForm.css"
-const AddEditForm = () => {
-    const [form, setForm] = useState({ title: "", body: "", image: "" });
-    const [picture, setPicture] = useState(null);
+import React, { useState } from "react";
+import CustomButton from "../CustomButton/CustomButton";
+import CustomInput from "../CustomInput/CustomInput";
+import "./AddEditForm.css";
+
+const AddEditForm = (props) => {
+  console.log("🚀 ~ file: AddEditForm.js:7 ~ AddEditForm ~ props", props)
+  const [form, setForm] = useState({ title: "", body: "", image: "" });
+  const [picture, setPicture] = useState(null);
 
   //displaying picture after upload handler
   const onChangePicture = (e) => {
     setPicture(URL.createObjectURL(e.target.files[0]));
   };
 
-    //clearing the state for the newest user inputs
-    const clear = () => {
-        setForm({ title: "", body: "", image: "" });
-      };
+  //clearing the state for the newest user inputs
+  const clear = () => {
+    setForm({ title: "", body: "", image: "" });
+  };
 
-        //onChangeHandler
+  //onChangeHandler
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setForm({
@@ -24,7 +26,7 @@ const AddEditForm = () => {
       [name]: value,
     });
   };
-  
+
   //onChangefile
   const onChangefile = (e) => {
     setForm({
@@ -35,13 +37,11 @@ const AddEditForm = () => {
   //onsubmitHandler
   const onsubmitHandler = (event) => {
     event.preventDefault();
-  }
+  };
   return (
     <>
-       <div className="Post-list-item">
-        <h1 className="New-Post-Title">
-             Share a Memorie
-        </h1>
+      <div className="Post-list-item">
+        <h1 className="New-Post-Title">Share a Memorie</h1>
         <form className="New-Post-Form" onSubmit={onsubmitHandler}>
           <CustomInput
             type="text"
@@ -87,9 +87,9 @@ const AddEditForm = () => {
             disabled={!form.body || !form.title}
           />
         </form>
-       </div>
-  </>
-  )
-}
+      </div>
+    </>
+  );
+};
 
-export default AddEditForm
+export default AddEditForm;

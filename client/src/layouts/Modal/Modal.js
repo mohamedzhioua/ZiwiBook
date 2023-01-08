@@ -1,22 +1,26 @@
 import React, { Fragment } from "react";
 import { closeModal } from "../../app/features/modal/modalSlice";
 import Close from "../../images/Close.png";
-import "./Modal.css";
 import { useSelector, useDispatch } from "react-redux";
-import AddEditForm from "../../components/AddEditForm/AddEditForm"
+import AddEditForm from "../../components/AddEditForm/AddEditForm";
 import DeleteConfirm from "../DeleteConfirm/DeleteConfirm";
+import "./Modal.css";
+
 const Modal = () => {
   const dispatch = useDispatch();
-  const { isOpen , componentName } = useSelector((state) => state.modal);
+  const { isOpen, componentName , childrenProps } = useSelector((state) => state.modal);
+  console.log("🚀 ~ file: Modal.js:12 ~ Modal ~ childrenProps", childrenProps)
+ 
   const closeModalHandler = () => dispatch(closeModal());
-  const componentHandler = () =>{
-    if (componentName ==='AddEditForm'){
-      return <AddEditForm/>
-      
-    } else if (componentName ==='DeleteConfirm'){
-      return <DeleteConfirm/>
-     }
+
+  const componentsLookUp =  {AddEditForm,DeleteConfirm}
+  let renderComponent ;
+  if(componentName){
+  const SelectedComponent = componentsLookUp[componentName]
+  if (SelectedComponent) {
+    renderComponent = <SelectedComponent {...childrenProps}/>
   }
+}
   return (
     <Fragment>
       <div
@@ -33,7 +37,7 @@ const Modal = () => {
             onClick={closeModalHandler}
           />
         </div>
-        <div className="modal-content">{componentHandler()}</div>
+        <div className="modal-content">{renderComponent}</div>
       </div>
     </Fragment>
   );

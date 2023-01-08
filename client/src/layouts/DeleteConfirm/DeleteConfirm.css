@@ -1,0 +1,15 @@
+.icon-box {
+  margin-top: 13px;
+}
+.title,
+.body {
+  margin-top: 15px;
+}
+.closeicon {
+  font-size: 80px;
+  color: #e40c2b;
+  opacity: 0.8;
+}
+.button-box {
+  padding: 10px 15px 25px;
+}
