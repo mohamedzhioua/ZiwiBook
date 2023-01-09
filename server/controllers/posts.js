@@ -13,7 +13,7 @@ module.exports = {
 
   addPost: async (req, res) => {
     const { errors, isValid } = PostValidation(req.body);
-    const { file } = req;
+    const { file } = req;    
     try {
       if (!isValid) {
         return res.status(404).json(errors);
@@ -76,7 +76,7 @@ module.exports = {
             new: true,
           }
         );
-        res.status(201).json({ message: "post updated successfully", memo });
+        res.status(200).json({ message: "post updated successfully", memo });
       } else {
         const memo = await Post.findByIdAndUpdate(
           { _id: req.params.id },
@@ -85,7 +85,7 @@ module.exports = {
             new: true,
           }
         );
-        res.status(201).json({ message: "post updated successfully", memo });
+        res.status(200).json({ message: "post updated successfully", memo });
       }
     } catch (error) {
       res.status(404).json({ message: error.message });
@@ -100,7 +100,7 @@ module.exports = {
         await cloudinary.removeFromCloudinary(memo.cloudinary_id);
       }
       await memo.remove();
-      return res.status(201).json({ message: "post deleted successfully" });
+      return res.status(200).json({ message: "post deleted successfully" });
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
@@ -110,7 +110,7 @@ module.exports = {
   getOnePost: async (req, res) => {
     try {
       const memo = await Post.findById({ _id: req.params.id });
-      res.status(201).json(memo);
+      res.status(200).json(memo);
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
@@ -120,7 +120,7 @@ module.exports = {
   getAllPost: async (req, res) => {
     try {
       const memo = await Post.find();
-      res.status(201).json(memo);
+      res.status(200).json(memo);
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
@@ -129,32 +129,35 @@ module.exports = {
   getAllPostbyUser: async (req, res) => {
     try {
       const memo = await Post.find({ userID: req.params.userID });
-      res.status(201).json(memo);
+      res.status(200).json(memo);
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
   },
   //  ----------------------//likes method //--------------------------- //
   like: async (req, res) => {
-    try {
-      const data = await Post.findById({ _id: req.params.id });
-      const index = data.likes.findIndex((id) => id === String(req.user.id));
-      if (index === -1) {
+    const {id}=req.params
+     
+ 
+     try {
+      const data = await Post.findById(id);
+       const index = data.likes.findIndex((id) => id === String(req.user.id));
+         if (index === -1) {
         data.likes.push(req.user.id);
       } else {
         data.likes = data.likes.filter((id) => id !== String(req.user.id));
       }
       const memo = await Post.findByIdAndUpdate(
-        { _id: req.params.id },
+        id ,
         data,
         {
           new: true,
         }
       );
-      res.status(201).json(memo);
+      res.status(200).json(memo);
 
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      res.status(404).json( error.message );
     }
   },
 };
