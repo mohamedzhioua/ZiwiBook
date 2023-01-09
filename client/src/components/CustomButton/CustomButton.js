@@ -1,6 +1,6 @@
 import "./CustomButton.css";
 
-const CustomButton = ({ type, className, value, disabled, onClick }) => {
+const CustomButton = ({ type, className, value, disabled, onClick ,dispatch}) => {
   return (
     <div class="d-grid gap-5 mb-2">
       <button
@@ -8,9 +8,7 @@ const CustomButton = ({ type, className, value, disabled, onClick }) => {
         className={className}
         onClick={onClick}
         disabled={disabled}
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
-      >
+       >
         {value}
       </button>
     </div>

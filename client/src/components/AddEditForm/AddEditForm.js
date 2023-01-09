@@ -3,9 +3,10 @@ import { useDispatch } from "react-redux";
 import { addPost, updatePost } from "../../app/features/memorie/postSlice";
 import CustomButton from "../CustomButton/CustomButton";
 import CustomInput from "../CustomInput/CustomInput";
+import { closeModal } from "../../app/features/modal/modalSlice";
 import "./AddEditForm.css";
 
-const AddEditForm = ({ Edit, post }) => {
+const AddEditForm = ({ post }) => {
   const [form, setForm] = useState({ title: "", body: "", image: "" });
   const [picture, setPicture] = useState(null);
   const dispatch = useDispatch();
@@ -43,14 +44,16 @@ const AddEditForm = ({ Edit, post }) => {
       [e.target.name]: e.target.files[0],
     });
   };
-  
+
   //onsubmitHandler
   const onsubmitHandler = (event) => {
     event.preventDefault();
     if (post) {
       dispatch(updatePost({ id, form }));
+      dispatch(closeModal());
     } else {
       dispatch(addPost(form));
+      dispatch(closeModal());
     }
     clear();
   };
@@ -103,7 +106,7 @@ const AddEditForm = ({ Edit, post }) => {
             className="button button8"
             value={post ? "update" : "submit"}
             type="submit"
-            disabled={!form.body || !form.title}
+            disabled={!form.title || !form.body}
           />
         </form>
       </div>

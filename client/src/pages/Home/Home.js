@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { fetchPosts } from "../../app/features/memorie/postSlice";
+import { fetchPosts, reset } from "../../app/features/memorie/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card/Card";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";import "react-toastify/dist/ReactToastify.css";
 import "./Home.css";
 import Search from "../../components/SearchBar/Search";
 import CustomButton from "../../components/CustomButton/CustomButton";
@@ -11,7 +11,7 @@ import { openModal } from "../../app/features/modal/modalSlice";
 
 function Home() {
   const [wordEntered, setWordEntered] = useState("");
-  const { posts } = useSelector((state) => state.post);
+  const { posts , message, fulfilled, isLoading } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -23,6 +23,12 @@ function Home() {
     const wordEntered = e.target.value.trim();
     setWordEntered(wordEntered);
   };
+  useEffect(() => {
+        message && toast.success(message, { position: toast.POSITION.TOP_RIGHT });
+        if (!isLoading && fulfilled){
+          dispatch(reset());
+        }
+      }, [  message, fulfilled, dispatch, isLoading]);
 
   return (
     <>
