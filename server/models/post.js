@@ -18,7 +18,7 @@ const PostSchema = new Schema(
     },
     image: String,
     cloudinary_id: String,
-    likeCount: {
+    likes: {
       type: Number,
       default: 0,
     },

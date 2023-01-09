@@ -6,6 +6,7 @@ const PostValidation = require("../validator/PostValidation");
 const cloudinary = require("../utils/cloudinary");
 // Load Datauri method
 const { bufferToDataURI } = require("../utils/Datauri");
+const post = require("../models/post");
 
 module.exports = {
   //  ----------------------//addPost method //--------------------------- //
@@ -27,15 +28,19 @@ module.exports = {
         req.body.user = req.user.id;
         req.body.image = imageDetails.url;
         req.body.cloudinary_id = imageDetails.public_id;
-       const memo = await Post.create(req.body);
-        return res.status(200).json({ message: "post added successfully" ,memo});
+        const memo = await Post.create(req.body);
+        return res
+          .status(200)
+          .json({ message: "post added successfully", memo });
       } else {
         req.body.user = req.user.id;
-        const memo =  await Post.create(req.body);
-        return res.status(200).json({ message: "post added successfully" ,memo });
+        const memo = await Post.create(req.body);
+        return res
+          .status(200)
+          .json({ message: "post added successfully", memo });
       }
     } catch (error) {
-        res.status(404).json({ message: error.message });
+      res.status(404).json({ message: error.message });
     }
   },
   //  ----------------------//updatePost method //--------------------------- //
@@ -83,50 +88,73 @@ module.exports = {
         res.status(201).json({ message: "post updated successfully", memo });
       }
     } catch (error) {
-        res.status(404).json({ message: error.message });
+      res.status(404).json({ message: error.message });
     }
   },
   //  ----------------------//deletePost method //--------------------------- //
 
   deletePost: async (req, res) => {
     try {
-      const data = await Post.findById({ _id: req.params.id });
-      if (data.cloudinary_id) {
-        await cloudinary.removeFromCloudinary(data.cloudinary_id);
+      const memo = await Post.findById({ _id: req.params.id });
+      if (memo.cloudinary_id) {
+        await cloudinary.removeFromCloudinary(memo.cloudinary_id);
       }
-      await data.remove();
+      await memo.remove();
       return res.status(201).json({ message: "post deleted successfully" });
     } catch (error) {
-        res.status(404).json({ message: error.message });
+      res.status(404).json({ message: error.message });
     }
   },
   //  -----------------------//getOnePost method //--------------------------- //
 
   getOnePost: async (req, res) => {
     try {
-      const data = await Post.findById({ _id: req.params.id });
-      res.status(201).json(data);
+      const memo = await Post.findById({ _id: req.params.id });
+      res.status(201).json(memo);
     } catch (error) {
-        res.status(404).json({ message: error.message });
+      res.status(404).json({ message: error.message });
     }
   },
   //  -----------------------//getAllPost method //--------------------------- //
 
   getAllPost: async (req, res) => {
     try {
-      const data = await Post.find();
-      res.status(201).json(data);
+      const memo = await Post.find();
+      res.status(201).json(memo);
     } catch (error) {
-        res.status(404).json({ message: error.message });
+      res.status(404).json({ message: error.message });
     }
   },
   //  -----------------------//getAllPost by userID method //--------------------------- //
   getAllPostbyUser: async (req, res) => {
     try {
-      const data = await Post.find({ userID: req.params.userID });
-      res.status(201).json(data);
+      const memo = await Post.find({ userID: req.params.userID });
+      res.status(201).json(memo);
     } catch (error) {
-        res.status(404).json({ message: error.message });
+      res.status(404).json({ message: error.message });
+    }
+  },
+  //  ----------------------//likes method //--------------------------- //
+  like: async (req, res) => {
+    try {
+      const data = await Post.findById({ _id: req.params.id });
+      const index = data.likes.findIndex((id) => id === String(req.user.id));
+      if (index === -1) {
+        data.likes.push(req.user.id);
+      } else {
+        data.likes = data.likes.filter((id) => id !== String(req.user.id));
+      }
+      const memo = await Post.findByIdAndUpdate(
+        { _id: req.params.id },
+        data,
+        {
+          new: true,
+        }
+      );
+      res.status(201).json(memo);
+
+    } catch (error) {
+      res.status(404).json({ message: error.message });
     }
   },
 };
