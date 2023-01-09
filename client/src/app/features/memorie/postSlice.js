@@ -67,6 +67,18 @@ export const FindPost = createAsyncThunk(
   }
 );
 
+//like  post
+export const likePost = createAsyncThunk(
+  "post/likePost",
+  async (id, thunkAPI) => {
+    try {
+      return await postService.likePost(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
@@ -89,7 +101,7 @@ export const postSlice = createSlice({
         state.message = action.payload.message;
         state.error = "";
         state.fulfilled = true;
-        state.posts= [...state.posts ,action.payload.memo];
+        state.posts = [...state.posts, action.payload.memo];
       })
       .addCase(addPost.rejected, (state, action) => {
         state.isLoading = false;
@@ -142,6 +154,22 @@ export const postSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
+      .addCase(likePost.pending, (state, action) => {})
+      .addCase(likePost.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const {
+          arg: { id },
+        } = action.meta;
+        if (id) {
+          state.posts = state.posts.map((item) =>
+            item._id === id ? action.payload.memo : item
+          );
+        }
+      })
+      .addCase(likePost.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+
       .addCase(FindPost.pending, (state, action) => {
         state.isLoading = true;
       })

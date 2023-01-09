@@ -71,7 +71,6 @@ const AddEditForm = ({ post }) => {
             label="Title :"
             name="title"
             onChange={onChangeHandler}
-            // error={error.title}
             value={form.title}
           />
           <hr />
@@ -98,7 +97,6 @@ const AddEditForm = ({ post }) => {
             placeholder="content...."
             name="body"
             onChange={onChangeHandler}
-            // error={error.body}
             value={form.body}
           />
 

@@ -35,12 +35,19 @@ const FindPost = async (id) => {
   return response.data;
 };
 
+// like  post 
+const likePost = async(id)=>{
+  const response = await axios.patch(`/post/like/${id}`)
+  return response.data
+}
+
 const postService = {
   addPost,
   fetchAll,
   deleteOne,
   updatePost,
   FindPost,
+  likePost,
 };
 
 export default postService;
