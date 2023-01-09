@@ -7,18 +7,21 @@ const checkAuth = require ("../middlewares/checkAuth")
 router.post("/addPost",checkAuth,multerUploads, PostController.addPost);
 
 // GET request
-router.get("/getOnePost/:id", PostController.getOnePost);
+router.get("/getOnePost/:id",checkAuth, PostController.getOnePost);
 
 // GET request
-router.get("/getAllPost", PostController.getAllPost);
+router.get("/getAllPost",checkAuth, PostController.getAllPost);
 
 // GET request
-router.get("/getAllPostbyUser", PostController.getAllPostbyUser);
+router.get("/getAllPostbyUser",checkAuth, PostController.getAllPostbyUser);
 
 // PUT request
-router.put("/updatePost/:id",multerUploads, PostController.updatePost);
+router.put("/updatePost/:id",checkAuth,multerUploads, PostController.updatePost);
 
 // DELETE request
-router.delete("/deletePost/:id", PostController.deletePost);
+router.delete("/deletePost/:id",checkAuth, PostController.deletePost);
+
+// PATCH request
+router.patch("like/:id",checkAuth, PostController.deletePost);
 
 module.exports = router;
