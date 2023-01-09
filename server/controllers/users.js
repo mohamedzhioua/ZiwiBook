@@ -33,7 +33,7 @@ module.exports = {
         });
       }
     } catch (error) {
-      console.log(error.message);
+        res.status(404).json({ message: error.message });
     }
   },
   //  --------------------------------------- //signin method to add a new user//--------------------------- //
@@ -77,7 +77,7 @@ module.exports = {
         });
       }
     } catch (error) {
-      console.log(error.message);
+        res.status(404).json({ message: error.message });
     }
   },
     //  --------------------------------------- // logout method //--------------------------- //
@@ -87,7 +87,7 @@ module.exports = {
       res.clearCookie("Authorization");
       res.status(200).json(" You are logged out , to the next login !");
     } catch (error) {
-      console.log(error.message);
+        res.status(404).json({ message: error.message });
     }
   },
 };

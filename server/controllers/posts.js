@@ -27,15 +27,15 @@ module.exports = {
         req.body.user = req.user.id;
         req.body.image = imageDetails.url;
         req.body.cloudinary_id = imageDetails.public_id;
-        await Post.create(req.body);
-        return res.status(200).json({ message: "post added with success" });
+       const memo = await Post.create(req.body);
+        return res.status(200).json({ message: "post added successfully" ,memo});
       } else {
         req.body.user = req.user.id;
-        await Post.create(req.body);
-        return res.status(200).json({ message: "post added with success" });
+        const memo =  await Post.create(req.body);
+        return res.status(200).json({ message: "post added successfully" ,memo });
       }
     } catch (error) {
-      console.log(error.message);
+        res.status(404).json({ message: error.message });
     }
   },
   //  ----------------------//updatePost method //--------------------------- //
@@ -64,19 +64,26 @@ module.exports = {
           image: imageDetails.url || data.image,
           cloudinary_id: imageDetails.public_id || data.cloudinary_id,
         };
-        const y = await Post.findByIdAndUpdate({ _id: req.params.id }, post, {
-          new: true,
-        });
-        res.status(201).json({ message: "post updated with success" });
-      } else {
-        const x = await Post.findByIdAndUpdate(
+        const memo = await Post.findByIdAndUpdate(
           { _id: req.params.id },
-          req.body
+          post,
+          {
+            new: true,
+          }
         );
-        res.status(201).json({ message: "post updated with success" });
+        res.status(201).json({ message: "post updated successfully", memo });
+      } else {
+        const memo = await Post.findByIdAndUpdate(
+          { _id: req.params.id },
+          req.body,
+          {
+            new: true,
+          }
+        );
+        res.status(201).json({ message: "post updated successfully", memo });
       }
     } catch (error) {
-      console.log(error.message);
+        res.status(404).json({ message: error.message });
     }
   },
   //  ----------------------//deletePost method //--------------------------- //
@@ -88,9 +95,9 @@ module.exports = {
         await cloudinary.removeFromCloudinary(data.cloudinary_id);
       }
       await data.remove();
-      return res.status(201).json({ message: "post deleted with success" });
+      return res.status(201).json({ message: "post deleted successfully" });
     } catch (error) {
-      console.log(error.message);
+        res.status(404).json({ message: error.message });
     }
   },
   //  -----------------------//getOnePost method //--------------------------- //
@@ -100,7 +107,7 @@ module.exports = {
       const data = await Post.findById({ _id: req.params.id });
       res.status(201).json(data);
     } catch (error) {
-      console.log(error.message);
+        res.status(404).json({ message: error.message });
     }
   },
   //  -----------------------//getAllPost method //--------------------------- //
@@ -110,7 +117,7 @@ module.exports = {
       const data = await Post.find();
       res.status(201).json(data);
     } catch (error) {
-      console.log(error.message);
+        res.status(404).json({ message: error.message });
     }
   },
   //  -----------------------//getAllPost by userID method //--------------------------- //
@@ -119,7 +126,7 @@ module.exports = {
       const data = await Post.find({ userID: req.params.userID });
       res.status(201).json(data);
     } catch (error) {
-      console.log(error.message);
+        res.status(404).json({ message: error.message });
     }
   },
 };
