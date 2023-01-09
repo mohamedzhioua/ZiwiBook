@@ -157,13 +157,15 @@ export const postSlice = createSlice({
       .addCase(likePost.pending, (state, action) => {})
       .addCase(likePost.fulfilled, (state, action) => {
         state.isLoading = false;
-        const {
+         const {
           arg: { id },
         } = action.meta;
         if (id) {
           state.posts = state.posts.map((item) =>
             item._id === id ? action.payload.memo : item
           );
+          console.log("🚀 ~ file: postSlice.js:162 ~ .addCase ~ id", id)
+
         }
       })
       .addCase(likePost.rejected, (state, action) => {

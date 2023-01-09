@@ -2,7 +2,7 @@ import React from "react";
 import "./Card.css";
 import moment from "moment";
 import { MdDelete } from "react-icons/md";
-import { AiFillLike } from "react-icons/ai";
+import { AiFillLike , AiOutlineLike } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../app/features/modal/modalSlice";
@@ -10,12 +10,26 @@ import { likePost } from "../../app/features/memorie/postSlice";
 const Card = ({ post, userID }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const userId = user?._id;
+  const LIKES = post?.likes 
+ const userId = user?._id
+  const Likes = () => {
+    if (LIKES.length > 0) {
+      return LIKES.find((like) => like === userId)
+        ? (
+          <><AiFillLike />&nbsp;{LIKES.length > 2 ? `You and ${LIKES.length - 1} others` : `${LIKES.length} like${LIKES.length > 1 ? 's' : ''}` }</>
+        ) : (
+          <><AiOutlineLike />&nbsp;{LIKES.length} {LIKES.length === 1 ? 'Like' : 'Likes'}</>
+        );
+    }
+
+    return (<><AiOutlineLike />&nbsp;Like</>);
+  };
+
   return (
     <div class="card h-100">
-      {userID === post.user && (
+      {userId === post.user && (
         <div className="d-flex justify-content-end">
-          {userID === post.user && (
+          {userId === post.user && (
             <BsThreeDots
               className="card-icon"
               onClick={() =>
@@ -42,10 +56,9 @@ const Card = ({ post, userID }) => {
           class="col d-flex justify-content-start"
           onClick={() => dispatch(likePost(post._id))}
         >
-          <AiFillLike className="card-icon" />
-          &nbsp;like
+          <Likes/>
         </div>
-        {userID === post.user && (
+        {userId === post.user && (
           <>
             <div
               class="col d-flex justify-content-end"
@@ -68,4 +81,3 @@ const Card = ({ post, userID }) => {
 };
 
 export default Card;
-// dispatch(deleteOne(post._id))
