@@ -22,6 +22,6 @@ router.put("/updatePost/:id",checkAuth,multerUploads, PostController.updatePost)
 router.delete("/deletePost/:id",checkAuth, PostController.deletePost);
 
 // PATCH request
-router.patch("like/:id",checkAuth, PostController.deletePost);
+router.patch("like/:id",checkAuth, PostController.like);
 
 module.exports = router;
