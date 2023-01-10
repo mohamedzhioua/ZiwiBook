@@ -25,8 +25,9 @@ const CustomComment = ({ post }) => {
           placeholder="write a Comment . . . ."
           value={comment}
           onChange={(e) => setComment(e.target.value)}
+          
         />
-        <CustomButton value="comment" className="commentbtn"/>
+        <CustomButton value="comment" className="commentbtn" disabled={!comment}/>
         </div>
       </div>
     </div>

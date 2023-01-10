@@ -10,35 +10,36 @@ import CustomPostHead from "../CustomPostHead/CustomPostHead";
 import CustomComment from "../CustomComment/CustomComment";
 const Card = ({ post, userId }) => {
 const [show , setShow]=useState(false)
-const showComment=(id)=>setShow(true)
+const showComment=()=>{
+  !show? setShow(true) : setShow(false)
+}
   const dispatch = useDispatch();
   const LIKES = post?.likes;
 
   return (
     <div className="card h-100">
       <CustomPostHead post={post} userId={userId} />
-      <img src={post.image} class="card-img-top" alt="..." />
-      <div class="card-body">
-        <h5 class="card-title">{post.title}</h5>
-        <p class="card-text">{post.body.substring(0, 20)}</p>
+      <img src={post.image} className="card-img-top" alt="..." />
+      <div className="card-body">
+        <h5 className="card-title">{post.title}</h5>
+        <p className="card-text">{post.body.substring(0, 20)}</p>
       </div>
-      <div class="container">
-        <div class="row" style={{ padding: "10px" }}>
+      <div className="container">
+        <div className="row" style={{ padding: "10px" }}>
           <hr />
           <div
-            class="col col-md-6 col-lg-4 d-flex justify-content-start"
+            className="col col-sm d-flex justify-content-start"
             onClick={() => dispatch(likePost(post._id))}
           >
             <CustomLikes userId={userId} LIKES={LIKES} />
           </div>
-          <div class="col col-md-6 col-lg-4 d-flex justify-content-center" onClick={()=>showComment(post.id)}>
+          <div className="col col-sm d-flex justify-content-center" onClick={()=>showComment()}>
             <GoComment className="card-icon" />
             &nbsp;Comment
           </div>
           {userId === post.user._id && (
             <>
-              <div
-                class="col col-md-6 col-lg-4 d-flex justify-content-end"
+              <div className="col col-sm d-flex justify-content-end"
                 onClick={() => {
                   dispatch(
                     openModal({
@@ -48,7 +49,7 @@ const showComment=(id)=>setShow(true)
                   );
                 }}
               >
-                <AiOutlineDelete className="card-icon" /> &nbsp;Delete
+                <AiOutlineDelete classNameName="card-icon" /> &nbsp;Delete
               </div>
             </>
           )}

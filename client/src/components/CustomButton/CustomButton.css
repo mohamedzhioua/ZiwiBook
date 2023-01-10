@@ -73,13 +73,9 @@
  margin: 0 5px;
  background-color:#f7f7f7;
  color:black;
- opacity: 0.8;
- font-size: 15px;
+ font-size: 17px;
+ }
 
-}
-.commentbtn:hover {
- opacity: 1;
-}
 
 /* .button2 {background-color: #1D1D2C;}  
   .button3 {background-color: #F7F4E9;}   
