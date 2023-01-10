@@ -37,7 +37,6 @@
 	min-height: 45px;
 	border-radius: 3px;
 	margin: 0 5px;
-  border-radius: 4px;
   background-color: #ccc;
   color: black;
   opacity: 0.8;
@@ -55,15 +54,31 @@
 	min-height: 45px;
 	border-radius: 3px;
 	margin: 0 5px;
-  border-radius: 4px;
   background-color: #e40c2b;
   color: white;
   opacity: 0.8;
   font-size: 20px;
-
-}
+ }
 .deletebtn:hover {
   opacity: 1;
+}
+.commentbtn {
+  text-decoration: none;
+ transition: all 0.4s;
+ line-height: normal;
+ min-width: 120px;
+ border: none;
+ min-height: 45px;
+ border-radius: 10px;
+ margin: 0 5px;
+ background-color:#f7f7f7;
+ color:black;
+ opacity: 0.8;
+ font-size: 15px;
+
+}
+.commentbtn:hover {
+ opacity: 1;
 }
 
 /* .button2 {background-color: #1D1D2C;}  
