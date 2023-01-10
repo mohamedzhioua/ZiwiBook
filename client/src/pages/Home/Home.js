@@ -3,7 +3,8 @@ import { fetchPosts, reset } from "../../app/features/memorie/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card/Card";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
 import "./Home.css";
 import Search from "../../components/SearchBar/Search";
 import CustomButton from "../../components/CustomButton/CustomButton";
@@ -11,7 +12,9 @@ import { openModal } from "../../app/features/modal/modalSlice";
 
 function Home() {
   const [wordEntered, setWordEntered] = useState("");
-  const { posts , message, fulfilled, isLoading } = useSelector((state) => state.post);
+  const { posts, message, fulfilled, isLoading } = useSelector(
+    (state) => state.post
+  );
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -24,11 +27,11 @@ function Home() {
     setWordEntered(wordEntered);
   };
   useEffect(() => {
-        message && toast.success(message, { position: toast.POSITION.TOP_RIGHT });
-        if (!isLoading && fulfilled){
-          dispatch(reset());
-        }
-      }, [  message, fulfilled, dispatch, isLoading]);
+    message && toast.success(message, { position: toast.POSITION.TOP_RIGHT });
+    if (!isLoading && fulfilled) {
+      dispatch(reset());
+    }
+  }, [message, fulfilled, dispatch, isLoading]);
 
   return (
     <>
@@ -41,7 +44,11 @@ function Home() {
             <Search onChange={FilterQuery} />
           </div>
           <div class="col-6 col-md-4">
-            <CustomButton className="button2" value="add Memorie" onClick={()=>dispatch(openModal({name:'AddEditForm'}))} />
+            <CustomButton
+              className="button2"
+              value="add Memorie"
+              onClick={() => dispatch(openModal({ name: "AddEditForm" }))}
+            />
           </div>
         </div>
         {!posts.length ? (
@@ -50,16 +57,17 @@ function Home() {
           </h1>
         ) : (
           <div class="row g-3">
-            {posts 
-              .filter((post) => post.title?.toLowerCase().includes(wordEntered?.toLowerCase()))
+            {posts
+              .filter((post) =>
+                post.title?.toLowerCase().includes(wordEntered?.toLowerCase()))
               .map((post) => (
                 <div class="col-12 col-md-6 col-lg-4" key={post._id}>
-                  <Card post={post} userID={user._id} />
+                  <Card post={post} userId={user._id} />
                 </div>
               ))}
           </div>
         )}
-        <ToastContainer  />
+        <ToastContainer />
       </div>
     </>
   );

@@ -162,10 +162,8 @@ export const postSlice = createSlice({
         } = action.meta;
         if (id) {
           state.posts = state.posts.map((item) =>
-            item._id === id ? action.payload.memo : item
+            item._id === id ? action.payload : item
           );
-          console.log("🚀 ~ file: postSlice.js:162 ~ .addCase ~ id", id)
-
         }
       })
       .addCase(likePost.rejected, (state, action) => {
