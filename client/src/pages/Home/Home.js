@@ -12,11 +12,12 @@ import { openModal } from "../../app/features/modal/modalSlice";
 
 function Home() {
   const [wordEntered, setWordEntered] = useState("");
-  const { posts, message, fulfilled, isLoading } = useSelector(
-    (state) => state.post
-  );
+  const { posts, message, fulfilled, isLoading } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  // sorting posts by time created at 
+const sortedPosts = posts.slice().sort((a,b)=>b.createdAt.localeCompare(a.createdAt))
 
   useEffect(() => {
     dispatch(fetchPosts());
@@ -57,7 +58,7 @@ function Home() {
           </h1>
         ) : (
           <div class="row g-3">
-            {posts
+            {sortedPosts
               .filter((post) =>
                 post.title?.toLowerCase().includes(wordEntered?.toLowerCase()))
               .map((post , index) => (
