@@ -1,11 +1,11 @@
 import React from 'react'
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
-import "./CustomLikes.css"
+import "./CustomLike.css"
 const CustomLikes = ({LIKES , userId}) => {
     if (LIKES?.length > 0) {
         return LIKES?.find((like) => like === userId) ? (
           <>
-            <AiFillLike className="card-icon" />
+            <AiFillLike className="like-icon" />
             &nbsp;
             {LIKES.length > 2
               ? `You and ${LIKES?.length - 1} others`
@@ -13,7 +13,7 @@ const CustomLikes = ({LIKES , userId}) => {
           </>
         ) : (
           <>
-            <AiOutlineLike className="card-icon" />
+            <AiOutlineLike className="like-icon" />
             &nbsp;{LIKES?.length} {LIKES?.length === 1 ? "Like" : "Likes"}
           </>
         );
@@ -21,7 +21,7 @@ const CustomLikes = ({LIKES , userId}) => {
   
       return (
         <>
-          <AiOutlineLike className="card-icon" />
+          <AiOutlineLike className="like-icon" />
           &nbsp;Like
         </>
       );

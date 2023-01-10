@@ -6,12 +6,11 @@ import { BsThreeDots } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../app/features/modal/modalSlice";
 import { likePost } from "../../app/features/memorie/postSlice";
-import CustomLikes from "../CustomLikes/CustomLikes";
+import CustomLikes from "../CustomLike/CustomLike";
+import CustomComment from "../CustomComment/CustomComment";
 const Card = ({ post, userId }) => {
   const dispatch = useDispatch();
   const LIKES = post?.likes;
-
-   
 
   return (
     <div class="card h-100">
@@ -38,31 +37,34 @@ const Card = ({ post, userId }) => {
         <p class="card-text">{post.body.substring(0, 20)}</p>
         <p>{moment(post.createdAt).fromNow()}</p>
       </div>
-
-      <div class="row" style={{ padding: "10px" }}>
-        <div
-          class="col d-flex justify-content-start"
-          onClick={() => dispatch(likePost(post._id))}
-        >
-          <CustomLikes userId={userId} LIKES={LIKES} />
+      <div class="container">
+        <div class="row" style={{ padding: "10px" }}>
+          <div
+            class="col col-md-6 col-lg-4 d-flex justify-content-start"
+            onClick={() => dispatch(likePost(post._id))}
+          >
+            <CustomLikes userId={userId} LIKES={LIKES} />
+          </div>
+          <div class="col col-md-6 col-lg-4 d-flex justify-content-center">
+            <CustomComment />
+          </div>
+          {userId === post.user && (
+            <>
+          <div
+            class="col col-md-6 col-lg-4 d-flex justify-content-end"
+            onClick={() => {
+              dispatch(
+                openModal({
+                  name: "DeleteConfirm",
+                  childrenProps: { id: post._id },
+                })
+              );
+            }}
+          >
+            <MdDelete className="card-icon" /> &nbsp;Delete
+          </div>
+          </> )}
         </div>
-        {userId === post.user && (
-          <>
-            <div
-              class="col d-flex justify-content-end"
-              onClick={() => {
-                dispatch(
-                  openModal({
-                    name: "DeleteConfirm",
-                    childrenProps: { id: post._id },
-                  })
-                );
-              }}
-            >
-              <MdDelete className="card-icon" /> Delete
-            </div>
-          </>
-        )}
       </div>
     </div>
   );
