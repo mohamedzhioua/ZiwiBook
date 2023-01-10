@@ -5,7 +5,6 @@ import NotFound from "../pages/404/NotFound ";
 import ForceRedirect from "./ForceRedirect";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "../pages/Profile/Profile";
-import AddEditMemo from "../pages/AddEditMemorie/AddEditMemorie";
 import Home from "../pages/Home/Home";
 
 const Router = () => {

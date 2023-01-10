@@ -60,8 +60,8 @@ function Home() {
             {posts
               .filter((post) =>
                 post.title?.toLowerCase().includes(wordEntered?.toLowerCase()))
-              .map((post) => (
-                <div class="col-12 col-md-6 col-lg-4" key={post._id}>
+              .map((post , index) => (
+                <div class="col-12 col-md-6 col-lg-4" key={index}>
                   <Card post={post} userId={user._id} />
                 </div>
               ))}

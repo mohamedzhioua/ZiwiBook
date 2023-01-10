@@ -2,40 +2,16 @@ import React from "react";
 import "./Card.css";
 import moment from "moment";
 import { MdDelete } from "react-icons/md";
-import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../app/features/modal/modalSlice";
 import { likePost } from "../../app/features/memorie/postSlice";
+import CustomLikes from "../CustomLikes/CustomLikes";
 const Card = ({ post, userId }) => {
   const dispatch = useDispatch();
   const LIKES = post?.likes;
 
-  const Likes = () => {
-    if (LIKES.length > 0) {
-      return LIKES.find((like) => like === userId) ? (
-        <>
-          <AiFillLike className="card-icon" />
-          &nbsp;
-          {LIKES.length > 2
-            ? `You and ${LIKES.length - 1} others`
-            : `${LIKES.length} like${LIKES.length > 1 ? "s" : ""}`}
-        </>
-      ) : (
-        <>
-          <AiOutlineLike className="card-icon" />
-          &nbsp;{LIKES.length} {LIKES.length === 1 ? "Like" : "Likes"}
-        </>
-      );
-    }
-
-    return (
-      <>
-        <AiOutlineLike className="card-icon" />
-        &nbsp;Like
-      </>
-    );
-  };
+   
 
   return (
     <div class="card h-100">
@@ -68,7 +44,7 @@ const Card = ({ post, userId }) => {
           class="col d-flex justify-content-start"
           onClick={() => dispatch(likePost(post._id))}
         >
-          <Likes />
+          <CustomLikes userId={userId} LIKES={LIKES} />
         </div>
         {userId === post.user && (
           <>

@@ -157,12 +157,10 @@ export const postSlice = createSlice({
       .addCase(likePost.pending, (state, action) => {})
       .addCase(likePost.fulfilled, (state, action) => {
         state.isLoading = false;
-         const {
-          arg: { id },
-        } = action.meta;
-        if (id) {
+        const { arg } = action.meta;
+        if (arg) {
           state.posts = state.posts.map((item) =>
-            item._id === id ? action.payload : item
+            item._id === arg ? action.payload : item
           );
         }
       })
