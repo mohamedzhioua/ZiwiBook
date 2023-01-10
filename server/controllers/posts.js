@@ -119,7 +119,7 @@ module.exports = {
 
   getAllPost: async (req, res) => {
     try {
-      const memo = await Post.find();
+      const memo = await Post.find().populate('user',["firstname","lastname","image"])
       res.status(200).json(memo);
     } catch (error) {
       res.status(404).json({ message: error.message });
