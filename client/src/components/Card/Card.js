@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Card.css";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../app/features/modal/modalSlice";
 import { likePost } from "../../app/features/memorie/postSlice";
 import CustomLikes from "../CustomLike/CustomLike";
-import CustomComment from "../CustomComment/CustomComment";
+import { GoComment } from "react-icons/go";
 import CustomPostHead from "../CustomPostHead/CustomPostHead";
+import CustomComment from "../CustomComment/CustomComment";
 const Card = ({ post, userId }) => {
-  console.log("🚀 ~ file: Card.js:11 ~ Card ~ userId", userId);
-  console.log("🚀 ~ file: Card.js:11 ~ Card ~ post", post);
+const [show , setShow]=useState(false)
+const showComment=(id)=>setShow(true)
   const dispatch = useDispatch();
   const LIKES = post?.likes;
 
@@ -21,17 +22,18 @@ const Card = ({ post, userId }) => {
         <h5 class="card-title">{post.title}</h5>
         <p class="card-text">{post.body.substring(0, 20)}</p>
       </div>
-      <hr />
       <div class="container">
         <div class="row" style={{ padding: "10px" }}>
+          <hr />
           <div
             class="col col-md-6 col-lg-4 d-flex justify-content-start"
             onClick={() => dispatch(likePost(post._id))}
           >
             <CustomLikes userId={userId} LIKES={LIKES} />
           </div>
-          <div class="col col-md-6 col-lg-4 d-flex justify-content-center">
-            <CustomComment />
+          <div class="col col-md-6 col-lg-4 d-flex justify-content-center" onClick={()=>showComment(post.id)}>
+            <GoComment className="card-icon" />
+            &nbsp;Comment
           </div>
           {userId === post.user._id && (
             <>
@@ -51,6 +53,7 @@ const Card = ({ post, userId }) => {
             </>
           )}
         </div>
+       {show && <CustomComment post ={post}/>}
       </div>
     </div>
   );

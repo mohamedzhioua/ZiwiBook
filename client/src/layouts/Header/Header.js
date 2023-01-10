@@ -42,12 +42,7 @@ const Header = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse className="hamburger" id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link
-              className="Nav-link"
-              as={Link}
-              to="/"
-              onClick={homeClick}
-            >
+            <Nav.Link className="Nav-link" as={Link} to="/" onClick={homeClick}>
               {!home ? (
                 <AiOutlineHome className="Navbar-icon" />
               ) : (
