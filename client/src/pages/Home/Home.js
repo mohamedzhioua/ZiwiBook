@@ -16,23 +16,50 @@ function Home() {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  // sorting posts by time created at 
-const sortedPosts = posts.slice().sort((a,b)=>b.createdAt.localeCompare(a.createdAt))
-
   useEffect(() => {
     dispatch(fetchPosts());
   }, [dispatch]);
-
-  const FilterQuery = (e) => {
-    const wordEntered = e.target.value.trim();
-    setWordEntered(wordEntered);
-  };
+  
   useEffect(() => {
     message && toast.success(message, { position: toast.POSITION.TOP_RIGHT });
     if (!isLoading && fulfilled) {
       dispatch(reset());
     }
   }, [message, fulfilled, dispatch, isLoading]);
+
+//search User input
+  const FilterQuery = (e) => {
+    const wordEntered = e.target.value.trim();
+    setWordEntered(wordEntered);
+  };
+
+  // sorting posts by time created at
+  const sortedPosts = posts
+    .slice()
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    
+   // posts displayed in home page  
+  const Content = () => {
+    if (!posts.length) {
+      return (
+        <h1 className="text-center">No Memories Found!....You can Share One</h1>
+      );
+    } else {
+      return (
+        <div class="row g-3">
+          {sortedPosts
+            .filter((post) =>
+              post.title?.toLowerCase().includes(wordEntered?.toLowerCase())
+            )
+            .map((post, index) => (
+              <div class="col-12 col-md-6 col-lg-4" key={index}>
+                <Card post={post} userId={user._id} />
+              </div>
+            ))}
+        </div>
+      );
+    }
+  };
 
   return (
     <>
@@ -52,22 +79,7 @@ const sortedPosts = posts.slice().sort((a,b)=>b.createdAt.localeCompare(a.create
             />
           </div>
         </div>
-        {!posts.length ? (
-          <h1 className="text-center">
-            No Memories Found!....You can Share One
-          </h1>
-        ) : (
-          <div class="row g-3">
-            {sortedPosts
-              .filter((post) =>
-                post.title?.toLowerCase().includes(wordEntered?.toLowerCase()))
-              .map((post , index) => (
-                <div class="col-12 col-md-6 col-lg-4" key={index}>
-                  <Card post={post} userId={user._id} />
-                </div>
-              ))}
-          </div>
-        )}
+        <Content />
         <ToastContainer />
       </div>
     </>
