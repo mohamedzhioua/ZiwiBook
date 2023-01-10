@@ -13,7 +13,7 @@ module.exports = {
 
   addPost: async (req, res) => {
     const { errors, isValid } = PostValidation(req.body);
-    const { file } = req;    
+    const { file } = req;
     try {
       if (!isValid) {
         return res.status(404).json(errors);
@@ -136,28 +136,22 @@ module.exports = {
   },
   //  ----------------------//likes method //--------------------------- //
   like: async (req, res) => {
-    const {id}=req.params
-     
- 
-     try {
+    const { id } = req.params;
+
+    try {
       const data = await Post.findById(id);
-       const index = data.likes.findIndex((id) => id === String(req.user.id));
-         if (index === -1) {
+      const index = data.likes.findIndex((id) => id === String(req.user.id));
+      if (index === -1) {
         data.likes.push(req.user.id);
       } else {
         data.likes = data.likes.filter((id) => id !== String(req.user.id));
       }
-      const memo = await Post.findByIdAndUpdate(
-        id ,
-        data,
-        {
-          new: true,
-        }
-      );
+      const memo = await Post.findByIdAndUpdate(id, data, {
+        new: true,
+      });
       res.status(200).json(memo);
-
     } catch (error) {
-      res.status(404).json( error.message );
+      res.status(404).json({ message: error.message });
     }
   },
 };

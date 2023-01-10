@@ -4,11 +4,11 @@ const jwt = require("jsonwebtoken");
 async function checkAuth(req, res, next) {
   try {
     const token = req.cookies.Authorization;
-     //decoding the token
+    //decoding the token
     var decoded = jwt.verify(token, "zhioua_DOING_GOOD");
-      //finding the user using decoded sub
-      const user = await User.findById(decoded.sub);
-     // checking the ExpirationTime
+    //finding the user using decoded sub
+    const user = await User.findById(decoded.sub);
+    // checking the ExpirationTime
     if (Date.now() > decoded.exp) {
       return res.status(400).json("token expired");
     }
@@ -21,8 +21,7 @@ async function checkAuth(req, res, next) {
       next();
     }
   } catch (error) {
-    console.log(error.message);
-      res.status(403).json("unauthorized");
+    console.log(error);
   }
 }
 
