@@ -14,5 +14,13 @@
   color: black !important;
 }
 .card-icon {
-  font-size: 20px
- }
+  font-size: 20px;
+  color: black;
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
