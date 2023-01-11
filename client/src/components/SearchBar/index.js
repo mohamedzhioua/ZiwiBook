@@ -1,7 +1,10 @@
 import React from "react";
+//Components
+import {CustomInput} from "../index";
+//Styles
 import { ImSearch } from "react-icons/im";
-import CustomInput from "../CustomInput/CustomInput";
-import "./Search.css";
+import "./index.css";
+
 const Search = ({ onChange }) => {
   return (
     <div className="searchInputs">

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import CustomInput from "../CustomInput/CustomInput";
-import CustomButton from "../CustomButton/CustomButton";
-import "./CustomComment.css";
+
+// Components
+import {CustomInput ,CustomButton} from "../index";
+// Styles
+import "./index.css";
+
 const CustomComment = ({ post }) => {
-  const [comments, setComments] = useState([1, 2, 3, 4]);
-  const [comment, setComment] = useState("");
+const [comments, setComments] = useState([1, 2, 3, 4]);
+const [comment, setComment] = useState("");
 
   return (
     <div className="container">

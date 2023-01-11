@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import errorImg from '../../images/404Error.png'
 import {ImSad} from 'react-icons/im'
-import  './NotFound.css'
+import  './index.css'
 
 // 404 page
 const NotFound = () => {

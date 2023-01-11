@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import "./index.css";
-import {
-  FaSignInAlt,
-  FaUserCircle,
-  FaRegUserCircle,
-  FaSignOutAlt,
-} from "react-icons/fa";
-import { AiOutlineHome, AiFillHome } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
+
+//features
 import { logout, reset } from "../../app/features/auth/authSlice";
+
+//Styles
+import { Container, Nav, Navbar } from "react-bootstrap";
+import {  FaSignInAlt, FaUserCircle, FaRegUserCircle, FaSignOutAlt} from "react-icons/fa";
+import { AiOutlineHome, AiFillHome } from "react-icons/ai";
+import "./index.css";
 
 const Header = () => {
   const [home, setHome] = useState(true);

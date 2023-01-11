@@ -1,5 +1,5 @@
 import React from "react";
-import "./CustomInput.css";
+import "./index.css";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 const CustomInput = ({
   name,
@@ -13,9 +13,9 @@ const CustomInput = ({
   accept,
   float,
   onClick,
-   className,
- }) => {
-   return (
+  className,
+}) => {
+  return (
     <div className={!float ? "form-group mb-2" : "form-group mb-4"}>
       <div className={float && "form-floating"}>
         {!float && <label className="form-label">{label}</label>}
@@ -33,12 +33,18 @@ const CustomInput = ({
             type={type}
             name={name}
             onChange={onChange}
-            className={className ? (className) : (error ? "form-control is-invalid" : "form-control" ) }
+            className={
+              className
+                ? className
+                : error
+                ? "form-control is-invalid"
+                : "form-control"
+            }
             placeholder={placeholder}
             value={value}
             defaultValue={defaultValue}
-            accept={accept} 
-            />
+            accept={accept}
+          />
         )}
         {name === "password" ? (
           <>

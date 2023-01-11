@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
-import "./Signup.css";
 import { Link } from "react-router-dom";
-import CustomInput from "../../components/CustomInput/CustomInput";
-import { FaUser } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+// features
 import { register, reset } from "../../app/features/auth/authSlice";
-import { Loader } from "../../components/Loader/Loader";
-import CustomButton from "../../components/CustomButton/CustomButton";
+
+// Components
+import { CustomButton, CustomInput, Loader } from "../../components";
+
+// Styles
+import { FaUser } from "react-icons/fa";
+import "./index.css";
 
 function Register() {
   const [form, setForm] = useState({});

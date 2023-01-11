@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+
+// features
 import { addPost, updatePost } from "../../app/features/memorie/postSlice";
-import CustomButton from "../CustomButton/CustomButton";
-import CustomInput from "../CustomInput/CustomInput";
 import { closeModal } from "../../app/features/modal/modalSlice";
-import "./AddEditForm.css";
+
+// Components
+import {CustomInput ,CustomButton} from "../index";
+ 
+// Styles
+import "./index.css";
 
 const AddEditForm = ({ post }) => {
   const [form, setForm] = useState({ title: "", body: "", image: "" });

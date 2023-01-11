@@ -1,31 +1,29 @@
 import React, { useEffect, useState } from "react";
-import CustomInput from "../../components/CustomInput/CustomInput";
-import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
-import { FaSignInAlt } from "react-icons/fa";
-import { Loader } from "../../components/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
+
+// features
 import { login } from "../../app/features/auth/authSlice";
-import CustomButton from "../../components/CustomButton/CustomButton";
+
+// Components
+import { CustomButton, CustomInput, Loader } from "../../components";
+
+// Styles
+import { FaSignInAlt } from "react-icons/fa";
+import "./index.css";
 
 function Login() {
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
+  const [form, setForm] = useState({ email: "", password: ""});
   const { email, password } = form;
 
   // eye show hide handler
   const [passwordVisible, setPasswordVisible] = useState(password);
-  const Eye = () => {
-    setPasswordVisible(!passwordVisible);
-  };
+  const Eye = () => {setPasswordVisible(!passwordVisible)};
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { error, token, isLoading, isConnected } = useSelector(
-    (state) => state.auth
-  );
+  const { error, token, isLoading, isConnected } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (isConnected || token) {
@@ -68,7 +66,7 @@ function Login() {
             error={error.email}
             placeholder="Email"
             value={email}
-            float // to make the label floating
+            float // secret key to make the label floating
           />
 
           <CustomInput
@@ -78,7 +76,7 @@ function Login() {
             error={error.password}
             placeholder="password"
             value={password}
-            float // to make the label floating
+            float // secret key to make the label floating
             type={passwordVisible ? "text" : "password"}
             onClick={Eye}
           />

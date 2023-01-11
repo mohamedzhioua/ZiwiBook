@@ -1,5 +1,5 @@
 import React from "react";
-import "./Loader.css"
+import "./index.css"
 export const Loader = () => {
   return (
 <div className='loadingSpinnerContainer'>
@@ -7,3 +7,4 @@ export const Loader = () => {
     </div>
   );
 };
+export default Loader

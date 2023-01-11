@@ -1,10 +1,17 @@
 import React from "react";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import CustomButton from "../../components/CustomButton/CustomButton";
-import "./DeleteConfirm.css";
 import { useDispatch } from "react-redux";
+
+//features
 import { deleteOne } from "../../app/features/memorie/postSlice";
 import { closeModal } from "../../app/features/modal/modalSlice";
+
+//Components
+import {CustomButton} from "../../components/index"
+
+//Styles
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import "./index.css";
+
 const DeleteConfirm = ({id}) => {
   const dispatch = useDispatch();
 

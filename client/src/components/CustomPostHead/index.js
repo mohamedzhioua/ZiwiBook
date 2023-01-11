@@ -1,13 +1,16 @@
 import React from 'react'
-import moment from "moment";
-import { BsThreeDots } from "react-icons/bs";
 import { useDispatch } from "react-redux";
+import moment from "moment";
+
+// features
 import { openModal } from "../../app/features/modal/modalSlice";
-import "./CustomPostHead.css"
+
+// Styles
+import { BsThreeDots } from "react-icons/bs";
+import "./index.css"
+
 const CustomPostHead = ({post ,userId}) => {
-    console.log("🚀 ~ file: CustomPostHead.js:8 ~ CustomPostHead ~ post", post)
-    console.log("🚀 ~ file: CustomPostHead.js:8 ~ CustomPostHead ~ userId", userId)
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   return (
     <div className="container">

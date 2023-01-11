@@ -1,10 +1,14 @@
 import React, { Fragment } from "react";
-import { closeModal } from "../../app/features/modal/modalSlice";
-import Close from "../../images/Close.png";
 import { useSelector, useDispatch } from "react-redux";
-import AddEditForm from "../../components/AddEditForm/AddEditForm";
-import DeleteConfirm from "../DeleteConfirm/DeleteConfirm";
-import "./Modal.css";
+//features
+import { closeModal } from "../../app/features/modal/modalSlice";
+//Components
+import {AddEditForm} from "../../components/index";
+//layouts
+import {DeleteConfirm} from "../index";
+// Styles
+import Close from "../../images/Close.png";
+import "./index.css";
 
 const Modal = () => {
   const dispatch = useDispatch();

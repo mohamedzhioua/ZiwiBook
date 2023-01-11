@@ -1,9 +1,14 @@
-import "./index.css";
 import { BrowserRouter } from "react-router-dom";
+
+//Routes
 import Router from "./routes/Router";
-import Header from "./layouts/Header/Header";
-import Footer from "./layouts/Footer/Footer";
-import Modal from "./layouts/Modal/Modal";
+
+//Layouts
+import { Modal , Header  ,Footer} from "./layouts/index";
+
+//Styles
+import "./index.css";
+
 
 function App() {
   return (

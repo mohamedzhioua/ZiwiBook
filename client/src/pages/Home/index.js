@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { fetchPosts, reset } from "../../app/features/memorie/postSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Card from "../../components/Card/Card";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "react-toastify/dist/ReactToastify.css";
-import "./Home.css";
-import Search from "../../components/SearchBar/Search";
-import CustomButton from "../../components/CustomButton/CustomButton";
+
+// features
+import { fetchPosts, reset } from "../../app/features/memorie/postSlice";
 import { openModal } from "../../app/features/modal/modalSlice";
 
+// Components
+import { Card, CustomButton, SearchBar } from "../../components";
+
+// Styles
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./index.css";
+
+
 function Home() {
+  
   const [wordEntered, setWordEntered] = useState("");
   const { posts, message, fulfilled, isLoading } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.auth);
@@ -69,7 +74,7 @@ function Home() {
       >
         <div class="row">
           <div class="col-md-8">
-            <Search onChange={FilterQuery} />
+            <SearchBar onChange={FilterQuery} />
           </div>
           <div class="col-6 col-md-4">
             <CustomButton

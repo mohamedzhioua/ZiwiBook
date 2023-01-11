@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import Login from "../pages/login/Login";
-import Signup from "../pages/signup/Signup";
-import NotFound from "../pages/404/NotFound ";
-import ForceRedirect from "./ForceRedirect";
+
+ //Routes
+ import ForceRedirect from "./ForceRedirect";
 import PrivateRoute from "./PrivateRoute";
-import Profile from "../pages/Profile/Profile";
-import Home from "../pages/Home/Home";
+
+//Pages
+import {Home, Login, NotFound, Profile, Register} from "../pages/index";
+
 
 const Router = () => {
   return (
@@ -38,7 +39,7 @@ const Router = () => {
         path="/Signup"
         element={
           <ForceRedirect>
-            <Signup />
+            <Register />
           </ForceRedirect>
         }
       />

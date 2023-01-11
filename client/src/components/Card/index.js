@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import "./Card.css";
-import { AiOutlineDelete } from "react-icons/ai";
 import { useDispatch } from "react-redux";
+
+// features
 import { openModal } from "../../app/features/modal/modalSlice";
 import { likePost } from "../../app/features/memorie/postSlice";
-import CustomLikes from "../CustomLike/CustomLike";
+
+// Components
+import { CustomComment, CustomPostHead ,CustomLikes} from "../index";
+
+// Styles
 import { GoComment } from "react-icons/go";
-import CustomPostHead from "../CustomPostHead/CustomPostHead";
-import CustomComment from "../CustomComment/CustomComment";
+import { AiOutlineDelete } from "react-icons/ai";
+import "./index.css";
+
 const Card = ({ post, userId }) => {
 const [show , setShow]=useState(false)
 const showComment=()=>{
@@ -49,7 +54,7 @@ const showComment=()=>{
                   );
                 }}
               >
-                <AiOutlineDelete classNameName="card-icon" /> &nbsp;Delete
+                <AiOutlineDelete className="card-icon" /> &nbsp;Delete
               </div>
             </>
           )}

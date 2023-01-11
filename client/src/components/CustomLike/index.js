@@ -1,6 +1,8 @@
 import React from 'react'
+// Styles
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
-import "./CustomLike.css"
+import "./index.css"
+
 const CustomLikes = ({LIKES , userId}) => {
     if (LIKES?.length > 0) {
         return LIKES?.find((like) => like === userId) ? (
