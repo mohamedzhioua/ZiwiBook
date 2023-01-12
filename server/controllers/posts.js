@@ -25,7 +25,7 @@ module.exports = {
           base64,
           fileFormat
         );
-        req.body.user = req.user.id;
+        req.body.PostedBy = req.user.id;
         req.body.image = imageDetails.url;
         req.body.cloudinary_id = imageDetails.public_id;
         const memo = await Post.create(req.body);
@@ -33,7 +33,7 @@ module.exports = {
           .status(200)
           .json({ message: "post added successfully", memo });
       } else {
-        req.body.user = req.user.id;
+        req.body.PostedBy = req.user.id;
         const memo = await Post.create(req.body);
         return res
           .status(200)
@@ -118,8 +118,8 @@ module.exports = {
   //  -----------------------//getAllPost method //--------------------------- //
 
   getAllPost: async (req, res) => {
-    try {
-      const memo = await Post.find().populate('user',["firstname","lastname","image"])
+     try {
+      const memo = await Post.find().populate('PostedBy',["firstname","lastname","image"])
       res.status(200).json(memo);
     } catch (error) {
       res.status(404).json({ message: error.message });
@@ -128,7 +128,7 @@ module.exports = {
   //  -----------------------//getAllPost by userID method //--------------------------- //
   getAllPostbyUser: async (req, res) => {
     try {
-      const memo = await Post.find({ userID: req.params.userID });
+      const memo = await Post.find({ PostedBy: req.user.id });
       res.status(200).json(memo);
     } catch (error) {
       res.status(404).json({ message: error.message });

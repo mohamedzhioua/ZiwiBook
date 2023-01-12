@@ -3,10 +3,9 @@ const Schema = mongoose.Schema;
 
 const PostSchema = new Schema(
   {
-    user: {
+    PostedBy: {
       type: Schema.Types.ObjectId,
       ref: "user",
-      required: true,
     },
     title: {
       type: String,
@@ -16,18 +15,27 @@ const PostSchema = new Schema(
       type: String,
       required: true,
     },
-    image: String,
+    image:{
+      type: String,
+      default :'no photo'
+    }, 
     cloudinary_id: String,
     likes: {
       type: [String],
       default: [],
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
+    Comments: [
+			{
+				Text: String,
+				PostedBy: {
+					type: Schema.Types.ObjectId,
+					ref: "user",
+				},
+			},
+		],
+  
   },
-   
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("post", PostSchema);
