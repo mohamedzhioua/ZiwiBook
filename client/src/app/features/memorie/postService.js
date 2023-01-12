@@ -8,6 +8,7 @@ const config = {
 //add post
 const addPost = async (postData) => {
   const response = await axios.post("/post/addPost", postData, config);
+  console.log("🚀 ~ file: postService.js:11 ~ addPost ~ postData", postData)
   return response.data;
 };
 
@@ -42,7 +43,9 @@ const likePost = async(id)=>{
 }
 // Comment  post 
 const CommentPost = async(id,form)=>{
-  const response = await axios.patch(`/post/Comment/${id}`, form)
+  const response = await axios.post(`/post/Comment/${id}`, form)
+  console.log("🚀 ~ file: postService.js:47 ~ CommentPost ~ comment", form)
+
   return response.data
 }
 

@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
+// features
+import { CommentPost } from "../../app/features/memorie/postSlice";
 
 // Components
 import {CustomInput ,CustomButton} from "../index";
@@ -6,31 +10,48 @@ import {CustomInput ,CustomButton} from "../index";
 import "./index.css";
 
 const CustomComment = ({ post }) => {
-const [comments, setComments] = useState([1, 2, 3, 4]);
-const [comment, setComment] = useState("");
+console.log("🚀 ~ file: index.js:13 ~ CustomComment ~ post", post)
+const [comments, setComments] = useState(post?.Comments);
+const [form, setForm] = useState({comment:''});
+ console.log("🚀 ~ file: index.js:15 ~ CustomComment ~ form", form)
+ const dispatch = useDispatch()
+const id = post?._id
+  //onChangeHandler
+  const onChangeHandler = (event) => {
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  };
+ //onsubmitHandler
+ const onsubmitHandler = (event) => {
+   event.preventDefault();
+  dispatch(CommentPost({id,form}));
+};
 
   return (
     <div className="container">
       <div className="container">
-        {comments.map((comment, index) => (
+        {comments?.map((e, index) => (
           <div key={index}>
-            <p className="comment-p">comment{index}</p>
+            <p className="comment-p">{e.comment}</p>
             <hr />
           </div>
         ))}
       </div>
       <div>
-        <div>
+        <div >
         <CustomInput
           type="textarea"
-          float
+           float
           label="write a Comment . . . ."
           placeholder="write a Comment . . . ."
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          value={form.comment}
+          name="comment"
+          onChange={onChangeHandler}
           
         />
-        <CustomButton value="comment" className="commentbtn" disabled={!comment}/>
+        <CustomButton type="submit" value="comment" className="commentbtn" disabled={!form.comment} onClick={onsubmitHandler} />
         </div>
       </div>
     </div>

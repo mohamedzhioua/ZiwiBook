@@ -81,8 +81,9 @@ export const likePost = createAsyncThunk(
 
 //Comment  post
 export const CommentPost = createAsyncThunk(
-  "post/likePost",
+  "post/CommentPost",
   async ({ id, form }, thunkAPI) => {
+    console.log("🚀 ~ file: postSlice.js:86 ~ comment", form)
     try {
       return await postService.CommentPost(id, form);
     } catch (error) {
