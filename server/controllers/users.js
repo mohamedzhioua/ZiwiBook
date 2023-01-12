@@ -23,8 +23,7 @@ module.exports = {
           } else {
             const hashedpassword = bcrypt.hashSync(password, 8);
             await User.create({
-              firstname,
-              lastname,
+              name: `${firstname} ${lastname}`,
               email,
               password: hashedpassword,
             });

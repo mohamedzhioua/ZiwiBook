@@ -15,25 +15,35 @@ const PostSchema = new Schema(
       type: String,
       required: true,
     },
-    image:{
+    image: {
       type: String,
-      default :'no photo'
-    }, 
-    cloudinary_id: String,
+      default: "no photo",
+    },
+    cloudinary_id: {
+      type: String,
+    },
     likes: {
       type: [String],
       default: [],
     },
     Comments: [
-			{
-				Text: String,
-				PostedBy: {
-					type: Schema.Types.ObjectId,
-					ref: "user",
-				},
-			},
-		],
-  
+      {
+        PostedBy: {
+          type: Schema.Types.ObjectId,
+          ref: "user",
+        },
+        name: {
+          type: String,
+        },
+        Text: {
+          type: String,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
