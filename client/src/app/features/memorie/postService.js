@@ -40,6 +40,11 @@ const likePost = async(id)=>{
   const response = await axios.patch(`/post/like/${id}`)
   return response.data
 }
+// Comment  post 
+const CommentPost = async(id,form)=>{
+  const response = await axios.patch(`/post/Comment/${id}`, form)
+  return response.data
+}
 
 const postService = {
   addPost,
@@ -48,6 +53,7 @@ const postService = {
   updatePost,
   FindPost,
   likePost,
+  CommentPost,
 };
 
 export default postService;

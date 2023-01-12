@@ -18,7 +18,6 @@ function Home() {
   
   const [wordEntered, setWordEntered] = useState("");
   const { posts, message, fulfilled, isLoading } = useSelector((state) => state.post);
-  console.log("🚀 ~ file: index.js:21 ~ Home ~ posts", posts)
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -68,11 +67,9 @@ function Home() {
   };
 
   return (
-    <>
+     
       <div
-         className="container"
-        style={{ marginTop: "10px", marginBottom: "40px" }}
-      >
+        className="container">
         <div class="row">
           <div class="col-md-8">
             <SearchBar onChange={FilterQuery} />
@@ -88,8 +85,7 @@ function Home() {
         <Content />
         <ToastContainer />
       </div>
-    </>
-  );
+   );
 }
 
 export default Home;

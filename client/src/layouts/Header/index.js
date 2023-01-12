@@ -7,12 +7,7 @@ import { logout, reset } from "../../app/features/auth/authSlice";
 
 //Styles
 import { Container, Nav, Navbar } from "react-bootstrap";
-import {
-  FaSignInAlt,
-  FaUserCircle,
-  FaRegUserCircle,
-  FaSignOutAlt,
-} from "react-icons/fa";
+import {FaSignInAlt,FaUserCircle,FaRegUserCircle,FaSignOutAlt} from "react-icons/fa";
 import { AiOutlineHome, AiFillHome } from "react-icons/ai";
 import "./index.css";
 
@@ -41,25 +36,20 @@ const Header = () => {
     navigate("/login");
   };
 
- 
   return (
-    <Navbar
-      expanded={expand}
-      expand="md"
-      className="navbar"
-    >
-      <Container fluid >
+    <Navbar expanded={expand} expand="md" className="navbar">
+      <Container fluid>
         <Navbar.Brand className="logo" alt="brand">
-          ZIWI 
+          ZIWI
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
           onClick={() => {
             updateExpanded(expand ? false : "expanded");
           }}
-        />
-        <Navbar.Collapse className="hamburger"  id="responsive-navbar-nav" >
-          <Nav className="me-auto" >
+        ></Navbar.Toggle>
+        <Navbar.Collapse className="hamburger" id="responsive-navbar-nav">
+          <Nav className="me-auto">
             <Nav.Link
               className="Nav-link"
               as={Link}
@@ -92,7 +82,7 @@ const Header = () => {
                     <FaUserCircle className="Navbar-icon" />
                   ) : (
                     <FaRegUserCircle className="Navbar-icon" />
-                  )}{" "}
+                  )}
                   <b>profile</b>
                 </Nav.Link>
               </>
@@ -101,7 +91,6 @@ const Header = () => {
           <Nav className="ms-auto">
             {!(isConnected || token) ? (
               <>
-                {" "}
                 <Nav.Link className="Nav-link" as={Link} to="/login">
                   <FaSignInAlt className="Navbar-icon" /> <b>login</b>
                 </Nav.Link>

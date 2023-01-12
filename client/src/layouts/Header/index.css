@@ -1,41 +1,39 @@
 .navbar {
-  position: relative;
   background-color: #5c6e58;
   height: 80px;
   width: 100%;
-  top: 0;
-  left: 0;
-border-bottom: 1px solid; 
+  top: 0px;
+  left: 0px;
+  border-bottom: 1px solid;
+  position: fixed !important;
+  z-index: 100;
 }
- 
+
 .navbar .Nav-link {
   font-family: "Roboto", sans-serif;
   font-size: 0.9em;
   color: #f7f4e9 !important;
   margin: 0 10px; /* adding space between navbar items */
- 
 }
 .navbar .Nav-link:hover {
   border-bottom: 2px solid #f7f4e9;
-  /* color: #F7F4E9 !important; */
 }
- 
+
 .logo {
   color: #f7f4e9 !important;
   margin-left: 1em;
-  /* font-weight:500; */
   font-family: "Pacifico", cursive;
 }
 
-.navbar.hamburger {
+.hamburger {
   background-color: #5c6e58;
 }
 
-#Search {
-  display: none;
-}
 .navbar-icon {
   font-size: 20px;
-margin-bottom: 2px
- }
- 
+  margin-bottom: 2px;
+}
+
+.toggle {
+  background-color: #5c6e58;
+}
