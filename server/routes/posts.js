@@ -24,4 +24,7 @@ router.delete("/deletePost/:id",checkAuth, PostController.deletePost);
 // PATCH request
 router.patch("/like/:id",checkAuth, PostController.like);
 
+// PATCH request
+router.post("/Comment/:id",checkAuth, PostController.Comment);
+
 module.exports = router;

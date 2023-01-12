@@ -13,8 +13,7 @@ module.exports = {
 
   addPost: async (req, res) => {
     const { errors, isValid } = PostValidation(req.body);
-    console.log("🚀 ~ file: posts.js:16 ~ addPost: ~ req", req.user);
-    const { file } = req;
+     const { file } = req;
     try {
       if (!isValid) {
         return res.status(404).json(errors);
@@ -158,14 +157,15 @@ module.exports = {
   //  ----------------------//Comments method //--------------------------- //
   Comment: async (req, res) => {
     const { id } = req.params;
-    
-    try {
+     try {
       const data = await Post.findById(id)
-      const newComment = {
+       const newComment = {
         PostedBy: req.user.id,
         name: req.user.name,
-        text: req.body,
+        comment: req.body.comment,
       };
+        console.log("🚀 ~ file: posts.js:168 ~ Comment: ~ comment",req.body )
+     
       data.Comments.unshift(newComment)
       const memo = await Post.findByIdAndUpdate(id,data,{new:true})
       res.status(200).json(memo);

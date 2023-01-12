@@ -35,7 +35,7 @@ const PostSchema = new Schema(
         name: {
           type: String,
         },
-        Text: {
+        comment: {
           type: String,
         },
         createdAt: {
