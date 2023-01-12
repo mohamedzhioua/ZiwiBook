@@ -7,13 +7,20 @@ import { logout, reset } from "../../app/features/auth/authSlice";
 
 //Styles
 import { Container, Nav, Navbar } from "react-bootstrap";
-import {  FaSignInAlt, FaUserCircle, FaRegUserCircle, FaSignOutAlt} from "react-icons/fa";
+import {
+  FaSignInAlt,
+  FaUserCircle,
+  FaRegUserCircle,
+  FaSignOutAlt,
+} from "react-icons/fa";
 import { AiOutlineHome, AiFillHome } from "react-icons/ai";
 import "./index.css";
 
 const Header = () => {
   const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
+  const [expand, updateExpanded] = useState(false);
+
   const homeClick = () => {
     setHome(true);
     setProfile(false);
@@ -34,14 +41,34 @@ const Header = () => {
     navigate("/login");
   };
 
+ 
   return (
-    <Navbar className="Navbar" expand="lg" variant="light">
-      <Container fluid>
-        <Navbar.Brand className="Nav-Brand">Memories</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse className="hamburger" id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link className="Nav-link" as={Link} to="/" onClick={homeClick}>
+    <Navbar
+      expanded={expand}
+      expand="md"
+      className="navbar"
+    >
+      <Container fluid >
+        <Navbar.Brand className="logo" alt="brand">
+          ZIWI 
+        </Navbar.Brand>
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          onClick={() => {
+            updateExpanded(expand ? false : "expanded");
+          }}
+        />
+        <Navbar.Collapse className="hamburger"  id="responsive-navbar-nav" >
+          <Nav className="me-auto" >
+            <Nav.Link
+              className="Nav-link"
+              as={Link}
+              to="/"
+              onClick={() => {
+                homeClick();
+                updateExpanded(false);
+              }}
+            >
               {!home ? (
                 <AiOutlineHome className="Navbar-icon" />
               ) : (
@@ -56,7 +83,10 @@ const Header = () => {
                   className="Nav-link"
                   as={Link}
                   to="/profile"
-                  onClick={profileClick}
+                  onClick={() => {
+                    profileClick();
+                    updateExpanded(false);
+                  }}
                 >
                   {profile ? (
                     <FaUserCircle className="Navbar-icon" />

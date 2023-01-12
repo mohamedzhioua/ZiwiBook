@@ -127,4 +127,4 @@ const Eye =()=>{
   );
 }
 
-export default Register;
+export default Register; 

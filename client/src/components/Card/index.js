@@ -42,7 +42,7 @@ const showComment=()=>{
             <GoComment className="card-icon" />
             &nbsp;Comment
           </div>
-          {userId === post.user._id && (
+          {userId === post.PostedBy._id && (
             <>
               <div className="col col-sm d-flex justify-content-end"
                 onClick={() => {

@@ -13,7 +13,7 @@ import "./index.css";
 function App() {
   return (
     <BrowserRouter>
-      <div className="app">
+      <div >
         <Modal />
         <Header />
         <Router />

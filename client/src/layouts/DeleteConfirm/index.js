@@ -13,7 +13,8 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import "./index.css";
 
 const DeleteConfirm = ({id}) => {
-  const dispatch = useDispatch();
+
+ const dispatch = useDispatch();
 
   return (
     <div className="container text-center">

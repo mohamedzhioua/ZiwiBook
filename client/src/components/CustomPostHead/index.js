@@ -16,10 +16,10 @@ const CustomPostHead = ({post ,userId}) => {
     <div className="container">
     <div class="row" >
     <div className="col col-md-6 col-lg-4 d-flex justify-content-start">
-    <img src={post.user.image} className="profile-img" alt="..." />&nbsp;
+    <img src={post.PostedBy.image} className="profile-img" alt="..." />&nbsp;
     <div>
     <div class="row" >
-    {post.user.lastname}&nbsp;{post.user.firstname}
+    {post.PostedBy.lastname}&nbsp;{post.PostedBy.firstname}
     </div>
     <div class="row" >
     <p className="moment">{moment(post.createdAt).fromNow()}</p>
@@ -28,7 +28,7 @@ const CustomPostHead = ({post ,userId}) => {
     </div>
     <div className="col col-md-6 col-lg-4 d-flex justify-content-center">
     </div>
-    {userId === post.user._id && (
+    {userId === post.PostedBy._id && (
     <div className="col col-md-6 col-lg-4 d-flex justify-content-end">
     <BsThreeDots
             className="CustomPostHead-icon"
