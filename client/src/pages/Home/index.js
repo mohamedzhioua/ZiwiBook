@@ -54,7 +54,7 @@ function Home() {
         <div class="row g-3">
           {sortedPosts
             .filter((post) =>
-              post.title?.toLowerCase().includes(wordEntered?.toLowerCase())
+              post.text?.toLowerCase().includes(wordEntered?.toLowerCase())
             )
             .map((post, index) => (
               <div class="col-12 col-md-6 col-lg-4" key={index}>
@@ -69,7 +69,7 @@ function Home() {
   return (
      
       <div
-        className="container">
+        className="container-fluid">
         <div class="row">
           <div class="col-md-8">
             <SearchBar onChange={FilterQuery} />

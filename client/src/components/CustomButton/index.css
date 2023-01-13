@@ -63,17 +63,12 @@
   opacity: 1;
 }
 .commentbtn {
-  text-decoration: none;
- transition: all 0.4s;
- line-height: normal;
- min-width: 120px;
  border: none;
- min-height: 45px;
- border-radius: 10px;
- margin: 0 5px;
- background-color:#f7f7f7;
- color:black;
- font-size: 17px;
+ background-color:#5271ff;
+ color: white;
+ padding: 10px;
+ cursor: pointer;
+ border-radius: 3px;
  }
 
 

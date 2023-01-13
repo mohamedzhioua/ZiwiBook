@@ -12,7 +12,7 @@ import {CustomInput ,CustomButton} from "../index";
 import "./index.css";
 
 const AddEditForm = ({ post }) => {
-  const [form, setForm] = useState({ title: "", body: "", image: "" });
+  const [form, setForm] = useState({ text: "", image: "" });
   const [picture, setPicture] = useState(null);
   const dispatch = useDispatch();
   // post id
@@ -30,7 +30,7 @@ const AddEditForm = ({ post }) => {
 
   //clearing the state for the newest user inputs
   const clear = () => {
-    setForm({ title: "", body: "", image: "" });
+    setForm({ text: "", image: "" });
   };
 
   //onChangeHandler
@@ -70,13 +70,13 @@ const AddEditForm = ({ post }) => {
           {post ? "Update your " : "Share a "}Memorie
         </h1>
         <form className="New-Post-Form" onSubmit={onsubmitHandler}>
-          <CustomInput
-            type="text"
-            placeholder="title..."
-            label="Title :"
-            name="title"
+        <CustomInput
+            label="Description :"
+            type="textarea"
+            placeholder="content...."
+            name="text"
             onChange={onChangeHandler}
-            value={form.title}
+            value={form.text}
           />
           <hr />
           <img
@@ -96,20 +96,12 @@ const AddEditForm = ({ post }) => {
             }}
             name="image"
           />
-          <CustomInput
-            label="Description :"
-            type="textarea"
-            placeholder="content...."
-            name="body"
-            onChange={onChangeHandler}
-            value={form.body}
-          />
-
+  
           <CustomButton
             className="button button8"
             value={post ? "update" : "submit"}
             type="submit"
-            disabled={!form.title || !form.body}
+            disabled={!form.text}
           />
         </form>
       </div>

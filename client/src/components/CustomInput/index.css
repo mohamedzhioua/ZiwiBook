@@ -1,29 +1,41 @@
-label{
-    font-weight: 600;
-    font-size:14px;
+label {
+  font-weight: 600;
+  font-size: 14px;
 }
 
-.Icon{
-    position: absolute;
-    right: 9px;
-    top: 22px;
-    font-size: 17px;
-    cursor: "pointer";
-  }
-  .search-input {
-    background-color: white;
-    border: 0;
-    border-radius: 10px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    font-size: 16px;
-    font-family: 'Roboto';
-    padding: 15px;
-    height: 50px;
-    width: 300px;
-  }
-  .search-input:focus {
-    outline: none;
-    width: 830px;
-  }
- 
+.Icon {
+  position: absolute;
+  right: 9px;
+  top: 22px;
+  font-size: 17px;
+  cursor: "pointer";
+}
+.search-input {
+  background-color: white;
+  border: 0;
+  border-radius: 10px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  font-size: 16px;
+  font-family: "Roboto";
+  padding: 15px;
+  height: 50px;
+  width: 300px;
+}
+.search-input:focus {
+  outline: none;
+  width: 830px;
+}
+.commentInput {
+  width: 100%;
+  padding: 10px;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  border: none;
+  border-bottom: 1px solid #8d8d8d;
+  background-color: transparent;
+}
+.commentInput:focus {
+  outline: 2px solid #0f62fe;
+  outline-offset: -2px;
+}
