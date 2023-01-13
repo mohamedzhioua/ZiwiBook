@@ -1,5 +1,7 @@
 // Load Post model
 const Post = require("../models/post");
+// Load Comment model
+const Comment = require("../models/comment");
 // Load input validation
 const PostValidation = require("../validator/PostValidation");
 // Load cloudinary methods
@@ -13,7 +15,7 @@ module.exports = {
 
   addPost: async (req, res) => {
     const { errors, isValid } = PostValidation(req.body);
-     const { file } = req;
+    const { file } = req;
     try {
       if (!isValid) {
         return res.status(404).json(errors);
@@ -25,7 +27,7 @@ module.exports = {
           base64,
           fileFormat
         );
-        req.body.PostedBy = req.user.id;
+        req.body.owner = req.user.id;
         req.body.image = imageDetails.url;
         req.body.cloudinary_id = imageDetails.public_id;
         const memo = await Post.create(req.body);
@@ -33,7 +35,7 @@ module.exports = {
           .status(200)
           .json({ message: "post added successfully", memo });
       } else {
-        req.body.PostedBy = req.user.id;
+        req.body.owner = req.user.id;
         const memo = await Post.create(req.body);
         return res
           .status(200)
@@ -64,8 +66,7 @@ module.exports = {
           fileFormat
         );
         const post = {
-          title: req.body.title || data.title,
-          body: req.body.body || data.body,
+          text: req.body.text || data.text,
           image: imageDetails.url || data.image,
           cloudinary_id: imageDetails.public_id || data.cloudinary_id,
         };
@@ -119,7 +120,7 @@ module.exports = {
 
   getAllPost: async (req, res) => {
     try {
-      const memo = await Post.find().populate("PostedBy", ["name", "image"]);
+      const memo = await Post.find().populate("owner", ["name", "image"]);
       res.status(200).json(memo);
     } catch (error) {
       res.status(404).json({ message: error.message });
@@ -128,7 +129,7 @@ module.exports = {
   //  -----------------------//getAllPost by userID method //--------------------------- //
   getAllPostbyUser: async (req, res) => {
     try {
-      const memo = await Post.find({ PostedBy: req.user.id });
+      const memo = await Post.find({ owner: req.user.id });
       res.status(200).json(memo);
     } catch (error) {
       res.status(404).json({ message: error.message });
@@ -156,22 +157,36 @@ module.exports = {
   },
   //  ----------------------//Comments method //--------------------------- //
   Comment: async (req, res) => {
+    console.log("🚀 ~ file: posts.js:160 ~ Comment: ~ req", req.body)
     const { id } = req.params;
-     try {
-      const data = await Post.findById(id)
-       const newComment = {
-        PostedBy: req.user.id,
-        name: req.user.name,
-        comment: req.body.comment,
-      };
-        console.log("🚀 ~ file: posts.js:168 ~ Comment: ~ comment",req.body )
-     
-      data.Comments.unshift(newComment)
-      const memo = await Post.findByIdAndUpdate(id,data,{new:true})
-      res.status(200).json(memo);
+    try {
+      if (!id)
+        return res
+          .status(404)
+          .json({ message: "Please provide comment data and post" });
 
-        } catch (error) {
+      const checkPost = await Post.findById(id);
+      if (!checkPost) return res.status(404).json({ message: "No post found" });
+
+      const commendData = await Comment.create({
+        owner: req.user.id,
+        post: id,
+        text: req.body.text,
+      });
+
+      res.status(200).json(commendData);
+    } catch (error) {
       res.status(404).json({ message: error.message });
     }
   },
+    //  ----------------------//get all Comments //--------------------------- //
+    getComments: async (req, res) => {
+      try {
+        const comments = await Comment.find().populate("owner", ["name", "image"]);
+        res.status(200).json(comments);
+      } catch (error) {
+        res.status(404).json({ message: error.message });
+      }
+    }
+
 };

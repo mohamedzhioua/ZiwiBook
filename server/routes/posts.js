@@ -27,4 +27,7 @@ router.patch("/like/:id",checkAuth, PostController.like);
 // PATCH request
 router.post("/Comment/:id",checkAuth, PostController.Comment);
 
+// GET request
+router.get("/getComments",checkAuth, PostController.getComments);
+
 module.exports = router;

@@ -3,15 +3,10 @@ const isEmpty = require("./IsEmpty");
 
 module.exports = function PostValidation(data) {
   let errors = {};
-  data.title = !isEmpty(data.title) ? data.title : "";
-  data.body = !isEmpty(data.body) ? data.body : "";
+   data.text = !isEmpty(data.text) ? data.text : "";
 
-  if (validator.isEmpty(data.title)) {
-    errors.title = "Required title";
-  }
-
-  if (validator.isEmpty(data.body)) {
-    errors.body = "Required blog content";
+  if (validator.isEmpty(data.text)) {
+    errors.text = "Required post content";
   }
 
   return {
