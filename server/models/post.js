@@ -3,15 +3,13 @@ const Schema = mongoose.Schema;
 
 const PostSchema = new Schema(
   {
-    PostedBy: {
+    owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
-    },
-    title: {
-      type: String,
       required: true,
+
     },
-    body: {
+    text: {
       type: String,
       required: true,
     },
@@ -26,24 +24,6 @@ const PostSchema = new Schema(
       type: [String],
       default: [],
     },
-    Comments: [
-      {
-        PostedBy: {
-          type: Schema.Types.ObjectId,
-          ref: "user",
-        },
-        name: {
-          type: String,
-        },
-        comment: {
-          type: String,
-        },
-        createdAt: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
   },
   { timestamps: true }
 );

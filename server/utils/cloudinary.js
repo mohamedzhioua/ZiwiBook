@@ -25,9 +25,9 @@ module.exports = {
   //  delete image from cloudinary
   removeFromCloudinary: async (public_id) => {
     await cloudinary.uploader.destroy(public_id, function (error, result) {
-      console.log("result--->", result);
-      console.log("cloudinaryError--->", error);
-    });
+      console.log("🚀 ~ file: cloudinary.js:28 ~ result", result)
+      console.log("🚀 ~ file: cloudinary.js:28 ~ error", error)
+      });
   },
   
 };
