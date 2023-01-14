@@ -27,6 +27,7 @@ label {
   width: 830px;
 }
 .commentInput {
+  height: 50px;
   width: 100%;
   padding: 10px;
   outline: 2px solid transparent;
@@ -36,6 +37,6 @@ label {
   background-color: transparent;
 }
 .commentInput:focus {
-  outline: 2px solid #0f62fe;
-  outline-offset: -2px;
+  border: 1px solid rgb(107, 114, 12);
+    outline-offset: -2px;
 }

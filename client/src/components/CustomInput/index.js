@@ -23,13 +23,20 @@ const CustomInput = ({
           <textarea
             name={name}
             onChange={onChange}
-            className={error ? "form-control is-invalid" : "form-control"}
+            className={
+              className
+                ? className
+                : error
+                ? "form-control is-invalid"
+                : "form-control"
+            }
             placeholder={placeholder}
             value={value}
             defaultValue={defaultValue}
           />
         ) : (
           <input
+          onClick={onClick}
             type={type}
             name={name}
             onChange={onChange}

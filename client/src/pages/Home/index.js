@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // features
-import { fetchPosts, reset } from "../../app/features/memorie/postSlice";
+import { fetchComments, fetchPosts, reset } from "../../app/features/memorie/postSlice";
 import { openModal } from "../../app/features/modal/modalSlice";
 
 // Components
@@ -23,6 +23,8 @@ function Home() {
 
   useEffect(() => {
     dispatch(fetchPosts());
+    dispatch(fetchComments())
+
   }, [dispatch]);
   
   useEffect(() => {

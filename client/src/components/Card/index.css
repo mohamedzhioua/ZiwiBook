@@ -1,4 +1,5 @@
 .card {
+  /* width: 500px; */
   transition: all 0.3s;
   cursor: pointer;
   /* position: relative; */

@@ -3,12 +3,14 @@ import postService from "./postService";
 
 const initialState = {
   posts: [],
+  comments:[],
   post: {},
   error: "",
   message: "",
   isLoading: false,
   fulfilled: false,
 };
+console.log("🚀 ~ file: postSlice.js:13 ~ comments", initialState.comments)
 
 //add post
 export const addPost = createAsyncThunk("post/add", async (post, thunkAPI) => {
@@ -91,6 +93,19 @@ export const CommentPost = createAsyncThunk(
     }
   }
 );
+
+// fetch all Comments 
+export const fetchComments = createAsyncThunk(
+  "post/fetchComments",
+  async (thunkAPI) => {
+    try {
+      return await postService.fetchComments();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 
 export const postSlice = createSlice({
   name: "post",
@@ -183,17 +198,23 @@ export const postSlice = createSlice({
       .addCase(CommentPost.pending, (state, action) => {})
       .addCase(CommentPost.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { arg } = action.meta;
-        if (arg) {
-          state.posts = state.posts.map((item) =>
-            item._id === arg ? action.payload : item
-          );
-        }
+        state.comments = state.comments.push(action.payload)
+
       })
       .addCase(CommentPost.rejected, (state, action) => {
         state.error = action.payload;
       })
-
+      .addCase(fetchComments.pending, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(fetchComments.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.comments = action.payload;
+      })
+      .addCase(fetchComments.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
       .addCase(FindPost.pending, (state, action) => {
         state.isLoading = true;
       })
