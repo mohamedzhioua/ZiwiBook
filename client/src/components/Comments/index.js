@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // features
@@ -12,7 +12,7 @@ import CommentForm from "./CommentForm";
 import "./index.css";
 
 const Comments = ({ post }) => {
-  const [activeComment,setActiveComment]=useState(null)
+
   const CurrentUserId = useSelector((state) => state.auth.user._id);
   const { comments } = useSelector((state) => state.post);
   const rootComments = comments
@@ -33,11 +33,6 @@ const Comments = ({ post }) => {
     <>
       <div className="comments">
         <div className="write">
-          <img
-            className="comments-img"
-            src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg"
-            alt="."
-          />
           <CommentForm submitLabel="write" handleSubmit={addComment} />
         </div>
         <div className="comments-container">
@@ -46,26 +41,24 @@ const Comments = ({ post }) => {
               key={rootComment._id}
               comment={rootComment}
               CurrentUserId={CurrentUserId}
-              activeComment={activeComment}
-              setActiveComment={setActiveComment}
-              replies={[
-                {
-                  text: "rrrrrrrrrrrrrrr",
-                  owner: {
-                    name: "hama hama",
-                    image:
-                      "https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg",
-                  },
-                },
-                {
-                  text: "bbbbbbbbbbbb",
-                  owner: {
-                    name: "ziwi ziwi",
-                    image:
-                      "https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg",
-                  },
-                },
-              ]}
+              // replies={[
+              //   {
+              //     text: "rrrrrrrrrrrrrrr",
+              //     owner: {
+              //       name: "hama hama",
+              //       image:
+              //         "https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg",
+              //     },
+              //   },
+              //   {
+              //     text: "bbbbbbbbbbbb",
+              //     owner: {
+              //       name: "ziwi ziwi",
+              //       image:
+              //         "https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg",
+              //     },
+              //   },
+              // ]}
             />
           ))}
         </div>

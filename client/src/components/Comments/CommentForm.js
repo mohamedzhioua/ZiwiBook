@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 // Components
 import { CustomInput, CustomButton } from "../index";
+// Styles
+import "./index.css";
 
 const CommentForm = ({ submitLabel, handleSubmit }) => {
   const [form, setForm] = useState({ text: "" });
-
 
   //onChangeHandler
   const onChangeHandler = (event) => {
@@ -21,22 +22,29 @@ const CommentForm = ({ submitLabel, handleSubmit }) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <CustomInput
-        type="textarea"
-        className="commentInput"
-        placeholder="write a Comment . . . ."
-        name="text"
-        value={form.text}
-        onChange={onChangeHandler}
+    <>
+      <img
+        className="comments-img"
+        src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg"
+        alt="."
       />
-      <CustomButton
-        type="submit"
-        value="Send"
-        className="commentbtn"
-        disabled={!form.text}
-      />
-    </form>
+      <form onSubmit={onSubmit}>
+        <CustomInput
+          type="textarea"
+          className="commentInput"
+          placeholder="write a Comment . . . ."
+          name="text"
+          value={form.text}
+          onChange={onChangeHandler}
+        />
+        <CustomButton
+          type="submit"
+          value="Send"
+          className="commentbtn"
+          disabled={!form.text}
+        />
+      </form>
+    </>
   );
 };
 

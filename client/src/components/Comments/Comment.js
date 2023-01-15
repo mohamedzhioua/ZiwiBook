@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 // Styles
 import "./index.css";
-import { deleteComment } from "../../app/features/post/postSlice";
+import { addCommentReply, deleteComment } from "../../app/features/post/postSlice";
+import CommentForm from "./CommentForm";
 
-const Comment = ({ comment, replies, CurrentUserId , activeComment , setActiveComment }) => {
+const Comment = ({ comment,CurrentUserId }) => {
+  const [activeComment,setActiveComment]=useState(null)
   const dispatch = useDispatch();
   const canReply = Boolean(CurrentUserId);
   const canEdit = CurrentUserId === comment?.owner?._id;
   const canDelete = CurrentUserId === comment?.owner?._id;
-const CommentId = comment?._id ; 
+
+  // conditions to know what exactly the User willing to do 
+  const isReplying = activeComment && activeComment.type ==="replying" && activeComment.id === comment._id ;
+  // const isEditing = activeComment && activeComment.type ==="editing" && activeComment.id === comment._id ;
+
+  //onsubmitHandler
+  const addComment = (text) => {
+    const id = activeComment.id
+    dispatch(addCommentReply({id, text }));
+    setActiveComment(null)
+  };
+
   return (
     <div className="comment">
       <img className="comment-image" src={comment?.owner?.image} alt="." />
@@ -21,14 +34,19 @@ const CommentId = comment?._id ;
         </div>
         <p className="comment-text">{comment?.text}</p>
         <div className="comment-actions">
-          {canReply && <div className="comment-action"onClick={()=>setActiveComment({id:CommentId,type:"replying"})}>Reply</div>}
-          {canEdit && <div className="comment-action" onClick={()=>setActiveComment({id:CommentId,type:"editing"})}>Edit</div>}
-          {canDelete && <div className="comment-action" onClick={()=>dispatch(deleteComment(CommentId))}>Delete</div>}
+          {canReply && <div className="comment-action"onClick={()=>setActiveComment({id:comment?._id,type:"replying"})}>Reply</div>}
+          {canEdit && <div className="comment-action" onClick={()=>setActiveComment({id:comment?._id,type:"editing"})}>Edit</div>}
+          {canDelete && <div className="comment-action" onClick={()=>dispatch(deleteComment(comment?._id))}>Delete</div>}
+          {isReplying && (
+            <CommentForm 
+            submitLabel="Reply"
+            handleSubmit={addComment}/>
+          )}
         </div>
 
-        {replies.length > 0 && (
+        {comment.replies && (
           <div className="replies">
-            {replies.map((reply, i) => (
+            {comment.replies.map((reply, i) => (
               <Comment comment={reply} key={i} replies={[]} CurrentUserId={CurrentUserId}/>
             ))}
           </div>
