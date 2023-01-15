@@ -158,6 +158,7 @@ module.exports = {
   //  ----------------------//add Comment method //--------------------------- //
   addComment: async (req, res) => {
     const { id } = req.params;
+    console.log("🚀 ~ file: posts.js:161 ~ addComment: ~ id", id)
     const { text } = req.body;
     const owner = req.user.id
     try {
@@ -183,7 +184,7 @@ module.exports = {
         //  ----------------------//add Reply To a Comment method //--------------------------- //
 
         addCommentReply : async (req, res) => {
-          const { CommentID} = req.params;
+          const  CommentID = req.params;
           const { text } = req.body;
           const owner = req.user.id
           try {
@@ -209,5 +210,15 @@ module.exports = {
         res.status(404).json({ message: error.message });
       }
     },
-  
+   //  ----------------------//delete Comment method//--------------------------- //
+   deleteComment: async (req, res) => {
+    const CommentID = req.params.id;
+    console.log("🚀 ~ file: posts.js:215 ~ deleteComment: ~ CommentID", CommentID)  
+    try {
+      const comments = await Comment.findByIdAndRemove(CommentID) 
+      res.status(200).json({message : "comment deleted successefully"});
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
 };

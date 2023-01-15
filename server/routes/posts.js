@@ -37,4 +37,7 @@ router.post("/addCommentReply/:id",checkAuth, PostController.addCommentReply);
 // GET request
 router.get("/getComments",checkAuth, PostController.getComments);
 
+// Delete request
+router.delete("/deleteComment/:id",checkAuth, PostController.deleteComment);
+
 module.exports = router;
