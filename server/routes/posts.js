@@ -40,4 +40,7 @@ router.get("/getComments",checkAuth, PostController.getComments);
 // Delete request
 router.delete("/deleteComment/:id",checkAuth, PostController.deleteComment);
 
+// PUT request
+router.put("/updateComment/:id",checkAuth, PostController.updateComment);
+
 module.exports = router;

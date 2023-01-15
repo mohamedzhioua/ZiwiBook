@@ -158,9 +158,8 @@ module.exports = {
   //  ----------------------//add Comment method //--------------------------- //
   addComment: async (req, res) => {
     const { id } = req.params;
-    console.log("🚀 ~ file: posts.js:161 ~ addComment: ~ id", id)
     const { text } = req.body;
-    const owner = req.user.id
+    const owner = req.user.id;
     try {
       if (!id)
         return res
@@ -181,42 +180,63 @@ module.exports = {
       res.status(404).json({ message: error.message });
     }
   },
-        //  ----------------------//add Reply To a Comment method //--------------------------- //
+  //  ----------------------//add Reply To a Comment method //--------------------------- //
 
-        addCommentReply : async (req, res) => {
-          const  CommentID = req.params;
-          const { text } = req.body;
-          const owner = req.user.id
-          try {
-            const checkComment = await Comment.findById(CommentID);
-            if (!checkComment) return res.status(404).json({ message: "No comment found" });
-            checkComment.replies.push({
-              owner,
-              text,
-            });
-            await checkComment.save();  
-            res.status(200).json(checkComment.replies);
-          
-          } catch (error) {
-            res.status(404).json({ message: error.message });
-          }
-        },
-    //  ----------------------//get all Comments method//--------------------------- //
-    getComments: async (req, res) => {
-      try {
-        const comments = await Comment.find().populate("owner", ["name", "image"]);
-        res.status(200).json(comments);
-      } catch (error) {
-        res.status(404).json({ message: error.message });
-      }
-    },
-   //  ----------------------//delete Comment method//--------------------------- //
-   deleteComment: async (req, res) => {
+  addCommentReply: async (req, res) => {
     const CommentID = req.params.id;
-    console.log("🚀 ~ file: posts.js:215 ~ deleteComment: ~ CommentID", CommentID)  
+    const { text } = req.body;
+    const owner = req.user.id;
     try {
-      const comments = await Comment.findByIdAndRemove(CommentID) 
-      res.status(200).json({message : "comment deleted successefully"});
+      const checkComment = await Comment.findById(CommentID);
+      if (!checkComment)
+        return res.status(404).json({ message: "No comment found" });
+      checkComment.replies.push({
+        owner,
+        text,
+      });
+      await checkComment.save();
+      res.status(200).json(checkComment);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
+  //  ----------------------//get all Comments method//--------------------------- //
+  getComments: async (req, res) => {
+    try {
+      const comments = await Comment.find().populate("owner", [
+        "name",
+        "image",
+      ]);
+      res.status(200).json(comments);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
+  //  ----------------------//delete Comment method//--------------------------- //
+  deleteComment: async (req, res) => {
+    const CommentID = req.params.id;
+    try {
+      const comments = await Comment.findByIdAndRemove(CommentID);
+      res.status(200).json({ message: "comment deleted successefully" });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
+  //  ----------------------//update Comment method//--------------------------- //
+  updateComment: async (req, res) => {
+    const CommentID = req.params.id;
+    const { text } = req.body;
+    try {
+      const updatedComment = await Comment.findByIdAndUpdate(
+        CommentID,
+        text,
+        {
+          new: true,
+        }
+      );
+      res
+        .status(200)
+        .json({ message: "comment updated successfully", updatedComment });
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
