@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 // features
-import { addPost, updatePost } from "../../app/features/memorie/postSlice";
+import { addPost, updatePost } from "../../app/features/post/postSlice";
 import { closeModal } from "../../app/features/modal/modalSlice";
 
 // Components

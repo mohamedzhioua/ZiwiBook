@@ -3,14 +3,14 @@ import postService from "./postService";
 
 const initialState = {
   posts: [],
-  comments:[],
+  comments: [],
   post: {},
   error: "",
   message: "",
   isLoading: false,
   fulfilled: false,
 };
-console.log("🚀 ~ file: postSlice.js:13 ~ comments", initialState.comments)
+console.log("🚀 ~ file: postSlice.js:13 ~ comments", initialState.comments);
 
 //add post
 export const addPost = createAsyncThunk("post/add", async (post, thunkAPI) => {
@@ -81,7 +81,7 @@ export const likePost = createAsyncThunk(
   }
 );
 
-//Add a Comment
+//Add a Comment to a post
 export const AddComment = createAsyncThunk(
   "post/AddComment",
   async ({ id, text }, thunkAPI) => {
@@ -93,7 +93,19 @@ export const AddComment = createAsyncThunk(
   }
 );
 
-// fetch all Comments 
+//Add Reply to a Comment
+export const addCommentReply = createAsyncThunk(
+  "post/addCommentReply",
+  async ({ id, text }, thunkAPI) => {
+    try {
+      return await postService.addCommentReply(id, text);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// fetch all Comments
 export const fetchComments = createAsyncThunk(
   "post/fetchComments",
   async (thunkAPI) => {
@@ -105,6 +117,17 @@ export const fetchComments = createAsyncThunk(
   }
 );
 
+// delete a comment
+export const deleteComment = createAsyncThunk(
+  "post/deleteComment",
+  async (id, thunkAPI) => {
+    try {
+      return await postService.deleteComment(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const postSlice = createSlice({
   name: "post",
@@ -197,8 +220,7 @@ export const postSlice = createSlice({
       .addCase(AddComment.pending, (state, action) => {})
       .addCase(AddComment.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.comments = state.comments.push(action.payload)
-
+        state.comments = state.comments.push(action.payload);
       })
       .addCase(AddComment.rejected, (state, action) => {
         state.error = action.payload;
@@ -211,6 +233,27 @@ export const postSlice = createSlice({
         state.comments = action.payload;
       })
       .addCase(fetchComments.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      .addCase(addCommentReply.pending, (state, action) => {})
+      .addCase(addCommentReply.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.comments = state.comments.replies.push(action.payload);
+      })
+      .addCase(addCommentReply.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+      .addCase(deleteComment.pending, (state, action) => {
+      })
+      .addCase(deleteComment.fulfilled, (state, action) => {
+        const { arg } = action.meta;
+        if (arg) {
+          state.posts = state.comments.filter((item) => item._id !== arg);
+        }
+      })
+      .addCase(deleteComment.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 // features
 import { openModal } from "../../app/features/modal/modalSlice";
-import { likePost } from "../../app/features/memorie/postSlice";
+import { likePost } from "../../app/features/post/postSlice";
 
 // Components
 import { Comments, CustomPostHead, CustomLikes } from "../index";

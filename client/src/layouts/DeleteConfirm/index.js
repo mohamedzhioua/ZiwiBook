@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 //features
-import { deleteOne } from "../../app/features/memorie/postSlice";
+import { deleteOne } from "../../app/features/post/postSlice";
 import { closeModal } from "../../app/features/modal/modalSlice";
 
 //Components

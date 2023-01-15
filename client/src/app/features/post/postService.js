@@ -8,7 +8,6 @@ const config = {
 //add post
 const addPost = async (postData) => {
   const response = await axios.post("/post/addPost", postData, config);
-  console.log("🚀 ~ file: postService.js:11 ~ addPost ~ postData", postData)
   return response.data;
 };
 
@@ -41,14 +40,27 @@ const likePost = async(id)=>{
   const response = await axios.patch(`/post/like/${id}`)
   return response.data
 }
-// Comment  post 
+//Add a Comment to a post
 const AddComment = async(id,text)=>{
-   const response = await axios.post(`/post/Comment/${id}`, text)
+   const response = await axios.post(`/post/addComment/${id}`, text)
   return response.data
 }
+
+//Add Reply to a Comment 
+const addCommentReply = async(id,text)=>{
+  const response = await axios.post(`/post/addCommentReply/${id}`, text)
+ return response.data
+}
+
 // fetch all Comments
 const fetchComments = async () => {
   const response = await axios.get("/post/getComments");
+  return response.data;
+};
+
+// Delete a Comment
+const deleteComment = async (id) => {
+  const response = await axios.delete(`/post/deleteComment/${id}`);
   return response.data;
 };
 
@@ -60,7 +72,9 @@ const postService = {
   FindPost,
   likePost,
   AddComment,
+  addCommentReply,
   fetchComments,
+  deleteComment,
 };
 
 export default postService;

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // features
-import { AddComment } from "../../app/features/memorie/postSlice";
+import { AddComment } from "../../app/features/post/postSlice";
 
 // Components
 import Comment from "./Comment";
@@ -12,6 +12,7 @@ import CommentForm from "./CommentForm";
 import "./index.css";
 
 const Comments = ({ post }) => {
+  const [activeComment,setActiveComment]=useState(null)
   const CurrentUserId = useSelector((state) => state.auth.user._id);
   const { comments } = useSelector((state) => state.post);
   const rootComments = comments
@@ -45,6 +46,8 @@ const Comments = ({ post }) => {
               key={rootComment._id}
               comment={rootComment}
               CurrentUserId={CurrentUserId}
+              activeComment={activeComment}
+              setActiveComment={setActiveComment}
               replies={[
                 {
                   text: "rrrrrrrrrrrrrrr",

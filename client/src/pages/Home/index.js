@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // features
-import { fetchComments, fetchPosts, reset } from "../../app/features/memorie/postSlice";
+import { fetchComments, fetchPosts, reset } from "../../app/features/post/postSlice";
 import { openModal } from "../../app/features/modal/modalSlice";
 
 // Components

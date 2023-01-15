@@ -3,13 +3,14 @@ import { useDispatch } from "react-redux";
 import moment from "moment";
 // Styles
 import "./index.css";
+import { deleteComment } from "../../app/features/post/postSlice";
 
-const Comment = ({ comment, replies, CurrentUserId }) => {
+const Comment = ({ comment, replies, CurrentUserId , activeComment , setActiveComment }) => {
   const dispatch = useDispatch();
   const canReply = Boolean(CurrentUserId);
   const canEdit = CurrentUserId === comment?.owner?._id;
   const canDelete = CurrentUserId === comment?.owner?._id;
-  
+const CommentId = comment?._id ; 
   return (
     <div className="comment">
       <img className="comment-image" src={comment?.owner?.image} alt="." />
@@ -20,9 +21,9 @@ const Comment = ({ comment, replies, CurrentUserId }) => {
         </div>
         <p className="comment-text">{comment?.text}</p>
         <div className="comment-actions">
-          {canReply && <div className="comment-action"onClick={dispatch()}>Reply</div>}
-          {canEdit && <div className="comment-action" onClick={dispatch()}>Edit</div>}
-          {canDelete && <div className="comment-action" onClick={dispatch()}>Delete</div>}
+          {canReply && <div className="comment-action"onClick={()=>setActiveComment({id:CommentId,type:"replying"})}>Reply</div>}
+          {canEdit && <div className="comment-action" onClick={()=>setActiveComment({id:CommentId,type:"editing"})}>Edit</div>}
+          {canDelete && <div className="comment-action" onClick={()=>dispatch(deleteComment(CommentId))}>Delete</div>}
         </div>
 
         {replies.length > 0 && (
