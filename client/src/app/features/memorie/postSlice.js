@@ -81,13 +81,12 @@ export const likePost = createAsyncThunk(
   }
 );
 
-//Comment  post
-export const CommentPost = createAsyncThunk(
-  "post/CommentPost",
-  async ({ id, form }, thunkAPI) => {
-    console.log("🚀 ~ file: postSlice.js:86 ~ comment", form)
+//Add a Comment
+export const AddComment = createAsyncThunk(
+  "post/AddComment",
+  async ({ id, text }, thunkAPI) => {
     try {
-      return await postService.CommentPost(id, form);
+      return await postService.AddComment(id, text);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -195,13 +194,13 @@ export const postSlice = createSlice({
       .addCase(likePost.rejected, (state, action) => {
         state.error = action.payload;
       })
-      .addCase(CommentPost.pending, (state, action) => {})
-      .addCase(CommentPost.fulfilled, (state, action) => {
+      .addCase(AddComment.pending, (state, action) => {})
+      .addCase(AddComment.fulfilled, (state, action) => {
         state.isLoading = false;
         state.comments = state.comments.push(action.payload)
 
       })
-      .addCase(CommentPost.rejected, (state, action) => {
+      .addCase(AddComment.rejected, (state, action) => {
         state.error = action.payload;
       })
       .addCase(fetchComments.pending, (state, action) => {

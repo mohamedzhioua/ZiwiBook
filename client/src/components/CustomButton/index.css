@@ -64,14 +64,22 @@
 }
 .commentbtn {
  border: none;
- background-color:#5271ff;
+ background: rgb(59, 130, 246);
  color: white;
  padding: 3px;
  cursor: pointer;
  border-radius: 5px;
  width: 100px;
- }
 
+ }
+ .commentbtn:hover:enabled{
+  cursor: pointer;
+  background: rgb(37, 99, 235);
+ }
+ .commentbtn:hover:disabled{
+  opacity: 0.7;
+  cursor: default;
+ }
 
 /* .button2 {background-color: #1D1D2C;}  
   .button3 {background-color: #F7F4E9;}   

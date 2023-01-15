@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // features
-import { CommentPost} from "../../app/features/memorie/postSlice";
+import { AddComment} from "../../app/features/memorie/postSlice";
 
 // Components
 import Comment from "./Comment";
@@ -13,9 +13,9 @@ import "./index.css";
 
 const Comments = ({ post }) => {
   const {comments} = useSelector((state) =>state.post);
-const rootComments = comments.filter((comment) => comment.post === post?._id)
+const rootComments = comments.filter((comment) => comment.post === post?._id).sort((a,b)=>b.createdAt.localeCompare(a.createdAt))
 // const getReplies = commentID =>{
-//   return comments.filter((comment)=>comment._id === commentID).sort((a,b)=>a.replies.createdAt.localeCompare(b.replies.createdAt))
+//   return comments.filter((comment)=>comment._id === commentID).sort((a,b)=>b.replies.createdAt.localeCompare(a.replies.createdAt))
 // }
    const dispatch = useDispatch();
   const id = post?._id;
@@ -23,9 +23,9 @@ const rootComments = comments.filter((comment) => comment.post === post?._id)
 
 
   //onsubmitHandler
-  const addComment = (event) => {
-    event.preventDefault();
-    dispatch(CommentPost({ id }));
+  const addComment = (text ) => {
+    dispatch(AddComment({id,text}))
+   console.log("🚀 ~ file: index.js:28 ~ addComment ~ text", id , text)
   };
 
   return (

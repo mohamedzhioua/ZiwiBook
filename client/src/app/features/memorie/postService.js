@@ -42,8 +42,8 @@ const likePost = async(id)=>{
   return response.data
 }
 // Comment  post 
-const CommentPost = async(id,form)=>{
-  const response = await axios.post(`/post/Comment/${id}`, form)
+const AddComment = async(id,text)=>{
+   const response = await axios.post(`/post/Comment/${id}`, text)
   return response.data
 }
 // fetch all Comments
@@ -59,7 +59,7 @@ const postService = {
   updatePost,
   FindPost,
   likePost,
-  CommentPost,
+  AddComment,
   fetchComments,
 };
 

@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment";
 // Styles
 import "./index.css";
+
 const Comment = ({ comment, replies }) => {
   return (
     <div className="comment">
