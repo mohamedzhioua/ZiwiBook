@@ -3,6 +3,7 @@ const router = express.Router();
 const PostController = require("../controllers/posts");
 const multerUploads = require("../middlewares/multerMiddleware")
 const checkAuth = require ("../middlewares/checkAuth")
+
 // POST request
 router.post("/addPost",checkAuth,multerUploads, PostController.addPost);
 
@@ -24,8 +25,14 @@ router.delete("/deletePost/:id",checkAuth, PostController.deletePost);
 // PATCH request
 router.patch("/like/:id",checkAuth, PostController.like);
 
-// PATCH request
-router.post("/Comment/:id",checkAuth, PostController.Comment);
+
+//-------------------------------------Comments-------------------------------//
+
+// Post request
+router.post("/addComment/:id",checkAuth, PostController.addComment);
+
+// Post request
+router.post("/addCommentReply/:id",checkAuth, PostController.addCommentReply);
 
 // GET request
 router.get("/getComments",checkAuth, PostController.getComments);

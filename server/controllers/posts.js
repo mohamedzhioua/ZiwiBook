@@ -135,7 +135,7 @@ module.exports = {
       res.status(404).json({ message: error.message });
     }
   },
-  //  ----------------------//likes method //--------------------------- //
+  //  ----------------------//like Post method //--------------------------- //
   like: async (req, res) => {
     const { id } = req.params;
 
@@ -155,10 +155,11 @@ module.exports = {
       res.status(404).json({ message: error.message });
     }
   },
-  //  ----------------------//Comments method //--------------------------- //
-  Comment: async (req, res) => {
-    console.log("🚀 ~ file: posts.js:160 ~ Comment: ~ req", req.body)
+  //  ----------------------//add Comment method //--------------------------- //
+  addComment: async (req, res) => {
     const { id } = req.params;
+    const { text } = req.body;
+    const owner = req.user.id
     try {
       if (!id)
         return res
@@ -169,9 +170,9 @@ module.exports = {
       if (!checkPost) return res.status(404).json({ message: "No post found" });
 
       const commendData = await Comment.create({
-        owner: req.user.id,
+        owner,
         post: id,
-        text: req.body.text,
+        text,
       });
 
       res.status(200).json(commendData);
@@ -179,7 +180,27 @@ module.exports = {
       res.status(404).json({ message: error.message });
     }
   },
-    //  ----------------------//get all Comments //--------------------------- //
+        //  ----------------------//add Reply To a Comment method //--------------------------- //
+
+        addCommentReply : async (req, res) => {
+          const { CommentID} = req.params;
+          const { text } = req.body;
+          const owner = req.user.id
+          try {
+            const checkComment = await Comment.findById(CommentID);
+            if (!checkComment) return res.status(404).json({ message: "No comment found" });
+            checkComment.replies.push({
+              owner,
+              text,
+            });
+            await checkComment.save();  
+            res.status(200).json(checkComment.replies);
+          
+          } catch (error) {
+            res.status(404).json({ message: error.message });
+          }
+        },
+    //  ----------------------//get all Comments method//--------------------------- //
     getComments: async (req, res) => {
       try {
         const comments = await Comment.find().populate("owner", ["name", "image"]);
@@ -187,6 +208,6 @@ module.exports = {
       } catch (error) {
         res.status(404).json({ message: error.message });
       }
-    }
-
+    },
+  
 };
