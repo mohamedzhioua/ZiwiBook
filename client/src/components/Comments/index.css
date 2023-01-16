@@ -65,3 +65,10 @@
 .comment .comment-body .comment-actions .comment-action {
   margin-right: 8px;
 }
+.comment .comment-body .comment-actions .comment-action:hover {
+  text-decoration: underline;
+}
+
+.comment .comment-body .replies {
+  margin-top: -10px;
+}

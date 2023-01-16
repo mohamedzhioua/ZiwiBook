@@ -13,7 +13,6 @@ import "./index.css";
 const Modal = () => {
   const dispatch = useDispatch();
   const { isOpen, componentName , childrenProps } = useSelector((state) => state.modal);
-  console.log("🚀 ~ file: Modal.js:12 ~ Modal ~ childrenProps", childrenProps)
 
   const closeModalHandler = () => dispatch(closeModal());
 

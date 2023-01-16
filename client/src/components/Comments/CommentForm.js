@@ -4,8 +4,8 @@ import { CustomInput, CustomButton } from "../index";
 // Styles
 import "./index.css";
 
-const CommentForm = ({ submitLabel, handleSubmit }) => {
-  const [form, setForm] = useState({ text: "" });
+const CommentForm = ({ submitLabel, handleSubmit ,oldText="" }) => {
+  const [form, setForm] = useState({ text:oldText});
 
   //onChangeHandler
   const onChangeHandler = (event) => {

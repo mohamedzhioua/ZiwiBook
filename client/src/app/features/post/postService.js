@@ -29,6 +29,7 @@ const updatePost = async (id, form) => {
   return response.data;
 };
 
+
 // Find a post by ID
 const FindPost = async (id) => {
   const response = await axios.get(`/post/getOnePost/${id}`);
@@ -64,6 +65,12 @@ const deleteComment = async (id) => {
   return response.data;
 };
 
+// update a comment
+const updateComment = async (id, text) => {
+  const response = await axios.put(`/post/updateComment/${id}`, text);
+  return response.data;
+};
+
 const postService = {
   addPost,
   fetchAll,
@@ -75,6 +82,7 @@ const postService = {
   addCommentReply,
   fetchComments,
   deleteComment,
+  updateComment,
 };
 
 export default postService;

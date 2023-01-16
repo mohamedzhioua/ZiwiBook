@@ -129,6 +129,18 @@ export const deleteComment = createAsyncThunk(
   }
 );
 
+// update a comment
+export const updateComment = createAsyncThunk(
+  "post/updateComment",
+  async ({ id, text }, thunkAPI) => {
+    try {
+      return await postService.updateComment(id, text);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
@@ -217,10 +229,11 @@ export const postSlice = createSlice({
       .addCase(likePost.rejected, (state, action) => {
         state.error = action.payload;
       })
+      //--------------------------------------------------------comments------------------------------------------------//
       .addCase(AddComment.pending, (state, action) => {})
       .addCase(AddComment.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.comments = state.comments.push(action.payload);
+        state.comments = [...state.comments, action.payload];
       })
       .addCase(AddComment.rejected, (state, action) => {
         state.error = action.payload;
@@ -240,13 +253,17 @@ export const postSlice = createSlice({
       .addCase(addCommentReply.pending, (state, action) => {})
       .addCase(addCommentReply.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.comments = state.comments.replies.push(action.payload);
+        const { arg } = action.meta;
+        if (arg) {
+          state.posts = state.posts.map((item) =>
+            item._id === arg ? action.payload : item
+          );
+        }
       })
       .addCase(addCommentReply.rejected, (state, action) => {
         state.error = action.payload;
       })
-      .addCase(deleteComment.pending, (state, action) => {
-      })
+      .addCase(deleteComment.pending, (state, action) => {})
       .addCase(deleteComment.fulfilled, (state, action) => {
         const { arg } = action.meta;
         if (arg) {
@@ -254,6 +271,21 @@ export const postSlice = createSlice({
         }
       })
       .addCase(deleteComment.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateComment.pending, (state, action) => {})
+      .addCase(updateComment.fulfilled, (state, action) => {
+        const {
+          arg: { id },
+        } = action.meta;
+        if (id) {
+          state.posts = state.comments.map((item) =>
+            item._id === id ? action.payload.updatedComment : item
+          );
+        }
+      })
+      .addCase(updateComment.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })

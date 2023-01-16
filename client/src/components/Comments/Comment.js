@@ -1,27 +1,37 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 // Styles
 import "./index.css";
-import { addCommentReply, deleteComment } from "../../app/features/post/postSlice";
+import { addCommentReply, deleteComment, updateComment } from "../../app/features/post/postSlice";
 import CommentForm from "./CommentForm";
 
 const Comment = ({ comment,CurrentUserId }) => {
   const [activeComment,setActiveComment]=useState(null)
   const dispatch = useDispatch();
+  const id = activeComment?.id
+
+  // checking if the user is allowed to Reply,Edit or Delete 
   const canReply = Boolean(CurrentUserId);
-  const canEdit = CurrentUserId === comment?.owner?._id;
-  const canDelete = CurrentUserId === comment?.owner?._id;
+  const canEdit = CurrentUserId === comment?.owner?._id || comment?.owner;
+  const canDelete = CurrentUserId === comment?.owner?._id  || comment?.owner ;
 
   // conditions to know what exactly the User willing to do 
   const isReplying = activeComment && activeComment.type ==="replying" && activeComment.id === comment._id ;
-  // const isEditing = activeComment && activeComment.type ==="editing" && activeComment.id === comment._id ;
+  const isEditing = activeComment && activeComment.type ==="editing" && activeComment.id === comment._id ;
+
+  //comment old text field 
+const oldText = useSelector((state)=>state.post.comments.find(comment=>comment._id ===id))
 
   //onsubmitHandler
   const addComment = (text) => {
-    const id = activeComment.id
-    dispatch(addCommentReply({id, text }));
+  if (activeComment.type === "replying" ) {
+     dispatch(addCommentReply({id, text }));
+     setActiveComment(null)
+   } else{
+    dispatch(updateComment({id,text}) )
     setActiveComment(null)
+   }
   };
 
   return (
@@ -32,11 +42,14 @@ const Comment = ({ comment,CurrentUserId }) => {
           <span className="comment-author">{comment?.owner?.name}</span>
           <span className="date">{moment(comment?.createdAt).fromNow()}</span>
         </div>
-        <p className="comment-text">{comment?.text}</p>
+       {!isEditing && <p className="comment-text">{comment?.text}</p>}
+       {isEditing && (
+        <CommentForm  submitLabel="update"  handleSubmit={addComment} oldText={oldText.text} />
+       )}
         <div className="comment-actions">
           {canReply && <div className="comment-action"onClick={()=>setActiveComment({id:comment?._id,type:"replying"})}>Reply</div>}
           {canEdit && <div className="comment-action" onClick={()=>setActiveComment({id:comment?._id,type:"editing"})}>Edit</div>}
-          {canDelete && <div className="comment-action" onClick={()=>dispatch(deleteComment(comment?._id))}>Delete</div>}
+          {canDelete && <div className="comment-action" onClick={()=>dispatch(deleteComment(comment?._id ))}>Delete</div>}
           {isReplying && (
             <CommentForm 
             submitLabel="Reply"
