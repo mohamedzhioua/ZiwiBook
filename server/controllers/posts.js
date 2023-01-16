@@ -213,6 +213,7 @@ module.exports = {
     }
   },
   //  ----------------------//delete Comment method//--------------------------- //
+
   deleteComment: async (req, res) => {
     const CommentID = req.params.id;
     try {
@@ -223,17 +224,18 @@ module.exports = {
     }
   },
   //  ----------------------//update Comment method//--------------------------- //
+
   updateComment: async (req, res) => {
     const CommentID = req.params.id;
-    const { text } = req.body;
     try {
       const updatedComment = await Comment.findByIdAndUpdate(
         CommentID,
-        text,
+        req.body,
         {
           new: true,
         }
       );
+
       res
         .status(200)
         .json({ message: "comment updated successfully", updatedComment });
