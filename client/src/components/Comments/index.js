@@ -12,17 +12,22 @@ import CommentForm from "./CommentForm";
 import "./index.css";
 
 const Comments = ({ post }) => {
-
   const CurrentUserId = useSelector((state) => state.auth.user._id);
   const { comments } = useSelector((state) => state.post);
-  const rootComments = comments
-    .filter((comment) => comment.post === post?._id)
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-  // const getReplies = commentID =>{
-  //   return comments.filter((comment)=>comment._id === commentID).sort((a,b)=>b.replies.createdAt.localeCompare(a.replies.createdAt))
-  // }
   const dispatch = useDispatch();
   const id = post?._id;
+
+// root comments 
+  const rootComments = comments
+    .filter((comment) => comment.parentId === null)
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+
+// replies    
+  const getReplies = (commentID) => {
+    return comments
+      .filter((comment) => comment.parentId === commentID)
+      .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+  };
 
   //onsubmitHandler
   const addComment = (text) => {
@@ -41,24 +46,7 @@ const Comments = ({ post }) => {
               key={rootComment._id}
               comment={rootComment}
               CurrentUserId={CurrentUserId}
-              // replies={[
-              //   {
-              //     text: "rrrrrrrrrrrrrrr",
-              //     owner: {
-              //       name: "hama hama",
-              //       image:
-              //         "https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg",
-              //     },
-              //   },
-              //   {
-              //     text: "bbbbbbbbbbbb",
-              //     owner: {
-              //       name: "ziwi ziwi",
-              //       image:
-              //         "https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg",
-              //     },
-              //   },
-              // ]}
+              replies={getReplies(rootComment._id)}
             />
           ))}
         </div>

@@ -6,22 +6,24 @@ import "./index.css";
 import { addCommentReply, deleteComment, updateComment } from "../../app/features/post/postSlice";
 import CommentForm from "./CommentForm";
 
-const Comment = ({ comment,CurrentUserId }) => {
+const Comment = ({ comment,replies,CurrentUserId  }) => {
+
   const [activeComment,setActiveComment]=useState(null)
+  console.log("🚀 ~ file: Comment.js:12 ~ Comment ~ activeComment", activeComment)
   const dispatch = useDispatch();
   const id = activeComment?.id
-
-  // checking if the user is allowed to Reply,Edit or Delete 
+ 
+  // checking if the user is allowed to Reply, Edit or Delete 
   const canReply = Boolean(CurrentUserId);
-  const canEdit = CurrentUserId === comment?.owner?._id || comment?.owner;
-  const canDelete = CurrentUserId === comment?.owner?._id  || comment?.owner ;
+  const canEdit = CurrentUserId === comment?.owner?._id ; 
+  const canDelete = CurrentUserId === comment?.owner?._id ;
 
   // conditions to know what exactly the User willing to do 
   const isReplying = activeComment && activeComment.type ==="replying" && activeComment.id === comment._id ;
   const isEditing = activeComment && activeComment.type ==="editing" && activeComment.id === comment._id ;
 
   //comment old text field 
-const oldText = useSelector((state)=>state.post.comments.find(comment=>comment._id ===id))
+  const InitialText = useSelector((state)=>state.post.comments.find(comment=>comment._id ===id))
 
   //onsubmitHandler
   const addComment = (text) => {
@@ -34,6 +36,9 @@ const oldText = useSelector((state)=>state.post.comments.find(comment=>comment._
    }
   };
 
+  //handle Editing cancel 
+  const EditCancelHandler = () => setActiveComment(null)
+
   return (
     <div className="comment">
       <img className="comment-image" src={comment?.owner?.image} alt="." />
@@ -44,10 +49,10 @@ const oldText = useSelector((state)=>state.post.comments.find(comment=>comment._
         </div>
        {!isEditing && <p className="comment-text">{comment?.text}</p>}
        {isEditing && (
-        <CommentForm  submitLabel="update"  handleSubmit={addComment} oldText={oldText.text} />
+        <CommentForm  submitLabel="update"  handleSubmit={addComment} hasCancelButton EditCancelHandler={EditCancelHandler} InitialText={InitialText.text} />
        )}
         <div className="comment-actions">
-          {canReply && <div className="comment-action"onClick={()=>setActiveComment({id:comment?._id,type:"replying"})}>Reply</div>}
+          {canReply && <div className="comment-action"onClick={()=>setActiveComment({id:comment?._id ,type:"replying"})}>Reply</div>}
           {canEdit && <div className="comment-action" onClick={()=>setActiveComment({id:comment?._id,type:"editing"})}>Edit</div>}
           {canDelete && <div className="comment-action" onClick={()=>dispatch(deleteComment(comment?._id ))}>Delete</div>}
           {isReplying && (
@@ -57,10 +62,10 @@ const oldText = useSelector((state)=>state.post.comments.find(comment=>comment._
           )}
         </div>
 
-        {comment.replies && (
+        {replies?.length > 0 && (
           <div className="replies">
-            {comment.replies.map((reply, i) => (
-              <Comment comment={reply} key={i} replies={[]} CurrentUserId={CurrentUserId}/>
+            {replies?.map((reply) => (
+              <Comment comment={reply} key={reply._id} replies={[]} CurrentUserId={CurrentUserId} />
             ))}
           </div>
         )}

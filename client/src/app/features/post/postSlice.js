@@ -253,12 +253,7 @@ export const postSlice = createSlice({
       .addCase(addCommentReply.pending, (state, action) => {})
       .addCase(addCommentReply.fulfilled, (state, action) => {
         state.isLoading = false;
-        const { arg } = action.meta;
-        if (arg) {
-          state.posts = state.posts.map((item) =>
-            item._id === arg ? action.payload : item
-          );
-        }
+        state.comments = [...state.comments, action.payload];
       })
       .addCase(addCommentReply.rejected, (state, action) => {
         state.error = action.payload;

@@ -10,6 +10,8 @@
   font-weight: 900;
   margin: 4px 2px;
   cursor: pointer;
+  width: 100%;
+
 }
 
 .button2 {
@@ -80,6 +82,16 @@
   opacity: 0.7;
   cursor: default;
  }
+ .commentcancelbtn {
+  border: none;
+  background:  #e40c2b;
+  color: white;
+  padding: 3px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100px;
+  margin-left: 10px;
+  }
 
 /* .button2 {background-color: #1D1D2C;}  
   .button3 {background-color: #F7F4E9;}   

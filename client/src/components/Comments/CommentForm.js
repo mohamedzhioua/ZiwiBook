@@ -4,8 +4,16 @@ import { CustomInput, CustomButton } from "../index";
 // Styles
 import "./index.css";
 
-const CommentForm = ({ submitLabel, handleSubmit ,oldText="" }) => {
-  const [form, setForm] = useState({ text:oldText});
+const CommentForm = ({
+  submitLabel,
+  handleSubmit,
+  InitialText = "",
+  hasCancelButton = false,
+  EditCancelHandler,
+}) => {
+  console.log("🚀 ~ file: CommentForm.js:14 ~ submitLabel", submitLabel)
+  const [form, setForm] = useState({ text: InitialText });
+  const isTextareaDisabled = form.text.length === 0 || form.text === InitialText
 
   //onChangeHandler
   const onChangeHandler = (event) => {
@@ -14,6 +22,7 @@ const CommentForm = ({ submitLabel, handleSubmit ,oldText="" }) => {
       [event.target.name]: event.target.value,
     });
   };
+
   //onSubmit handler
   const onSubmit = (e) => {
     e.preventDefault();
@@ -39,10 +48,18 @@ const CommentForm = ({ submitLabel, handleSubmit ,oldText="" }) => {
         />
         <CustomButton
           type="submit"
-          value="Send"
+          value={submitLabel === "update" ? "update":"Send"}
           className="commentbtn"
-          disabled={!form.text}
+          disabled={isTextareaDisabled}
         />
+        {hasCancelButton && (
+          <CustomButton
+          type="submit"
+          value="cancel"
+          className="commentcancelbtn"
+          onClick={EditCancelHandler}
+          />
+      )}
       </form>
     </>
   );

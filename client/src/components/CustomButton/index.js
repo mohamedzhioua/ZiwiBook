@@ -2,7 +2,7 @@ import "./index.css";
 
 const CustomButton = ({ type, className, value, disabled, onClick ,dispatch}) => {
   return (
-    <div class="d-grid gap-5 mb-2">
+    // <div class="d-grid gap-5 mb-2">
       <button
         type={type}
         className={className}
@@ -11,7 +11,7 @@ const CustomButton = ({ type, className, value, disabled, onClick ,dispatch}) =>
        >
         {value}
       </button>
-    </div>
+    // </div>
   );
 };
 
