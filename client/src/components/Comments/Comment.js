@@ -9,8 +9,7 @@ import CommentForm from "./CommentForm";
 const Comment = ({ comment,replies,CurrentUserId  }) => {
 
   const [activeComment,setActiveComment]=useState(null)
-  console.log("🚀 ~ file: Comment.js:12 ~ Comment ~ activeComment", activeComment)
-  const dispatch = useDispatch();
+   const dispatch = useDispatch();
   const id = activeComment?.id
  
   // checking if the user is allowed to Reply, Edit or Delete 
@@ -71,6 +70,7 @@ const Comment = ({ comment,replies,CurrentUserId  }) => {
         )}
       </div>
     </div>
+  
   );
 };
 

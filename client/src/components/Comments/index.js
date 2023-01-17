@@ -11,18 +11,20 @@ import CommentForm from "./CommentForm";
 // Styles
 import "./index.css";
 
-const Comments = ({ post }) => {
+const Comments = ({ postId }) => {
+  console.log("🚀 ~ file: index.js:15 ~ Comments ~ postId", postId)
   const CurrentUserId = useSelector((state) => state.auth.user._id);
-  const { comments } = useSelector((state) => state.post);
+  const  comments  = useSelector((state) => state.post.comments).filter((comment)=>comment.post === postId)
+  console.log("🚀 ~ file: index.js:18 ~ Comments ~ comments", comments)
   const dispatch = useDispatch();
-  const id = post?._id;
 
-// root comments 
+
+  // root comments
   const rootComments = comments
     .filter((comment) => comment.parentId === null)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
-// replies    
+  // replies
   const getReplies = (commentID) => {
     return comments
       .filter((comment) => comment.parentId === commentID)
@@ -31,7 +33,7 @@ const Comments = ({ post }) => {
 
   //onsubmitHandler
   const addComment = (text) => {
-    dispatch(AddComment({ id, text }));
+    dispatch(AddComment({ postId, text }));
   };
 
   return (

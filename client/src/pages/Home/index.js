@@ -6,7 +6,7 @@ import { fetchComments, fetchPosts, reset } from "../../app/features/post/postSl
 import { openModal } from "../../app/features/modal/modalSlice";
 
 // Components
-import { Card, CustomButton, SearchBar } from "../../components";
+import { CustomButton, Post, SearchBar } from "../../components";
 
 // Styles
 import { ToastContainer, toast } from "react-toastify";
@@ -60,7 +60,7 @@ function Home() {
             )
             .map((post, index) => (
               <div class="col-12 col-md-6 col-lg-4" key={index}>
-                <Card post={post} userId={user._id} />
+                <Post post={post} userId={user._id} />
               </div>
             ))}
         </div>
@@ -71,7 +71,7 @@ function Home() {
   return (
      
       <div
-        className="container-fluid">
+        className="container">
         <div class="row">
           <div class="col-md-8">
             <SearchBar onChange={FilterQuery} />

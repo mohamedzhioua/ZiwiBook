@@ -33,8 +33,9 @@ label {
   outline: 2px solid transparent;
   outline-offset: -2px;
   border: none;
-  border-bottom: 1px solid #8d8d8d;
+  border-bottom: 1px solid #ccc;
   background-color: transparent;
+  resize: none;
 }
 .commentInput:focus {
   border: 1px solid rgb(107, 114, 12);

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 // Components
 import { CustomInput, CustomButton } from "../index";
 // Styles
@@ -11,7 +12,7 @@ const CommentForm = ({
   hasCancelButton = false,
   EditCancelHandler,
 }) => {
-  console.log("🚀 ~ file: CommentForm.js:14 ~ submitLabel", submitLabel)
+  const CurrentUserImage = useSelector((state) => state.auth.user.image);
   const [form, setForm] = useState({ text: InitialText });
   const isTextareaDisabled = form.text.length === 0 || form.text === InitialText
 
@@ -32,11 +33,12 @@ const CommentForm = ({
 
   return (
     <>
-      <img
+     {!(submitLabel === "update") && 
+     (<img
         className="comments-img"
-        src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg"
+        src={CurrentUserImage}
         alt="."
-      />
+      />)}
       <form onSubmit={onSubmit}>
         <CustomInput
           type="textarea"

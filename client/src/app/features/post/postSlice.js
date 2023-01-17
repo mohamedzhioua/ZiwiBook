@@ -84,9 +84,9 @@ export const likePost = createAsyncThunk(
 //Add a Comment to a post
 export const AddComment = createAsyncThunk(
   "post/AddComment",
-  async ({ id, text }, thunkAPI) => {
+  async ({ postId, text }, thunkAPI) => {
     try {
-      return await postService.AddComment(id, text);
+      return await postService.AddComment(postId, text);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
