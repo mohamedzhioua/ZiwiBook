@@ -8,6 +8,10 @@ const CommentSchema = new Schema(
       ref: "post",
       required: true,
     },
+    parentId : {
+      type: String,
+      default: null
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: "user",
@@ -21,22 +25,6 @@ const CommentSchema = new Schema(
       type: [String],
       default: [],
     },
-    replies: [
-      {
-        owner: {
-          type: Schema.Types.ObjectId,
-          ref: "user",
-          required: true,
-        },
-        text: {
-          type: String,
-        },
-        createdAt: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
   },
   { timestamps: true }
 );

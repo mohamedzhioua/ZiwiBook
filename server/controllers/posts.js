@@ -159,6 +159,7 @@ module.exports = {
   addComment: async (req, res) => {
     const { id } = req.params;
     const { text } = req.body;
+    console.log("🚀 ~ file: posts.js:162 ~ addComment: ~ req.body", text)
     const owner = req.user.id;
     try {
       if (!id)
@@ -169,13 +170,13 @@ module.exports = {
       const checkPost = await Post.findById(id);
       if (!checkPost) return res.status(404).json({ message: "No post found" });
 
-      const commendData = await Comment.create({
+      const commentData = await Comment.create({
         owner,
         post: id,
         text,
       });
 
-      res.status(200).json(commendData);
+      res.status(200).json(commentData);
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
@@ -183,19 +184,20 @@ module.exports = {
   //  ----------------------//add Reply To a Comment method //--------------------------- //
 
   addCommentReply: async (req, res) => {
-    const CommentID = req.params.id;
-    const { text } = req.body;
-    const owner = req.user.id;
-    try {
-      const checkComment = await Comment.findById(CommentID);
+    const parentId = req.params.id;
+     const { text } = req.body;
+     const owner = req.user.id;
+     try {
+      const checkComment = await Comment.findById(parentId);
       if (!checkComment)
         return res.status(404).json({ message: "No comment found" });
-      checkComment.replies.push({
+      const commentData = await Comment.create({
+        post:checkComment.post,
         owner,
+        parentId,
         text,
       });
-      await checkComment.save();
-      res.status(200).json(checkComment);
+       res.status(200).json(commentData);
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
@@ -235,7 +237,6 @@ module.exports = {
           new: true,
         }
       );
-
       res
         .status(200)
         .json({ message: "comment updated successfully", updatedComment });
