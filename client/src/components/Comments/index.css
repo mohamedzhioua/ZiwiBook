@@ -8,74 +8,18 @@
 
 /* Comment */
 
-/* .comment {
-  margin: 20px 0px;
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-.comment .comment-body {
-  width: 100%;
-}
-
-.comment .comment-image {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-.comment .comment-info {
-  flex: 5;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  align-items: flex-start;
-  margin-inline-start: -20px;
-  margin-top: -5px;
-}
-.comment .comment-info .comment-author {
-  font-weight: 500;
-  font-size: 14px;
-}
-.comment .comment-info .comment-text {
-  font-size: 16px;
-}
-.comment .comment-info .date {
-  font-size: 9px;
-  color: grey;
-}
-.comment .comment-body .comment-actions {
-  display: flex;
-  font-size: 12px;
-  color: rgb(51, 51, 51);
-  cursor: pointer;
-  margin-top: 8px;
-}
-
-.comment .comment-body .comment-actions .comment-action {
-  margin-right: 8px;
-}
-.comment .comment-body .comment-actions .comment-action:hover {
-  text-decoration: underline;
-}
-
-.comment .comment-body .replies {
-  margin-top: -10px;
-} */
-
 .comment {
   margin: 15px 0px;
-  padding: .5rem;
+  padding: 0.5rem;
   border: 1px solid hsl(235, 100%, 90%);
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
-
 .comment .comment-header {
   color: hsl(235, 50%, 67%);
   display: flex;
   justify-content: space-between;
-  margin-bottom: .25rem;
-  font-size: .75em;
+  margin-bottom: 0.25rem;
+  font-size: 0.75em;
 }
 .comment .comment-image {
   width: 38px;
@@ -101,26 +45,15 @@
 
 .comment .comment-text {
   white-space: pre-wrap;
-  margin-left: .5rem;
-  margin-right: .5rem;
+  margin-left: 10px;
+  margin-right: 10px;
 }
-.comment  .comment-actions {
+.comment .comment-actions {
   display: flex;
-  font-size: 12px;
-  color: rgb(51, 51, 51);
   cursor: pointer;
   margin-top: 8px;
-  gap: .5rem;
-
+  gap: 7px;
 }
-/*-------------------- */
-.comment  .comment-actions .comment-action {
-  margin-right: 8px;
+.comment .replies {
+  margin: 10px 0px;
 }
-.comment  .comment-actions .comment-action:hover {
-  text-decoration: underline;
-}
-
-.comment  .replies {
-  margin-top: -10px;
-} 

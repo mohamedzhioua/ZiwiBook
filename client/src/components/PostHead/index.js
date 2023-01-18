@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 // features
 import { openModal } from "../../app/features/modal/modalSlice";
 
+//components
+import CustomButton from "../CustomButton";
+
 // Styles
 import { BsThreeDots } from "react-icons/bs";
 import "./index.css";
@@ -26,8 +29,8 @@ const PostHead = ({ post, userId }) => {
         </div>
       </div>
       {userId === post.owner._id && (
-        <BsThreeDots
-          className="PostHead-icon"
+        <CustomButton
+          Icon={BsThreeDots}
           onClick={() =>
             dispatch(
               openModal({
@@ -36,7 +39,7 @@ const PostHead = ({ post, userId }) => {
               })
             )
           }
-        ></BsThreeDots>
+        />
       )}
     </div>
   );

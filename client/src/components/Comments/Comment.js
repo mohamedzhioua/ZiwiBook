@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+//components
+import CommentForm from "./CommentForm";
+import {CustomButton, CustomLikes} from "../index";
+
 // Styles
 import "./index.css";
 import { addCommentReply, deleteComment, updateComment } from "../../app/features/post/postSlice";
-import CommentForm from "./CommentForm";
+import { BsTrash } from "react-icons/bs";
+import { FaReply , FaEdit} from "react-icons/fa";
+
 
 const Comment = ({ comment,replies,CurrentUserId  }) => {
 
@@ -52,9 +58,10 @@ const Comment = ({ comment,replies,CurrentUserId  }) => {
         <CommentForm  submitLabel="update"  handleSubmit={addComment} hasCancelButton EditCancelHandler={EditCancelHandler} InitialText={InitialText.text} />
        )}
         <div className="comment-actions">
-         {!isEditing && (<>{canReply && <div className="comment-action"onClick={()=>setActiveComment({id:comment?._id ,type:"replying"})}>Reply</div>}
-          {canEdit && <div className="comment-action" onClick={()=>setActiveComment({id:comment?._id,type:"editing"})}>Edit</div>}
-          {canDelete && <div className="comment-action" onClick={()=>dispatch(deleteComment(comment?._id ))}>Delete</div>}</>)}
+          <CustomLikes/>
+         {!isEditing && (<>{canReply && <CustomButton Icon={FaReply} onClick={()=>setActiveComment({id:comment?._id ,type:"replying"})}/>}
+          {canEdit && <CustomButton Icon={FaEdit} onClick={()=>setActiveComment({id:comment?._id,type:"editing"})}/>}
+          {canDelete && <CustomButton Icon={BsTrash} onClick={()=>dispatch(deleteComment(comment?._id ))}/>}</>)}
           {isReplying && (
             <CommentForm 
             submitLabel="Reply"
