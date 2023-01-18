@@ -10,14 +10,14 @@ import "./index.css";
 import { addCommentReply, deleteComment, updateComment } from "../../app/features/post/postSlice";
 import { BsTrash } from "react-icons/bs";
 import { FaReply , FaEdit} from "react-icons/fa";
-
+import {CgDetailsMore} from "react-icons/cg" 
 
 const Comment = ({ comment,replies,CurrentUserId  }) => {
 
   const [activeComment,setActiveComment]=useState(null)
    const dispatch = useDispatch();
   const id = activeComment?.id
- 
+  const [areRepliesHidden,setAreRepliesHidden]= useState(true)
   // checking if the user is allowed to Reply, Edit or Delete 
   const canReply = Boolean(CurrentUserId);
   const canEdit = CurrentUserId === comment?.owner?._id ; 
@@ -70,12 +70,20 @@ const Comment = ({ comment,replies,CurrentUserId  }) => {
         </div>
 
         {replies?.length > 0 && (
-          <div className="replies">
+          <>
+          <div className={`replies ${areRepliesHidden ? "hide": ""}`} >
+            <CustomButton className="collapse-line"  area-label="Hide Replies" onClick={()=>setAreRepliesHidden(true)}/>
+            <div className="nested-replies">
             {replies?.map((reply) => (
               <Comment comment={reply} key={reply._id} replies={[]} CurrentUserId={CurrentUserId} />
             ))}
+            </div>
           </div>
-        )}
+         {areRepliesHidden && <CustomButton Icon={CgDetailsMore} className={`${!areRepliesHidden ? "hide" : ""}`} area-label="Show Replies" onClick={()=>setAreRepliesHidden(false)}>
+          &nbsp;Show Replies
+          </CustomButton >}
+          </>
+           )}
       </div>
    
   );

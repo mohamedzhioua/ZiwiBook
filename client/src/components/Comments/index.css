@@ -54,6 +54,15 @@
   margin-top: 8px;
   gap: 7px;
 }
-.comment .replies {
-  margin: 10px 0px;
+
+.replies {
+  display: flex;
+}
+.nested-replies {
+  padding-left: .5rem;
+  flex-grow: 1;
+}
+
+.hide {
+  display: none;
 }
