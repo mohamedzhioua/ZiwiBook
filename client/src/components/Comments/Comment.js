@@ -40,20 +40,21 @@ const Comment = ({ comment,replies,CurrentUserId  }) => {
 
   return (
     <div className="comment">
-      <img className="comment-image" src={comment?.owner?.image} alt="." />
-      <div className="comment-body">
-        <div className="comment-info">
-          <span className="comment-author">{comment?.owner?.name}</span>
+       <div className="comment-header">
+        <div>
+       <img className="comment-image" src={comment?.owner?.image} alt="." />
+           <span className="author">{comment?.owner?.name}</span>
+           </div>
           <span className="date">{moment(comment?.createdAt).fromNow()}</span>
-        </div>
-       {!isEditing && <p className="comment-text">{comment?.text}</p>}
+       </div>
+        {!isEditing && <div className="comment-text">{comment?.text}</div>}
        {isEditing && (
         <CommentForm  submitLabel="update"  handleSubmit={addComment} hasCancelButton EditCancelHandler={EditCancelHandler} InitialText={InitialText.text} />
        )}
         <div className="comment-actions">
-          {canReply && <div className="comment-action"onClick={()=>setActiveComment({id:comment?._id ,type:"replying"})}>Reply</div>}
+         {!isEditing && (<>{canReply && <div className="comment-action"onClick={()=>setActiveComment({id:comment?._id ,type:"replying"})}>Reply</div>}
           {canEdit && <div className="comment-action" onClick={()=>setActiveComment({id:comment?._id,type:"editing"})}>Edit</div>}
-          {canDelete && <div className="comment-action" onClick={()=>dispatch(deleteComment(comment?._id ))}>Delete</div>}
+          {canDelete && <div className="comment-action" onClick={()=>dispatch(deleteComment(comment?._id ))}>Delete</div>}</>)}
           {isReplying && (
             <CommentForm 
             submitLabel="Reply"
@@ -69,8 +70,7 @@ const Comment = ({ comment,replies,CurrentUserId  }) => {
           </div>
         )}
       </div>
-    </div>
-  
+   
   );
 };
 

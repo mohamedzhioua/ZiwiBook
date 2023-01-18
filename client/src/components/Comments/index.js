@@ -12,12 +12,11 @@ import CommentForm from "./CommentForm";
 import "./index.css";
 
 const Comments = ({ postId }) => {
-  console.log("🚀 ~ file: index.js:15 ~ Comments ~ postId", postId)
   const CurrentUserId = useSelector((state) => state.auth.user._id);
-  const  comments  = useSelector((state) => state.post.comments).filter((comment)=>comment.post === postId)
-  console.log("🚀 ~ file: index.js:18 ~ Comments ~ comments", comments)
+  const comments = useSelector((state) => state.post.comments).filter(
+    (comment) => comment.post === postId
+  );
   const dispatch = useDispatch();
-
 
   // root comments
   const rootComments = comments
@@ -37,23 +36,19 @@ const Comments = ({ postId }) => {
   };
 
   return (
-    <>
-      <div className="comments">
-        <div className="write">
-          <CommentForm submitLabel="write" handleSubmit={addComment} />
-        </div>
-        <div className="comments-container">
-          {rootComments?.map((rootComment) => (
-            <Comment
-              key={rootComment._id}
-              comment={rootComment}
-              CurrentUserId={CurrentUserId}
-              replies={getReplies(rootComment._id)}
-            />
-          ))}
-        </div>
+    <div className="comments">
+      <CommentForm submitLabel="write" handleSubmit={addComment} />
+      <div>
+        {rootComments?.map((rootComment) => (
+          <Comment
+            key={rootComment._id}
+            comment={rootComment}
+            CurrentUserId={CurrentUserId}
+            replies={getReplies(rootComment._id)}
+          />
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

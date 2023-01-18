@@ -23,9 +23,7 @@ const Post = ({ post, userId }) => {
   return (
     <Card>
       <PostHead post={post} userId={userId} />
-      <div className="card-body">
         <p className="post-text">{post.text.substring(0, 20)}</p>
-      </div>
       {post?.image && (
         <img src={post.image} className="post-image" alt="..." />
       )}
@@ -64,7 +62,9 @@ const Post = ({ post, userId }) => {
           )}
         </div>      
       </div>
+      <section>
       {commentOpen && <Comments postId={post._id} />}
+      </section>
     </Card>
   );
 };

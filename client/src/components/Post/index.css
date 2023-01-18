@@ -31,3 +31,7 @@
   object-fit: cover;
 }
 
+.post-comments-section{
+  width:100% ;
+  height: 100%;
+}

@@ -10,7 +10,6 @@ const initialState = {
   isLoading: false,
   fulfilled: false,
 };
-console.log("🚀 ~ file: postSlice.js:13 ~ comments", initialState.comments);
 
 //add post
 export const addPost = createAsyncThunk("post/add", async (post, thunkAPI) => {
