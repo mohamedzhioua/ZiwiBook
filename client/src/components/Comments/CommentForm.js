@@ -7,61 +7,50 @@ import "./index.css";
 
 const CommentForm = ({
   submitLabel,
-  handleSubmit,
+  onSubmit,
   InitialText = "",
   hasCancelButton = false,
   EditCancelHandler,
 }) => {
   const CurrentUserImage = useSelector((state) => state.auth.user.image);
-  const [form, setForm] = useState({ text: InitialText });
-  const isTextareaDisabled = form.text.length === 0 || form.text === InitialText
-
-  //onChangeHandler
-  const onChangeHandler = (event) => {
-    setForm({
-      ...form,
-      [event.target.name]: event.target.value,
-    });
-  };
+  const [text, setText] = useState(InitialText);
+  const isTextareaDisabled = text.length === 0 || text === InitialText;
 
   //onSubmit handler
-  const onSubmit = (e) => {
-    e.preventDefault();
-    handleSubmit(form);
-    setForm({ text: "" });
-  };
+  function onSubmitHandler(event) {
+    event.preventDefault();
+    onSubmit(text)
+    setText("")
+  }
 
   return (
     <>
-    {!(submitLabel === "update") && 
-     (<img
-        className="comments-img"
-        src={CurrentUserImage}
-        alt="."
-      />)}
-      <form onSubmit={onSubmit}>
+      {!(submitLabel === "update") && (
+        <img className="comments-img" src={CurrentUserImage} alt="." />
+      )}
+      <form onSubmit={onSubmitHandler}>
         <CustomInput
           type="textarea"
           className="commentInput"
           placeholder="write a Comment . . . ."
           name="text"
-          value={form.text}
-          onChange={onChangeHandler}
+          value={text}
+          onChange={(event) => setText(event.target.value)}
         />
         <CustomButton
           type="submit"
-          value={submitLabel === "update" ? "update":"Send"}
+          value={submitLabel === "update" ? "update" : "Send"}
           className="commentbtn"
           disabled={isTextareaDisabled}
         />
         {hasCancelButton && (
           <CustomButton
-          type="submit"
-          value="cancel"
-          className="commentcancelbtn"
-          onClick={EditCancelHandler}
+            type="submit"
+            value="cancel"
+            className="commentcancelbtn"
+            onClick={EditCancelHandler}
           />
-      )}
+        )}
       </form>
     </>
   );

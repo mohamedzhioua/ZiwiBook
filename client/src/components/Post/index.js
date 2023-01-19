@@ -1,10 +1,9 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // features
 import { openModal } from "../../app/features/modal/modalSlice";
-import { likePost ,AddComment } from "../../app/features/post/postSlice";
-
+import { likePost, AddComment } from "../../app/features/post/postSlice";
 
 // Components
 import { Comments, CustomButton, CustomLikes, PostHead } from "../index";
@@ -17,29 +16,31 @@ import "./index.css";
 import CommentForm from "../Comments/CommentForm";
 
 const Post = ({ post, userId }) => {
-
   const [commentOpen, setCommentOpen] = useState(false);
   const dispatch = useDispatch();
   const LIKES = post?.likes;
 
-   //filetring comments by post 
+  //filetring comments by post and sorting them
   const comments = useSelector((state) => state.post.comments)
-  .filter((comment) => comment.post === post._id);
-  
- //grouping comments by parentId
-  const commentsByParentId = useMemo(() => {
-    const group = {}
-    comments.forEach(comment => {
-      group[comment.parentId] ||= []
-      group[comment.parentId].push(comment)
-    })
-    return group
-  }, [comments])
-  const rootComments = commentsByParentId[null]
+    .filter((comment) => comment.post === post._id)
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  //rootcomments that have no parent
+  const rootComments = comments.filter((comment) => comment.parentId === null);
+
+  //grouping comments by parentId
+  // const commentsByParentId = useMemo(() => {
+  //   const group = {}
+  //   comments.forEach(comment => {
+  //     group[comment.parentId] ||= []
+  //     group[comment.parentId].push(comment)
+  //   })
+  //   return group
+  // }, [comments])
+  // const rootComments = commentsByParentId[null]
 
   // onsubmitHandler
   const addComment = (text) => {
-    dispatch(AddComment({ id:post._id, text }));
+    dispatch(AddComment({ id: post._id, text }));
   };
   return (
     <Card>
@@ -56,7 +57,12 @@ const Post = ({ post, userId }) => {
             Icon={GoComment}
             onClick={() => setCommentOpen(!commentOpen)}
           >
-            &nbsp;Comment
+            &nbsp;
+            {comments.length === 0
+              ? "comment"
+              : `${comments.length} ${
+                  comments.length > 1 ? "comments" : "comment"
+                }`}
           </CustomButton>
         </div>
         {userId === post.owner._id && (
@@ -79,15 +85,17 @@ const Post = ({ post, userId }) => {
           </>
         )}
       </div>
-      <section>
-        <CommentForm  submitLabel="write" handleSubmit={addComment}/>
-     {rootComments !=null && rootComments.length >0 &&  (
-        <div>
-          {commentOpen && <Comments rootComments={rootComments} />}
-          </div>
-     )}    
-     </section>
-</Card>
+      {!commentOpen && (
+        <section>
+          <CommentForm submitLabel="write" onSubmit={addComment} />
+          {rootComments != null && rootComments.length > 0 && (
+            <div>
+              <Comments rootComments={rootComments} />
+            </div>
+          )}
+        </section>
+      )}
+    </Card>
   );
 };
 

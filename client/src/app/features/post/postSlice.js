@@ -230,12 +230,15 @@ export const postSlice = createSlice({
         state.error = action.payload;
       })
       //--------------------------------------------------------comments------------------------------------------------//
-      .addCase(AddComment.pending, (state, action) => {})
+      .addCase(AddComment.pending, (state, action) => {
+        state.isLoading =true;
+      })
       .addCase(AddComment.fulfilled, (state, action) => {
         state.isLoading = false;
         state.comments = [...state.comments, action.payload];
       })
       .addCase(AddComment.rejected, (state, action) => {
+        state.isLoading = false;
         state.error = action.payload;
       })
       .addCase(fetchComments.pending, (state, action) => {
@@ -258,13 +261,16 @@ export const postSlice = createSlice({
       .addCase(addCommentReply.rejected, (state, action) => {
         state.error = action.payload;
       })
-      .addCase(deleteComment.pending, (state, action) => {})
+      .addCase(deleteComment.pending, (state, action) => {
+      })
       .addCase(deleteComment.fulfilled, (state, action) => {
+        state.isLoading = false;
         const { arg } = action.meta;
         if (arg) {
           state.posts = state.comments.filter((item) => item._id !== arg);
         }
       })
+      
       .addCase(deleteComment.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 //components
@@ -29,6 +29,8 @@ const Comment = ({ comment }) => {
     .filter((i) => i.parentId === comment._id)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
+
+    
   // checking if the user is allowed to Reply, Edit or Delete
   const canReply = Boolean(CurrentUserId);
   const canEdit = CurrentUserId === comment?.owner?._id;
@@ -50,7 +52,7 @@ const Comment = ({ comment }) => {
   );
 
   //onsubmitHandler
-  const addComment = (text) => {
+  const addComment = (text) => { 
     if (activeComment.type === "replying") {
       dispatch(addCommentReply({ id, text }));
       setActiveComment(null);
@@ -59,6 +61,12 @@ const Comment = ({ comment }) => {
       setActiveComment(null);
     }
   };
+
+  //ondelete user comment 
+  const Delete =(e)=>{
+e.preventDefault();
+dispatch(deleteComment(comment?._id))
+  }
 
   //handle Editing cancel
   const EditCancelHandler = () => setActiveComment(null);
@@ -76,7 +84,7 @@ const Comment = ({ comment }) => {
       {isEditing && (
         <CommentForm
           submitLabel="update"
-          handleSubmit={addComment}
+          onSubmit={addComment}
           hasCancelButton
           EditCancelHandler={EditCancelHandler}
           InitialText={InitialText.text}
@@ -104,20 +112,24 @@ const Comment = ({ comment }) => {
             )}
             {canDelete && (
               <CustomButton
+              type="submit"
                 Icon={BsTrash}
-                onClick={() => dispatch(deleteComment(comment?._id))}
+                onClick={Delete}
               />
             )}
           </>
         )}
-        {isReplying && (
-          <CommentForm submitLabel="Reply" handleSubmit={addComment} />
-        )}
       </div>
-
+      {isReplying && (
+        <div className="replying">
+          <CommentForm submitLabel="Reply" onSubmit={addComment} />
+        </div>
+      )}
       {getReplies?.length > 0 && (
         <>
-          <div className={`nested-replies-stack ${areRepliesHidden ? "hide" : ""}`}>
+          <div
+            className={`nested-replies-stack ${areRepliesHidden ? "hide" : ""}`}
+          >
             <CustomButton
               className="collapse-line"
               area-label="Hide Replies"
@@ -136,7 +148,9 @@ const Comment = ({ comment }) => {
               area-label="Show Replies"
               onClick={() => setAreRepliesHidden(false)}
             >
-              &nbsp;Show Replies
+              &nbsp;   {` ${getReplies.length} ${
+                      getReplies.length === 1 ? " more reply" : " more replies"
+                    }`}
             </CustomButton>
           )}
         </>

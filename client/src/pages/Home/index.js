@@ -73,11 +73,11 @@ function Home() {
 
   return (
     <div className="container">
-      <div class="row">
-        <div class="col-md-8">
+      <div className="row">
+        <div className="col-md-8">
           <SearchBar onChange={FilterQuery} />
         </div>
-        <div class="col-6 col-md-4">
+        <div className="col-6 col-md-4">
           <CustomButton
             className="button2"
             value="add Memorie"

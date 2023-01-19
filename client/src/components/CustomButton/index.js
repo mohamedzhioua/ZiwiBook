@@ -1,6 +1,15 @@
 import "./index.css";
 
-const CustomButton = ({ type, className, value, disabled, onClick, Icon , children }) => {
+const CustomButton = ({
+  onSubmit,
+  type,
+  className,
+  value,
+  disabled,
+  onClick,
+  Icon,
+  children,
+}) => {
   return !Icon ? (
     <button
       type={type}
@@ -11,9 +20,13 @@ const CustomButton = ({ type, className, value, disabled, onClick, Icon , childr
       {value}
     </button>
   ) : (
-    <button type="button" className={className ? className:"icon icon-btn"}  onClick={onClick}>
+    <button
+      type="button"
+      className={className ? className : "icon icon-btn"}
+      onClick={onClick}
+    >
       <span>
-        <Icon/>
+        <Icon />
       </span>
       {children}
     </button>

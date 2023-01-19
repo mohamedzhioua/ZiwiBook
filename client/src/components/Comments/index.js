@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 
 // Components
 import Comment from "./Comment";
@@ -6,21 +6,15 @@ import Comment from "./Comment";
 // Styles
 import "./index.css";
 
-const Comments = ({ rootComments }) => {  
-
-
- 
-
-
-
+const Comments = ({ rootComments }) => {
   return (
     <>
-          {rootComments?.map((rootComment) => (
-          <div className="comments" key={rootComment._id}>
+      {rootComments?.map((rootComment) => (
+        <div className="comments" key={rootComment._id}>
           <Comment comment={rootComment} />
-          </div>
-        ))}
-      </>
+        </div>
+      ))}
+    </>
   );
 };
 

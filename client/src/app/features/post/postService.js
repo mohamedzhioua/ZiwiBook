@@ -17,18 +17,17 @@ const fetchAll = async () => {
   return response.data;
 };
 
-// delete a post
+// delete user post
 const deleteOne = async (id) => {
   const response = await axios.delete(`/post/deletePost/${id}`);
   return response.data;
 };
 
-// update a post
+// update user post
 const updatePost = async (id, form) => {
   const response = await axios.put(`/post/updatePost/${id}`, form, config);
   return response.data;
 };
-
 
 // Find a post by ID
 const FindPost = async (id) => {
@@ -36,22 +35,22 @@ const FindPost = async (id) => {
   return response.data;
 };
 
-// like  post 
-const likePost = async(id)=>{
-  const response = await axios.patch(`/post/like/${id}`)
-  return response.data
-}
+// like  post
+const likePost = async (id) => {
+  const response = await axios.patch(`/post/like/${id}`);
+  return response.data;
+};
 //Add a Comment to a post
-const AddComment = async(id,text)=>{
-   const response = await axios.post(`/post/addComment/${id}`, text)
-  return response.data
-}
+const AddComment = async (id, text) => {
+  const response = await axios.post(`/post/addComment/${id}`, { text });
+  return response.data;
+};
 
-//Add Reply to a Comment 
-const addCommentReply = async(id,text)=>{
-  const response = await axios.post(`/post/addCommentReply/${id}`, text)
- return response.data
-}
+//Add Reply to a Comment
+const addCommentReply = async (id, text) => {
+  const response = await axios.post(`/post/addCommentReply/${id}`, { text });
+  return response.data;
+};
 
 // fetch all Comments
 const fetchComments = async () => {
@@ -59,15 +58,15 @@ const fetchComments = async () => {
   return response.data;
 };
 
-// Delete a Comment
+// Delete user Comment
 const deleteComment = async (id) => {
   const response = await axios.delete(`/post/deleteComment/${id}`);
   return response.data;
 };
 
-// update a comment
+// update user comment
 const updateComment = async (id, text) => {
-  const response = await axios.put(`/post/updateComment/${id}`, text);
+  const response = await axios.put(`/post/updateComment/${id}`, { text });
   return response.data;
 };
 
