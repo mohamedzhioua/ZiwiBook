@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 // features
 import { openModal } from "../../app/features/modal/modalSlice";
-import { likePost } from "../../app/features/post/postSlice";
+import { likePost ,AddComment } from "../../app/features/post/postSlice";
+
 
 // Components
 import { Comments, CustomButton, CustomLikes, PostHead } from "../index";
@@ -13,13 +14,33 @@ import Card from "../Card";
 import { GoComment } from "react-icons/go";
 import { BsTrash } from "react-icons/bs";
 import "./index.css";
+import CommentForm from "../Comments/CommentForm";
 
 const Post = ({ post, userId }) => {
-  const [commentOpen, setCommentOpen] = useState(false);
 
+  const [commentOpen, setCommentOpen] = useState(false);
   const dispatch = useDispatch();
   const LIKES = post?.likes;
 
+   //filetring comments by post 
+  const comments = useSelector((state) => state.post.comments)
+  .filter((comment) => comment.post === post._id);
+  
+ //grouping comments by parentId
+  const commentsByParentId = useMemo(() => {
+    const group = {}
+    comments.forEach(comment => {
+      group[comment.parentId] ||= []
+      group[comment.parentId].push(comment)
+    })
+    return group
+  }, [comments])
+  const rootComments = commentsByParentId[null]
+
+  // onsubmitHandler
+  const addComment = (text) => {
+    dispatch(AddComment({ id:post._id, text }));
+  };
   return (
     <Card>
       <PostHead post={post} userId={userId} />
@@ -58,9 +79,15 @@ const Post = ({ post, userId }) => {
           </>
         )}
       </div>
-
-      <section>{commentOpen && <Comments postId={post._id} />}</section>
-    </Card>
+      <section>
+        <CommentForm  submitLabel="write" handleSubmit={addComment}/>
+     {rootComments !=null && rootComments.length >0 &&  (
+        <div>
+          {commentOpen && <Comments rootComments={rootComments} />}
+          </div>
+     )}    
+     </section>
+</Card>
   );
 };
 

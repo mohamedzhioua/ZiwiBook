@@ -83,9 +83,9 @@ export const likePost = createAsyncThunk(
 //Add a Comment to a post
 export const AddComment = createAsyncThunk(
   "post/AddComment",
-  async ({ postId, text }, thunkAPI) => {
+  async ({ id, text }, thunkAPI) => {
     try {
-      return await postService.AddComment(postId, text);
+      return await postService.AddComment(id, text);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -139,6 +139,7 @@ export const updateComment = createAsyncThunk(
     }
   }
 );
+
 
 export const postSlice = createSlice({
   name: "post",

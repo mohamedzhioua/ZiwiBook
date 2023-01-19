@@ -54,10 +54,10 @@
   margin-top: 8px;
   gap: 7px;
 }
-
-.replies {
+.nested-replies-stack {
   display: flex;
 }
+
 .nested-replies {
   padding-left: .5rem;
   flex-grow: 1;
@@ -65,4 +65,12 @@
 
 .hide {
   display: none;
+}
+
+/* commentForm */
+.comments-img{
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
 }

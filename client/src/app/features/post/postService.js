@@ -42,8 +42,8 @@ const likePost = async(id)=>{
   return response.data
 }
 //Add a Comment to a post
-const AddComment = async(postId,text)=>{
-   const response = await axios.post(`/post/addComment/${postId}`, text)
+const AddComment = async(id,text)=>{
+   const response = await axios.post(`/post/addComment/${id}`, text)
   return response.data
 }
 

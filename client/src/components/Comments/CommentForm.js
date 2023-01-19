@@ -33,7 +33,7 @@ const CommentForm = ({
 
   return (
     <>
-     {!(submitLabel === "update") && 
+    {!(submitLabel === "update") && 
      (<img
         className="comments-img"
         src={CurrentUserImage}

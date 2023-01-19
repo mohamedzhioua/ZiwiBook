@@ -11,7 +11,7 @@ const CustomButton = ({ type, className, value, disabled, onClick, Icon , childr
       {value}
     </button>
   ) : (
-    <button type="button" className="icon icon-btn"  onClick={onClick}>
+    <button type="button" className={className ? className:"icon icon-btn"}  onClick={onClick}>
       <span>
         <Icon/>
       </span>
