@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 // Components
-import { CustomInput, CustomButton } from "../index";
+import { CustomInput, CustomButton, FormLoader } from "../index";
 // Styles
 import "./index.css";
 
@@ -12,6 +12,7 @@ const CommentForm = ({
   hasCancelButton = false,
   EditCancelHandler,
 }) => {
+  const isLoading = useSelector((state)=>state.post.isLoading)
   const CurrentUserImage = useSelector((state) => state.auth.user.image);
   const [text, setText] = useState(InitialText);
   const isTextareaDisabled = text.length === 0 || text === InitialText;
@@ -24,7 +25,8 @@ const CommentForm = ({
   }
 
   return (
-    <>
+    <FormLoader loading={isLoading}>
+    <div>
       {!(submitLabel === "update") && (
         <img className="comments-img" src={CurrentUserImage} alt="." />
       )}
@@ -52,7 +54,8 @@ const CommentForm = ({
           />
         )}
       </form>
-    </>
+    </div>
+    </FormLoader>
   );
 };
 

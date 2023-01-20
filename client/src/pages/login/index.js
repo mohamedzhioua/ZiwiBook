@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../app/features/auth/authSlice";
 
 // Components
-import { CustomButton, CustomInput, Loader } from "../../components";
+import { CustomButton, CustomInput, Loading } from "../../components";
 
 // Styles
 import { FaSignInAlt } from "react-icons/fa";
@@ -47,10 +47,11 @@ function Login() {
   };
 
   if (isLoading) {
-    return <Loader />;
+    return <Loading />;
   }
 
   return (
+    
     <div class="login-container">
       <div class="login-card">
         <div class="d-flex justify-content-center">
@@ -64,7 +65,7 @@ function Login() {
             name="email"
             label="Email"
             onChange={onChangeHandler}
-            error={error.email}
+            error={error?.email}
             placeholder="Email"
             value={email}
             float // secret key to make the label floating
@@ -74,7 +75,7 @@ function Login() {
             name="password"
             label="password"
             onChange={onChangeHandler}
-            error={error.password}
+            error={error?.password}
             placeholder="password"
             value={password}
             float // secret key to make the label floating

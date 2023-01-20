@@ -29,8 +29,6 @@ const Comment = ({ comment }) => {
     .filter((i) => i.parentId === comment._id)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
-
-    
   // checking if the user is allowed to Reply, Edit or Delete
   const canReply = Boolean(CurrentUserId);
   const canEdit = CurrentUserId === comment?.owner?._id;
@@ -52,9 +50,9 @@ const Comment = ({ comment }) => {
   );
 
   //onsubmitHandler
-  const addComment = (text) => { 
+  const addComment = (text) => {
     if (activeComment.type === "replying") {
-      dispatch(addCommentReply({ id, text }));
+       dispatch(addCommentReply({ id, text }));
       setActiveComment(null);
     } else {
       dispatch(updateComment({ id, text }));
@@ -62,11 +60,11 @@ const Comment = ({ comment }) => {
     }
   };
 
-  //ondelete user comment 
-  const Delete =(e)=>{
-e.preventDefault();
-dispatch(deleteComment(comment?._id))
-  }
+  //ondelete user comment
+  const DeleteComment = (e) => {
+    e.preventDefault();
+    dispatch(deleteComment(comment?._id));
+  };
 
   //handle Editing cancel
   const EditCancelHandler = () => setActiveComment(null);
@@ -112,9 +110,9 @@ dispatch(deleteComment(comment?._id))
             )}
             {canDelete && (
               <CustomButton
-              type="submit"
+                type="submit"
                 Icon={BsTrash}
-                onClick={Delete}
+                onClick={DeleteComment}
               />
             )}
           </>
@@ -148,9 +146,10 @@ dispatch(deleteComment(comment?._id))
               area-label="Show Replies"
               onClick={() => setAreRepliesHidden(false)}
             >
-              &nbsp;   {` ${getReplies.length} ${
-                      getReplies.length === 1 ? " more reply" : " more replies"
-                    }`}
+              &nbsp;{" "}
+              {` ${getReplies.length} ${
+                getReplies.length === 1 ? " more reply" : " more replies"
+              }`}
             </CustomButton>
           )}
         </>

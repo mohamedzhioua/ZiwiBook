@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { register, reset } from "../../app/features/auth/authSlice";
 
 // Components
-import { CustomButton, CustomInput, Loader } from "../../components";
+import { CustomButton, CustomInput, Loading } from "../../components";
 
 // Styles
 import { FaUser } from "react-icons/fa";
@@ -50,7 +50,7 @@ const Eye =()=>{
   };
 
   if (isLoading) {
-    return <Loader />;
+    return <Loading />;
   }
 
   return (
@@ -67,7 +67,7 @@ const Eye =()=>{
             name="firstname"
             label="firstname"
             onChange={onChangeHandler}
-            error={error.firstname}
+            error={error?.firstname}
             placeholder="firstname"
             value={firstname}
             float // to make the label floating
@@ -78,7 +78,7 @@ const Eye =()=>{
             name="lastname"
             label="lastname"
             onChange={onChangeHandler}
-            error={error.lastname}
+            error={error?.lastname}
             placeholder="lastname"
             value={lastname}
             float // to make the label floating
@@ -89,7 +89,7 @@ const Eye =()=>{
             name="email"
             label="Email"
             onChange={onChangeHandler}
-            error={error.email}
+            error={error?.email}
             placeholder="email"
             value={email}
             float // to make the label floating
@@ -99,7 +99,7 @@ const Eye =()=>{
              name="password"
             label="Password"
             onChange={onChangeHandler}
-            error={error.password}
+            error={error?.password}
             placeholder="password"
             value={password}
             float // to make the label floating

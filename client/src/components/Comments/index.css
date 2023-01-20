@@ -22,8 +22,8 @@
   font-size: 0.75em;
 }
 .comment .comment-image {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }

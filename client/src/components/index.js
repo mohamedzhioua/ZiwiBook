@@ -6,4 +6,5 @@ export { default as CustomInput } from "./CustomInput";
 export { default as CustomLikes } from "./CustomLike";
 export { default as PostHead } from "./PostHead";
 export { default as SearchBar } from "./SearchBar";
-export { default as Loader } from "./Loader";
+export { default as Loading } from "./Loading";
+export { default as FormLoader } from "./FormLoader";

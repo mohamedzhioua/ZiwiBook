@@ -5,13 +5,13 @@ const initialState = {
   posts: [],
   comments: [],
   post: {},
-  error: "",
+  error: null,
   message: "",
   isLoading: false,
   fulfilled: false,
 };
 
-//add post
+//creat post
 export const addPost = createAsyncThunk("post/add", async (post, thunkAPI) => {
   try {
     return await postService.addPost(post);
@@ -23,7 +23,7 @@ export const addPost = createAsyncThunk("post/add", async (post, thunkAPI) => {
 // fetch all posts
 export const fetchPosts = createAsyncThunk(
   "post/fetchAll",
-  async (thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       return await postService.fetchAll();
     } catch (error) {
@@ -80,7 +80,7 @@ export const likePost = createAsyncThunk(
   }
 );
 
-//Add a Comment to a post
+//creat a Comment 
 export const AddComment = createAsyncThunk(
   "post/AddComment",
   async ({ id, text }, thunkAPI) => {
@@ -107,7 +107,7 @@ export const addCommentReply = createAsyncThunk(
 // fetch all Comments
 export const fetchComments = createAsyncThunk(
   "post/fetchComments",
-  async (thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       return await postService.fetchComments();
     } catch (error) {
@@ -140,13 +140,12 @@ export const updateComment = createAsyncThunk(
   }
 );
 
-
 export const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {
     reset: (state) => {
-      state.error = "";
+      state.error = null;
       state.message = "";
       state.isLoading = false;
       state.fulfilled = false;
@@ -157,11 +156,11 @@ export const postSlice = createSlice({
     builder
       .addCase(addPost.pending, (state, action) => {
         state.isLoading = true;
+        state.error = null;
       })
       .addCase(addPost.fulfilled, (state, action) => {
         state.isLoading = false;
         state.message = action.payload.message;
-        state.error = "";
         state.fulfilled = true;
         state.posts = [...state.posts, action.payload.memo];
       })
@@ -170,7 +169,8 @@ export const postSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(fetchPosts.pending, (state, action) => {
-        state.isLoading = false;
+        state.isLoading = true;
+        state.error = null;
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -182,6 +182,7 @@ export const postSlice = createSlice({
       })
       .addCase(deleteOne.pending, (state, action) => {
         state.isLoading = true;
+        state.error = null;
       })
       .addCase(deleteOne.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -198,6 +199,7 @@ export const postSlice = createSlice({
       })
       .addCase(updatePost.pending, (state, action) => {
         state.isLoading = true;
+        state.error = null;
       })
       .addCase(updatePost.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -216,7 +218,10 @@ export const postSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      .addCase(likePost.pending, (state, action) => {})
+      .addCase(likePost.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(likePost.fulfilled, (state, action) => {
         state.isLoading = false;
         const { arg } = action.meta;
@@ -227,11 +232,13 @@ export const postSlice = createSlice({
         }
       })
       .addCase(likePost.rejected, (state, action) => {
+        state.isLoading = false;
         state.error = action.payload;
       })
       //--------------------------------------------------------comments------------------------------------------------//
       .addCase(AddComment.pending, (state, action) => {
-        state.isLoading =true;
+        state.isLoading = true;
+        state.error = null;
       })
       .addCase(AddComment.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -242,7 +249,8 @@ export const postSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(fetchComments.pending, (state, action) => {
-        state.isLoading = false;
+        state.isLoading = true;
+        state.error = null;
       })
       .addCase(fetchComments.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -253,15 +261,21 @@ export const postSlice = createSlice({
         state.error = action.payload;
       })
 
-      .addCase(addCommentReply.pending, (state, action) => {})
+      .addCase(addCommentReply.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(addCommentReply.fulfilled, (state, action) => {
         state.isLoading = false;
         state.comments = [...state.comments, action.payload];
       })
       .addCase(addCommentReply.rejected, (state, action) => {
+        state.isLoading = true;
         state.error = action.payload;
       })
       .addCase(deleteComment.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
       })
       .addCase(deleteComment.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -270,13 +284,17 @@ export const postSlice = createSlice({
           state.posts = state.comments.filter((item) => item._id !== arg);
         }
       })
-      
+
       .addCase(deleteComment.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })
-      .addCase(updateComment.pending, (state, action) => {})
+      .addCase(updateComment.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(updateComment.fulfilled, (state, action) => {
+        state.isLoading = false;
         const {
           arg: { id },
         } = action.meta;
@@ -292,6 +310,7 @@ export const postSlice = createSlice({
       })
       .addCase(FindPost.pending, (state, action) => {
         state.isLoading = true;
+        state.error = null;
       })
       .addCase(FindPost.fulfilled, (state, action) => {
         state.isLoading = false;

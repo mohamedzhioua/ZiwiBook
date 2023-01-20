@@ -16,6 +16,7 @@ const CustomButton = ({
       className={className}
       onClick={onClick}
       disabled={disabled}
+      onSubmit={onSubmit}
     >
       {value}
     </button>

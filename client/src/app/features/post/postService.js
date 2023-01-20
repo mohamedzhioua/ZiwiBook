@@ -5,7 +5,7 @@ const config = {
     "Content-Type": "multipart/form-data",
   },
 };
-//add post
+//creat post
 const addPost = async (postData) => {
   const response = await axios.post("/post/addPost", postData, config);
   return response.data;
@@ -40,7 +40,7 @@ const likePost = async (id) => {
   const response = await axios.patch(`/post/like/${id}`);
   return response.data;
 };
-//Add a Comment to a post
+//creat a Comment 
 const AddComment = async (id, text) => {
   const response = await axios.post(`/post/addComment/${id}`, { text });
   return response.data;
