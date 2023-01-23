@@ -1,4 +1,10 @@
 /* Comments */
+.comments {
+  margin: 0.5rem 0;
+}
+.comments:last-child {
+  margin-bottom: 0;
+}
 .comments .comments-img {
   width: 32px;
   height: 32px;
@@ -8,53 +14,49 @@
 
 /* Comment */
 
-.comment {
-  margin: 15px 0px;
-  padding: 0.5rem;
-  border: 1px solid hsl(235, 100%, 90%);
-  border-radius: 0.5rem;
-}
-.comment .comment-header {
+.comment-header {
   color: hsl(235, 50%, 67%);
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.25rem;
   font-size: 0.75em;
 }
-.comment .comment-image {
+.comment-image {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
-.comment .comment-header .author {
+.comment-header .author {
   font-weight: 500;
   font-size: 14px;
 }
-.comment .comment-header .author:hover {
+.comment-header .author:hover {
   text-decoration: underline;
 }
-.comment .comment-header .date {
+.comment-header .date {
   font-size: 9px;
   color: grey;
   align-self: center;
 }
-.comment .comment-header .date:hover {
+.comment-header .date:hover {
   text-decoration: underline;
 }
 
-.comment .comment-text {
+.comment-text {
   white-space: pre-wrap;
+  word-break: break-all;
   margin-left: 10px;
   margin-right: 10px;
+  /* display: inline;
+  white-space: initial; */
 }
-.comment .comment-actions {
+.comment-actions {
   display: flex;
-  cursor: pointer;
   margin-top: 8px;
   gap: 7px;
 }
-.comment .replying {
+.replying {
   margin-top: 10px;
   margin-left: 10px;
 }
@@ -63,7 +65,7 @@
 }
 
 .nested-replies {
-  padding-left: 0.5rem;
+  padding-left: 0.2rem;
   flex-grow: 1;
 }
 
@@ -77,4 +79,8 @@
   height: 38px;
   border-radius: 50%;
   object-fit: cover;
+}
+.comment-form-row {
+  display: flex;
+  gap: 0.5rem;
 }

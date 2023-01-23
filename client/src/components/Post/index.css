@@ -1,8 +1,9 @@
-.post-row {
+/* Post */
+.x-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
+  justify-content: space-around;
+  }
 .post-image {
   width: 100%;
   border-radius: 4px;
@@ -22,4 +23,12 @@
 .post-comments-section {
   width: 100%;
   height: 100%;
+}
+.comments-section {
+  margin-top: 1rem;
+}
+
+/* PostList */
+.text-center {
+  margin-top: 150px;
 }

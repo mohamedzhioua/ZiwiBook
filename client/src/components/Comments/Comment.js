@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 //components
 import CommentForm from "./CommentForm";
-import { Comments, CustomButton, CustomLikes } from "../index";
+import { Card, Comments, CustomButton, CustomLikes } from "../index";
 
 // Styles
 import "./index.css";
@@ -19,7 +19,7 @@ import { CgDetailsMore } from "react-icons/cg";
 const Comment = ({ comment }) => {
   const dispatch = useDispatch();
   const CurrentUserId = useSelector((state) => state.auth.user._id);
-  const comments = useSelector((state) => state.post.comments);
+  const { comments, status } = useSelector((state) => state.post);
   const [areRepliesHidden, setAreRepliesHidden] = useState(true);
   const [activeComment, setActiveComment] = useState(null);
   const id = activeComment?.id;
@@ -51,26 +51,34 @@ const Comment = ({ comment }) => {
 
   //onsubmitHandler
   const addComment = (text) => {
-    if (activeComment.type === "replying") {
-       dispatch(addCommentReply({ id, text }));
-      setActiveComment(null);
-    } else {
-      dispatch(updateComment({ id, text }));
-      setActiveComment(null);
+    const canAddReply =
+      Boolean(activeComment.type === "replying") && Boolean(text);
+    const canEditComment =
+      Boolean(activeComment.type === "editing") && Boolean(text);
+    if (canAddReply) {
+      try {
+        dispatch(addCommentReply({ id, text })).unwrap();
+        setActiveComment(null);
+      } catch (error) {
+        console.error("failed to save the comment", error);
+      }
     }
-  };
 
-  //ondelete user comment
-  const DeleteComment = (e) => {
-    e.preventDefault();
-    dispatch(deleteComment(comment?._id));
+    if (canEditComment) {
+      try {
+        dispatch(updateComment({ id, text })).unwrap();
+        setActiveComment(null);
+      } catch (error) {
+        console.error("failed to save the comment", error);
+      }
+    }
   };
 
   //handle Editing cancel
   const EditCancelHandler = () => setActiveComment(null);
 
   return (
-    <div className="comment">
+    <Card className="comment">
       <div className="comment-header">
         <div>
           <img className="comment-image" src={comment?.owner?.image} alt="." />
@@ -78,15 +86,19 @@ const Comment = ({ comment }) => {
         </div>
         <span className="date">{moment(comment?.createdAt).fromNow()}</span>
       </div>
-      {!isEditing && <div className="comment-text">{comment?.text}</div>}
-      {isEditing && (
+      {isEditing ? (
         <CommentForm
+          autoFocus
           submitLabel="update"
           onSubmit={addComment}
+          loading={status}
           hasCancelButton
           EditCancelHandler={EditCancelHandler}
           InitialText={InitialText.text}
+          editAComment
         />
+      ) : (
+        <div className="comment-text">{comment?.text}</div>
       )}
       <div className="comment-actions">
         <CustomLikes />
@@ -112,7 +124,16 @@ const Comment = ({ comment }) => {
               <CustomButton
                 type="submit"
                 Icon={BsTrash}
-                onClick={DeleteComment}
+                onClick={() =>
+                  dispatch(deleteComment(comment?._id))
+                    .unwrap()
+                    .then((data) => {
+                      console.log(data);
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    })
+                }
               />
             )}
           </>
@@ -120,9 +141,17 @@ const Comment = ({ comment }) => {
       </div>
       {isReplying && (
         <div className="replying">
-          <CommentForm submitLabel="Reply" onSubmit={addComment} />
+          <CommentForm
+            autoFocus
+            submitLabel="Reply"
+            onSubmit={addComment}
+            loading={status}
+            replyToComment
+          />
         </div>
       )}
+      {/* Comment Replies */}
+
       {getReplies?.length > 0 && (
         <>
           <div
@@ -146,7 +175,7 @@ const Comment = ({ comment }) => {
               area-label="Show Replies"
               onClick={() => setAreRepliesHidden(false)}
             >
-              &nbsp;{" "}
+              &nbsp;
               {` ${getReplies.length} ${
                 getReplies.length === 1 ? " more reply" : " more replies"
               }`}
@@ -154,7 +183,7 @@ const Comment = ({ comment }) => {
           )}
         </>
       )}
-    </div>
+    </Card>
   );
 };
 

@@ -75,15 +75,4 @@
   visibility: visible;
 }
 
-/* custom modal class */
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.bottom {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}

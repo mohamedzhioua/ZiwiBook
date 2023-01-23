@@ -10,8 +10,7 @@ const initialState = {
   token: token ? token : null,
   error: null,
   message: "",
-  isConnected: false,
-  isLoading: false,
+  status: "idle",
 };
 
 //Register user
@@ -48,38 +47,36 @@ export const authSlice = createSlice({
       state.token = null;
       state.error = null;
       state.message = "";
-      state.isConnected = false;
-      state.isLoading = false;
+      state.status = "idle";
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(register.pending, (state) => {
-        state.isLoading = true;
+        state.status = "Loading";
         state.error = null;
       })
       .addCase(register.fulfilled, (state, action) => {
         state.message = action.payload.message;
-        state.isLoading = false;
+        state.status = "fulfilled";
       })
       .addCase(register.rejected, (state, action) => {
         state.error = action.payload;
         state.message = "";
-        state.isLoading = false;
+        state.status = "rejected";
       })
       .addCase(login.pending, (state) => {
-        state.isLoading = true;
+        state.status = "Loading";
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.message = action.payload.message;
         state.user = action.payload.user;
-        state.isConnected = true;
-        state.isLoading = false;
+        state.status = "isConnected";
       })
       .addCase(login.rejected, (state, action) => {
         state.error = action.payload;
-        state.isLoading = false;
+        state.status = "rejected";
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;

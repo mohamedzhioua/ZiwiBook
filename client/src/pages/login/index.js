@@ -24,13 +24,13 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { error, token, isLoading, isConnected } = useSelector((state) => state.auth);
+  const { error, token,status} = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (isConnected || token) {
+    if (status==="fulfilled" || token) {
          navigate("/"); 
      }
-  }, [error, token,navigate, isLoading, dispatch, isConnected]);
+  }, [error, token,navigate, status, dispatch]);
 
   //onChangeHandler
   const onChangeHandler = (event) => {
@@ -43,10 +43,10 @@ function Login() {
   //onsubmitHandler
   const onsubmitHandler = (event) => {
     event.preventDefault();
-    dispatch(login(form));
+    dispatch(login(form))
   };
 
-  if (isLoading) {
+  if (status==="Loading") {
     return <Loading />;
   }
 
@@ -84,7 +84,7 @@ function Login() {
           />
           <CustomButton className="button" type="submit" value="submit" />
         </form>
-        <div class="text-center">
+        <div class="login">
           <p>
             Not a member?
             <Link to="/signup" class="fw-bold text-body">

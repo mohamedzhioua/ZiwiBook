@@ -3,13 +3,13 @@ import { useDispatch } from "react-redux";
 
 // features
 import { addPost, updatePost } from "../../app/features/post/postSlice";
-import { closeModal } from "../../app/features/modal/modalSlice";
 
 // Components
-import {CustomInput ,CustomButton} from "../index";
- 
+import { CustomInput, CustomButton } from "../index";
+
 // Styles
 import "./index.css";
+import { toast } from "react-toastify";
 
 const AddEditForm = ({ post }) => {
   const [form, setForm] = useState({ text: "", image: "" });
@@ -53,16 +53,31 @@ const AddEditForm = ({ post }) => {
   //onsubmitHandler
   const onsubmitHandler = (event) => {
     event.preventDefault();
-    if (post) {
-      dispatch(updatePost({ id, form }));
-      dispatch(closeModal());
+    if (Boolean(post)) {
+      dispatch(updatePost({ id, form }))
+        .unwrap()
+        .then((data) => {
+          toast.success("Post updated successfully", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
-      dispatch(addPost(form));
-      dispatch(closeModal());
+      dispatch(addPost(form))
+        .unwrap()
+        .then((data) => {
+          toast.success("Post added successfully", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
     clear();
   };
-
   return (
     <>
       <div className="Post-list-item">
@@ -70,7 +85,7 @@ const AddEditForm = ({ post }) => {
           {post ? "Update your " : "Share a "}Memorie
         </h1>
         <form className="New-Post-Form" onSubmit={onsubmitHandler}>
-        <CustomInput
+          <CustomInput
             label="Description :"
             type="textarea"
             placeholder="content...."
@@ -96,7 +111,7 @@ const AddEditForm = ({ post }) => {
             }}
             name="image"
           />
-  
+
           <CustomButton
             className="button button8"
             value={post ? "update" : "submit"}

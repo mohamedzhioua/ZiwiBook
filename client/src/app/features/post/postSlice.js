@@ -1,22 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { closeModal } from "../modal/modalSlice";
 import postService from "./postService";
 
 const initialState = {
   posts: [],
   comments: [],
-  post: {},
   error: null,
-  message: "",
-  isLoading: false,
-  fulfilled: false,
+  status: "idle",
 };
 
 //creat post
 export const addPost = createAsyncThunk("post/add", async (post, thunkAPI) => {
+  const { rejectWithValue, dispatch } = thunkAPI;
   try {
+    dispatch(closeModal());
     return await postService.addPost(post);
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+    return rejectWithValue(error.response.data);
   }
 });
 
@@ -24,10 +24,11 @@ export const addPost = createAsyncThunk("post/add", async (post, thunkAPI) => {
 export const fetchPosts = createAsyncThunk(
   "post/fetchAll",
   async (_, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
     try {
       return await postService.fetchAll();
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -36,10 +37,12 @@ export const fetchPosts = createAsyncThunk(
 export const deleteOne = createAsyncThunk(
   "post/deleteOne",
   async (id, thunkAPI) => {
+    const { rejectWithValue, dispatch } = thunkAPI;
     try {
+      dispatch(closeModal());
       return await postService.deleteOne(id);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -48,10 +51,12 @@ export const deleteOne = createAsyncThunk(
 export const updatePost = createAsyncThunk(
   "post/updatePost",
   async ({ id, form }, thunkAPI) => {
+    const { rejectWithValue, dispatch } = thunkAPI;
     try {
+      dispatch(closeModal());
       return await postService.updatePost(id, form);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -60,10 +65,11 @@ export const updatePost = createAsyncThunk(
 export const FindPost = createAsyncThunk(
   "post/FindPost",
   async (id, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
     try {
       return await postService.FindPost(id);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -72,22 +78,24 @@ export const FindPost = createAsyncThunk(
 export const likePost = createAsyncThunk(
   "post/likePost",
   async (id, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
     try {
       return await postService.likePost(id);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
 
-//creat a Comment 
+//creat a Comment
 export const AddComment = createAsyncThunk(
   "post/AddComment",
   async ({ id, text }, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
     try {
       return await postService.AddComment(id, text);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -96,10 +104,11 @@ export const AddComment = createAsyncThunk(
 export const addCommentReply = createAsyncThunk(
   "post/addCommentReply",
   async ({ id, text }, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
     try {
       return await postService.addCommentReply(id, text);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -108,10 +117,11 @@ export const addCommentReply = createAsyncThunk(
 export const fetchComments = createAsyncThunk(
   "post/fetchComments",
   async (_, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
     try {
       return await postService.fetchComments();
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -120,10 +130,11 @@ export const fetchComments = createAsyncThunk(
 export const deleteComment = createAsyncThunk(
   "post/deleteComment",
   async (id, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
     try {
       return await postService.deleteComment(id);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -132,10 +143,11 @@ export const deleteComment = createAsyncThunk(
 export const updateComment = createAsyncThunk(
   "post/updateComment",
   async ({ id, text }, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
     try {
       return await postService.updateComment(id, text);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -146,65 +158,57 @@ export const postSlice = createSlice({
   reducers: {
     reset: (state) => {
       state.error = null;
-      state.message = "";
-      state.isLoading = false;
-      state.fulfilled = false;
-      state.post = {};
+      state.status = "idle";
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(addPost.pending, (state, action) => {
-        state.isLoading = true;
+        state.status = "Loading";
         state.error = null;
       })
       .addCase(addPost.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.message = action.payload.message;
-        state.fulfilled = true;
-        state.posts = [...state.posts, action.payload.memo];
+        state.status = "fulfilled";
+        state.posts = [action.payload.memo, ...state.posts];
       })
       .addCase(addPost.rejected, (state, action) => {
-        state.isLoading = false;
+        state.status = "failed";
         state.error = action.payload;
       })
       .addCase(fetchPosts.pending, (state, action) => {
-        state.isLoading = true;
+        state.status = "Loading";
         state.error = null;
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.status = "fulfilled";
         state.posts = action.payload;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
-        state.isLoading = false;
+        state.status = "failed";
         state.error = action.payload;
       })
       .addCase(deleteOne.pending, (state, action) => {
-        state.isLoading = true;
+        state.status = "Loading";
         state.error = null;
       })
       .addCase(deleteOne.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.message = action.payload.message;
-        state.fulfilled = true;
+        state.status = "fulfilled";
         const { arg } = action.meta;
         if (arg) {
           state.posts = state.posts.filter((item) => item._id !== arg);
         }
       })
       .addCase(deleteOne.rejected, (state, action) => {
-        state.isLoading = false;
+        state.status = "failed";
         state.error = action.payload;
       })
       .addCase(updatePost.pending, (state, action) => {
-        state.isLoading = true;
+        state.status = "Loading";
         state.error = null;
       })
       .addCase(updatePost.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.message = action.payload.message;
-        state.fulfilled = true;
+        state.status = "fulfilled";
+
         const {
           arg: { id },
         } = action.meta;
@@ -215,109 +219,96 @@ export const postSlice = createSlice({
         }
       })
       .addCase(updatePost.rejected, (state, action) => {
-        state.isLoading = false;
+        state.status = "failed";
         state.error = action.payload;
       })
       .addCase(likePost.pending, (state, action) => {
-        state.isLoading = true;
+        state.status = "Loading";
         state.error = null;
       })
       .addCase(likePost.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.status = "fulfilled";
         const { arg } = action.meta;
         if (arg) {
-          state.posts = state.posts.map((item) =>
-            item._id === arg ? action.payload : item
-          );
+          const posts = state.posts.filter((item) => item._id !== arg);
+          state.posts = [...posts, action.payload];
         }
       })
       .addCase(likePost.rejected, (state, action) => {
-        state.isLoading = false;
+        state.status = "failed";
         state.error = action.payload;
       })
       //--------------------------------------------------------comments------------------------------------------------//
       .addCase(AddComment.pending, (state, action) => {
-        state.isLoading = true;
+        state.status = "Loading";
         state.error = null;
       })
       .addCase(AddComment.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.comments = [...state.comments, action.payload];
+        state.status = "fulfilled";
+        state.comments = [action.payload, ...state.comments];
       })
       .addCase(AddComment.rejected, (state, action) => {
-        state.isLoading = false;
+        state.status = "failed";
         state.error = action.payload;
       })
       .addCase(fetchComments.pending, (state, action) => {
-        state.isLoading = true;
+        state.status = "Loading";
         state.error = null;
       })
       .addCase(fetchComments.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.status = "fulfilled";
         state.comments = action.payload;
       })
       .addCase(fetchComments.rejected, (state, action) => {
-        state.isLoading = false;
+        state.status = "failed";
         state.error = action.payload;
       })
 
       .addCase(addCommentReply.pending, (state, action) => {
-        state.isLoading = true;
+        state.status = "Loading";
         state.error = null;
       })
       .addCase(addCommentReply.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.comments = [...state.comments, action.payload];
+        state.status = "fulfilled";
+        state.comments = [action.payload, ...state.comments];
       })
       .addCase(addCommentReply.rejected, (state, action) => {
-        state.isLoading = true;
+        state.status = "failed";
         state.error = action.payload;
       })
       .addCase(deleteComment.pending, (state, action) => {
-        state.isLoading = true;
+        state.status = "Loading";
         state.error = null;
       })
       .addCase(deleteComment.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.status = "fulfilled";
         const { arg } = action.meta;
         if (arg) {
-          state.posts = state.comments.filter((item) => item._id !== arg);
+          state.comments = state.comments.filter((item) => item._id !== arg);
         }
       })
 
       .addCase(deleteComment.rejected, (state, action) => {
-        state.isLoading = false;
+        state.status = "failed";
         state.error = action.payload;
       })
       .addCase(updateComment.pending, (state, action) => {
-        state.isLoading = true;
+        state.status = "Loading";
         state.error = null;
       })
       .addCase(updateComment.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.status = "fulfilled";
         const {
           arg: { id },
         } = action.meta;
         if (id) {
-          state.posts = state.comments.map((item) =>
+          state.comments = state.comments.map((item) =>
             item._id === id ? action.payload.updatedComment : item
           );
         }
       })
       .addCase(updateComment.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      })
-      .addCase(FindPost.pending, (state, action) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(FindPost.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.post = action.payload;
-      })
-      .addCase(FindPost.rejected, (state, action) => {
-        state.isLoading = false;
+        state.status = "failed";
         state.error = action.payload;
       });
   },

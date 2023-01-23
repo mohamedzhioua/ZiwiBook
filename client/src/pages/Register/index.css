@@ -29,3 +29,9 @@
   color:#5C6E58
 }
 
+.register{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 10px;
+}

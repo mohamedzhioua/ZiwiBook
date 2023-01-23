@@ -8,6 +8,7 @@ import { Modal, Header, Footer } from "./layouts/index";
 
 //Styles
 import "./index.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
 
         <Router />
         <Footer />
+        <ToastContainer />
       </div>
     </BrowserRouter>
   );

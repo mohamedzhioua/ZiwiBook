@@ -1,15 +1,16 @@
-.icon-box {
-  margin-top: 13px;
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
 }
-.title,
 .body {
-  margin-top: 15px;
+  margin-top: 10px;
 }
-.closeicon {
-  font-size: 80px;
-  color: #e40c2b;
-  opacity: 0.8;
-}
+
 .button-box {
-  padding: 10px 15px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 15px 10px;
 }

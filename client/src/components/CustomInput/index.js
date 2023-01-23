@@ -14,6 +14,7 @@ const CustomInput = ({
   float,
   onClick,
   className,
+  autoFocus,
 }) => {
   return (
     <div className={!float ? "form-group mb-2" : "form-group mb-4"}>
@@ -21,7 +22,7 @@ const CustomInput = ({
         {!float && <label className="form-label">{label}</label>}
         {type === "textarea" ? (
           <textarea
-            autoFocus
+            autoFocus={autoFocus}
             name={name}
             onChange={onChange}
             className={
@@ -37,7 +38,7 @@ const CustomInput = ({
           />
         ) : (
           <input
-            autoFocus
+            autoFocus={autoFocus}
             onClick={onClick}
             type={type}
             name={name}

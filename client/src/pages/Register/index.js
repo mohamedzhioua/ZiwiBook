@@ -23,17 +23,17 @@ const Eye =()=>{
 }
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error, message, isLoading, isConnected } = useSelector(
+  const { error, status } = useSelector(
     (state) => state.auth
   );
 
  
   useEffect(() => {
-    if (isConnected || message) {
+    if (status==="fulfilled") {
       navigate("/login");
       dispatch(reset());
   }
-  },[error, message, isLoading, isConnected,  dispatch]);
+  },[error, status,  dispatch , navigate]);
 
   //onChangeHandler
   const onChangeHandler = (event) => {
@@ -49,7 +49,7 @@ const Eye =()=>{
     dispatch(register(form));
   };
 
-  if (isLoading) {
+  if (status==="Loading") {
     return <Loading />;
   }
 
@@ -114,10 +114,10 @@ const Eye =()=>{
 
           />
         </form>
-        <div class="text-center">
+        <div className="register">
           <p>
             Have already an account?{" "}
-            <Link to="/" class="fw-bold text-body">
+            <Link to="/" className="fw-bold text-body">
               <u className="Link">Login here</u>
             </Link>
           </p>

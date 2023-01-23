@@ -12,6 +12,7 @@ import { AiOutlineHome, AiFillHome } from "react-icons/ai";
 import "./index.css";
 
 const Header = () => {
+  const { token, status } = useSelector((state) => state.auth);
   const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
   const [expand, updateExpanded] = useState(false);
@@ -27,7 +28,6 @@ const Header = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token, isConnected } = useSelector((state) => state.auth);
 
   const LogoutHandler = () => {
     dispatch(logout());
@@ -66,7 +66,7 @@ const Header = () => {
               )}{" "}
               <b>Home</b>
             </Nav.Link>
-            {(isConnected || token) && (
+            {(status==="isConnected" || token) && (
               <>
                 {" "}
                 <Nav.Link
@@ -89,7 +89,7 @@ const Header = () => {
             )}
           </Nav>
           <Nav className="ms-auto">
-            {!(isConnected || token) ? (
+            {!(status==="isConnected" || token) ? (
               <>
                 <Nav.Link className="Nav-link" as={Link} to="/login">
                   <FaSignInAlt className="Navbar-icon" /> <b>login</b>

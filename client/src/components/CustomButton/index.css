@@ -104,14 +104,13 @@
   font-size: 15px;
   cursor: pointer;
 }
-.icon.icon-btn {
+.icon-btn {
   background: none;
   color: #1D1D2C;
   padding: 0.25em;
   display: flex;
   align-items: center;
 }
-
 
 .collapse-line {
   border: none;
@@ -143,3 +142,4 @@
 .mt-1 {
   margin-top: 20px;
 }
+

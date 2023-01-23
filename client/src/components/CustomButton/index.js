@@ -9,6 +9,7 @@ const CustomButton = ({
   onClick,
   Icon,
   children,
+   
 }) => {
   return !Icon ? (
     <button
@@ -16,14 +17,12 @@ const CustomButton = ({
       className={className}
       onClick={onClick}
       disabled={disabled}
-      onSubmit={onSubmit}
     >
       {value}
     </button>
   ) : (
     <button
-      type="button"
-      className={className ? className : "icon icon-btn"}
+       className={className ? className : "icon icon-btn"}
       onClick={onClick}
     >
       <span>

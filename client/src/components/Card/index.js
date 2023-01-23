@@ -1,9 +1,9 @@
 import React from "react";
 import  "./index.css";
 
-function Card({ children}) {
+function Card({className, children}) {
   return (
-    <div  className="card-container">
+    <div  className={className ? className : "card-container"}>
       {children}
     </div>
   );

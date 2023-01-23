@@ -6,22 +6,19 @@ import { deleteOne } from "../../app/features/post/postSlice";
 import { closeModal } from "../../app/features/modal/modalSlice";
 
 //Components
-import {CustomButton} from "../../components/index"
+import { CustomButton } from "../../components/index";
 
 //Styles
-import { AiOutlineCloseCircle } from "react-icons/ai";
 import "./index.css";
+import { toast } from "react-toastify";
 
-const DeleteConfirm = ({id}) => {
-
- const dispatch = useDispatch();
+const DeleteConfirm = ({ id }) => {
+  const dispatch = useDispatch();
 
   return (
-    <div className="container text-center">
-      <div className="icon-box">
-        <AiOutlineCloseCircle className="closeicon" />
-      </div>
+    <>
       <h4 class="title">Are you sure?</h4>
+
       <div class="body">
         <p>
           Do you really want to delete these memorie? This process cannot be
@@ -37,10 +34,21 @@ const DeleteConfirm = ({id}) => {
         <CustomButton
           className="deletebtn"
           value="delete"
-          onClick={() =>{ dispatch(deleteOne(id)); dispatch(closeModal())} }
+          onClick={() => {
+            dispatch(deleteOne(id))
+            .unwrap()
+            .then((data) => {
+              toast.success("Post deleted successfully", {
+                position: toast.POSITION.TOP_RIGHT,
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          }}
         />
       </div>
-    </div>
+    </>
   );
 };
 
