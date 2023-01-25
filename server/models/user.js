@@ -28,7 +28,7 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-// delete post comments when the post is removed
+// delete user posts when the user is removed
 UserSchema.pre("remove", async function (next) {
   const user = this;
   await Post.deleteMany({ owner: user._id });

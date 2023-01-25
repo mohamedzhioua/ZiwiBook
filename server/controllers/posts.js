@@ -31,15 +31,11 @@ module.exports = {
         req.body.image = imageDetails.url;
         req.body.cloudinary_id = imageDetails.public_id;
         const memo = await Post.create(req.body);
-        return res
-          .status(200)
-          .json( memo );
+        return res.status(200).json(memo);
       } else {
         req.body.owner = req.user.id;
         const memo = await Post.create(req.body);
-        return res
-          .status(200)
-          .json(memo);
+        return res.status(200).json(memo);
       }
     } catch (error) {
       res.status(404).json({ message: error.message });
@@ -159,7 +155,7 @@ module.exports = {
   addComment: async (req, res) => {
     const { id } = req.params;
     const { text } = req.body;
-    console.log("🚀 ~ file: posts.js:162 ~ addComment: ~ req.body", req.body)
+    console.log("🚀 ~ file: posts.js:162 ~ addComment: ~ req.body", req.body);
     const owner = req.user.id;
     try {
       if (!id)
@@ -185,19 +181,19 @@ module.exports = {
 
   addCommentReply: async (req, res) => {
     const parentId = req.params.id;
-     const { text } = req.body;
-     const owner = req.user.id;
-     try {
+    const { text } = req.body;
+    const owner = req.user.id;
+    try {
       const checkComment = await Comment.findById(parentId);
       if (!checkComment)
         return res.status(404).json({ message: "No comment found" });
       const commentData = await Comment.create({
-        post:checkComment.post,
+        post: checkComment.post,
         owner,
         parentId,
         text,
       });
-       res.status(200).json(commentData);
+      res.status(200).json(commentData);
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
@@ -240,6 +236,26 @@ module.exports = {
       res
         .status(200)
         .json({ message: "comment updated successfully", updatedComment });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
+  //  ----------------------//like Comment method //--------------------------- //
+  likeComment: async (req, res) => {
+    const { id } = req.params;
+
+    try {
+      const data = await Comment.findById(id);
+      const index = data.likes.findIndex((id) => id === String(req.user.id));
+      if (index === -1) {
+        data.likes.push(req.user.id);
+      } else {
+        data.likes = data.likes.filter((id) => id !== String(req.user.id));
+      }
+      const LikedComment = await Comment.findByIdAndUpdate(id, data, {
+        new: true,
+      });
+      res.status(200).json(LikedComment);
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
