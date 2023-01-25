@@ -6,7 +6,8 @@ import { store } from "./app/store";
 import { Provider } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
-import { fetchComments, fetchPosts } from "./app/features/post/postSlice";
+import { fetchPosts } from "./app/features/post/postSlice";
+import { fetchComments } from "./app/features/comment/commentSlice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

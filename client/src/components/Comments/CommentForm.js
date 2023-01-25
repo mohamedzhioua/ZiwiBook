@@ -13,7 +13,7 @@ const CommentForm = ({
   EditCancelHandler,
   autoFocus = false,
 }) => {
-  const { status } = useSelector((state) => state.post);
+  const { status } = useSelector((state) => state.posts);
   const CurrentUserImage = useSelector((state) => state.auth.user.image);
   const [text, setText] = useState(InitialText);
   const isTextareaDisabled = text.length === 0 || text === InitialText;

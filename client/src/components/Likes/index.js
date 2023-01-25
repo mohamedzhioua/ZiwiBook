@@ -3,7 +3,7 @@ import React from "react";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { CustomButton } from "../index";
 
-const CustomLikes = ({ LIKES, userId }) => {
+const Likes = ({ LIKES, userId }) => {
   if (LIKES?.length > 0) {
     return LIKES?.find((like) => like === userId) ? (
       
@@ -25,4 +25,4 @@ const CustomLikes = ({ LIKES, userId }) => {
   return <CustomButton Icon={AiOutlineLike}>&nbsp;Like</CustomButton>;
 };
 
-export default CustomLikes;
+export default Likes;

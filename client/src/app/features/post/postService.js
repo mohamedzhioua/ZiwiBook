@@ -40,36 +40,6 @@ const likePost = async (id) => {
   const response = await axios.patch(`/post/like/${id}`);
   return response.data;
 };
-//creat a Comment 
-const AddComment = async (id, text) => {
-  const response = await axios.post(`/post/addComment/${id}`, { text });
-  return response.data;
-};
-
-//Add Reply to a Comment
-const addCommentReply = async (id, text) => {
-  const response = await axios.post(`/post/addCommentReply/${id}`, { text });
-  return response.data;
-};
-
-// fetch all Comments
-const fetchComments = async () => {
-  const response = await axios.get("/post/getComments");
-  return response.data;
-};
-
-// Delete user Comment
-const deleteComment = async (id) => {
-  const response = await axios.delete(`/post/deleteComment/${id}`);
-  return response.data;
-};
-
-// update user comment
-const updateComment = async (id, text) => {
-  const response = await axios.put(`/post/updateComment/${id}`, { text });
-  return response.data;
-};
-
 const postService = {
   addPost,
   fetchAll,
@@ -77,11 +47,6 @@ const postService = {
   updatePost,
   FindPost,
   likePost,
-  AddComment,
-  addCommentReply,
-  fetchComments,
-  deleteComment,
-  updateComment,
 };
 
 export default postService;

@@ -1,29 +1,32 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-//components
-import CommentForm from "./CommentForm";
-import { Card, Comments, CustomButton, CustomLikes } from "../index";
-
-// Styles
-import "./index.css";
+//features 
 import {
   addCommentReply,
   deleteComment,
+  likeComment,
   updateComment,
-} from "../../app/features/post/postSlice";
+} from "../../app/features/comment/commentSlice";
+//components
+import CommentForm from "./CommentForm";
+import { Card, Comments, CustomButton ,Likes} from "../index";
+
+// Styles
+import "./index.css";
+
 import { BsTrash } from "react-icons/bs";
 import { FaReply, FaEdit } from "react-icons/fa";
 import { CgDetailsMore } from "react-icons/cg";
-
+ 
 const Comment = ({ comment }) => {
   const dispatch = useDispatch();
   const CurrentUserId = useSelector((state) => state.auth.user._id);
-  const { comments, status } = useSelector((state) => state.post);
+  const { comments, status } = useSelector((state) => state.comment);
   const [areRepliesHidden, setAreRepliesHidden] = useState(true);
   const [activeComment, setActiveComment] = useState(null);
   const id = activeComment?.id;
-
+const LIKES = comment.likes
   // replies
   const getReplies = comments
     .filter((i) => i.parentId === comment._id)
@@ -46,7 +49,7 @@ const Comment = ({ comment }) => {
 
   //comment old text field
   const InitialText = useSelector((state) =>
-    state.post.comments.find((comment) => comment._id === id)
+    state.comment.comments.find((comment) => comment._id === id)
   );
 
   //onsubmitHandler
@@ -101,7 +104,9 @@ const Comment = ({ comment }) => {
         <div className="comment-text">{comment?.text}</div>
       )}
       <div className="comment-actions">
-        <CustomLikes />
+      <div onClick={() => dispatch(likeComment(comment._id))}>
+        <Likes userId={CurrentUserId} LIKES={LIKES} />
+        </div>
         {!isEditing && (
           <>
             {canReply && (

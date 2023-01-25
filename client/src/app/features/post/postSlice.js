@@ -2,15 +2,16 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { closeModal } from "../modal/modalSlice";
 import postService from "./postService";
 
+
+
 const initialState = {
   posts: [],
-  comments: [],
   error: null,
-  status: "idle",
+  status: "idle",  //'idle' | 'loading' | 'fulfilled' | 'failed'
 };
 
 //creat post
-export const addPost = createAsyncThunk("post/add", async (post, thunkAPI) => {
+export const addPost = createAsyncThunk("posts/add", async (post, thunkAPI) => {
   const { rejectWithValue, dispatch } = thunkAPI;
   try {
     dispatch(closeModal());
@@ -22,7 +23,7 @@ export const addPost = createAsyncThunk("post/add", async (post, thunkAPI) => {
 
 // fetch all posts
 export const fetchPosts = createAsyncThunk(
-  "post/fetchAll",
+  "posts/fetchAll",
   async (_, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
@@ -35,7 +36,7 @@ export const fetchPosts = createAsyncThunk(
 
 // delete a post
 export const deleteOne = createAsyncThunk(
-  "post/deleteOne",
+  "posts/deleteOne",
   async (id, thunkAPI) => {
     const { rejectWithValue, dispatch } = thunkAPI;
     try {
@@ -49,7 +50,7 @@ export const deleteOne = createAsyncThunk(
 
 // update a post
 export const updatePost = createAsyncThunk(
-  "post/updatePost",
+  "posts/updatePost",
   async ({ id, form }, thunkAPI) => {
     const { rejectWithValue, dispatch } = thunkAPI;
     try {
@@ -63,7 +64,7 @@ export const updatePost = createAsyncThunk(
 
 //find a post by id
 export const FindPost = createAsyncThunk(
-  "post/FindPost",
+  "posts/FindPost",
   async (id, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
@@ -76,7 +77,7 @@ export const FindPost = createAsyncThunk(
 
 //like  post
 export const likePost = createAsyncThunk(
-  "post/likePost",
+  "posts/likePost",
   async (id, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
@@ -87,73 +88,8 @@ export const likePost = createAsyncThunk(
   }
 );
 
-//creat a Comment
-export const AddComment = createAsyncThunk(
-  "post/AddComment",
-  async ({ id, text }, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      return await postService.AddComment(id, text);
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
-//Add Reply to a Comment
-export const addCommentReply = createAsyncThunk(
-  "post/addCommentReply",
-  async ({ id, text }, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      return await postService.addCommentReply(id, text);
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
-// fetch all Comments
-export const fetchComments = createAsyncThunk(
-  "post/fetchComments",
-  async (_, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      return await postService.fetchComments();
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
-// delete a comment
-export const deleteComment = createAsyncThunk(
-  "post/deleteComment",
-  async (id, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      return await postService.deleteComment(id);
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
-// update a comment
-export const updateComment = createAsyncThunk(
-  "post/updateComment",
-  async ({ id, text }, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      return await postService.updateComment(id, text);
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
 export const postSlice = createSlice({
-  name: "post",
+  name: "posts",
   initialState,
   reducers: {
     reset: (state) => {
@@ -169,7 +105,7 @@ export const postSlice = createSlice({
       })
       .addCase(addPost.fulfilled, (state, action) => {
         state.status = "fulfilled";
-        state.posts = [action.payload.memo, ...state.posts];
+        state.posts = [action.payload, ...state.posts];
       })
       .addCase(addPost.rejected, (state, action) => {
         state.status = "failed";
@@ -214,7 +150,7 @@ export const postSlice = createSlice({
         } = action.meta;
         if (id) {
           state.posts = state.posts.map((item) =>
-            item._id === id ? action.payload.memo : item
+            item._id === id ? action.payload : item
           );
         }
       })
@@ -235,79 +171,6 @@ export const postSlice = createSlice({
         }
       })
       .addCase(likePost.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      })
-      //--------------------------------------------------------comments------------------------------------------------//
-      .addCase(AddComment.pending, (state, action) => {
-        state.status = "Loading";
-        state.error = null;
-      })
-      .addCase(AddComment.fulfilled, (state, action) => {
-        state.status = "fulfilled";
-        state.comments = [action.payload, ...state.comments];
-      })
-      .addCase(AddComment.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      })
-      .addCase(fetchComments.pending, (state, action) => {
-        state.status = "Loading";
-        state.error = null;
-      })
-      .addCase(fetchComments.fulfilled, (state, action) => {
-        state.status = "fulfilled";
-        state.comments = action.payload;
-      })
-      .addCase(fetchComments.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      })
-
-      .addCase(addCommentReply.pending, (state, action) => {
-        state.status = "Loading";
-        state.error = null;
-      })
-      .addCase(addCommentReply.fulfilled, (state, action) => {
-        state.status = "fulfilled";
-        state.comments = [action.payload, ...state.comments];
-      })
-      .addCase(addCommentReply.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      })
-      .addCase(deleteComment.pending, (state, action) => {
-        state.status = "Loading";
-        state.error = null;
-      })
-      .addCase(deleteComment.fulfilled, (state, action) => {
-        state.status = "fulfilled";
-        const { arg } = action.meta;
-        if (arg) {
-          state.comments = state.comments.filter((item) => item._id !== arg);
-        }
-      })
-
-      .addCase(deleteComment.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      })
-      .addCase(updateComment.pending, (state, action) => {
-        state.status = "Loading";
-        state.error = null;
-      })
-      .addCase(updateComment.fulfilled, (state, action) => {
-        state.status = "fulfilled";
-        const {
-          arg: { id },
-        } = action.meta;
-        if (id) {
-          state.comments = state.comments.map((item) =>
-            item._id === id ? action.payload.updatedComment : item
-          );
-        }
-      })
-      .addCase(updateComment.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });

@@ -12,13 +12,13 @@ const PostList = ({posts , user , wordEntered}) => {
         );
       } else {
         return (
-          <div class="row">
+          <div className="row">
             {posts
-              .filter((post) =>
+              ?.filter((post) =>
                 post.text?.toLowerCase().includes(wordEntered?.toLowerCase())
               )
-              .map((post) => (
-                <div class="col-12 col-md-6 col-lg-4" key={post._id}>
+              ?.map((post) => (
+                <div className="col-12 col-md-6 col-lg-4" key={post._id}>
                   <Post post={post} userId={user._id} />
                 </div>
               ))}

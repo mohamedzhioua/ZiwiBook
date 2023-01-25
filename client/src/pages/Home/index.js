@@ -12,7 +12,7 @@ import "./index.css";
 
 function Home() {
   const [wordEntered, setWordEntered] = useState("");
-  const { posts } = useSelector((state) => state.post);
+
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -23,10 +23,9 @@ function Home() {
   };
 
   // sorting posts by time created at
-  const sortedPosts = posts
-    .slice()
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-
+  const  sortedPosts  = useSelector((state) => state.posts.posts).slice()
+  ?.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  
   return (
     <div className="container">
       <div className="row">

@@ -3,16 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 // features
 import { openModal } from "../../app/features/modal/modalSlice";
-import { likePost, AddComment } from "../../app/features/post/postSlice";
+import { likePost } from "../../app/features/post/postSlice";
 
 // Components
-import { Comments, CustomButton, CustomLikes, PostHead, Card } from "../index";
+import { Comments, CustomButton, Likes, PostHead, Card } from "../index";
 import CommentForm from "../Comments/CommentForm";
 
 // Styles
 import { GoComment } from "react-icons/go";
 import { BsTrash } from "react-icons/bs";
 import "./index.css";
+import { AddComment } from "../../app/features/comment/commentSlice";
 
 const Post = ({ post, userId }) => {
 
@@ -21,7 +22,7 @@ const Post = ({ post, userId }) => {
   const LIKES = post?.likes;
 
   //filetring comments by post and sorting them
-  const comments = useSelector((state) => state.post.comments)
+  const comments = useSelector((state) => state.comment.comments)
     .filter((comment) => comment.post === post._id)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
@@ -57,7 +58,7 @@ const Post = ({ post, userId }) => {
       <hr />
       <div className="x-row" style={{ padding: "10px" }}>
         <div onClick={() => dispatch(likePost(post._id))}>
-          <CustomLikes userId={userId} LIKES={LIKES} />
+          <Likes userId={userId} LIKES={LIKES} />
         </div>
         <div>
           <CustomButton
