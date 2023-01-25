@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+// Load Comment model
+const Post = require("./post");
 
 const UserSchema = new Schema(
   {
@@ -25,5 +27,12 @@ const UserSchema = new Schema(
   },
   { timestamps: true }
 );
+
+// delete post comments when the post is removed
+UserSchema.pre("remove", async function (next) {
+  const user = this;
+  await Post.deleteMany({ owner: user._id });
+  next();
+});
 
 module.exports = mongoose.model("user", UserSchema);

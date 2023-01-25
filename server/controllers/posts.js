@@ -33,13 +33,13 @@ module.exports = {
         const memo = await Post.create(req.body);
         return res
           .status(200)
-          .json({ message: "post added successfully", memo });
+          .json( memo );
       } else {
         req.body.owner = req.user.id;
         const memo = await Post.create(req.body);
         return res
           .status(200)
-          .json({ message: "post added successfully", memo });
+          .json(memo);
       }
     } catch (error) {
       res.status(404).json({ message: error.message });
@@ -77,7 +77,7 @@ module.exports = {
             new: true,
           }
         );
-        res.status(200).json({ message: "post updated successfully", memo });
+        res.status(200).json(memo);
       } else {
         const memo = await Post.findByIdAndUpdate(
           { _id: req.params.id },
@@ -86,7 +86,7 @@ module.exports = {
             new: true,
           }
         );
-        res.status(200).json({ message: "post updated successfully", memo });
+        res.status(200).json(memo);
       }
     } catch (error) {
       res.status(404).json({ message: error.message });
@@ -159,7 +159,7 @@ module.exports = {
   addComment: async (req, res) => {
     const { id } = req.params;
     const { text } = req.body;
-    console.log("🚀 ~ file: posts.js:162 ~ addComment: ~ req.body", text)
+    console.log("🚀 ~ file: posts.js:162 ~ addComment: ~ req.body", req.body)
     const owner = req.user.id;
     try {
       if (!id)
