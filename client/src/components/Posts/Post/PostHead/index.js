@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import moment from "moment";
 import { Link } from "react-router-dom";
 // features
-import { openModal } from "../../app/features/modal/modalSlice";
+import { openModal } from "../../../../app/features/modal/modalSlice";
 
 //components
-import CustomButton from "../CustomButton";
+import {CustomButton} from "../../../index";
 
 // Styles
 import { BsThreeDots } from "react-icons/bs";
@@ -34,7 +34,7 @@ const PostHead = ({ post, userId }) => {
           onClick={() =>
             dispatch(
               openModal({
-                name: "AddEditForm",
+                name: "AddEditPost",
                 childrenProps: { post: post },
               })
             )

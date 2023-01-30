@@ -13,7 +13,6 @@ import "./index.css";
 function Home() {
   const [wordEntered, setWordEntered] = useState("");
 
-  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   //search User input
@@ -36,11 +35,11 @@ function Home() {
           <CustomButton
             className="button2"
             value="add Memorie"
-            onClick={() => dispatch(openModal({ name: "AddEditForm" }))}
+            onClick={() => dispatch(openModal({ name: "AddEditPost" }))}
           />
         </div>
       </div>
-      <PostList posts={sortedPosts} user={user} wordEntered={wordEntered} />
+      <PostList posts={sortedPosts}  wordEntered={wordEntered} />
     </div>
   );
 }

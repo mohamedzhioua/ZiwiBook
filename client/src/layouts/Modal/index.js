@@ -1,29 +1,10 @@
 import React, { Fragment } from "react";
-import { useSelector, useDispatch } from "react-redux";
-//features
-import { closeModal } from "../../app/features/modal/modalSlice";
-//Components
-import {AddEditForm} from "../../components/index";
-//layouts
-import {DeleteConfirm} from "../index";
+
 // Styles
 import Close from "../../images/Close.png";
 import "./index.css";
 
-const Modal = () => {
-  const dispatch = useDispatch();
-  const { isOpen, componentName , childrenProps } = useSelector((state) => state.modal);
-
-  const closeModalHandler = () => dispatch(closeModal());
-
-  const componentsLookUp =  {AddEditForm,DeleteConfirm}
-  let renderComponent ;
-  if(componentName){
-  const SelectedComponent = componentsLookUp[componentName]
-  if (SelectedComponent) {
-    renderComponent = <SelectedComponent {...childrenProps}/>
-  }
-}
+const Modal = ({ isOpen, children, closeModalHandler }) => {
   return (
     <Fragment>
       <div
@@ -40,7 +21,7 @@ const Modal = () => {
             onClick={closeModalHandler}
           />
         </div>
-        <div className="modal-content">{renderComponent}</div>
+        <div className="modal-content">{children}</div>
       </div>
     </Fragment>
   );

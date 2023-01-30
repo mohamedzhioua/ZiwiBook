@@ -1,7 +1,7 @@
 import React from "react";
 // Styles
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
-import { CustomButton } from "../index";
+import { CustomButton } from "../../../index";
 
 const Likes = ({ LIKES, userId }) => {
   if (LIKES?.length > 0) {

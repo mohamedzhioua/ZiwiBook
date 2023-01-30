@@ -7,10 +7,10 @@ import {
   deleteComment,
   likeComment,
   updateComment,
-} from "../../app/features/comment/commentSlice";
+} from "../../../../app/features/comment/commentSlice";
 //components
 import CommentForm from "./CommentForm";
-import { Card, Comments, CustomButton ,Likes} from "../index";
+import { Card, Comments, CustomButton ,Likes} from "../../../index";
 
 // Styles
 import "./index.css";
@@ -156,7 +156,7 @@ const LIKES = comment.likes
         </div>
       )}
       {/* Comment Replies */}
-
+      
       {getReplies?.length > 0 && (
         <>
           <div

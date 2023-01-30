@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 // Components
-import { CustomInput, CustomButton, FormLoader } from "../index";
+import { CustomInput, CustomButton, FormLoader } from "../../../index";
 // Styles
 import "./index.css";
 

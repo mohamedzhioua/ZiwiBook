@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 // features
-import { addPost, updatePost } from "../../app/features/post/postSlice";
+import { addPost, updatePost } from "../../../app/features/post/postSlice";
 
 // Components
-import { CustomInput, CustomButton } from "../index";
+import { CustomInput, CustomButton } from "../../index";
 
 // Styles
 import "./index.css";
 import { toast } from "react-toastify";
 
-const AddEditForm = ({ post }) => {
+const AddEditPost = ({ post }) => {
   const [form, setForm] = useState({ text: "", image: "" });
   const [picture, setPicture] = useState(null);
   const dispatch = useDispatch();
@@ -124,4 +124,4 @@ const AddEditForm = ({ post }) => {
   );
 };
 
-export default AddEditForm;
+export default AddEditPost;

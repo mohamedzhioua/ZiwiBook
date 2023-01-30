@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import Router from "./routes/Router";
 
 //Layouts
-import { Modal, Header, Footer } from "./layouts/index";
+import { Header, Footer, ModalManager } from "./layouts/index";
 
 //Styles
 import "./index.css";
@@ -14,7 +14,7 @@ function App() {
   return (
     <BrowserRouter>
       <div style={{ marginTop: "90px", marginBottom: "45px" }}>
-        <Modal />
+        <ModalManager />
         <Header />
 
         <Router />

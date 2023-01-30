@@ -1,25 +1,26 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // features
-import { openModal } from "../../app/features/modal/modalSlice";
-import { likePost } from "../../app/features/post/postSlice";
+import { openModal } from "../../../app/features/modal/modalSlice";
+import { likePost } from "../../../app/features/post/postSlice";
 
 // Components
-import { Comments, CustomButton, Likes, PostHead, Card } from "../index";
-import CommentForm from "../Comments/CommentForm";
+import { Comments, CustomButton, Likes, PostHead, Card } from "../../index";
+import CommentForm from "./Comments/CommentForm";
 
 // Styles
 import { GoComment } from "react-icons/go";
 import { BsTrash } from "react-icons/bs";
 import "./index.css";
-import { AddComment } from "../../app/features/comment/commentSlice";
+import { AddComment } from "../../../app/features/comment/commentSlice";
 
-const Post = ({ post, userId }) => {
-
+const Post = ({ post }) => {
+  const { user } = useSelector((state) => state.auth);
   const [commentOpen, setCommentOpen] = useState(false);
   const dispatch = useDispatch();
   const LIKES = post?.likes;
+  const canDelete = user._id === post.owner._id
 
   //filetring comments by post and sorting them
   const comments = useSelector((state) => state.comment.comments)
@@ -28,17 +29,6 @@ const Post = ({ post, userId }) => {
 
   //rootcomments that have no parent
   const rootComments = comments.filter((comment) => comment.parentId === null);
-
-  //grouping comments by parentId
-  // const commentsByParentId = useMemo(() => {
-  //   const group = {}
-  //   comments.forEach(comment => {
-  //     group[comment.parentId] ||= []
-  //     group[comment.parentId].push(comment)
-  //   })
-  //   return group
-  // }, [comments])
-  // const rootComments = commentsByParentId[null]
 
   // onsubmitHandler
   function addComment(text) {
@@ -50,15 +40,15 @@ const Post = ({ post, userId }) => {
       }
     }
   }
-  return (
+return (
     <Card>
-      <PostHead post={post} userId={userId} />
+      <PostHead post={post} userId={user._id} />
       <p className="post-text">{post.text.substring(0, 20)}</p>
       {post?.image && <img src={post.image} className="post-image" alt="..." />}
       <hr />
-      <div className="x-row" style={{ padding: "10px" }}>
+      <div className="post_footer-row" style={{ padding: "10px" }}>
         <div onClick={() => dispatch(likePost(post._id))}>
-          <Likes userId={userId} LIKES={LIKES} />
+          <Likes userId={user._id} LIKES={LIKES} />
         </div>
         <div>
           <CustomButton
@@ -73,9 +63,9 @@ const Post = ({ post, userId }) => {
                 }`}
           </CustomButton>
         </div>
-        {userId === post.owner._id && (
+       
           <div>
-            <CustomButton
+          {canDelete && ( <CustomButton
               Icon={BsTrash}
               onClick={() => {
                 dispatch(
@@ -87,13 +77,13 @@ const Post = ({ post, userId }) => {
               }}
             >
               &nbsp;Delete
-            </CustomButton>
+            </CustomButton>)}
           </div>
-        )}
+        
       </div>
       {commentOpen && (
         <section>
-          <CommentForm submitLabel="write" onSubmit={addComment}  />
+          <CommentForm submitLabel="write" onSubmit={addComment} />
           {rootComments != null && rootComments.length > 0 && (
             <div className="comments-section">
               <Comments rootComments={rootComments} />
