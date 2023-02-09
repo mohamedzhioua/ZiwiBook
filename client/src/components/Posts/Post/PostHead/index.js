@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { openModal } from "../../../../app/features/modal/modalSlice";
 
 //components
-import {CustomButton} from "../../../index";
+import { CustomButton } from "../../../index";
 
 // Styles
 import { BsThreeDots } from "react-icons/bs";
@@ -22,7 +22,10 @@ const PostHead = ({ post, userId }) => {
           <img src={post.owner.image} className="profile-image" alt="..." />
         </Link>
         <div>
-          <Link to="#" style={{ textDecoration: "none", color: "inherit" }}>
+          <Link
+            to={`/profile/${post?.owner?.name}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
             <span className="username">{post.owner.name}</span>
           </Link>
           <span className="date">{moment(post.createdAt).fromNow()}</span>

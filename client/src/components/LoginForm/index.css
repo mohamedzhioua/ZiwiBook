@@ -24,10 +24,10 @@ body {
   margin-top: 15px;
 }
 
-h1{
-  font-family: 'Pacifico', cursive;
+h1 {
+  font-family: "Pacifico", cursive;
 }
-.login{
+.login {
   justify-content: center;
   align-items: center;
   display: flex;

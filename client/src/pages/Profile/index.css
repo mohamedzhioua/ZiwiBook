@@ -1,0 +1,15 @@
+.profile-container{
+  width: 100%;
+  justify-items: center;
+ }
+.profile {
+    background: #ffffff;
+     width: 100%;
+    margin: 20px 0;
+  }
+  .profile-info-menu-container{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 2px 2px 2px 2px #ccc;
+    padding: 10px;
+  }

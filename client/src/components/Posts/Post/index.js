@@ -2,7 +2,7 @@ import React from "react";
 import Post from "./Post";
 import "./index.css";
 
-const PostList = ({ posts, wordEntered }) => {
+const PostList = ({ posts, wordEntered= "" , user }) => {
   
   if (posts?.length === 0) {
     return (
@@ -17,7 +17,7 @@ const PostList = ({ posts, wordEntered }) => {
           )
           ?.map((post) => (
             <div className="col-12 col-md-6 col-lg-4" key={post._id}>
-              <Post post={post} />
+              <Post post={post} user={user}/>
             </div>
           ))}
       </div>

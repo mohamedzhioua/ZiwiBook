@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-//features 
+//features
 import {
   addCommentReply,
   deleteComment,
@@ -10,7 +10,7 @@ import {
 } from "../../../../app/features/comment/commentSlice";
 //components
 import CommentForm from "./CommentForm";
-import { Card, Comments, CustomButton ,Likes} from "../../../index";
+import { Card, Comments, CustomButton, Likes } from "../../../index";
 
 // Styles
 import "./index.css";
@@ -18,24 +18,25 @@ import "./index.css";
 import { BsTrash } from "react-icons/bs";
 import { FaReply, FaEdit } from "react-icons/fa";
 import { CgDetailsMore } from "react-icons/cg";
- 
+import { Link } from "react-router-dom";
+
 const Comment = ({ comment }) => {
   const dispatch = useDispatch();
-  const CurrentUserId = useSelector((state) => state.auth.user._id);
+  const { user } = useSelector((state) => state.auth);
   const { comments, status } = useSelector((state) => state.comment);
   const [areRepliesHidden, setAreRepliesHidden] = useState(true);
   const [activeComment, setActiveComment] = useState(null);
   const id = activeComment?.id;
-const LIKES = comment.likes
+  const LIKES = comment.likes;
   // replies
   const getReplies = comments
     .filter((i) => i.parentId === comment._id)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
-  // checking if the user is allowed to Reply, Edit or Delete
-  const canReply = Boolean(CurrentUserId);
-  const canEdit = CurrentUserId === comment?.owner?._id;
-  const canDelete = CurrentUserId === comment?.owner?._id;
+  //User Can Edit or Delete his own comment
+  const canDeleteEdit = Boolean(
+    user._id === comment?.owner?._id || user._id === comment?.owner
+  );
 
   // conditions to know what exactly the User willing to do
   const isReplying =
@@ -84,8 +85,22 @@ const LIKES = comment.likes
     <Card className="comment">
       <div className="comment-header">
         <div>
-          <img className="comment-image" src={comment?.owner?.image} alt="." />
-          <span className="author">{comment?.owner?.name}</span>
+          <Link
+            to={`/profile/${comment?.owner?.name}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <img
+              className="comment-image"
+              src={comment?.owner?.image}
+              alt="."
+            />
+          </Link>
+          <Link
+            to={`/profile/${comment?.owner?.name}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <span className="author">{comment?.owner?.name}</span>
+          </Link>
         </div>
         <span className="date">{moment(comment?.createdAt).fromNow()}</span>
       </div>
@@ -98,48 +113,47 @@ const LIKES = comment.likes
           hasCancelButton
           EditCancelHandler={EditCancelHandler}
           InitialText={InitialText.text}
-          editAComment
         />
       ) : (
         <div className="comment-text">{comment?.text}</div>
       )}
       <div className="comment-actions">
-      <div onClick={() => dispatch(likeComment(comment._id))}>
-        <Likes userId={CurrentUserId} LIKES={LIKES} />
-        </div>
         {!isEditing && (
           <>
-            {canReply && (
-              <CustomButton
-                Icon={FaReply}
-                onClick={() =>
-                  setActiveComment({ id: comment?._id, type: "replying" })
-                }
-              />
-            )}
-            {canEdit && (
-              <CustomButton
-                Icon={FaEdit}
-                onClick={() =>
-                  setActiveComment({ id: comment?._id, type: "editing" })
-                }
-              />
-            )}
-            {canDelete && (
-              <CustomButton
-                type="submit"
-                Icon={BsTrash}
-                onClick={() =>
-                  dispatch(deleteComment(comment?._id))
-                    .unwrap()
-                    .then((data) => {
-                      console.log(data);
-                    })
-                    .catch((error) => {
-                      console.log(error);
-                    })
-                }
-              />
+            <div onClick={() => dispatch(likeComment(comment._id))}>
+              <Likes userId={user._id} LIKES={LIKES} />
+            </div>
+
+            <CustomButton
+              Icon={FaReply}
+              onClick={() =>
+                setActiveComment({ id: comment?._id, type: "replying" })
+              }
+            />
+
+            {canDeleteEdit && (
+              <>
+                <CustomButton
+                  Icon={FaEdit}
+                  onClick={() =>
+                    setActiveComment({ id: comment?._id, type: "editing" })
+                  }
+                />
+                <CustomButton
+                  type="submit"
+                  Icon={BsTrash}
+                  onClick={() =>
+                    dispatch(deleteComment(comment?._id))
+                      .unwrap()
+                      .then((data) => {
+                        console.log(data);
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      })
+                  }
+                />
+              </>
             )}
           </>
         )}
@@ -151,12 +165,11 @@ const LIKES = comment.likes
             submitLabel="Reply"
             onSubmit={addComment}
             loading={status}
-            replyToComment
           />
         </div>
       )}
       {/* Comment Replies */}
-      
+
       {getReplies?.length > 0 && (
         <>
           <div

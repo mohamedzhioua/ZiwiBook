@@ -15,12 +15,11 @@ import { BsTrash } from "react-icons/bs";
 import "./index.css";
 import { AddComment } from "../../../app/features/comment/commentSlice";
 
-const Post = ({ post }) => {
-  const { user } = useSelector((state) => state.auth);
+const Post = ({ post , user }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const dispatch = useDispatch();
   const LIKES = post?.likes;
-  const canDelete = user._id === post.owner._id
+  const canDelete = Boolean((user._id === post?.owner?._id) || (user._id === post?.owner ))
 
   //filetring comments by post and sorting them
   const comments = useSelector((state) => state.comment.comments)
@@ -65,7 +64,8 @@ return (
         </div>
        
           <div>
-          {canDelete && ( <CustomButton
+          {canDelete && ( 
+          <CustomButton
               Icon={BsTrash}
               onClick={() => {
                 dispatch(
@@ -77,7 +77,8 @@ return (
               }}
             >
               &nbsp;Delete
-            </CustomButton>)}
+            </CustomButton>
+            )}
           </div>
         
       </div>

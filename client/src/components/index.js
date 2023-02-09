@@ -10,3 +10,10 @@ export { default as Loading } from "./Loading";
 export { default as FormLoader } from "./FormLoader";
 export { default as Card } from "./Card";
 export { default as PostList } from "./Posts/Post";
+export { default as LoginForm } from "./LoginForm";
+export { default as RegisterForm } from "./RegisterForm";
+export { default as UserProfile } from "./Profile";
+export { default as ProfileMenu } from "./Profile/ProfileMenu";
+export {default as ProfileCover} from "./Profile/ProfileCover"
+export {default as ProfileInfo} from "./Profile/ProfileInfo"
+export {default as CreatPost } from "./Posts/CreatPost"

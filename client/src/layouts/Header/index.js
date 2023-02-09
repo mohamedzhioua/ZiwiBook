@@ -12,7 +12,7 @@ import { AiOutlineHome, AiFillHome } from "react-icons/ai";
 import "./index.css";
 
 const Header = () => {
-  const { token, status } = useSelector((state) => state.auth);
+  const { token, status ,user} = useSelector((state) => state.auth);
   const [home, setHome] = useState(true);
   const [profile, setProfile] = useState(false);
   const [expand, updateExpanded] = useState(false);
@@ -72,7 +72,7 @@ const Header = () => {
                 <Nav.Link
                   className="Nav-link"
                   as={Link}
-                  to="/profile"
+                  to={`/profile/${user?.name}`}
                   onClick={() => {
                     profileClick();
                     updateExpanded(false);
@@ -83,7 +83,7 @@ const Header = () => {
                   ) : (
                     <FaRegUserCircle className="Navbar-icon" />
                   )}
-                  <b>profile</b>
+                  <b>&nbsp;profile</b>
                 </Nav.Link>
               </>
             )}

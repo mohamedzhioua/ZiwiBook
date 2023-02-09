@@ -12,7 +12,7 @@ const CommentForm = ({
   hasCancelButton = false,
   EditCancelHandler,
   autoFocus = false,
-}) => {
+ }) => {
   const { status } = useSelector((state) => state.posts);
   const CurrentUserImage = useSelector((state) => state.auth.user.image);
   const [text, setText] = useState(InitialText);
@@ -48,7 +48,7 @@ const CommentForm = ({
               value={submitLabel === "update" ? "update" : "Send"}
               className="commentbtn"
               disabled={isTextareaDisabled}
-            />
+             />
             {hasCancelButton && (
               <CustomButton
                 type="submit"

@@ -30,6 +30,22 @@
   color: #6b7280;
   background-color: white;
 }
+.button3 {
+  margin-top: 10px;
+  display: inline-block;
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  padding: 0 24px;
+  border-radius: 5px;
+  height: 40px;
+  width: 100%;
+  font-size: 14px;
+  font-family: "Roboto";
+  font-weight: 500;
+ background-color:#ccc;
+}
+ 
 .cancelbtn {
   text-decoration: none;
   transition: all 0.4s;

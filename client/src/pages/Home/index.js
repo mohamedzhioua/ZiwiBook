@@ -1,19 +1,16 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-// features
- import { openModal } from "../../app/features/modal/modalSlice";
+import {  useSelector } from "react-redux";
 
 // Components
-import { CustomButton, PostList, SearchBar } from "../../components";
+import {CreatPost, PostList, SearchBar } from "../../components";
 
 // Styles
 import "./index.css";
 
 function Home() {
   const [wordEntered, setWordEntered] = useState("");
+  const { user } = useSelector((state) => state.auth);
 
-  const dispatch = useDispatch();
 
   //search User input
   const FilterQuery = (e) => {
@@ -32,14 +29,10 @@ function Home() {
           <SearchBar onChange={FilterQuery} />
         </div>
         <div className="col-6 col-md-4">
-          <CustomButton
-            className="button2"
-            value="add Memorie"
-            onClick={() => dispatch(openModal({ name: "AddEditPost" }))}
-          />
+        <CreatPost />
         </div>
       </div>
-      <PostList posts={sortedPosts}  wordEntered={wordEntered} />
+      <PostList posts={sortedPosts} user={user}  wordEntered={wordEntered} />
     </div>
   );
 }
