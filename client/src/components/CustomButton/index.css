@@ -45,7 +45,23 @@
   font-weight: 500;
  background-color:#ccc;
 }
- 
+ .profileBTN{
+  border: none;
+  outline: none;
+  background: #0096ff;
+  padding: 8.5px 12px;
+  border-radius: 7px;
+  font-family: inherit;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 700;
+  width: 100%;
+ }
 .cancelbtn {
   text-decoration: none;
   transition: all 0.4s;

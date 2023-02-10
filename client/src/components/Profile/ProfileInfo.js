@@ -14,11 +14,13 @@ function ProfileInfo({ isVisitor }) {
         <span className="profile-user-info">ziwi</span>
       </div>
       <div className="right">
+        <div className="btns">
         {isVisitor ? (
-          <CustomButton value="Add as A friend" className="button3" />
+          <CustomButton value="Add as A friend" className="profileBTN" />
         ) : (
-          <CustomButton className="button3" value="Edit profile" />
+          <CustomButton className="profileBTN" value="Edit profile" />
         )}
+      </div>
       </div>
     </div>
   );

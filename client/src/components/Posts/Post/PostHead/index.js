@@ -14,7 +14,7 @@ import "./index.css";
 
 const PostHead = ({ post, userId }) => {
   const dispatch = useDispatch();
-
+  const canEdit = Boolean(userId === post.owner._id || userId === post.owner);
   return (
     <div className="post-row">
       <div className="user-profile">
@@ -31,7 +31,7 @@ const PostHead = ({ post, userId }) => {
           <span className="date">{moment(post.createdAt).fromNow()}</span>
         </div>
       </div>
-      {userId === post.owner._id && (
+      {canEdit && (
         <CustomButton
           Icon={BsThreeDots}
           onClick={() =>

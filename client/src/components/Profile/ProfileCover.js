@@ -1,7 +1,6 @@
-import React from "react";
-
 // Styles
 import "./index.css";
+
 function ProfileCover() {
   return (
     <div className="profile-images">

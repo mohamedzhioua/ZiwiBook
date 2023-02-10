@@ -24,7 +24,6 @@ label {
 }
 .search-input:focus {
   outline: none;
-  width: 830px;
 }
 .commentInput {
   height: 50px;

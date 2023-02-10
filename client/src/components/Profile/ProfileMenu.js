@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
- // Styles
+// Styles
 import "./index.css";
 
-const ProfileMenu = () => {
+function ProfileMenu() {
   return (
     <div className="profile-menu-container">
       <div className="profile-menu">
@@ -21,8 +21,8 @@ const ProfileMenu = () => {
           Photos
         </Link>
       </div>
-     </div>
+    </div>
   );
-};
+}
 
 export default ProfileMenu;

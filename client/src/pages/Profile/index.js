@@ -1,7 +1,15 @@
 //components
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { PostList, ProfileCover, ProfileInfo, ProfileMenu } from "../../components";
+import {
+  CreatPost,
+  Friends,
+  Photos,
+  PostList,
+  ProfileCover,
+  ProfileInfo,
+  ProfileMenu,
+} from "../../components";
 
 // Styles
 import "./index.css";
@@ -12,24 +20,42 @@ function Profile() {
 
   const usernameID = username ? username : user.name;
   const isVisitor = !(usernameID === user.name);
-    // sorting posts by time created at
-    const  sortedPosts  = useSelector((state) => state.posts.posts.filter((post)=>post.owner.name === usernameID )).slice()
+  // sorting posts by time created at
+  const sortedPosts = useSelector((state) =>
+    state.posts.posts.filter((post) => post.owner.name === usernameID)
+  )
+    .slice()
     ?.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-    console.log("🚀 ~ file: index.js:17 ~ Profile ~ sortedPosts", sortedPosts)
 
   return (
-    <div className="profile-container">
-      <div className="profile">
-        <ProfileCover />
-        <div className="profile-info-menu-container">
-          <ProfileInfo isVisitor={isVisitor} />
-          <hr />
+    <div className="profile">
+      <div className="top">
+        <div className="top-wrapper">
+          <div className="header">
+            <ProfileCover />
+            <ProfileInfo isVisitor={isVisitor} />
+            <hr />
+          </div>
           <ProfileMenu />
         </div>
       </div>
-      <PostList posts={sortedPosts} user={user}/>
-    </div>
-  );
+
+         <div className="bottom-wrapper">
+          <div className="details">
+            <div className="details_con">
+              <Photos />
+              <Friends />
+            </div>
+          </div>
+          <div className="posts-wrapper">
+          <div className="posts">
+            {!isVisitor && <CreatPost />}
+            <PostList posts={sortedPosts} user={user} />
+          </div>
+          </div>
+        </div>
+      </div>
+   );
 }
 
 export default Profile;
