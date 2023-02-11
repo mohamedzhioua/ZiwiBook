@@ -48,18 +48,18 @@ function Photos() {
 
   return (
     <Card>
-      <div className="card_header">
+      <div className="card-header">
         Photos
-        <Link className="photo-link" to="#">
+        <Link className="photo-friends-link" to="#">
           See all photos
         </Link>
       </div>
-      <div className="content">
-        <div className="content-info">`${data?.length} Photos`</div>
-        <div className="photo_grid">
+      <div className="photo-friends-content">
+        <div className="photo-friends-content-info">{`${data?.length} Photos`}</div>
+        <div className="photo-grid">
           {data.slice(0, 9).map((img) => (
             <div
-              className="photo_card"
+              className="photo-card"
               key={img.id}
               style={{ backgroundImage: `url(${img.url})` }}
             ></div>

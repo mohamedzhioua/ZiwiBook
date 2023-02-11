@@ -104,7 +104,7 @@ const AddEditPost = ({ post }) => {
           {/* <hr /> */}
           <CustomInput
             type="file"
-            accept="image/gif, image/jpeg, image/png"
+            accept="image/jpeg,image/png,image/webp,image/gif"
             onChange={(e) => {
               onChangePicture(e);
               onChangefile(e);

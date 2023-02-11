@@ -67,22 +67,22 @@ function Friends() {
   ];
   return (
     <Card>
-      <div className="card_header">
+      <div className="card-header">
         Friends
-        <Link className="photo-link" to="#">
+        <Link className="photo-friends-link" to="#">
           See all Friends
         </Link>
       </div>
-      <div className="content">
-        <div className="content-info">`${data?.length} Friends`</div>
-        <div className="friends_grid">
+      <div className="photo-friends-content">
+        <div className="photo-friends-content-info">{`${data?.length} Friends`}</div>
+        <div className="friends-grid">
           {data.slice(0, 9).map((user, i) => (
             <Link to={`/profile/${user.username}`} key={i}>
               <div
-                className="friend_card"
+                className="friend-card"
                 style={{ backgroundImage: `url(${user.photo})` }}
               ></div>
-              <span className="friend_name">{user.username}</span>
+              <span className="friend-name">{user.username}</span>
             </Link>
           ))}
         </div>

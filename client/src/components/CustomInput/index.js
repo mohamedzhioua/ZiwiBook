@@ -11,10 +11,12 @@ const CustomInput = ({
   value,
   defaultValue,
   accept,
+  hidden,
   float,
   onClick,
   className,
   autoFocus,
+  innerRef,
 }) => {
   return (
     <div className={!float ? "form-group mb-2" : "form-group mb-4"}>
@@ -54,6 +56,8 @@ const CustomInput = ({
             value={value}
             defaultValue={defaultValue}
             accept={accept}
+            hidden={hidden}
+            ref={innerRef}
           />
         )}
         {name === "password" ? (

@@ -17,7 +17,7 @@ import "./index.css";
 function Profile() {
   const { user } = useSelector((state) => state.auth);
   const { username } = useParams();
-
+ 
   const usernameID = username ? username : user.name;
   const isVisitor = !(usernameID === user.name);
   // sorting posts by time created at
@@ -32,7 +32,7 @@ function Profile() {
       <div className="top">
         <div className="top-wrapper">
           <div className="header">
-            <ProfileCover />
+            <ProfileCover isVisitor={isVisitor}/>
             <ProfileInfo isVisitor={isVisitor} />
             <hr />
           </div>

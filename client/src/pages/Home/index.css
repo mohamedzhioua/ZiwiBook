@@ -3,9 +3,6 @@
   display: grid;
 }
 .home-head {
-  /* display: flex;
-  flex-wrap: wrap;
-  gap: 20px; */
   display: -ms-flexbox; /* IE10 */
   display: flex;
   justify-content: center;

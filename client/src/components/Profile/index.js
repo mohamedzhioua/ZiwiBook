@@ -2,7 +2,7 @@
  // Styles
 import "./index.css";
 
-const UserProfile = () => {
+function UserProfile () {
   return (
    <>
    </>

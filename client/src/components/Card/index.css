@@ -5,8 +5,6 @@
   padding: 10px;
   width: 100%;
   margin: 20px 0;
-
-
 }
 .comment {
   width: 100%;
@@ -15,4 +13,13 @@
   border: 1px solid hsl(235, 100%, 90%);
   border-radius: 0.5rem;
 }
+.cover_upload_menu {
+  background: #ffffff;
+  position: absolute;
+  right: 50%;
+  top: 41px;
+  padding: 10px;
+  z-index: 8;
+  width: 250px;
  
+}
