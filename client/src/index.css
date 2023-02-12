@@ -29,5 +29,27 @@
 
 /*----Scrollbar----*/
 
+/* hover */
+ .hover1:hover {
+  background:  #f0f2f5;
+}
 
- 
+/* hover */
+
+
+/*---Circles------*/
+.small_circle {
+  position: relative;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 11px;
+  background:  #e4e6eb;
+  cursor: pointer;
+}
+
+/*---Circles------*/
+

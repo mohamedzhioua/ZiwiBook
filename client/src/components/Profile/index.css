@@ -54,11 +54,11 @@
   width: 100%;
 }
 
-.save_cover {
+.save-cover {
   position: fixed;
   left: 0;
   top: 56px;
-  height: 56px;
+  height: 60px;
   width: 100%;
   background: rgb(0 0 0 / 70%);
   z-index: 1;
@@ -67,32 +67,23 @@
   justify-content: space-between;
   padding: 0 20px;
 }
-.btns {
+.cover-btns {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
 }
-
-.btns button {
-  font-weight: 500;
-}
-
-.save_cover .left {
+.save-cover .left {
   display: flex;
   align-items: center;
   gap: 10px;
   color: #fff;
 }
 
-.save_cover .left i {
-  filter: invert(100%);
-}
-.hover1:hover {
-  background:  #f0f2f5;
-}
+
+
 /* ProfileInfo */
 
-.profile-info {
+/* .profile-info {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -134,7 +125,7 @@
   align-items: center;
   justify-content: space-between;
   min-width: 400px;
-}
+} */
 
 /* profile menu */
 

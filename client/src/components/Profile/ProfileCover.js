@@ -1,7 +1,7 @@
 // Styles
 import { useCallback, useRef, useState } from "react";
 import Cropper from "react-easy-crop";
-
+import { MdPublic } from "react-icons/md";
 import { BsCameraFill } from "react-icons/bs";
 import { CustomButton, CustomInput, Card } from "../index";
 import "./index.css";
@@ -48,19 +48,19 @@ function ProfileCover({ isVisitor }) {
     >
       {image && (
         <>
-          <div className="save_cover">
+          <div className="save-cover">
             <div className="left">
-              <i className="public_icon"></i>
+              <MdPublic />
               Your cover is public
             </div>
-            <div className="btns">
-              <button
-                className="gray_btn opacity_btn"
+            <div className="cover-btns">
+              <CustomButton
+                className="gray_btn cover"
                 onClick={() => setImage(null)}
-              >
-                Cancel
-              </button>
-              <button className="btn_blue ">Save</button>
+                value="Cancel"
+              />
+
+              <CustomButton className="blue_btn cover" value="Save" />
             </div>
           </div>
           <div className="cover_cropper">
@@ -95,7 +95,7 @@ function ProfileCover({ isVisitor }) {
               className="edit-cover"
               onClick={() => setShowCoverMenu((prev) => !prev)}
             >
-              <CustomButton Icon={BsCameraFill} />
+              <BsCameraFill />
               <span>Add Cover Photo</span>
             </div>
             {showCoverMneu && (
@@ -124,10 +124,3 @@ function ProfileCover({ isVisitor }) {
 }
 
 export default ProfileCover;
-{
-  /* <img
-        src="https://img.freepik.com/premium-vector/portrait-young-man-with-beard-hair-style-male-avatar-vector-illustration_266660-423.jpg?w=2000"
-        className="profile-user-image"
-        alt="..."
-      /> */
-}

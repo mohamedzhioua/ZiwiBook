@@ -22,7 +22,7 @@ const CustomButton = ({
     </button>
   ) : (
     <button
-       className={className ? className : "icon icon-btn"}
+       className={className ? className  : "icon icon-btn"}
       onClick={onClick}
     >
       <span>
