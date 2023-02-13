@@ -24,16 +24,10 @@ function Home() {
 
   return (
     <div className="home">
-      <div className="home-head">
-        <div className="home-column">
-          <SearchBar onChange={FilterQuery} />
-        </div>
-        <div className="home-column">
-          <CreatPost />
-        </div>
-      </div>
-      <div className="home-middle">
+       <div className="home-middle">
         <div className="posts">
+         <SearchBar onChange={FilterQuery} />
+         <CreatPost user={user} />
           <PostList posts={sortedPosts} user={user} wordEntered={wordEntered} />
         </div>
       </div>

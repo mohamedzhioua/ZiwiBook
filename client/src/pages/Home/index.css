@@ -1,16 +1,6 @@
 .home {
   min-height: 100vh;
-  display: grid;
-}
-.home-head {
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  justify-content: center;
-}
-.home-column {
-  -ms-flex: 50%; /* IE10 */
-  flex: 0 1 auto;
-  margin: 30px;
+  background-color:  #f0f2f5;;
 }
 
 .home-middle {

@@ -89,8 +89,14 @@ function Profile() {
                   </>
                 ) : (
                   <>
-                    <CustomButton className="blue_btn butns" value="Add to story" />
-                    <CustomButton className="gray_btn butns" value="Edit profile" />
+                    <CustomButton
+                      className="blue_btn butns"
+                      value="Add to story"
+                    />
+                    <CustomButton
+                      className="gray_btn butns"
+                      value="Edit profile"
+                    />
                   </>
                 )}
               </div>
@@ -104,14 +110,18 @@ function Profile() {
       <div className="bottom">
         <div className="bottom-wrapper">
           <div className="details">
-            <div className="details_con"  style={{
-                top:"65px"}}>
+            <div
+              className="details_con"
+              style={{
+                top: "65px",
+              }}
+            >
               <Photos />
               <Friends />
             </div>
           </div>
           <div className="posts">
-            {!isVisitor && <CreatPost />}
+            {!isVisitor && <CreatPost user={user} />}
             <PostList posts={sortedPosts} user={user} />
           </div>
         </div>
