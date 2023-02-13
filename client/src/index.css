@@ -13,6 +13,12 @@
  html {
   overflow-y: scroll;
 }
+.line {
+  width: 100%;
+  height: 1px;
+  background:  #d6d7d9;
+  margin: 5px 0;
+}
 /*----Scrollbar----*/
 .scrollbar {
   overflow: auto;
@@ -53,3 +59,4 @@
 
 /*---Circles------*/
 
+ 

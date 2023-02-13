@@ -15,6 +15,7 @@ import {
 // Styles
 import "./index.css";
 import { BsCameraFill } from "react-icons/bs";
+import { MdVerified } from "react-icons/md";
 
 function Profile() {
   const [showProfilePhoto, setShowProfilePhoto] = useState(false);
@@ -36,11 +37,11 @@ function Profile() {
         <div className="top-wrapper">
           <div className="header">
             <ProfileCover isVisitor={isVisitor} />
-            <div className="header-content">
+            <div className="COntent">
               <div className="photo_wrap">
                 <div className="photo">
                   <img
-                    src="https://img.freepik.com/premium-vector/portrait-young-man-with-beard-hair-style-male-avatar-vector-illustration_266660-423.jpg?w=2000"
+                    src="https://edge.99images.com/photos/wallpapers/anime/luffy%20android-iphone-desktop-hd-backgrounds-wallpapers-1080p-4k-ox4p8.jpg"
                     className="profile-photo"
                     alt="..."
                   />
@@ -65,22 +66,31 @@ function Profile() {
                 </div>
               </div>
               <div className="profile-info">
-                <h2 className="Name">zhioua mohamed</h2>
+                <h2 className="Name">
+                  zhioua mohamed
+                  <MdVerified
+                    style={{
+                      marginLeft: "10px",
+                      width: "16px",
+                      height: "16px",
+                    }}
+                  />
+                </h2>
                 <span className="friends">50 friends</span>
               </div>
-              <div className="profile-btns">
+              <div className="profile-batns">
                 {isVisitor ? (
                   <>
                     <CustomButton
                       value="Add as A friend"
-                      className="blue_btn"
+                      className="blue_btn butns"
                     />
-                    <CustomButton className="gray_btn" value="Message" />
+                    <CustomButton className="gray_btn butns" value="Message" />
                   </>
                 ) : (
                   <>
-                    <CustomButton className="blue_btn" value="Add to story" />
-                    <CustomButton className="gray_btn" value="Edit profile" />
+                    <CustomButton className="blue_btn butns" value="Add to story" />
+                    <CustomButton className="gray_btn butns" value="Edit profile" />
                   </>
                 )}
               </div>
@@ -91,15 +101,15 @@ function Profile() {
           <ProfileMenu />
         </div>
       </div>
-
-      <div className="bottom-wrapper">
-        <div className="details">
-          <div className="details_con">
-            <Photos />
-            <Friends />
+      <div className="bottom">
+        <div className="bottom-wrapper">
+          <div className="details">
+            <div className="details_con"  style={{
+                top:"65px"}}>
+              <Photos />
+              <Friends />
+            </div>
           </div>
-        </div>
-        <div className="posts-wrapper">
           <div className="posts">
             {!isVisitor && <CreatPost />}
             <PostList posts={sortedPosts} user={user} />

@@ -13,6 +13,8 @@ import { toast } from "react-toastify";
 
 const AddEditPost = ({ post }) => {
   const [form, setForm] = useState({ text: "", image: "" });
+  const [error, setError] = useState(null);
+
   const [picture, setPicture] = useState(null);
   const dispatch = useDispatch();
   // post id
@@ -44,10 +46,24 @@ const AddEditPost = ({ post }) => {
 
   //onChangefile
   const onChangefile = (e) => {
+    let file = e.target.files[0];
+    if (
+      file.type !== "image/jpeg" &&
+      file.type !== "image/png" &&
+      file.type !== "image/webp" &&
+      file.type !== "image/jpg"
+    ) {
+      setError(`${file.name} format is not supported.`);
+      toast.error(`${file.name} format is not supported.`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
     setForm({
       ...form,
-      [e.target.name]: e.target.files[0],
+      [e.target.name]: file,
     });
+    setError(null);
   };
 
   //onsubmitHandler
@@ -116,7 +132,7 @@ const AddEditPost = ({ post }) => {
             className="button button8"
             value={post ? "update" : "submit"}
             type="submit"
-            disabled={!form.text}
+            disabled={!form.text || error}
           />
         </form>
       </div>

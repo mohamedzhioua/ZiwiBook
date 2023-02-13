@@ -52,7 +52,7 @@
   padding: 8.5px 12px;
   border-radius: 7px;
   font-family: inherit;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
   color: #fff;
   display: flex;
@@ -60,6 +60,7 @@
   justify-content: center;
   gap: 6px;
   cursor: pointer;
+  width: 100%;
 }
 .gray_btn {
   border: none;
@@ -76,6 +77,11 @@
   justify-content: center;
   gap: 6px;
   cursor: pointer;
+}
+.butns {
+  width: 50%;
+  font-size: 14px;
+  font-weight: 600;
 }
 .cancelbtn {
   text-decoration: none;

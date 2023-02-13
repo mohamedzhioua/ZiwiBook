@@ -23,7 +23,7 @@ function ProfileCover({ isVisitor }) {
       file.type !== "image/jpeg" &&
       file.type !== "image/png" &&
       file.type !== "image/webp" &&
-      file.type !== "image/gif"
+      file.type !== "image/jpg"
     ) {
       //   setError(`${file.name} format is not supported.`);
       return;
@@ -50,7 +50,12 @@ function ProfileCover({ isVisitor }) {
         <>
           <div className="save-cover">
             <div className="left">
-              <MdPublic />
+              <MdPublic
+                style={{
+                  width: "16px",
+                  height: "16px",
+                }}
+              />
               Your cover is public
             </div>
             <div className="cover-btns">
