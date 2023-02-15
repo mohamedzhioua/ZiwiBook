@@ -7,10 +7,9 @@
   margin: 0 auto;
   max-width: 590px;
 }
-.posts {
+.home-posts {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   margin-bottom: 20px;
 }

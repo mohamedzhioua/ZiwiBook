@@ -25,7 +25,7 @@ function Home() {
   return (
     <div className="home">
        <div className="home-middle">
-        <div className="posts">
+        <div className="home-posts">
          <SearchBar onChange={FilterQuery} />
          <CreatPost user={user} />
           <PostList posts={sortedPosts} user={user} wordEntered={wordEntered} />

@@ -19,7 +19,7 @@ const CustomInput = ({
   innerRef,
 }) => {
   return (
-    <div className={!float ? "form-group mb-2" : "form-group mb-4"}>
+    
       <div className={float && "form-floating"}>
         {!float && <label className="form-label">{label}</label>}
         {type === "textarea" ? (
@@ -79,7 +79,7 @@ const CustomInput = ({
           </div>
         )}
       </div>
-    </div>
+    
   );
 };
 

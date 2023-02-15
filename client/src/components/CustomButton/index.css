@@ -2,13 +2,17 @@
   background-color: #5c6e58;
   border-radius: 10px;
   color: #f7f4e9;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 900;
-  margin: 4px 2px;
+  border: none;
+  outline: none;
+   padding: 8.5px 12px;
+  border-radius: 7px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   cursor: pointer;
   width: 100%;
 }

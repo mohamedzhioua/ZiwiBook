@@ -23,10 +23,10 @@ const PostHead = ({ post, userId }) => {
         </Link>
         <div>
           <Link
-            to={`/profile/${post?.owner?.name}`}
+            to={`/profile/${post?.owner?.firstName}${post?.owner?.lastName}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <span className="username">{post.owner.name}</span>
+            <span className="username">{post.owner.firstName}</span>
           </Link>
           <span className="date">{moment(post.createdAt).fromNow()}</span>
         </div>

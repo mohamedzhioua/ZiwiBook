@@ -95,7 +95,6 @@
 .posts {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   padding-top: 0.5rem;
   max-width: 680px;
   width: 100%;
@@ -111,7 +110,6 @@
 .details_con {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   position: static;
 }
  @media (min-width: 495px) {

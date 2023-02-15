@@ -63,7 +63,7 @@ const LoginForm = () => {
             <FaSignInAlt /> Sing In
           </h1>
         </div>
-        <form onSubmit={onsubmitHandler}>
+        <form onSubmit={onsubmitHandler} className="login-form">
           <CustomInput
             type="text"
             name="email"
