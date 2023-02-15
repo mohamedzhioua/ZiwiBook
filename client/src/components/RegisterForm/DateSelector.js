@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import "./index.css";
+import { Field } from "formik";
 
-function DateSelector(
-  birthDay,
-  birthMonth,
-  birthYear,
-  handleChange,
-) {
+function DateSelector({ birthDay, birthMonth, birthYear }) {
   const [show, setShow] = useState(false);
 
   const yearTemp = new Date().getFullYear();
@@ -26,40 +22,27 @@ function DateSelector(
     >
       <div className="colHeader">Date of birth</div>
       <div className="DateSelector-grid">
-        <select
-          name="birthDay"
-          value={birthDay}
-          onChange={handleChange}
-          //   disabled={disabled}
-        >
+        <Field name="birthDay" as="select">
           {days.map((day, i) => (
             <option value={day} key={i}>
               {day}
             </option>
           ))}
-        </select>
-        <select
-          name="birthMonth"
-          value={birthMonth}
-          onChange={handleChange}
-        >
+        </Field>
+        <Field name="birthMonth" as="select">
           {months.map((month, i) => (
             <option value={month} key={i}>
               {month}
             </option>
           ))}
-        </select>
-        <select
-          name="birthYear"
-          value={birthYear}
-          onChange={handleChange}
-        >
+        </Field>
+        <Field name="birthYear" as="select">
           {years.map((year, i) => (
             <option value={year} key={i}>
               {year}
             </option>
           ))}
-        </select>
+        </Field>
         {/* {dateError && show && (
           <Popper
             trigger={trigger}
