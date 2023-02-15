@@ -11,7 +11,7 @@ router.post("/addPost",checkAuth,multerUploads, PostController.addPost);
 router.get("/getOnePost/:id",checkAuth, PostController.getOnePost);
 
 // GET request
-router.get("/getAllPost",checkAuth, PostController.getAllPost);
+router.get("/getAllPost",PostController.getAllPost);
 
 // GET request
 router.get("/getAllPostbyUser",checkAuth, PostController.getAllPostbyUser);
@@ -35,7 +35,7 @@ router.post("/addComment/:id",checkAuth, PostController.addComment);
 router.post("/addCommentReply/:id",checkAuth, PostController.addCommentReply);
 
 // GET request
-router.get("/getComments",checkAuth, PostController.getComments);
+router.get("/getComments", PostController.getComments);
 
 // Delete request
 router.delete("/deleteComment/:id",checkAuth, PostController.deleteComment);

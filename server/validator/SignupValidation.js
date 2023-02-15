@@ -5,17 +5,39 @@ module.exports = function SignupValidation(data) {
   let regex = /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/i;
   let errors = {};
   // Convert empty fields to an empty string so we can use validator
-  data.firstname = !isEmpty(data.firstname) ? data.firstname : "";
-  data.lastname = !isEmpty(data.lastname) ? data.lastname : "";
+  data.firstName = !isEmpty(data.firstName) ? data.firstName : "";
+  data.lastName = !isEmpty(data.lastName) ? data.lastName : "";
   data.email = !isEmpty(data.email) ? data.email : "";
   data.password = !isEmpty(data.password) ? data.password : "";
+  data.passwordConfirm = !isEmpty(data.passwordConfirm) ? data.passwordConfirm : "";
+  data.gender = !isEmpty(data.gender) ? data.gender : "";
+  data.birthYear = !isEmpty(data.birthYear) ? data.birthYear : "";
+  data.birthMonth = !isEmpty(data.birthMonth) ? data.birthMonth : "";
+  data.birthDay = !isEmpty(data.birthDay) ? data.birthDay : "";
 
-  // firstname checks
-  if (validator.isEmpty(data.firstname)) {
-    errors.firstname = "firstname field is required";
-  } // lastname checks
-  if (validator.isEmpty(data.lastname)) {
-    errors.lastname = "lastname field is required";
+  // firstName checks
+  if (validator.isEmpty(data.firstName)) {
+    errors.firstName = "firstName field is required";
+  }
+  // lastName checks
+  if (validator.isEmpty(data.lastName)) {
+    errors.lastName = "lastName field is required";
+  }
+  // gender checks
+  if (validator.isEmpty(data.gender)) {
+    errors.gender = "gender field is required";
+  }
+  // birthYear checks
+  if (validator.isEmpty(data.birthYear)) {
+    errors.birthYear = "birthYear field is required";
+  }
+  // birthMonth checks
+  if (validator.isEmpty(data.birthMonth)) {
+    errors.birthMonth = "birthMonth field is required";
+  }
+  // birthDay checks
+  if (validator.isEmpty(data.birthDay)) {
+    errors.birthDay = "birthDay field is required";
   }
   // Email checks
   if (validator.isEmpty(data.email)) {
@@ -30,6 +52,14 @@ module.exports = function SignupValidation(data) {
   } else if (!regex.test(data.password)) {
     errors.password =
       "Password should have 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long";
+  }
+
+  if (!validator.equals(data.password, data.passwordConfirm)) {
+    errors.passwordConfirm = "Passwords not matches";
+  }
+
+  if (validator.isEmpty(data.passwordConfirm)) {
+    errors.passwordConfirm = "Required passwordConfirm";
   }
   return {
     errors,

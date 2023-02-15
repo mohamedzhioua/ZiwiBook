@@ -9,9 +9,9 @@ const SigninValidation = require("../validator/SigninValidation");
 module.exports = {
   //  --------------------------------------- //signup method to add a new user//--------------------------- //
   signup: async (req, res) => {
-    const { firstname, lastname, email, password } = req.body;
-    const { errors, isValid } = SignupValidation(req.body);
+    const { email, password } = req.body;
 
+    const { errors, isValid } = SignupValidation(req.body);
     try {
       if (!isValid) {
         res.status(404).json(errors);
@@ -22,11 +22,8 @@ module.exports = {
             res.status(404).json(errors);
           } else {
             const hashedpassword = bcrypt.hashSync(password, 8);
-            await User.create({
-              name: `${firstname} ${lastname}`,
-              email,
-              password: hashedpassword,
-            });
+            req.body.password = hashedpassword ;
+            await User.create(req.body);
             res.status(201).json({ message: "user added with success" });
           }
         });
@@ -68,7 +65,7 @@ module.exports = {
             };
             res.cookie("Authorization", token, options);
             res.status(201).json({
-              message: "welcom " + user.firstname + " to your home page",
+              message: "welcom " + user.firstName + " to your home page",
               token,
               user,
             });

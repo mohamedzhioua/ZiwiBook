@@ -116,7 +116,11 @@ module.exports = {
 
   getAllPost: async (req, res) => {
     try {
-      const memo = await Post.find().populate("owner", ["name", "image"]);
+      const memo = await Post.find().populate("owner", [
+        "firstName",
+        "lastName",
+        "photo",
+      ]);
       res.status(200).json(memo);
     } catch (error) {
       res.status(404).json({ message: error.message });
@@ -202,8 +206,9 @@ module.exports = {
   getComments: async (req, res) => {
     try {
       const comments = await Comment.find().populate("owner", [
-        "name",
-        "image",
+        "firstName",
+        "lastName",
+        "photo",
       ]);
       res.status(200).json(comments);
     } catch (error) {
