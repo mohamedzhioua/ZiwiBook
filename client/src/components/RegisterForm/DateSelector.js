@@ -1,10 +1,17 @@
 import React, { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import "./index.css";
 import { Field } from "formik";
+import {Popper} from "../index";
+import { MdOutlineErrorOutline } from "react-icons/md";
 
-function DateSelector({ birthDay, birthMonth, birthYear }) {
+function DateSelector({ birthDay, birthMonth, birthYear , dateError}) {
+  console.log("🚀 ~ file: DateSelector.js:9 ~ DateSelector ~ dateError", dateError)
+  const [trigger, setTrigger] = useState(null);
   const [show, setShow] = useState(false);
-
+  const desktopView = useMediaQuery({
+    query: "(min-width: 850px)",
+  });
   const yearTemp = new Date().getFullYear();
   const years = Array.from(new Array(108), (val, index) => yearTemp - index);
   const months = Array.from(new Array(12), (val, index) => 1 + index);
@@ -17,12 +24,19 @@ function DateSelector({ birthDay, birthMonth, birthYear }) {
   return (
     <div
       className="col"
+      ref={setTrigger}
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
     >
-      <div className="colHeader">Date of birth</div>
+      <div className="colHeader">Date of birth
+      {dateError && 
+         <MdOutlineErrorOutline
+         className="err_icon"
+         style={{  width: "16px", height: "16px" }}
+       />}
+       </div>
       <div className="DateSelector-grid">
-        <Field name="birthDay" as="select">
+        <Field name="birthDay" as="select" >
           {days.map((day, i) => (
             <option value={day} key={i}>
               {day}
@@ -43,7 +57,7 @@ function DateSelector({ birthDay, birthMonth, birthYear }) {
             </option>
           ))}
         </Field>
-        {/* {dateError && show && (
+        {dateError && show && (
           <Popper
             trigger={trigger}
             placement={desktopView ? "left" : "top-start"}
@@ -51,7 +65,7 @@ function DateSelector({ birthDay, birthMonth, birthYear }) {
           >
             {dateError}
           </Popper>
-        )} */}
+        )}
       </div>
     </div>
   );

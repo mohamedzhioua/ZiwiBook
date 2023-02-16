@@ -17,11 +17,10 @@
   .ERROR {
     border-color: #b94a48 !important;
   }
-  .Er {
+  .ER {
     position: absolute;
     right: 5px;
     top: 15px;
-    -webkit-transform: scale(0.8);
-    transform: scale(0.8);
+    color: #b94a48;
   }
   

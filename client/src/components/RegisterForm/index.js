@@ -9,7 +9,7 @@ import * as Yup from "yup";
 import { register, reset } from "../../app/features/auth/authSlice";
 
 // Components
-import { CustomButton, AuthInput, Loading } from "../../components";
+import { CustomButton, AuthInput, FormLoader } from "../../components";
 
 // Styles
 import "./index.css";
@@ -17,7 +17,9 @@ import "./index.css";
 import { FaUser } from "react-icons/fa";
 import DateSelector from "./DateSelector";
 function RegisterForm() {
-  const [form, setForm] = useState({
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const form = {
     firstName: "",
     lastName: "",
     email: "",
@@ -27,7 +29,10 @@ function RegisterForm() {
     birthYear: new Date().getFullYear(),
     birthMonth: new Date().getMonth() + 1,
     birthDay: new Date().getDay(),
-  });
+  };
+  const { error, status } = useSelector((state) => state.auth);
+  const [dateError, setDateError] = useState(null);
+
   const {
     firstName,
     lastName,
@@ -46,25 +51,13 @@ function RegisterForm() {
     setPasswordVisible(!passwordVisible);
   };
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { error, status } = useSelector((state) => state.auth);
-  const [errors, setErrors] = useState(null);
-  console.log("🚀 ~ file: index.js:53 ~ RegisterForm ~ errors", errors);
-  const [dateError, setDateError] = useState(null);
-
   useEffect(() => {
     if (status === "fulfilled") {
-      navigate("/login");
-      dispatch(reset());
-      setErrors(null);
+      // navigate("/login");
+      // dispatch(reset());
     }
   }, [error, status, dispatch, navigate]);
 
-  // clean Form from Errors
-  const clean = () => {
-    dispatch(reset());
-  };
   const signupValidation = Yup.object({
     firstName: Yup.string()
       .required("What's your first name?")
@@ -90,10 +83,10 @@ function RegisterForm() {
       .max(100),
     password: Yup.string()
       .required("Password is required")
-      .min(6)
+      .min(8)
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#_$%^&*])(?=.{6,})/,
-        "Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character"
+        /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/i,
+        "Password should have at least 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long"
       ),
     passwordConfirm: Yup.string().test(
       "passwords-match",
@@ -102,17 +95,21 @@ function RegisterForm() {
         return this.parent.password === value;
       }
     ),
-    gender: Yup.string().required("Gender is required"),
+    // gender: Yup.string().required("Gender is required"),
   });
 
   //onsubmitHandler
   const onsubmitHandler = (values) => {
-    dispatch(register(values));
+    dispatch(register(values))
+      .unwrap()
+      .then((data) => {
+        navigate("/login");
+      dispatch(reset());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-
-  if (status === "Loading") {
-    return <Loading />;
-  }
 
   return (
     <div class="signup-container">
@@ -124,7 +121,7 @@ function RegisterForm() {
           <span className="signup-header-title1">it's quick and easy</span>
         </div>
         <Formik
-          enableReinitialize
+          enableReinitialize={false}
           validationSchema={signupValidation}
           initialValues={{
             firstName,
@@ -137,12 +134,8 @@ function RegisterForm() {
             birthDay,
             gender,
           }}
-          onSubmit={(values) => {
+          onSubmit={async (values, { setFieldError }) => {
             let currentDate = new Date();
-            console.log(
-              "🚀 ~ file: index.js:215 ~ RegisterForm ~ values",
-              values
-            );
 
             const picked_date = new Date(
               values.birthYear,
@@ -154,7 +147,7 @@ function RegisterForm() {
             let noMoreThan70 = new Date(1970 + 70, 0, 1);
             if (currentDate - picked_date < atleast14) {
               setDateError(
-                "it looks like you(ve enetered the wrong info.Please make sure that you use your real date of birth."
+                "it looks like you've enetered the wrong info.Please make sure that you use your real date of birth."
               );
             } else if (currentDate - picked_date > noMoreThan70) {
               setDateError(
@@ -163,50 +156,53 @@ function RegisterForm() {
             } else {
               setDateError(null);
               onsubmitHandler(values);
+              Boolean(error) && setFieldError("email", error.email);
             }
           }}
         >
           {(formik) => {
+    
             return (
-              <Form className="signup-form">
-                <div className="LINE">
+              <Form className="signup-form" noValidate>
+                <FormLoader loading={status}>
+                  <div className="LINE">
+                    <AuthInput
+                      type="text"
+                      name="firstName"
+                      placeholder="first name"
+                    />
+
+                    <AuthInput
+                      dir="right"
+                      type="text"
+                      name="lastName"
+                      placeholder="last name"
+                    />
+                  </div>
                   <AuthInput
-                    type="text"
-                    name="firstName"
-                    placeholder="firstName"
+                    type="email"
+                    name="email"
+                    placeholder="Email address"
                   />
 
                   <AuthInput
-                    dir="right"
-                    type="text"
-                    name="lastName"
-                    placeholder="lastName"
+                    type="password"
+                    name="password"
+                    placeholder="password"
                   />
-                </div>
-                <AuthInput 
-                type="text" 
-                name="email"
-                 label="Email" 
-                 />
 
-                <AuthInput
-                  name="password"
-                  label="Password"
-                  placeholder="password"
-                />
-
-                <AuthInput
-                  name="passwordConfirm"
-                  label="passwordConfirm"
-                  placeholder="passwordConfirm"
-                />
-                <DateSelector
-                  birthDay={birthDay}
-                  birthMonth={birthMonth}
-                  birthYear={birthYear}
-                  dateError={dateError}
-                />
-
+                  <AuthInput
+                    type="password"
+                    name="passwordConfirm"
+                    placeholder="password confirm"
+                  />
+                  <DateSelector
+                    birthDay={birthDay}
+                    birthMonth={birthMonth}
+                    birthYear={birthYear}
+                    dateError={dateError}
+                  />
+                </FormLoader>
                 <CustomButton
                   className="button"
                   type="submit"
@@ -221,9 +217,7 @@ function RegisterForm() {
           <p>
             Have already an account?{" "}
             <Link to="/" className="fw-bold text-body">
-              <u className="Link" onClick={clean}>
-                Login here
-              </u>
+              <u className="Link">Login here</u>
             </Link>
           </p>
         </div>
