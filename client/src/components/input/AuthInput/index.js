@@ -6,8 +6,9 @@ import { Popper } from "../../index";
 import styles from "./style.module.css";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { useMediaQuery } from "react-responsive";
+import { FaRegEye , FaRegEyeSlash } from "react-icons/fa";
 
-function AuthInput({ placeholder, dir, type, disabled, ...props }) {
+function AuthInput({ placeholder, dir, type, disabled ,password,onClick, ...props }) {
   const [trigger, setTrigger] = useState(null);
   const [field, meta] = useField(props);
   const [show, setShow] = useState(false);
@@ -16,6 +17,7 @@ function AuthInput({ placeholder, dir, type, disabled, ...props }) {
     query: "(min-width: 850px)",
   });
   return (
+    <>
     <div className={styles.authInput_container} ref={setTrigger}>
       {meta.touched && meta.error && show && (
         <Popper
@@ -39,6 +41,20 @@ function AuthInput({ placeholder, dir, type, disabled, ...props }) {
           setShow(false);
         }}
       />
+       <span className={styles.showHidePassword}  onClick={onClick}  
+>
+{(field.name === "password" )|| (field.name === "passwordConfirm") ? (
+          <>
+            {type === "password" ? (
+              <FaRegEyeSlash onClick={onClick} className="Icon" />
+            ) : (
+              <FaRegEye onClick={onClick} className="Icon" />
+            )}
+          </>
+        ) : (
+          ""
+        )}
+     </span>
       {meta.touched && meta.error && (
         <MdOutlineErrorOutline
           className={styles.ER}
@@ -46,6 +62,8 @@ function AuthInput({ placeholder, dir, type, disabled, ...props }) {
         />
       )}
     </div>
+    
+     </>
   );
 }
 

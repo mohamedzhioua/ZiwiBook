@@ -48,9 +48,13 @@ function RegisterForm() {
   } = form;
 
   // eye show hide handler
-  const [passwordVisible, setPasswordVisible] = useState(password);
-  const Eye = () => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordConfirmVisible, setPasswordConfirmVisible] = useState(false);
+    const Eye = () => {
     setPasswordVisible(!passwordVisible);
+  };
+  const Eye2 = () => {
+    setPasswordConfirmVisible(!passwordConfirmVisible)
   };
 
   useEffect(() => {
@@ -156,10 +160,12 @@ function RegisterForm() {
                 "it looks like you've enetered the wrong info.Please make sure that you use your real date of birth."
               );
             } else {
+              setPasswordVisible(values.password)
               setDateError(null);
               setGenderError(null);
               onsubmitHandler(values);
               Boolean(error) && setFieldError("email", error.email);
+
             }
           }}
         >
@@ -189,15 +195,17 @@ function RegisterForm() {
                   />
 
                   <AuthInput
-                    type="password"
                     name="password"
                     placeholder="password"
-                  />
+                    type={passwordVisible ? "text" : "password"}
+                    onClick={Eye}
+                   />
 
                   <AuthInput
-                    type="password"
                     name="passwordConfirm"
                     placeholder="password confirm"
+                    type={passwordConfirmVisible ? "text" : "password"}
+                    onClick={Eye2}
                   />
                   <DateSelector
                     birthDay={birthDay}

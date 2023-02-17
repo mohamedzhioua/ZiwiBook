@@ -102,6 +102,10 @@ gap: 10px;
   display: flex;
   justify-content: space-between;
   padding: 0 15px;
+  accent-color:#5C6E58
+}
+.ERROR {
+  border-color: #b94a48 !important;
 }
 .err_icon {
   color: #b94a48;

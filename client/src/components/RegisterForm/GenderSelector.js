@@ -9,6 +9,7 @@ function GenderSelector() {
   const [trigger, setTrigger] = useState(null);
   const [show, setShow] = useState(false);
   const [field, meta] = useField({ name: "gender" });
+  
   const genderError = meta.error;
 
   const desktopView = useMediaQuery({

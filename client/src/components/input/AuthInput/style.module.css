@@ -1,5 +1,5 @@
-.authInput_container{
-    width: 100%;
+  .authInput_container{
+    width: 100% ;
     position: relative;
   }
   .authInput_container input {
@@ -19,8 +19,12 @@
   }
   .ER {
     position: absolute;
-    right: 5px;
+    right: 25px;
     top: 15px;
     color: #b94a48;
+     }
+     
+  .showHidePassword {
+    cursor: pointer;
   }
   

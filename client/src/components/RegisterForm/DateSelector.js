@@ -35,21 +35,25 @@ function DateSelector({ birthDay, birthMonth, birthYear , dateError}) {
        />}
        </div>
       <div className="select-grid">
-        <Field name="birthDay" as="select" >
+        <Field 
+        name="birthDay" 
+        as="select"
+        className={dateError ? "ERROR" : ""}
+>
           {days.map((day, i) => (
             <option value={day} key={i}>
               {day}
             </option>
           ))}
         </Field>
-        <Field name="birthMonth" as="select">
+        <Field name="birthMonth" as="select"  className={dateError ? "ERROR" : ""}>
           {months.map((month, i) => (
             <option value={month} key={i}>
               {month}
             </option>
           ))}
         </Field>
-        <Field name="birthYear" as="select">
+        <Field name="birthYear" as="select"  className={dateError ? "ERROR" : ""}>
           {years.map((year, i) => (
             <option value={year} key={i}>
               {year}
