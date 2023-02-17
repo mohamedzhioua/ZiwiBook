@@ -6,9 +6,9 @@ import {Popper} from "../index";
 import { MdOutlineErrorOutline } from "react-icons/md";
 
 function DateSelector({ birthDay, birthMonth, birthYear , dateError}) {
-  console.log("🚀 ~ file: DateSelector.js:9 ~ DateSelector ~ dateError", dateError)
   const [trigger, setTrigger] = useState(null);
   const [show, setShow] = useState(false);
+
   const desktopView = useMediaQuery({
     query: "(min-width: 850px)",
   });
@@ -28,14 +28,13 @@ function DateSelector({ birthDay, birthMonth, birthYear , dateError}) {
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
     >
-      <div className="colHeader">Date of birth
+      <div className="colHeader">Birthday
       {dateError && 
          <MdOutlineErrorOutline
          className="err_icon"
-         style={{  width: "16px", height: "16px" }}
        />}
        </div>
-      <div className="DateSelector-grid">
+      <div className="select-grid">
         <Field name="birthDay" as="select" >
           {days.map((day, i) => (
             <option value={day} key={i}>

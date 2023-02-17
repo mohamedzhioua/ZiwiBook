@@ -16,6 +16,7 @@ import "./index.css";
 
 import { FaUser } from "react-icons/fa";
 import DateSelector from "./DateSelector";
+import GenderSelector from "./GenderSelector";
 function RegisterForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,12 +27,13 @@ function RegisterForm() {
     password: "",
     passwordConfirm: "",
     gender: "",
-    birthYear: new Date().getFullYear(),
+    birthYear: (new Date().getFullYear()),
     birthMonth: new Date().getMonth() + 1,
     birthDay: new Date().getDay(),
   };
   const { error, status } = useSelector((state) => state.auth);
   const [dateError, setDateError] = useState(null);
+  const [genderError, setGenderError] = useState(true);
 
   const {
     firstName,
@@ -95,7 +97,7 @@ function RegisterForm() {
         return this.parent.password === value;
       }
     ),
-    // gender: Yup.string().required("Gender is required"),
+    gender: Yup.string().required("Gender is required"),
   });
 
   //onsubmitHandler
@@ -155,6 +157,7 @@ function RegisterForm() {
               );
             } else {
               setDateError(null);
+              setGenderError(null);
               onsubmitHandler(values);
               Boolean(error) && setFieldError("email", error.email);
             }
@@ -201,6 +204,10 @@ function RegisterForm() {
                     birthMonth={birthMonth}
                     birthYear={birthYear}
                     dateError={dateError}
+                  />
+                  <GenderSelector
+                    genderError={genderError}
+
                   />
                 </FormLoader>
                 <CustomButton

@@ -69,12 +69,12 @@ gap: 10px;
 }
 .colHeader {
   align-items: center;
-  color: var(--color-secondary);
+  color:  #65676b;
   display: flex;
   font-size: 13px;
   gap: 4px;
 }
-.DateSelector-grid {
+.select-grid {
   grid-gap: 10px;
   display: grid;
   gap: 10px;
@@ -83,7 +83,10 @@ gap: 10px;
   margin-top: 5px;
   width: 100%;
 }
-.DateSelector-grid select {
+.gender {
+  grid-template-columns: repeat(2, 1fr);
+}
+.select-grid select {
   border-radius: 5px;
   color: #050505;
   cursor: pointer;
@@ -92,6 +95,17 @@ gap: 10px;
   padding: 0 10px;
   background: #fff;
 }
+.select-grid label {
+  border-radius: 5px;
+  align-items: center;
+  border: 1px solid  #65676b;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+}
 .err_icon {
   color: #b94a48;
+  width: 16px;
+   height: 16px;
 }
+
