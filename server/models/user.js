@@ -30,18 +30,17 @@ const UserSchema = new Schema(
     birthYear: {
       type: Number,
       required: true,
-      select: false,
-
+      trim: true,
     },
     birthMonth: {
       type: Number,
       required: true,
-      select: false,
+      trim: true,
     },
     birthDay: {
       type: Number,
       required: true,
-      select: false,
+      trim: true,
     },
     photo: [
       {

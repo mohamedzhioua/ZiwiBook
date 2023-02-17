@@ -27,18 +27,7 @@ module.exports = function SignupValidation(data) {
   if (validator.isEmpty(data.gender)) {
     errors.gender = "gender field is required";
   }
-  // birthYear checks
-  if (validator.isEmpty(data.birthYear)) {
-    errors.birthYear = "birthYear field is required";
-  }
-  // birthMonth checks
-  if (validator.isEmpty(data.birthMonth)) {
-    errors.birthMonth = "birthMonth field is required";
-  }
-  // birthDay checks
-  if (validator.isEmpty(data.birthDay)) {
-    errors.birthDay = "birthDay field is required";
-  }
+
   // Email checks
   if (validator.isEmpty(data.email)) {
     errors.email = "Email field is required";

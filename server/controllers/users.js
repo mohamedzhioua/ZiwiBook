@@ -43,6 +43,7 @@ module.exports = {
         res.status(404).json(errors);
       } else {
         await User.findOne({ email }).then(async (user) => {
+          console.log("🚀 ~ file: users.js:46 ~ awaitUser.findOne ~ user", user)
           if (!user) {
             errors.email =
               "Email does not exist ! please Enter the right Email or You can make account";
@@ -65,7 +66,6 @@ module.exports = {
             };
             res.cookie("Authorization", token, options);
             res.status(201).json({
-              message: "welcom " + user.firstName + " to your home page",
               token,
               user,
             });
