@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 //features
 import { closeModal } from "../../app/features/modal/modalSlice";
 //Components
-import { AddEditPost } from "../../components/index";
+import { AddEditPost , RegisterForm } from "../../components/index";
 //layouts
 import { DeleteConfirm, Modal } from "../index";
 
@@ -14,7 +14,7 @@ const ModalManager = () => {
 
   const closeModalHandler = () => dispatch(closeModal());
 
-  const componentsLookUp = { AddEditPost, DeleteConfirm };
+  const componentsLookUp = { AddEditPost, DeleteConfirm ,RegisterForm};
   let renderComponent;
   if (componentName) {
     const SelectedComponent = componentsLookUp[componentName];

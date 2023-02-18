@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import Router from "./routes/Router";
 
 //Layouts
-import { Header, Footer, ModalManager } from "./layouts/index";
+import { Footer, ModalManager } from "./layouts/index";
 
 //Styles
 import "./index.css";
@@ -15,8 +15,6 @@ function App() {
     <BrowserRouter>
       <div style={{ marginTop: "80px", marginBottom: "45px" }}>
         <ModalManager />
-        <Header />
-
         <Router />
         <Footer />
         <ToastContainer />

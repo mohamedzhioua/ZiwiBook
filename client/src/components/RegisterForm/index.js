@@ -118,7 +118,7 @@ function RegisterForm() {
   };
 
   return (
-    <div class="signup-container">
+    
       <div class="signup-card">
         <div class="signup-header">
           <span className="signup-header-title">
@@ -230,14 +230,13 @@ function RegisterForm() {
 
         <div className="register">
           <p>
-            Have already an account?{" "}
+            Have already an account? 
             <Link to="/" className="fw-bold text-body">
               <u className="Link">Login here</u>
             </Link>
           </p>
         </div>
       </div>
-    </div>
   );
 }
 

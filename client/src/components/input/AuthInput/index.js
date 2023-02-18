@@ -58,7 +58,6 @@ function AuthInput({ placeholder, dir, type, disabled ,password,onClick, ...prop
       {meta.touched && meta.error && (
         <MdOutlineErrorOutline
           className={styles.ER}
-          style={{ top: "15px", width: "16px", height: "16px" }}
         />
       )}
     </div>

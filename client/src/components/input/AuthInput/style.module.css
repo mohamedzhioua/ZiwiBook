@@ -1,30 +1,31 @@
-  .authInput_container{
-    width: 100% ;
-    position: relative;
-  }
-  .authInput_container input {
-    background: #f0f2f5;
-    border: 1px solid  #e4e6eb;
-    border-radius: 10px;
-    color: #050505;
-    font-size: 17px;
-    height: 50px;
-    margin-bottom: 10px;
-    outline: none;
-    padding-left: 10px;
-    width: 100%;
-  }
-  .ERROR {
-    border-color: #b94a48 !important;
-  }
-  .ER {
-    position: absolute;
-    right: 25px;
-    top: 15px;
-    color: #b94a48;
-     }
-     
-  .showHidePassword {
-    cursor: pointer;
-  }
-  
+.authInput_container {
+  width: 100%;
+  position: relative;
+}
+.authInput_container input {
+  background: #f0f2f5;
+  border: 1px solid #e4e6eb;
+  border-radius: 10px;
+  color: #050505;
+  font-size: 17px;
+  height: 50px;
+  margin-bottom: 10px;
+  outline: none;
+  padding-left: 10px;
+  width: 100%;
+}
+.ERROR {
+  border-color: #b94a48 !important;
+}
+.ER {
+  position: absolute;
+  right: 70px;
+  top: 15px;
+  color: #b94a48;
+  width: 20px;
+  height: 20px;
+}
+
+.showHidePassword {
+  cursor: pointer;
+}

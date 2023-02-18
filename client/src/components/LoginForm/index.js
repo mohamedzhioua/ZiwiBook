@@ -57,6 +57,11 @@ const LoginForm = () => {
 
   return (
     <div class="login-container">
+      <div className="login-head">
+            <span className="login-span">
+          ZIWIbook helps you connect and share with the people in your life.
+        </span>
+        </div>
       <div class="login-card">
         <div class="d-flex justify-content-center">
           <h1>
@@ -91,7 +96,7 @@ const LoginForm = () => {
         <div class="login">
           <p>
             Not a member?
-            <Link to="/signup" class="fw-bold text-body">
+            <Link to="/signup" class="fw-bold text-body"  >
               <u className="Link" onClick={clean}>
                  Register
               </u>

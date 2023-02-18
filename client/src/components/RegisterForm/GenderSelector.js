@@ -29,11 +29,10 @@ function GenderSelector() {
       {genderError &&
        <MdOutlineErrorOutline
          className="err_icon"
- 
        />}
     </div>
     <div className="select-grid gender">
-      <label htmlFor="male">
+      <label htmlFor="male"   className={genderError ? "ERROR" : ""}>
         Male
         <Field
           type="radio"
@@ -42,7 +41,7 @@ function GenderSelector() {
           value="male"
         />
       </label>
-      <label htmlFor="female">
+      <label htmlFor="female"   className={genderError ? "ERROR" : ""}>
         Female
         <Field
           type="radio"
