@@ -2,7 +2,7 @@ export { default as AddEditPost } from "./Posts/AddEditPost";
 export { default as Post } from "./Posts/Post/Post";
 export { default as Comments } from "./Posts/Post/Comments";
 export { default as CustomButton } from "./CustomButton";
-export { default as CustomInput } from "./CustomInput";
+export { default as CustomInput } from "./input/CustomInput";
 export { default as Likes } from "./Posts/Post/Likes";
 export { default as PostHead } from "./Posts/Post/PostHead";
 export { default as SearchBar } from "./SearchBar";

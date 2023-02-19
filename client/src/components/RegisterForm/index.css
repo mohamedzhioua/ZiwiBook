@@ -4,7 +4,6 @@
   top: 50%;
   transform: translate(-50%, -50%);
   background: #fff;
-  height: fit-content;
   width: 350px;
   border-radius: 10px;
   border: none;
@@ -18,7 +17,7 @@
   border-bottom: 1px solid #e4e6eb;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 2px;
   padding-bottom: 10px;
   position: relative;
   margin-bottom: 10px;
@@ -34,20 +33,24 @@
 .signup-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 .LINE {
   display: flex;
   gap: 15px;
 }
-.o {
-  margin-top: 25px;
-}
 
-.Link {
+.login-link{
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
   color: #5c6e58;
+  text-decoration: none
 }
+.login-link:hover {
+  text-decoration: underline;
+  color: #5c6e58;
 
+}
 .register {
   justify-content: center;
   align-items: center;

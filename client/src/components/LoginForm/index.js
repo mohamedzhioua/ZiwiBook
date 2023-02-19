@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { Formik, Form } from "formik";
 
 // features
-import { login, reset } from "../../app/features/auth/authSlice";
+import { login} from "../../app/features/auth/authSlice";
 
 // Components
 import { AuthInput, CustomButton, FormLoader } from "../../components";
@@ -27,14 +27,11 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { error, token, status } = useSelector((state) => state.auth);
+  const { error,status } = useSelector((state) => state.auth);
 
-  useEffect(() => {}, [error, token, navigate, status, dispatch]);
+  useEffect(() => {}, [error , navigate, status, dispatch]);
 
-  // clean Form from Errors
-  const clean = () => {
-    dispatch(reset());
-  };
+
   const loginValidation = Yup.object({
     email: Yup.string()
       .required("Email address is required.")
@@ -102,11 +99,9 @@ const LoginForm = () => {
         <div class="login">
           <p>
             Not a member?
-            <Link to="/signup" class="fw-bold text-body">
-              <u className="Link" onClick={clean}>
-                Register
-              </u>
-            </Link>
+            <Link to="/signup" class="signup-link">
+            &nbsp;  Register
+             </Link>
           </p>
         </div>
       </div>

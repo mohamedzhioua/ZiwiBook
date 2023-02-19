@@ -4,7 +4,6 @@ import BeatLoader from "react-spinners/BeatLoader";
 import "./index.css";
 
 const FormLoader = ({ loading, children ,type }) => {
-console.log("🚀 ~ file: index.js:7 ~ FormLoader ~ loading", loading)
 
   return (
     <div className={Boolean(loading==="Loading") ? "wrap" : ""}>

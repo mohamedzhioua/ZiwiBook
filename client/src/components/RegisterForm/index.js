@@ -210,8 +210,8 @@ function RegisterForm() {
       <div className="register">
         <p>
           Have already an account?
-          <Link to="/" className="fw-bold text-body">
-            <u className="Link">Login here</u>
+          <Link to="/" className="login-link">
+          &nbsp;Login here
           </Link>
         </p>
       </div>

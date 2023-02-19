@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 //features
@@ -10,7 +10,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import {FaSignInAlt,FaUserCircle,FaRegUserCircle,FaSignOutAlt} from "react-icons/fa";
 import { AiOutlineHome, AiFillHome } from "react-icons/ai";
 import "./index.css";
-
+import ZIWIBook from "../../icons/ZIWIBook.png"
 const Header = () => {
   const { token, status ,user} = useSelector((state) => state.auth);
   const [home, setHome] = useState(true);
@@ -37,21 +37,22 @@ const Header = () => {
   };
 
   return (
-    <Navbar expanded={expand} expand="md" className="navbar">
-      <Container fluid>
-        <Navbar.Brand className="logo" alt="brand">
-          ZIWI
-        </Navbar.Brand>
-        <Navbar.Toggle
+    <header expanded={expand}>
+         <div className="navbar-left"> 
+        <Link to="/" >
+           <img src={ZIWIBook} alt="" className="logo"/>
+           </Link>
+           </div>
+         {/* <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
           onClick={() => {
             updateExpanded(expand ? false : "expanded");
           }}
         ></Navbar.Toggle>
-        <Navbar.Collapse className="hamburger" id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link
-              className="Nav-link"
+        <Navbar.Collapse className="hamburger" id="responsive-navbar-nav"> */}
+          <div className="navbar-middle">
+            <NavLink
+              className="navbar-middle-icon"
               as={Link}
               to="/"
               onClick={() => {
@@ -60,17 +61,17 @@ const Header = () => {
               }}
             >
               {!home ? (
-                <AiOutlineHome className="Navbar-icon" />
+                <AiOutlineHome/>
               ) : (
-                <AiFillHome className="Navbar-icon" />
+                <AiFillHome/>
               )}{" "}
               <b>Home</b>
-            </Nav.Link>
+            </NavLink>
             {(status==="isConnected" || token) && (
               <>
                 {" "}
-                <Nav.Link
-                  className="Nav-link"
+                <NavLink
+                  className="navbar-middle-icon"
                   as={Link}
                   to={`/profile/${user?.name}`}
                   onClick={() => {
@@ -79,38 +80,37 @@ const Header = () => {
                   }}
                 >
                   {profile ? (
-                    <FaUserCircle className="Navbar-icon" />
+                    <FaUserCircle/>
                   ) : (
-                    <FaRegUserCircle className="Navbar-icon" />
+                    <FaRegUserCircle/>
                   )}
                   <b>&nbsp;profile</b>
-                </Nav.Link>
+                </NavLink>
               </>
             )}
-          </Nav>
-          <Nav className="ms-auto">
+          </div>
+          <div className="navbar-right">
             {!(status==="isConnected" || token) ? (
               <>
-                <Nav.Link className="Nav-link" as={Link} to="/login">
-                  <FaSignInAlt className="Navbar-icon" /> <b>login</b>
-                </Nav.Link>
+                <NavLink className="navbar-middle-icon" as={Link} to="/login">
+                  <FaSignInAlt/> <b>login</b>
+                </NavLink>
               </>
             ) : (
               <>
-                <Nav.Link
-                  className="Nav-link"
+                <NavLink
+                  className="navbar-middle-icon"
                   as={Link}
                   to="#"
                   onClick={LogoutHandler}
                 >
-                  <FaSignOutAlt className="Navbar-icon" /> <b>logout</b>
-                </Nav.Link>
+                  <FaSignOutAlt/> <b>logout</b>
+                </NavLink>
               </>
             )}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+          </div>
+        {/* </Navbar.Collapse> */}
+     </header>
   );
 };
 

@@ -46,9 +46,9 @@ function AuthInput({ placeholder, dir, type, disabled ,password,onClick, ...prop
 {(field.name === "password" )|| (field.name === "passwordConfirm") ? (
           <>
             {type === "password" ? (
-              <FaRegEyeSlash onClick={onClick} className="Icon" />
+              <FaRegEyeSlash onClick={onClick} />
             ) : (
-              <FaRegEye onClick={onClick} className="Icon" />
+              <FaRegEye onClick={onClick} />
             )}
           </>
         ) : (
