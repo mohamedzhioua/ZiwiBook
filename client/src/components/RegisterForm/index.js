@@ -27,7 +27,7 @@ function RegisterForm() {
     password: "",
     passwordConfirm: "",
     gender: "",
-    birthYear: (new Date().getFullYear()),
+    birthYear: new Date().getFullYear(),
     birthMonth: new Date().getMonth() + 1,
     birthDay: new Date().getDay(),
   };
@@ -50,19 +50,14 @@ function RegisterForm() {
   // eye show hide handler
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [passwordConfirmVisible, setPasswordConfirmVisible] = useState(false);
-    const Eye = () => {
+  const Eye = () => {
     setPasswordVisible(!passwordVisible);
   };
   const Eye2 = () => {
-    setPasswordConfirmVisible(!passwordConfirmVisible)
+    setPasswordConfirmVisible(!passwordConfirmVisible);
   };
 
-  useEffect(() => {
-    if (status === "fulfilled") {
-      // navigate("/login");
-      // dispatch(reset());
-    }
-  }, [error, status, dispatch, navigate]);
+  useEffect(() => {}, [error, status, dispatch, navigate]);
 
   const signupValidation = Yup.object({
     firstName: Yup.string()
@@ -104,139 +99,123 @@ function RegisterForm() {
     gender: Yup.string().required("Gender is required"),
   });
 
-  //onsubmitHandler
-  const onsubmitHandler = (values) => {
-    dispatch(register(values))
-      .unwrap()
-      .then((data) => {
-        navigate("/login");
-      dispatch(reset());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   return (
-    
-      <div class="signup-card">
-        <div class="signup-header">
-          <span className="signup-header-title">
-            <FaUser /> Create an account
-          </span>
-          <span className="signup-header-title1">it's quick and easy</span>
-        </div>
-        <Formik
-          enableReinitialize={false}
-          validationSchema={signupValidation}
-          initialValues={{
-            firstName,
-            lastName,
-            email,
-            password,
-            passwordConfirm,
-            birthYear,
-            birthMonth,
-            birthDay,
-            gender,
-          }}
-          onSubmit={async (values, { setFieldError }) => {
-            let currentDate = new Date();
-
-            const picked_date = new Date(
-              values.birthYear,
-              values.birthMonth - 1,
-              values.birthDay
-            );
-
-            let atleast14 = new Date(1970 + 14, 0, 1);
-            let noMoreThan70 = new Date(1970 + 70, 0, 1);
-            if (currentDate - picked_date < atleast14) {
-              setDateError(
-                "it looks like you've enetered the wrong info.Please make sure that you use your real date of birth."
-              );
-            } else if (currentDate - picked_date > noMoreThan70) {
-              setDateError(
-                "it looks like you've enetered the wrong info.Please make sure that you use your real date of birth."
-              );
-            } else {
-              setPasswordVisible(values.password)
-              setDateError(null);
-              setGenderError(null);
-              onsubmitHandler(values);
-              Boolean(error) && setFieldError("email", error.email);
-
-            }
-          }}
-        >
-          {(formik) => {
-    
-            return (
-              <Form className="signup-form" noValidate>
-                <FormLoader loading={status}>
-                  <div className="LINE">
-                    <AuthInput
-                      type="text"
-                      name="firstName"
-                      placeholder="first name"
-                    />
-
-                    <AuthInput
-                      dir="right"
-                      type="text"
-                      name="lastName"
-                      placeholder="last name"
-                    />
-                  </div>
-                  <AuthInput
-                    type="email"
-                    name="email"
-                    placeholder="Email address"
-                  />
-
-                  <AuthInput
-                    name="password"
-                    placeholder="password"
-                    type={passwordVisible ? "text" : "password"}
-                    onClick={Eye}
-                   />
-
-                  <AuthInput
-                    name="passwordConfirm"
-                    placeholder="password confirm"
-                    type={passwordConfirmVisible ? "text" : "password"}
-                    onClick={Eye2}
-                  />
-                  <DateSelector
-                    birthDay={birthDay}
-                    birthMonth={birthMonth}
-                    birthYear={birthYear}
-                    dateError={dateError}
-                  />
-                  <GenderSelector
-                    genderError={genderError}
-
-                  />
-                </FormLoader>
-                <CustomButton
-                  className="button"
-                  type="submit"
-                  value="register"
-                />
-              </Form>
-            );
-          }}
-        </Formik>
-
-        <div className="register">
-          <p>
-            Have already an account? 
-            <Link to="/" className="fw-bold text-body">
-              <u className="Link">Login here</u>
-            </Link>
-          </p>
-        </div>
+    <div class="signup-card">
+      <div class="signup-header">
+        <span className="signup-header-title">
+          <FaUser /> Create an account
+        </span>
+        <span className="signup-header-title1">it's quick and easy</span>
       </div>
+      <Formik
+        enableReinitialize={false}
+        validationSchema={signupValidation}
+        initialValues={{
+          firstName,
+          lastName,
+          email,
+          password,
+          passwordConfirm,
+          birthYear,
+          birthMonth,
+          birthDay,
+          gender,
+        }}
+        onSubmit={async (values, { setFieldError }) => {
+          let currentDate = new Date();
+
+          const picked_date = new Date(
+            values.birthYear,
+            values.birthMonth - 1,
+            values.birthDay
+          );
+
+          let atleast14 = new Date(1970 + 14, 0, 1);
+          let noMoreThan70 = new Date(1970 + 70, 0, 1);
+          if (currentDate - picked_date < atleast14) {
+            setDateError(
+              "it looks like you've enetered the wrong info.Please make sure that you use your real date of birth."
+            );
+          } else if (currentDate - picked_date > noMoreThan70) {
+            setDateError(
+              "it looks like you've enetered the wrong info.Please make sure that you use your real date of birth."
+            );
+          } else {
+            setPasswordVisible(values.password);
+            setDateError(null);
+            setGenderError(null);
+            dispatch(register(values))
+              .unwrap()
+              .then((data) => {
+                navigate("/login");
+                dispatch(reset());
+              })
+              .catch((error) => {
+                setFieldError("email", error.email);
+              });
+          }
+        }}
+      >
+        {(formik) => {
+          return (
+            <Form className="signup-form" noValidate>
+              <FormLoader loading={status}>
+                <div className="LINE">
+                  <AuthInput
+                    type="text"
+                    name="firstName"
+                    placeholder="first name"
+                  />
+
+                  <AuthInput
+                    dir="right"
+                    type="text"
+                    name="lastName"
+                    placeholder="last name"
+                  />
+                </div>
+                <AuthInput
+                  type="email"
+                  name="email"
+                  placeholder="Email address"
+                />
+
+                <AuthInput
+                  name="password"
+                  placeholder="password"
+                  type={passwordVisible ? "text" : "password"}
+                  onClick={Eye}
+                />
+
+                <AuthInput
+                  name="passwordConfirm"
+                  placeholder="password confirm"
+                  type={passwordConfirmVisible ? "text" : "password"}
+                  onClick={Eye2}
+                />
+                <DateSelector
+                  birthDay={birthDay}
+                  birthMonth={birthMonth}
+                  birthYear={birthYear}
+                  dateError={dateError}
+                />
+                <GenderSelector genderError={genderError} />
+              </FormLoader>
+              <CustomButton className="button" type="submit" value="register" />
+            </Form>
+          );
+        }}
+      </Formik>
+
+      <div className="register">
+        <p>
+          Have already an account?
+          <Link to="/" className="fw-bold text-body">
+            <u className="Link">Login here</u>
+          </Link>
+        </p>
+      </div>
+    </div>
   );
 }
 

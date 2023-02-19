@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
+import { Formik, Form } from "formik";
 
 // features
 import { login, reset } from "../../app/features/auth/authSlice";
 
 // Components
-import { CustomButton, CustomInput, Loading } from "../../components";
+import { AuthInput, CustomButton, FormLoader } from "../../components";
 
 // Styles
 import { FaSignInAlt } from "react-icons/fa";
 import "./index.css";
-
+import ZIWIBook from "../../icons/ZIWIBook.png"
 const LoginForm = () => {
-  const [form, setForm] = useState({ email: "", password: "" });
+  const form = { email: "", password: "" };
   const { email, password } = form;
 
   // eye show hide handler
-  const [passwordVisible, setPasswordVisible] = useState(password);
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const Eye = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -27,78 +29,82 @@ const LoginForm = () => {
 
   const { error, token, status } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (status === "fulfilled" || token) {
-      navigate("/");
-    }
-  }, [error, token, navigate, status, dispatch]);
+  useEffect(() => {}, [error, token, navigate, status, dispatch]);
 
   // clean Form from Errors
   const clean = () => {
     dispatch(reset());
   };
-  //onChangeHandler
-  const onChangeHandler = (event) => {
-    setForm({
-      ...form,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  //onsubmitHandler
-  const onsubmitHandler = (event) => {
-    event.preventDefault();
-    dispatch(login(form));
-  };
-
-  if (status === "Loading") {
-    return <Loading />;
-  }
+  const loginValidation = Yup.object({
+    email: Yup.string()
+      .required("Email address is required.")
+      .email("Must be a valid email.")
+      .max(100),
+    password: Yup.string().required("Password is required").min(8),
+  });
 
   return (
     <div class="login-container">
       <div className="login-head">
-            <span className="login-span">
+      <img src={ZIWIBook} alt=""  className="login-image"/>
+        <span className="login-span">
           ZIWIbook helps you connect and share with the people in your life.
         </span>
-        </div>
+      </div>
       <div class="login-card">
         <div class="d-flex justify-content-center">
           <h1>
             <FaSignInAlt /> Sing In
           </h1>
         </div>
-        <form onSubmit={onsubmitHandler} className="login-form">
-          <CustomInput
-            type="text"
-            name="email"
-            label="Email"
-            onChange={onChangeHandler}
-            error={error?.email}
-            placeholder="Email"
-            value={email}
-            float // secret key to make the label floating
-          />
+        <Formik
+          enableReinitialize={false}
+          validationSchema={loginValidation}
+          initialValues={{
+            email,
+            password,
+          }}
+          onSubmit={async (values, { setFieldError }) => {
+            dispatch(login(values))
+              .unwrap()
+              .then((data) => {
+                navigate("/");
+              })
+              .catch((error) => {
+                setFieldError("email", error.email);
+                setFieldError("password", error.password);
+              });
+          }}
+        >
+          {(formik) => {
+            return (
+              <Form className="login-form">
+                <FormLoader loading={status}>
+                  <AuthInput
+                    type="text"
+                    name="email"
+                    placeholder="Email address"
+                  />
 
-          <CustomInput
-            name="password"
-            label="password"
-            onChange={onChangeHandler}
-            error={error?.password}
-            placeholder="password"
-            value={password}
-            float // secret key to make the label floating
-            type={passwordVisible ? "text" : "password"}
-            onClick={Eye}
-          />
-          <CustomButton className="button" type="submit" value="submit" />
-        </form>
+                  <AuthInput
+                    name="password"
+                    placeholder="password"
+                    type={passwordVisible ? "text" : "password"}
+                    onClick={Eye}
+                  />
+                </FormLoader>
+                <CustomButton className="button" type="submit" value="submit" />
+              </Form>
+            );
+          }}
+        </Formik>
+
         <div class="login">
           <p>
             Not a member?
-            <Link to="/signup" class="fw-bold text-body"  >
+            <Link to="/signup" class="fw-bold text-body">
               <u className="Link" onClick={clean}>
-                 Register
+                Register
               </u>
             </Link>
           </p>
