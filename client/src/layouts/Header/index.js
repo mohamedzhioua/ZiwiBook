@@ -7,25 +7,21 @@ import { logout, reset } from "../../app/features/auth/authSlice";
 
 //Styles
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
-import { AiOutlineHome, AiFillHome } from "react-icons/ai";
-import { HiOutlineUsers, HiUsers } from "react-icons/hi";
-import "./index.css";
+import style from "./Header.module.css";
 import ZIWIBook from "../../icons/ZIWIBook.png";
 import { SearchBar } from "../../components";
+import {
+  Home,
+  HomeActive,
+  Market,
+  Watch,
+  FriendsActive,
+  Friends,
+} from "../../svg";
 const Header = () => {
   const { token, status, user } = useSelector((state) => state.auth);
-  const [home, setHome] = useState(true);
-  const [users, setUsers] = useState(true);
-  const [expand, updateExpanded] = useState(false);
 
-  const homeClick = () => {
-    setHome(true);
-    setUsers(false);
-  };
-  const profileClick = () => {
-    setHome(false);
-    setUsers(true);
-  };
+  const [expand, updateExpanded] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,11 +35,11 @@ const Header = () => {
 
   return (
     <header expanded={expand}>
-      <div className="navbar-left">
+      <div className={style.navbar_left}>
         <Link to="/">
-          <img src={ZIWIBook} alt="" className="logo" />
+          <img src={ZIWIBook} alt="" className={style.logo} />
         </Link>
-        <div className="navbar-search">
+        <div className={style.navbar_search}>
           <SearchBar />
         </div>
       </div>
@@ -53,58 +49,72 @@ const Header = () => {
             updateExpanded(expand ? false : "expanded");
           }}
         ></Navbar.Toggle>
-        <Navbar.Collapse className="hamburger" id="responsive-navbar-nav"> */}
-      <div className="navbar-middle">
+        <Navbar.Collapse  className={style.hamburger" id="responsive-navbar-nav"> */}
+      <div className={style.navbar_middle}>
         <NavLink
           className={({ isActive }) =>
-            isActive ? "active-icon  navbar-middle-icon" : "navbar-middle-icon hover1"
+            isActive
+              ? `${style.active} ${style.navbar_middle_icon}`
+              : `${style.navbar_middle_icon} hover1`
           }
           to="/"
           onClick={() => {
-            homeClick();
             updateExpanded(false);
           }}
         >
-          {!home ? <AiOutlineHome /> : <AiFillHome />}
+          <HomeActive className={style.active_icon} />
+          <Home className={style.notActive_icon} />
         </NavLink>
         <NavLink
           className={({ isActive }) =>
-            isActive ? "active-icon  navbar-middle-icon" : "navbar-middle-icon hover1"
+            isActive
+              ? `${style.active} ${style.navbar_middle_icon}`
+              : `${style.navbar_middle_icon} hover1`
           }
-          to={`/profile/${user?.name}`}
+          to="/"
           onClick={() => {
-            profileClick();
             updateExpanded(false);
           }}
         >
-          {users ? <HiUsers /> : <HiOutlineUsers />}
+          <span className={style.active_icon} style={{ transform: "translateY(5px)" }}>
+            <FriendsActive  />
+          </span>
+          <span className={style.notActive_icon} style={{ transform: "translateY(5px)" }}>
+            <Friends  />
+          </span>
+        </NavLink>
+        <NavLink className={`${style.navbar_middle_icon} hover1`} to="#">
+          <Watch />
+        </NavLink>
+
+        <NavLink className={`${style.navbar_middle_icon} hover1`} to="#">
+          <Market />
         </NavLink>
       </div>
-      <div className="navbar-right">
+      <div className={style.navbar_right}>
         <NavLink
           to={`/profile/${user?.name}`}
           onClick={() => {
-            profileClick();
             updateExpanded(false);
           }}
         >
           <img
             src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg"
             alt=""
-            className="navbar-profile"
+            className={style.navbar_profile}
           />
         </NavLink>
 
         {!(status === "isConnected" || token) ? (
           <>
-            <NavLink className="navbar-middle-icon" to="/login">
+            <NavLink className={style.navbar_middle_icon} to="/login">
               <FaSignInAlt /> <b>login</b>
             </NavLink>
           </>
         ) : (
           <>
             <NavLink
-              className="navbar-middle-icon"
+              className={style.navbar_middle_icon}
               to="#"
               onClick={LogoutHandler}
             >

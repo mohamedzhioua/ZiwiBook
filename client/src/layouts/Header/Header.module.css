@@ -1,5 +1,4 @@
 header {
-  color: #050505;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: 56px;
@@ -16,50 +15,47 @@ header {
   width: 200px;
   cursor: pointer;
 }
-/* .navbar .Nav-link {
-  font-family: "Roboto", sans-serif;
-  font-size: 0.9em;
-  color: #5c6e58 !important;
-  margin: 0 10px; 
-}
-.navbar .Nav-link:hover {
-  border-bottom: 2px solid #5c6e58;
-} */
-.navbar-search {
+
+.navbar_search {
   transform: translateY(-10%);
 }
-.navbar-left {
+.navbar_left {
   display: flex;
   align-items: center;
   transform: translateX(-30px);
 }
-.navbar-middle {
+.navbar_middle {
   display: flex;
   align-items: center;
-  gap: 100px;
+  gap: 50px;
 
 }
-.navbar-middle-icon {
+.navbar_middle_icon {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
   cursor: pointer;
-  color: #5c6e58;
   width: 80px;
   height: 50px;
 }
-.navbar-middle-icon:hover {
-  color: #5c6e58;
 
-}
-.active-icon {
+
+.active {
   border-bottom: 3px solid  #5c6e58;
   border-radius: 0;
   height: 56px;
 }
-
-.navbar-right {
+.active_icon {
+  display:none;
+}
+.active .active_icon {
+  display:block ;
+}
+.active .notActive_icon {
+  display: none;
+}
+.navbar_right {
   display: flex;
   position: absolute;
   gap: 10px;
@@ -67,7 +63,7 @@ header {
   top: 50%;
   transform: translateY(-50%);
 }
-.navbar-profile {
+.navbar_profile {
   cursor: pointer;
   width: 40px;
   height: 40px;
