@@ -13,7 +13,7 @@ import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <BrowserRouter>
-      <div style={{ marginTop: "80px", marginBottom: "45px" }}>
+      <div>
         <ModalManager />
         <Router />
         <Footer />

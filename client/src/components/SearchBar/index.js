@@ -11,7 +11,7 @@ const Search = ({ onChange }) => {
       <CustomInput
         className="search-input"
         type="search"
-        placeholder="Search Memories . . . . ."
+        placeholder="Search in ZIWIBook . . . . ."
         onChange={onChange}
       />
       <div className="searchIcon">
