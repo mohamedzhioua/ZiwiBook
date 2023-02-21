@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import errorImg from '../../images/404Error.png'
+import errorImg from '../../icons/404Error.png'
 import {ImSad} from 'react-icons/im'
 import  './index.css'
 

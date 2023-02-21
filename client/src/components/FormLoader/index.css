@@ -1,6 +1,6 @@
-.wrap {
+.Loader-wrap {
     position: relative;
-  }
+}
   .loader {
     position: absolute;
     left: 50%;
@@ -12,3 +12,4 @@
   .loader-content {
     filter: blur(2px);
   }
+ 

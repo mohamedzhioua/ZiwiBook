@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 
 // Styles
-import Close from "../../images/Close.png";
+import Close from "../../icons/Close.png";
 import "./index.css";
 
 const Modal = ({ isOpen, children, closeModalHandler }) => {
