@@ -13,9 +13,9 @@ const PORT = process.env.PORT || 3070;
 
 // express app config
 // Middleware
-app.use(express.json());
+app.use(express.json({limit: '5000kb'}));  // LIMIT for JSON
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true , limit: '5000kb'})); // LIMIT for URL ENCODE (image data)
 
 app.use(express.static(__dirname + "/../client/public"));
 app.use(cookieParser())
@@ -25,7 +25,7 @@ const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
 app.use("/user", userRoutes);
 app.use("/post", postRoutes);
-
+ 
 app.use(
   cors({
     origin: ["http://localhost:3000"],

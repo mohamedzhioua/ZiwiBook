@@ -40,20 +40,19 @@ module.exports = {
 
     try {
       if (!isValid) {
-        res.status(404).json(errors);
+      return  res.status(404).json(errors);
       } else {
         await User.findOne({ email }).then(async (user) => {
-          console.log("🚀 ~ file: users.js:46 ~ awaitUser.findOne ~ user", user)
           if (!user) {
             errors.email =
               "Email does not exist ! please Enter the right Email or You can make account";
-            res.status(404).json(errors);
+        return    res.status(404).json(errors);
           }
           // Compare sent in password with found user hashed password
           const passwordMatch = bcrypt.compareSync(password, user.password);
           if (!passwordMatch) {
             errors.password = "Wrong Password";
-            res.status(404).json(errors);
+         return   res.status(404).json(errors);
           } else {
             // generate a token and send to client
             const exp = Date.now() + 1000 * 60 * 60 * 24 * 30;

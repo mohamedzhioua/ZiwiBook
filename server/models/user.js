@@ -47,12 +47,13 @@ const UserSchema = new Schema(
         image:{ 
           type: String,
           default:
-          "https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg"} ,
+          "https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg"
+        },
         cloudinary_id: String,
        
       },
     ],
-    cover: [{ image: String , cloudinary_id: String }],
+    cover: [{ image: String ,_id: String }],
     details: {
       bio: {
         type: String,

@@ -6,8 +6,7 @@ const Comment = require("../models/comment");
 const PostValidation = require("../validator/PostValidation");
 // Load cloudinary methods
 const cloudinary = require("../utils/cloudinary");
-// Load Datauri method
-const { bufferToDataURI } = require("../utils/Datauri");
+const sharp = require('sharp');
 const post = require("../models/post");
 
 module.exports = {
@@ -21,12 +20,17 @@ module.exports = {
         return res.status(404).json(errors);
       }
       if (file) {
-        const fileFormat = file.mimetype.split("/")[1];
-        const { base64 } = bufferToDataURI(fileFormat, file.buffer);
+        const path = `${process.env.APP_NAME}/users/${req.user.id}/public/posts_photos/`;
+        const data  = await sharp(req.file.buffer)
+        .toFormat('webp')
+        .webp({ quality: 90 })
+        .toBuffer();
+
         const imageDetails = await cloudinary.uploadToCloudinary(
-          base64,
-          fileFormat
+          data ,
+          path
         );
+        console.log("🚀 ~ file: posts.js:33 ~ addPost: ~ imageDetails:", imageDetails)
         req.body.owner = req.user.id;
         req.body.image = imageDetails.url;
         req.body.cloudinary_id = imageDetails.public_id;
@@ -55,11 +59,15 @@ module.exports = {
         return res.status(404).json(errors);
       }
       if (file) {
-        const fileFormat = file.mimetype.split("/")[1];
-        const { base64 } = bufferToDataURI(fileFormat, file.buffer);
+        const path = `${process.env.APP_NAME}/users/${req.user.id}/public/posts_photos/`;
+        const data  = await sharp(req.file.buffer)
+        .toFormat('webp')
+        .webp({ quality: 90 })
+        .toBuffer();
+
         const imageDetails = await cloudinary.uploadToCloudinary(
-          base64,
-          fileFormat
+          data ,
+          path
         );
         const post = {
           text: req.body.text || data.text,
@@ -159,7 +167,6 @@ module.exports = {
   addComment: async (req, res) => {
     const { id } = req.params;
     const { text } = req.body;
-    console.log("🚀 ~ file: posts.js:162 ~ addComment: ~ req.body", req.body);
     const owner = req.user.id;
     try {
       if (!id)
