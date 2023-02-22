@@ -38,6 +38,18 @@ export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout();
 });
 
+//updateCoverPhoto 
+export const updateCoverPhoto = createAsyncThunk(
+  "auth/updateCoverPhoto",
+  async (data, thunkAPI) => {
+    console.log("🚀 ~ file: authSlice.js:45 ~ data:", data)
+    try {
+      return await authService.updateCoverPhoto(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -80,7 +92,19 @@ export const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
-      });
+      })
+      .addCase(updateCoverPhoto.pending, (state) => {
+        state.status = "Loading";
+        state.error = null;
+      })
+      .addCase(updateCoverPhoto.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.status = "fulfilled";
+      })
+      .addCase(updateCoverPhoto.rejected, (state, action) => {
+        state.error = action.payload;
+        state.status = "rejected";
+      })
   },
 });
 

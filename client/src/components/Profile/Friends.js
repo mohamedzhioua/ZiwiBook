@@ -77,12 +77,12 @@ function Friends() {
         <div className="photo-friends-content-info">{`${data?.length} Friends`}</div>
         <div className="friends-grid">
           {data.slice(0, 9).map((user, i) => (
-            <Link to={`/profile/${user.username}`} key={i}>
+            <Link to={`/profile/${user?.username}`} key={i}>
               <div
                 className="friend-card"
-                style={{ backgroundImage: `url(${user.photo})` }}
+                style={{ backgroundImage: `url(${user?.photo})` }}
               ></div>
-              <span className="friend-name">{user.username}</span>
+              <span className="friend-name">{user?.username}</span>
             </Link>
           ))}
         </div>

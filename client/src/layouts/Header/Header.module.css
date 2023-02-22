@@ -17,7 +17,7 @@ header {
 }
 
 .navbar_search {
-  transform: translateY(-10%);
+  margin-left: -10px;
 }
 .navbar_left {
   display: flex;
@@ -28,7 +28,6 @@ header {
   display: flex;
   align-items: center;
   gap: 50px;
-
 }
 .navbar_middle_icon {
   display: flex;
@@ -40,17 +39,16 @@ header {
   height: 50px;
 }
 
-
 .active {
-  border-bottom: 3px solid  #5c6e58;
+  border-bottom: 3px solid #5c6e58;
   border-radius: 0;
   height: 56px;
 }
 .active_icon {
-  display:none;
+  display: none;
 }
 .active .active_icon {
-  display:block ;
+  display: block;
 }
 .active .notActive_icon {
   display: none;

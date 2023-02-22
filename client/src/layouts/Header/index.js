@@ -76,10 +76,10 @@ const Header = () => {
             updateExpanded(false);
           }}
         >
-          <span className={style.active_icon} style={{ transform: "translateY(5px)" }}>
+          <span className={style.active_icon} style={{ transform: "translateY(10%)" }}>
             <FriendsActive  />
           </span>
-          <span className={style.notActive_icon} style={{ transform: "translateY(5px)" }}>
+          <span className={style.notActive_icon} style={{ transform: "translateY(10%)" }}>
             <Friends  />
           </span>
         </NavLink>

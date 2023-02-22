@@ -1,13 +1,20 @@
-// Styles
+import { useDispatch } from "react-redux";
 import { useCallback, useRef, useState } from "react";
 import Cropper from "react-easy-crop";
+
+import { CustomButton, CustomInput, Card } from "../index";
+import { updateCoverPhoto } from "../../app/features/auth/authSlice";
+import getCroppedImg from "../../utils/getCroppedImg";
+// Styles
+import "./index.css";
 import { MdPublic } from "react-icons/md";
 import { BsCameraFill } from "react-icons/bs";
-import { CustomButton, CustomInput, Card } from "../index";
-import "./index.css";
 
 function ProfileCover({ isVisitor }) {
+  const dispatch = useDispatch();
+
   const [image, setImage] = useState(null);
+  console.log("🚀 ~ file: ProfileCover.js:17 ~ ProfileCover ~ image:", image)
   const [showCoverMneu, setShowCoverMenu] = useState(false);
   const [showOldCover, setShowOldCover] = useState(false);
   const refInput = useRef(null);
@@ -15,6 +22,26 @@ function ProfileCover({ isVisitor }) {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
+  const getCroppedImage = useCallback(async (show) => {
+    try {
+      const croppedImage = await getCroppedImg(image, croppedAreaPixels);
+      if (show) {
+        setZoom(1);
+        setCrop({ x: 0, y: 0 });
+      console.log("donee", { croppedImage });
+      setImage(croppedImage);
+    } else {
+      return croppedImage;
+    }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [croppedAreaPixels]);
 
   //onChangefile
   const handleImage = (e) => {
@@ -27,6 +54,9 @@ function ProfileCover({ isVisitor }) {
     ) {
       //   setError(`${file.name} format is not supported.`);
       return;
+    } else if (file.size > 1024 * 1024 * 5) {
+      //   setError(`${file.name} is too large max 5mb allowed.`);
+      return;
     }
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -35,10 +65,29 @@ function ProfileCover({ isVisitor }) {
     };
   };
 
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-    console.log(croppedArea, croppedAreaPixels);
-  }, []);
+  //onsubmitHandler
+  const onsubmitHandler = async (event) => {
+    event.preventDefault();
+    try {
 
+    let img = await getCroppedImage(false);
+    let blob = await fetch(img).then((r) => r.blob());
+    let form = new FormData();
+    console.log(
+      "🚀 ~ file: ProfileCover.js:77 ~ onsubmitHandler ~ form:",
+      form
+    );
+    form.append("image", blob);
+    dispatch(updateCoverPhoto(form))
+      .unwrap()
+      .then((data) => {})
+      .catch((error) => {
+        console.log(error);
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div
       className="profile-cover"
@@ -65,7 +114,11 @@ function ProfileCover({ isVisitor }) {
                 value="Cancel"
               />
 
-              <CustomButton className="blue_btn cover" value="Save" />
+              <CustomButton
+                className="blue_btn cover"
+                value="Save"
+                onClick={onsubmitHandler}
+              />
             </div>
           </div>
           <div className="cover_cropper">

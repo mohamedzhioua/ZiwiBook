@@ -14,21 +14,21 @@ import "./index.css";
 
 const PostHead = ({ post, userId }) => {
   const dispatch = useDispatch();
-  const canEdit = Boolean(userId === post.owner._id || userId === post.owner);
+  const canEdit = Boolean(userId === post?.owner?._id || userId === post?.owner);
   return (
     <div className="post-row">
       <div className="user-profile">
         <Link to="#" style={{ textDecoration: "none", color: "inherit" }}>
-          <img src={post.owner.image} className="profile-image" alt="..." />
+          <img src={post?.owner?.image} className="profile-image" alt="..." />
         </Link>
         <div>
           <Link
             to={`/profile/${post?.owner?.firstName}${post?.owner?.lastName}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <span className="username">{post.owner.firstName}</span>
+            <span className="username">{post?.owner?.firstName}</span>
           </Link>
-          <span className="date">{moment(post.createdAt).fromNow()}</span>
+          <span className="date">{moment(post?.createdAt).fromNow()}</span>
         </div>
       </div>
       {canEdit && (
