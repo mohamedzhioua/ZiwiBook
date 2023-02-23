@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Cropper from "react-easy-crop";
 
 import { CustomButton, CustomInput, Card } from "../index";
@@ -9,39 +9,58 @@ import getCroppedImg from "../../utils/getCroppedImg";
 import "./index.css";
 import { MdPublic } from "react-icons/md";
 import { BsCameraFill } from "react-icons/bs";
-
-function ProfileCover({ isVisitor }) {
+import { toast } from "react-toastify";
+function ProfileCover({ isVisitor , user}) {
+  console.log("🚀 ~ file: ProfileCover.js:14 ~ ProfileCover ~ user:", user.cover)
   const dispatch = useDispatch();
 
   const [image, setImage] = useState(null);
-  console.log("🚀 ~ file: ProfileCover.js:17 ~ ProfileCover ~ image:", image)
   const [showCoverMneu, setShowCoverMenu] = useState(false);
   const [showOldCover, setShowOldCover] = useState(false);
   const refInput = useRef(null);
   const CoverMenuRef = useRef();
+  const coverRef = useRef(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [error, setError] = useState(null);
+  const [width, setWidth] = useState();
+  const [height, setHeight] = useState();
 
+  useEffect(() => {
+    setWidth(coverRef.current.clientWidth);
+    setHeight(coverRef.current.clientHeight);
+  }, [window.innerWidth]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  }, [error]);
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
-  const getCroppedImage = useCallback(async (show) => {
-    try {
-      const croppedImage = await getCroppedImg(image, croppedAreaPixels);
-      if (show) {
-        setZoom(1);
-        setCrop({ x: 0, y: 0 });
-      console.log("donee", { croppedImage });
-      setImage(croppedImage);
-    } else {
-      return croppedImage;
-    }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [croppedAreaPixels]);
+  const getCroppedImage = useCallback(
+    async (show) => {
+      try {
+        const croppedImage = await getCroppedImg(image, croppedAreaPixels);
+        if (show) {
+          setZoom(1);
+          setCrop({ x: 0, y: 0 });
+          console.log("donee", { croppedImage });
+          setImage(croppedImage);
+        } else {
+          return croppedImage;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [croppedAreaPixels]
+  );
 
   //onChangefile
   const handleImage = (e) => {
@@ -52,10 +71,10 @@ function ProfileCover({ isVisitor }) {
       file.type !== "image/webp" &&
       file.type !== "image/jpg"
     ) {
-      //   setError(`${file.name} format is not supported.`);
+        setError(`${file.name} format is not supported.`);
       return;
     } else if (file.size > 1024 * 1024 * 5) {
-      //   setError(`${file.name} is too large max 5mb allowed.`);
+        setError(`${file.name} is too large max 5mb allowed.`);
       return;
     }
     const reader = new FileReader();
@@ -69,21 +88,16 @@ function ProfileCover({ isVisitor }) {
   const onsubmitHandler = async (event) => {
     event.preventDefault();
     try {
-
-    let img = await getCroppedImage(false);
-    let blob = await fetch(img).then((r) => r.blob());
-    let form = new FormData();
-    console.log(
-      "🚀 ~ file: ProfileCover.js:77 ~ onsubmitHandler ~ form:",
-      form
-    );
-    form.append("image", blob);
-    dispatch(updateCoverPhoto(form))
-      .unwrap()
-      .then((data) => {})
-      .catch((error) => {
-        console.log(error);
-      })
+      let img = await getCroppedImage(false);
+      let blob = await fetch(img).then((r) => r.blob());
+      let form = new FormData();
+      form.append("image", blob);
+      dispatch(updateCoverPhoto(form))
+        .unwrap()
+        .then((data) => {})
+        .catch((error) => {
+          console.log(error);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -91,8 +105,9 @@ function ProfileCover({ isVisitor }) {
   return (
     <div
       className="profile-cover"
+      ref={coverRef}
       style={{
-        backgroundImage: `url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc9IX3RVEhPXrNb9UtreYJ3gmtf_ZGLS-NvA&usqp=CAU)`,
+        backgroundImage: `url(${user?.cover})`,
       }}
     >
       {image && (
@@ -129,7 +144,7 @@ function ProfileCover({ isVisitor }) {
               image={image}
               crop={crop}
               zoom={zoom}
-              aspect={4 / 3}
+              aspect={width / height}
               onCropChange={setCrop}
               onCropComplete={onCropComplete}
               onZoomChange={setZoom}

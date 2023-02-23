@@ -36,7 +36,7 @@ function Profile() {
       <div className="top">
         <div className="top-wrapper">
           <div className="header">
-            <ProfileCover isVisitor={isVisitor} />
+            <ProfileCover isVisitor={isVisitor} user={user}/>
             <div className="COntent">
               <div className="photo_wrap">
                 <div className="photo">
