@@ -48,5 +48,22 @@ module.exports = {
       console.log("🚀 ~ file: cloudinary.js:28 ~ error", error)
       });
   },
+    //  get images from cloudinary
+
+  getImages : async (path, max, sort) => {
+    return new Promise((resolve, reject) => {
+      cloudinary.v2.search
+        .expression(`${path}`)
+        .sort_by('created_at', `${sort}`)
+        .max_results(max)
+        .execute()
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
   
 };

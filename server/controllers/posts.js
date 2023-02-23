@@ -1,13 +1,8 @@
-// Load Post model
 const Post = require("../models/post");
-// Load Comment model
 const Comment = require("../models/comment");
-// Load input validation
 const PostValidation = require("../validator/PostValidation");
-// Load cloudinary methods
 const cloudinary = require("../utils/cloudinary");
 const sharp = require('sharp');
-const post = require("../models/post");
 
 module.exports = {
   //  ----------------------//addPost method //--------------------------- //
@@ -15,12 +10,13 @@ module.exports = {
   addPost: async (req, res) => {
     const { errors, isValid } = PostValidation(req.body);
     const { file } = req;
+    const id = req.user.id
     try {
       if (!isValid) {
         return res.status(404).json(errors);
       }
       if (file) {
-        const path = `${process.env.APP_NAME}/users/${req.user.id}/public/posts_photos/`;
+        const path = `${process.env.APP_NAME}/users/${id}/posts_photos/`;
         const data  = await sharp(req.file.buffer)
         .toFormat('webp')
         .webp({ quality: 90 })
@@ -30,14 +26,13 @@ module.exports = {
           data ,
           path
         );
-        console.log("🚀 ~ file: posts.js:33 ~ addPost: ~ imageDetails:", imageDetails)
-        req.body.owner = req.user.id;
+        req.body.owner = id;
         req.body.image = imageDetails.url;
         req.body.cloudinary_id = imageDetails.public_id;
         const memo = await Post.create(req.body);
         return res.status(200).json(memo);
       } else {
-        req.body.owner = req.user.id;
+        req.body.owner = id;
         const memo = await Post.create(req.body);
         return res.status(200).json(memo);
       }
@@ -59,7 +54,7 @@ module.exports = {
         return res.status(404).json(errors);
       }
       if (file) {
-        const path = `${process.env.APP_NAME}/users/${req.user.id}/public/posts_photos/`;
+        const path = `${process.env.APP_NAME}/users/${req.user.id}/posts_photos/`;
         const data  = await sharp(req.file.buffer)
         .toFormat('webp')
         .webp({ quality: 90 })

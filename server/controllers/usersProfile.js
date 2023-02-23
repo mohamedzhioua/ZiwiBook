@@ -1,34 +1,53 @@
 // Load User model
+const sharp = require("sharp");
 const User = require("../models/user");
-// // Load Datauri method
-// const { bufferToDataURI } = require("../utils/Datauri");
+
 // Load cloudinary methods
 const cloudinary = require("../utils/cloudinary");
 
 module.exports = {
+  getPhotos : async (req,res)=>{
+    const { username } = req.params;
+
+    try {
+      const user = await User.findOne({ username });
+      if (!user) {
+        return res
+        .status(404)
+        .json({ message: "No user found with that username" });
+      }
+      const path = `${process.env.APP_NAME}/users/${user.id}/*`;
+      const photos = await cloudinary.getImages(path, 100, 'desc');
+      const resources = photos.resources.map((photo) => {
+        return { url: photo.secure_url, id: photo.asset_id };
+      });
+      
+    } catch (error) {
+      
+    }
+  },
   updateCover: async (req, res) => {
     const id = req.user.id;
     const { file } = req;
-    console.log("🚀 ~ file: usersProfile.js:12 ~ updateCover: ~ file:", req.file)
     try {
       if (!file) {
         return res
         .status(404)
         .json({ message: "Please provide a cover photo " });
     } else {
-        const userData = await User.findById(id);
-        const fileFormat = file.mimetype.split("/")[1];
-        const { base64 } = bufferToDataURI(fileFormat, file.buffer);
+        const path = `${process.env.APP_NAME}/users/${id}/profile_photos/`;
+        const data  = await sharp(req.file.buffer)
+        .resize(500, 500)
+        .toFormat('webp')
+        .webp({ quality: 90 })
+        .toBuffer();
+
         const imageDetails = await cloudinary.uploadToCloudinary(
-          base64,
-          fileFormat
+          data ,
+          path
         );
-        const data = {
-          image: imageDetails.url,
-          _id: imageDetails.public_id,
-        };
-        userData.cover.push(data);
-        const user = await User.findByIdAndUpdate(id,userData,{new: true})
+          req.body.cover = imageDetails.url
+        const user = await User.findByIdAndUpdate(id, req.body,{new: true})
         res.status(200).json(user);
       }
     } catch (error) {
