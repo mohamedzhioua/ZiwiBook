@@ -169,7 +169,7 @@ function ProfileCover({ isVisitor, user }) {
           </FormLoader>
         </>
       )}
-      {isVisitor && (
+      {!isVisitor && (
         <>
           <div className="edit-cover-container">
             <CustomInput

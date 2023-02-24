@@ -86,7 +86,7 @@ const Comment = ({ comment }) => {
       <div className="comment-header">
         <div>
           <Link
-            to={`/profile/${comment?.owner?.name}`}
+            to={`/profile/${comment?.owner?.username}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <img
@@ -96,7 +96,7 @@ const Comment = ({ comment }) => {
             />
           </Link>
           <Link
-            to={`/profile/${comment?.owner?.name}`}
+            to={`/profile/${comment?.owner?.username}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <span className="author">{comment?.owner?.name}</span>

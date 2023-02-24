@@ -93,7 +93,7 @@ const Header = () => {
       </div>
       <div className={style.navbar_right}>
         <NavLink
-          to={`/profile/${user?.name}`}
+          to={`/profile/${user?.username}`}
           onClick={() => {
             updateExpanded(false);
           }}

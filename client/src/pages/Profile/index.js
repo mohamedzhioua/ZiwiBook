@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import axios from "axios";
+
 //components
 import {
   CreatPost,
@@ -22,14 +25,32 @@ function Profile() {
   const { user } = useSelector((state) => state.auth);
   const { username } = useParams();
 
-  const usernameID = username ? username : user.name;
-  const isVisitor = !(usernameID === user.name);
+  const usernameID = username ? username : user.username;
+  const isVisitor = !(usernameID === user.username);
+
+  const fetchUserPosts = async () => {
+    const { data } = await axios.get(
+    `/post/${usernameID}/posts`);
+    console.log("🚀 ~ file: index.js:34 ~ fetchUserPosts ~ data:", data)
+    return data;
+
+  };
+  
+  const {
+    isLoading: postsLoading,
+    isSuccess: postsIsSuccess,
+    data: postsData,
+    isError: postsError,
+  } = useInfiniteQuery({
+    queryKey: ["getProfilePosts", usernameID],
+    queryFn: fetchUserPosts,
+    
+  });
   // sorting posts by time created at
-  const sortedPosts = useSelector((state) =>
-    state.posts.posts.filter((post) => post.owner.name === usernameID)
-  )
-    .slice()
-    ?.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  // const sortedPosts = 
+  // postsData.slice()
+  // ?.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    
 
   return (
     <div className="profile">
@@ -122,8 +143,11 @@ function Profile() {
           </div>
           <div className="posts">
             {!isVisitor && <CreatPost user={user} />}
-            <PostList posts={sortedPosts} user={user} />
-          </div>
+                  { postsData?.pages.map((page, i) =>(
+                    <PostList posts={page} user={user} key={i}/>
+
+                  ))}
+           </div>
         </div>
       </div>
     </div>
