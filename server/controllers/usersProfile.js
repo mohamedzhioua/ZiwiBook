@@ -1,11 +1,27 @@
 // Load User model
-const sharp = require("sharp");
 const User = require("../models/user");
 
-// Load cloudinary methods
-const cloudinary = require("../utils/cloudinary");
 
 module.exports = {
+  updateProfileCover: async (req, res) => {
+    const id = req.user.id;
+    try {
+        const user = await User.findByIdAndUpdate(id, req.body,{new: true})
+        res.status(200).json(user);
+    
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
+  updateProfilePhoto: async (req, res) => {
+    const id = req.user.id;
+    try {
+        const user = await User.findByIdAndUpdate(id, req.body,{new: true})
+        res.status(200).json(user);
+     } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
   getPhotos : async (req,res)=>{
     const { username } = req.params;
 
@@ -21,35 +37,33 @@ module.exports = {
       const resources = photos.resources.map((photo) => {
         return { url: photo.secure_url, id: photo.asset_id };
       });
-      
-    } catch (error) {
-      
-    }
-  },
-  updateCover: async (req, res) => {
-    const id = req.user.id;
-    const { file } = req;
-    try {
-      if (!file) {
-        return res
-        .status(404)
-        .json({ message: "Please provide a cover photo " });
-    } else {
-        const path = `${process.env.APP_NAME}/users/${id}/profile_photos/`;
-        const data  = await sharp(req.file.buffer)
-        .resize(500, 500)
-        .toFormat('webp')
-        .webp({ quality: 90 })
-        .toBuffer();
+      const profilePhotos = photos.resources
+      .filter(
+        (photo) =>
+          photo.folder ===
+          `${process.env.APP_NAME}/users/${user.id}/profile_photos`
+      )
+      .map((photo) => {
+        return { url: photo.secure_url, id: photo.asset_id };
+      });
+  
+    const profileCovers = photos.resources
+      .filter(
+        (photo) =>
+          photo.folder ===
+          `${process.env.APP_NAME}/users/${user.id}/profile_covers`
+      )
+      .map((photo) => {
+        return { url: photo.secure_url, id: photo.asset_id };
+      });
 
-        const imageDetails = await cloudinary.uploadToCloudinary(
-          data ,
-          path
-        );
-          req.body.cover = imageDetails.url
-        const user = await User.findByIdAndUpdate(id, req.body,{new: true})
-        res.status(200).json(user);
-      }
+      res.status(200).json({
+        data: {
+          resources,
+          profilePhotos,
+          profileCovers,
+        },
+      });
     } catch (error) {
       res.status(404).json({ message: error.message });
     }

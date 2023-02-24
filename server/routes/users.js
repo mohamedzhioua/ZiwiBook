@@ -4,7 +4,7 @@ const multerUploads = require("../middlewares/multerMiddleware")
 const checkAuth = require ("../middlewares/checkAuth")
 const UserController = require("../controllers/users");
 const UserProfileController = require("../controllers/usersProfile");
-
+const sharpMiddleware = require("../middlewares/sharpMiddleware")
 
 // POST request for creating a new User.
 router.post("/signup", UserController.signup);
@@ -18,6 +18,9 @@ router.get("/logout", UserController.logout);
                  /*   User  Profile   */
 
 // Post request to update the User profile Cover.
-router.post("/update/profile/cover",checkAuth, multerUploads, UserProfileController.updateCover);
+router.post("/update/profile/cover",checkAuth, multerUploads,sharpMiddleware.resizeProfileCover, UserProfileController.updateProfileCover);
+
+// Post request to update the User profile image.
+router.post("/update/profile/cover",checkAuth, multerUploads,sharpMiddleware.resizeProfilePhoto, UserProfileController.updateProfilePhoto);
 
 module.exports = router;

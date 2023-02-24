@@ -12,13 +12,15 @@ const multerStorage  = multer.memoryStorage();
 //   //pass the file
 //   cb(null, true);
 // };
+
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image')) {
     cb(null, true);
   } else {
-    cb(new AppError('Please upload only images', 400), false);
+    cb(new Error('Please upload only images') )
   }
 };
+
 module.exports = multer({
   storage: multerStorage ,
   limits: { fileSize: 5 * 1024 * 1024 },

@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 // Load Comment model
 const Post = require("./post");
+// Load username generator method
+const { generateFromEmail } = require('unique-username-generator');
 
 const UserSchema = new Schema(
   {
@@ -21,6 +23,12 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: true,
+    },
+    username: {
+      type: String,
+      unique: true,
+      trim: true,
+      text: true,
     },
     gender: {
       type: String,
@@ -87,6 +95,14 @@ const UserSchema = new Schema(
 UserSchema.pre("remove", async function (next) {
   const user = this;
   await Post.deleteMany({ owner: user._id });
+  next();
+});
+// generate a username from the user email 
+UserSchema.pre('save',  function (next) {
+  if (this.isNew) {
+    const user = this;
+    user.username =  generateFromEmail(user.email, 4);
+  }
   next();
 });
 
