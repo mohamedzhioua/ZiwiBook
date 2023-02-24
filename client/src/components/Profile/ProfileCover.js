@@ -1,17 +1,17 @@
 import { useDispatch } from "react-redux";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Cropper from "react-easy-crop";
-
-import { CustomButton, CustomInput, Card } from "../index";
+import { CustomButton, CustomInput, Card, FormLoader } from "../index";
 import { updateCoverPhoto } from "../../app/features/auth/authSlice";
 import getCroppedImg from "../../utils/getCroppedImg";
-// Styles
 import "./index.css";
 import { MdPublic } from "react-icons/md";
 import { BsCameraFill } from "react-icons/bs";
 import { toast } from "react-toastify";
-function ProfileCover({ isVisitor , user}) {
-  console.log("🚀 ~ file: ProfileCover.js:14 ~ ProfileCover ~ user:", user.cover)
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+
+function ProfileCover({ isVisitor, user }) {
   const dispatch = useDispatch();
 
   const [image, setImage] = useState(null);
@@ -39,6 +39,7 @@ function ProfileCover({ isVisitor , user}) {
       });
     }
   }, [error]);
+
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
@@ -71,10 +72,10 @@ function ProfileCover({ isVisitor , user}) {
       file.type !== "image/webp" &&
       file.type !== "image/jpg"
     ) {
-        setError(`${file.name} format is not supported.`);
+      setError(`${file.name} format is not supported.`);
       return;
     } else if (file.size > 1024 * 1024 * 5) {
-        setError(`${file.name} is too large max 5mb allowed.`);
+      setError(`${file.name} is too large max 5mb allowed.`);
       return;
     }
     const reader = new FileReader();
@@ -83,21 +84,33 @@ function ProfileCover({ isVisitor , user}) {
       setImage(event.target.result);
     };
   };
+  const updateCover =  (form) => {
+    return   axios.post("/user/update/profile/cover", form,{ headers: {
+      "Content-Type": "multipart/form-data",
+    }});
+  };
 
-  //onsubmitHandler
-  const onsubmitHandler = async (event) => {
-    event.preventDefault();
+  const { data, isLoading, isSuccess, mutate } = useMutation({
+    mutationFn: updateCover,
+  });
+  useEffect(()=>{
+    if ( isSuccess&& data) {
+      coverRef.current.style.backgroundImage = `url(${data.data.cover})`;
+      dispatch(updateCoverPhoto(data.data.cover));
+      console.log("🚀 ~ file: ProfileCover.js:102 ~ useEffect ~ data.data:", data.data.cover)
+      setTimeout(() => {
+        setImage(null);
+      }, 200);
+    }
+  },[isSuccess , data])
+
+  const updateCoverHandler = async () => {
     try {
       let img = await getCroppedImage(false);
       let blob = await fetch(img).then((r) => r.blob());
       let form = new FormData();
       form.append("image", blob);
-      dispatch(updateCoverPhoto(form))
-        .unwrap()
-        .then((data) => {})
-        .catch((error) => {
-          console.log(error);
-        });
+      mutate(form);
     } catch (error) {
       console.log(error);
     }
@@ -132,10 +145,11 @@ function ProfileCover({ isVisitor , user}) {
               <CustomButton
                 className="blue_btn cover"
                 value="Save"
-                onClick={onsubmitHandler}
+                onClick={updateCoverHandler}
               />
             </div>
           </div>
+          <FormLoader loading={isLoading} type={2}>
           <div className="cover_cropper">
             <Cropper
               classes={{
@@ -152,6 +166,7 @@ function ProfileCover({ isVisitor , user}) {
               objectFit="horizontal-cover"
             />
           </div>
+          </FormLoader>
         </>
       )}
       {isVisitor && (

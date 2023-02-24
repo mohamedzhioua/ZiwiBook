@@ -26,11 +26,10 @@ const logout = async () => {
   return response.data;
 };
 //updateCoverPhoto 
-const updateCoverPhoto = async (data) => {
-  console.log("🚀 ~ file: authService.js:30 ~ updateCoverPhoto ~ data:", data)
-  const response = await axios.post("/user/update/profile/cover", data,config);
-  return response.data;
-};
+// const updateCoverPhoto = async (data) => {
+//   const response = await axios.post("/user/update/profile/cover", data,config);
+//   return response.data;
+// };
 
-const authService = { register, login, logout , updateCoverPhoto};
+const authService = { register, login, logout};
 export default authService;
