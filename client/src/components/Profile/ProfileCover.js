@@ -10,10 +10,10 @@ import { BsCameraFill } from "react-icons/bs";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 function ProfileCover({ isVisitor, user }) {
-  console.log("🚀 ~ file: ProfileCover.js:15 ~ ProfileCover ~ user:", user)
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
   const [image, setImage] = useState(null);
   const [showCoverMneu, setShowCoverMenu] = useState(false);
@@ -27,7 +27,9 @@ function ProfileCover({ isVisitor, user }) {
   const [error, setError] = useState(null);
   const [width, setWidth] = useState();
   const [height, setHeight] = useState();
-
+  useOnClickOutside(CoverMenuRef, showCoverMneu, () => {
+    setShowCoverMenu(false);
+  });
   useEffect(() => {
     setWidth(coverRef.current.clientWidth);
     setHeight(coverRef.current.clientHeight);

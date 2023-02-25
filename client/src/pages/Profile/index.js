@@ -34,7 +34,6 @@ useEffect(()=>{
   const fetchUserPosts = async () => {
     const { data } = await axios.get(
     `/post/${usernameID}/posts`);
-    console.log("🚀 ~ file: index.js:34 ~ fetchUserPosts ~ data:", data)
     return data;
 
   };
