@@ -29,7 +29,6 @@ const Header = () => {
   const LogoutHandler = () => {
     dispatch(logout());
     dispatch(reset());
-    localStorage.clear();
     navigate("/login");
   };
 

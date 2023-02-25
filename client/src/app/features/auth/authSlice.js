@@ -1,13 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
-
-// Get token & user from localStorage
-const token = JSON.parse(localStorage.getItem("token"));
-const userInfo = JSON.parse(localStorage.getItem("user"));
+import Cookies from "js-cookie";
 
 const initialState = {
-  user: null || userInfo,
-  token: token ? token : null,
+  user: Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null,
+  token: Cookies.get("token") ? JSON.parse(Cookies.get("token")) : null,
   error: null,
   message: "",
   status: "idle",
@@ -38,18 +35,6 @@ export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout();
 });
 
-//updateCoverPhoto 
-// export const updateCoverPhoto = createAsyncThunk(
-//   "auth/updateCoverPhoto",
-//   async (data, thunkAPI) => {
-//     console.log("🚀 ~ file: authSlice.js:45 ~ data:", data)
-//     try {
-//       return await authService.updateCoverPhoto(data);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error.response.data);
-//     }
-//   }
-// );
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -62,8 +47,10 @@ export const authSlice = createSlice({
       state.status = "idle";
     },
     updateCoverPhoto: (state, action) => {
-      state.user.cover= action.payload;
-      console.log("🚀 ~ file: authSlice.js:66 ~ action.payload:", action.payload)
+      state.user.cover = action.payload;
+      Cookies.set("user", JSON.stringify(state.user), {
+        expires: 90,
+      });
     },
   },
   extraReducers: (builder) => {
@@ -89,6 +76,12 @@ export const authSlice = createSlice({
         state.message = action.payload.message;
         state.user = action.payload.user;
         state.status = "isConnected";
+        Cookies.set("user", JSON.stringify(action.payload.user), {
+          expires: 90,
+        });
+        Cookies.set("token", JSON.stringify(action.payload.token), {
+          expires: 90,
+        });
       })
       .addCase(login.rejected, (state, action) => {
         state.error = action.payload;
@@ -96,21 +89,11 @@ export const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
-      })
-      // .addCase(updateCoverPhoto.pending, (state) => {
-      //   state.status = "Loading";
-      //   state.error = null;
-      // })
-      // .addCase(updateCoverPhoto.fulfilled, (state, action) => {
-      //   state.user = action.payload;
-      //   state.status = "fulfilled";
-      // })
-      // .addCase(updateCoverPhoto.rejected, (state, action) => {
-      //   state.error = action.payload;
-      //   state.status = "rejected";
-      // })
+        Cookies.set("user", null);
+        Cookies.set("token", null);
+      });
   },
 });
 
-export const { reset , updateCoverPhoto } = authSlice.actions;
+export const { reset, updateCoverPhoto } = authSlice.actions;
 export default authSlice.reducer;

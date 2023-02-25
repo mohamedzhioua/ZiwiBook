@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
@@ -25,9 +25,12 @@ function Profile() {
   const { user } = useSelector((state) => state.auth);
   const { username } = useParams();
 
-  const usernameID = username ? username : user.username;
-  const isVisitor = !(usernameID === user.username);
+  const usernameID = username ? username : user?.username;
+  const isVisitor = !(usernameID === user?.username);
 
+useEffect(()=>{
+
+},[usernameID])
   const fetchUserPosts = async () => {
     const { data } = await axios.get(
     `/post/${usernameID}/posts`);
@@ -41,6 +44,7 @@ function Profile() {
     isSuccess: postsIsSuccess,
     data: postsData,
     isError: postsError,
+    isFetching: postsIsFetching,
   } = useInfiniteQuery({
     queryKey: ["getProfilePosts", usernameID],
     queryFn: fetchUserPosts,

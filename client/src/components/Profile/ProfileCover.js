@@ -12,6 +12,7 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 
 function ProfileCover({ isVisitor, user }) {
+  console.log("🚀 ~ file: ProfileCover.js:15 ~ ProfileCover ~ user:", user)
   const dispatch = useDispatch();
 
   const [image, setImage] = useState(null);
@@ -97,7 +98,6 @@ function ProfileCover({ isVisitor, user }) {
     if ( isSuccess&& data) {
       coverRef.current.style.backgroundImage = `url(${data.data.cover})`;
       dispatch(updateCoverPhoto(data.data.cover));
-      console.log("🚀 ~ file: ProfileCover.js:102 ~ useEffect ~ data.data:", data.data.cover)
       setTimeout(() => {
         setImage(null);
       }, 200);
@@ -149,7 +149,7 @@ function ProfileCover({ isVisitor, user }) {
               />
             </div>
           </div>
-          <FormLoader loading={isLoading} type={2}>
+          <FormLoader loading={isLoading}>
           <div className="cover_cropper">
             <Cropper
               classes={{

@@ -41,13 +41,13 @@ const Post = ({ post , user }) => {
   }
 return (
     <Card>
-      <PostHead post={post} userId={user._id} />
+      <PostHead post={post} userId={user?._id} />
       <p className="post-text">{post?.text.substring(0, 20)}</p>
       {post?.image && <img src={post?.image} className="post-image" alt="..." />}
       <hr />
       <div className="post_footer-row" style={{ padding: "10px" }}>
         <div onClick={() => dispatch(likePost(post?._id))}>
-          <Likes userId={user._id} LIKES={LIKES} />
+          <Likes userId={user?._id} LIKES={LIKES} />
         </div>
         <div>
           <CustomButton
