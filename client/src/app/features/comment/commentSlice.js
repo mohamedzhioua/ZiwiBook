@@ -1,7 +1,7 @@
 import {
   createSlice,
   createAsyncThunk,
-  //   createEntityAdapter,
+    // createEntityAdapter,
 } from "@reduxjs/toolkit";
 import commentService from "./commentService";
 

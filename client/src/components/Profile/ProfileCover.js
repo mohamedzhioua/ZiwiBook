@@ -106,7 +106,8 @@ function ProfileCover({ isVisitor, user }) {
     }
   },[isSuccess , data])
 
-  const updateCoverHandler = async () => {
+  const updateCoverHandler = async (e) => {
+    e.preventDefault();
     try {
       let img = await getCroppedImage(false);
       let blob = await fetch(img).then((r) => r.blob());

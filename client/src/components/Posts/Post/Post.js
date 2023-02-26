@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // features
 import { openModal } from "../../../app/features/modal/modalSlice";
-import { likePost } from "../../../app/features/post/postSlice";
+import { likePost, selectPostById } from "../../../app/features/post/postSlice";
 
 // Components
 import { Comments, CustomButton, Likes, PostHead, Card } from "../../index";
@@ -15,9 +15,10 @@ import { BsTrash } from "react-icons/bs";
 import "./index.css";
 import { AddComment } from "../../../app/features/comment/commentSlice";
 
-const Post = ({ post , user }) => {
+const Post = ({ postId , user }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const dispatch = useDispatch();
+  const post = useSelector(state => selectPostById(state, postId))
   const LIKES = post?.likes;
   const canDelete = Boolean((user?._id === post?.owner?._id) || (user?._id === post?.owner ))
 

@@ -40,6 +40,13 @@ const likePost = async (id) => {
   const response = await axios.patch(`/post/like/${id}`);
   return response.data;
 };
+// fetchUserPosts
+const fetchUserPosts = async (usernameID) => {
+  const response = await axios.get(
+  `/post/${usernameID}/posts`);
+  return response.data;
+
+};
 const postService = {
   addPost,
   fetchAll,
@@ -47,6 +54,7 @@ const postService = {
   updatePost,
   FindPost,
   likePost,
+  fetchUserPosts
 };
 
 export default postService;

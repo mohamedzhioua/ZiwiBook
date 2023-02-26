@@ -1,14 +1,20 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  createEntityAdapter, 
+} from "@reduxjs/toolkit";
 import { closeModal } from "../modal/modalSlice";
 import postService from "./postService";
 
+const postsAdapter = createEntityAdapter({
+  selectId: (post) => post._id,
+ sortComparer: (a, b) => b.createdAt.localeCompare(a.createdAt),
+});
 
-
-const initialState = {
-  posts: [],
+const initialState = postsAdapter.getInitialState({
   error: null,
-  status: "idle",  //'idle' | 'loading' | 'fulfilled' | 'failed'
-};
+  status: "idle", //'idle' | 'loading' | 'fulfilled' | 'failed'
+});
 
 //creat post
 export const addPost = createAsyncThunk("posts/add", async (post, thunkAPI) => {
@@ -88,9 +94,21 @@ export const likePost = createAsyncThunk(
   }
 );
 
+// fetch all User posts
+export const fetchUserPosts = createAsyncThunk(
+  "posts/fetchUserPosts",
+  async (usernameID, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      return await postService.fetchUserPosts(usernameID);
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 export const postSlice = createSlice({
-  name: "posts",
-  initialState,
+  name: 'posts',
+ initialState,
   reducers: {
     reset: (state) => {
       state.error = null;
@@ -99,39 +117,43 @@ export const postSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addPost.pending, (state, action) => {
-        state.status = "Loading";
-        state.error = null;
-      })
-      .addCase(addPost.fulfilled, (state, action) => {
-        state.status = "fulfilled";
-        state.posts = [action.payload, ...state.posts];
-      })
-      .addCase(addPost.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      })
       .addCase(fetchPosts.pending, (state, action) => {
         state.status = "Loading";
         state.error = null;
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "fulfilled";
-        state.posts = action.payload;
+        postsAdapter.upsertMany(state, action.payload);
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       })
+
+      .addCase(addPost.pending, (state, action) => {
+        state.status = "Loading";
+        state.error = null;
+      })
+      .addCase(addPost.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        postsAdapter.addOne(state, action.payload);
+      })
+      .addCase(addPost.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+
       .addCase(deleteOne.pending, (state, action) => {
         state.status = "Loading";
         state.error = null;
       })
       .addCase(deleteOne.fulfilled, (state, action) => {
         state.status = "fulfilled";
+
         const { arg } = action.meta;
         if (arg) {
-          state.posts = state.posts.filter((item) => item._id !== arg);
+          postsAdapter.removeOne(state, arg);
+          // state.posts = state.posts.filter((item) => item._id !== arg);
         }
       })
       .addCase(deleteOne.rejected, (state, action) => {
@@ -144,15 +166,16 @@ export const postSlice = createSlice({
       })
       .addCase(updatePost.fulfilled, (state, action) => {
         state.status = "fulfilled";
+        postsAdapter.upsertOne(state, action.payload);
 
-        const {
-          arg: { id },
-        } = action.meta;
-        if (id) {
-          state.posts = state.posts.map((item) =>
-            item._id === id ? action.payload : item
-          );
-        }
+        // const {
+        //   arg: { id },
+        // } = action.meta;
+        // if (id) {
+        //   state.posts = state.posts.map((item) =>
+        //     item._id === id ? action.payload : item
+        //   );
+        // }
       })
       .addCase(updatePost.rejected, (state, action) => {
         state.status = "failed";
@@ -164,18 +187,39 @@ export const postSlice = createSlice({
       })
       .addCase(likePost.fulfilled, (state, action) => {
         state.status = "fulfilled";
-        const { arg } = action.meta;
-        if (arg) {
-          const posts = state.posts.filter((item) => item._id !== arg);
-          state.posts = [...posts, action.payload];
-        }
+        postsAdapter.upsertOne(state, action.payload);
+        // const { arg } = action.meta;
+        // if (arg) {
+        //   const posts = state.posts.filter((item) => item._id !== arg);
+        //   state.posts = [...posts, action.payload];
+        // }
       })
       .addCase(likePost.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
-      });
+      })
+      .addCase(fetchUserPosts.pending, (state, action) => {
+        state.status = "Loading";
+        state.error = null;
+      })
+      .addCase(fetchUserPosts.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        postsAdapter.upsertMany(state, action.payload);
+      })
+      .addCase(fetchUserPosts.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
   },
 });
 
-export const { reset } = postSlice.actions;
+//getSelectors creates these selectors and we rename them with aliases using destructuring
+export const {
+  selectAll: selectAllPosts,
+  selectById: selectPostById,
+  selectIds: selectPostIds,
+  // Pass in a selector that returns the posts slice of state
+} = postsAdapter.getSelectors((state) => state.posts);
+
+ export const { reset } = postSlice.actions;
 export default postSlice.reducer;

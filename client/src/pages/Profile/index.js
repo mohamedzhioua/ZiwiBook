@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -19,40 +19,27 @@ import {
 import "./index.css";
 import { BsCameraFill } from "react-icons/bs";
 import { MdVerified } from "react-icons/md";
+import { fetchUserPosts, selectPostIds } from "../../app/features/post/postSlice";
 
 function Profile() {
   const [showProfilePhoto, setShowProfilePhoto] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const { username } = useParams();
+  const dispatch = useDispatch();
 
   const usernameID = username ? username : user?.username;
   const isVisitor = !(usernameID === user?.username);
+  const sortedPosts = useSelector(selectPostIds)
 
 useEffect(()=>{
-
+  if (usernameID){
+    dispatch(fetchUserPosts(usernameID))
+  }
 },[usernameID])
-  const fetchUserPosts = async () => {
-    const { data } = await axios.get(
-    `/post/${usernameID}/posts`);
-    return data;
 
-  };
   
-  const {
-    isLoading: postsLoading,
-    isSuccess: postsIsSuccess,
-    data: postsData,
-    isError: postsError,
-    isFetching: postsIsFetching,
-  } = useInfiniteQuery({
-    queryKey: ["getProfilePosts", usernameID],
-    queryFn: fetchUserPosts,
-    
-  });
-  // sorting posts by time created at
-  // const sortedPosts = 
-  // postsData.slice()
-  // ?.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+
+
     
 
   return (
@@ -146,10 +133,7 @@ useEffect(()=>{
           </div>
           <div className="posts">
             {!isVisitor && <CreatPost user={user} />}
-                  { postsData?.pages.map((page, i) =>(
-                    <PostList posts={page} user={user} key={i}/>
-
-                  ))}
+                    <PostList posts={sortedPosts} user={user}  />
            </div>
         </div>
       </div>

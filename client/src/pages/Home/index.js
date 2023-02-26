@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { selectPostIds } from "../../app/features/post/postSlice";
 
 // Components
 import { CreatPost, PostList, SearchBar } from "../../components";
@@ -17,11 +18,7 @@ function Home() {
     setWordEntered(wordEntered);
   };
 
-  // sorting posts by time created at
-  const sortedPosts = useSelector((state) => state.posts.posts)
-    .slice()
-    ?.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-
+  const sortedPosts = useSelector(selectPostIds)
   return (
     <div className="home">
        <div className="home-middle">
