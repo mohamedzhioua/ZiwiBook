@@ -31,7 +31,7 @@ function Home() {
         <div className="home-posts">
          <SearchBar onChange={FilterQuery} />
          <CreatPost user={user} />
-          <PostList posts={sortedPosts} user={user} wordEntered={wordEntered} />
+          <PostList posts={sortedPosts}  user={user} wordEntered={wordEntered} />
         </div>
       </div>
     </div>

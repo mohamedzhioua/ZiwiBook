@@ -22,10 +22,27 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         ...result.ids.map((id) => ({ type: "Post", id })),
       ],
     }),
+    fetchPostsByUser: builder.query({
+      query: (usernameID) =>  `/post/${usernameID}/posts`,
+      transformResponse: (responseData) => {
+        return postsAdapter.setAll(initialState, responseData);
+      },
+      providesTags: (result, error, arg) => {
+        console.log("🚀 ~ file: postSlice.js:35 ~ result:", result)
+        return[
+        ...result.ids.map(id => ({ type: 'Post', id }))
+    ]
+  }
+    }),
+
   }),
 });
 
-export const { useFetchPostsQuery } = extendedApiSlice;
+export const {
+   useFetchPostsQuery ,
+  useFetchPostsByUserQuery,
+
+} = extendedApiSlice;
 
 // returns the query result object
 export const selectPostsResult = extendedApiSlice.endpoints.fetchPosts.select();

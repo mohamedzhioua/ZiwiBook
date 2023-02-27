@@ -17,25 +17,24 @@ import {
 import "./index.css";
 import { BsCameraFill } from "react-icons/bs";
 import { MdVerified } from "react-icons/md";
-// import { fetchUserPosts, selectPostIds } from "../../app/features/post/postSlice";
+import { selectPostIds ,useFetchPostsByUserQuery} from "../../app/features/post/postSlice";
 
 function Profile() {
   const [showProfilePhoto, setShowProfilePhoto] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const { username } = useParams();
-  const dispatch = useDispatch();
 
   const usernameID = username ? username : user?.username;
   const isVisitor = !(usernameID === user?.username);
-  // const sortedPosts = useSelector(selectPostIds)
+  const sortedPosts = useSelector(selectPostIds)
 
-// useEffect(()=>{
-//   if (usernameID){
-//     dispatch(fetchUserPosts(usernameID))
-//   }
-// },[usernameID])
-
-  
+const {
+  data,
+  isLoading,
+  isSuccess,
+  isError,
+  error
+} = useFetchPostsByUserQuery(usernameID);  
 
 
     
@@ -131,7 +130,7 @@ function Profile() {
           </div>
           <div className="posts">
             {!isVisitor && <CreatPost user={user} />}
-                    {/* <PostList posts={sortedPosts} user={user}  /> */}
+                    <PostList posts={sortedPosts} loading={isLoading} user={user}  />
            </div>
         </div>
       </div>
