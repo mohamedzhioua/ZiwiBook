@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 //features
-// import { deleteOne } from "../../app/features/post/postSlice";
+import { useDeletePostMutation } from "../../app/features/post/postSlice";
 import { closeModal } from "../../app/features/modal/modalSlice";
 
 //Components
@@ -14,7 +14,19 @@ import { toast } from "react-toastify";
 
 const DeleteConfirm = ({ id }) => {
   const dispatch = useDispatch();
-
+  const [deletePost] = useDeletePostMutation();
+  const onDeletePostClicked = async () => {
+    await deletePost(id)
+      .unwrap()
+      .then((data) => {
+        toast.success("Post deleted successfully", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      })
+      .catch((error) => {
+        console.error("Failed to delete the post", error);
+      });
+  };
   return (
     <>
       <h4 class="title">Are you sure?</h4>
@@ -34,18 +46,7 @@ const DeleteConfirm = ({ id }) => {
         <CustomButton
           className="deletebtn"
           value="delete"
-          // onClick={() => {
-          //   dispatch(deleteOne(id))
-          //   .unwrap()
-          //   .then((data) => {
-          //     toast.success("Post deleted successfully", {
-          //       position: toast.POSITION.TOP_RIGHT,
-          //     });
-          //   })
-          //   .catch((error) => {
-          //     console.log(error);
-          //   });
-          // }}
+          onClick={onDeletePostClicked}
         />
       </div>
     </>
