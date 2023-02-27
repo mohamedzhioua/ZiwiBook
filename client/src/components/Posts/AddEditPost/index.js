@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 // features
-import { addPost, updatePost } from "../../../app/features/post/postSlice";
+// import { addPost, updatePost } from "../../../app/features/post/postSlice";
 
 // Components
 import { CustomInput, CustomButton } from "../../index";
@@ -69,30 +69,30 @@ const AddEditPost = ({ post }) => {
   //onsubmitHandler
   const onsubmitHandler = (event) => {
     event.preventDefault();
-    if (Boolean(post)) {
-      dispatch(updatePost({ id, form }))
-        .unwrap()
-        .then((data) => {
-          toast.success("Post updated successfully", {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      dispatch(addPost(form))
-        .unwrap()
-        .then((data) => {
-          toast.success("Post added successfully", {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-    clear();
+    // if (Boolean(post)) {
+    //   dispatch(updatePost({ id, form }))
+    //     .unwrap()
+    //     .then((data) => {
+    //       toast.success("Post updated successfully", {
+    //         position: toast.POSITION.TOP_RIGHT,
+    //       });
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // } else {
+    //   dispatch(addPost(form))
+    //     .unwrap()
+    //     .then((data) => {
+    //       toast.success("Post added successfully", {
+    //         position: toast.POSITION.TOP_RIGHT,
+    //       });
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
+    // clear();
   };
   return (
     <>

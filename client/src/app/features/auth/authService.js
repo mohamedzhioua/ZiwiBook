@@ -1,9 +1,9 @@
 import axios from "axios";
-const config = {
-  headers: {
-    "Content-Type": "multipart/form-data",
-  },
-};
+// const config = {
+//   headers: {
+//     "Content-Type": "multipart/form-data",
+//   },
+// };
 //Register user
 const register = async (userData) => {
   const response = await axios.post("/user/signup", userData);

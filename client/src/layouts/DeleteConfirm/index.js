@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 //features
-import { deleteOne } from "../../app/features/post/postSlice";
+// import { deleteOne } from "../../app/features/post/postSlice";
 import { closeModal } from "../../app/features/modal/modalSlice";
 
 //Components
@@ -34,18 +34,18 @@ const DeleteConfirm = ({ id }) => {
         <CustomButton
           className="deletebtn"
           value="delete"
-          onClick={() => {
-            dispatch(deleteOne(id))
-            .unwrap()
-            .then((data) => {
-              toast.success("Post deleted successfully", {
-                position: toast.POSITION.TOP_RIGHT,
-              });
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-          }}
+          // onClick={() => {
+          //   dispatch(deleteOne(id))
+          //   .unwrap()
+          //   .then((data) => {
+          //     toast.success("Post deleted successfully", {
+          //       position: toast.POSITION.TOP_RIGHT,
+          //     });
+          //   })
+          //   .catch((error) => {
+          //     console.log(error);
+          //   });
+          // }}
         />
       </div>
     </>

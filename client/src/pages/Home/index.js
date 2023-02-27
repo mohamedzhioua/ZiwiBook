@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectPostIds } from "../../app/features/post/postSlice";
+import { selectPostIds , useFetchPostsQuery } from "../../app/features/post/postSlice";
 
 // Components
 import { CreatPost, PostList, SearchBar } from "../../components";
@@ -11,6 +11,12 @@ import "./index.css";
 function Home() {
   const [wordEntered, setWordEntered] = useState("");
   const { user } = useSelector((state) => state.auth);
+  const {
+    isLoading,
+    isSuccess,
+    isError,
+    error
+} = useFetchPostsQuery()
 
   //search User input
   const FilterQuery = (e) => {
