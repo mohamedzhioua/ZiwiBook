@@ -22,26 +22,53 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         ...result.ids.map((id) => ({ type: "Post", id })),
       ],
     }),
+
     fetchPostsByUser: builder.query({
-      query: (usernameID) =>  `/post/${usernameID}/posts`,
+      query: (usernameID) => `/post/${usernameID}/posts`,
       transformResponse: (responseData) => {
         return postsAdapter.setAll(initialState, responseData);
       },
       providesTags: (result, error, arg) => {
-        console.log("🚀 ~ file: postSlice.js:35 ~ result:", result)
-        return[
-        ...result.ids.map(id => ({ type: 'Post', id }))
-    ]
-  }
+        console.log("🚀 ~ file: postSlice.js:35 ~ result:", result);
+        return [...result.ids.map((id) => ({ type: "Post", id }))];
+      },
     }),
 
+    addNewPost: builder.mutation({
+      query: (form) => ({
+        url: "/post/addPost",
+        method: "POST",
+        body: form,
+      }),
+      invalidatesTags: [{ type: "Post", id: "LIST" }],
+    }),
+
+    updatePost: builder.mutation({
+      query: ({id,dataForm}) => ({
+        url: `/post/updatePost/${id}`,
+        method: "PATCH",
+        body:dataForm ,
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "Post", id: arg.id }],
+    }),
+
+    deletePost: builder.mutation({
+      query: ({ id }) => ({
+        url:`/post/deletePost/${id}`,
+        method: "DELETE",
+        body: { id },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "Post", id: arg.id }],
+    }),
   }),
 });
 
 export const {
-   useFetchPostsQuery ,
+  useFetchPostsQuery,
   useFetchPostsByUserQuery,
-
+  useAddNewPostMutation,
+  useUpdatePostMutation,
+  useDeletePostMutation,
 } = extendedApiSlice;
 
 // returns the query result object
@@ -59,7 +86,9 @@ export const {
   selectById: selectPostById,
   selectIds: selectPostIds,
   // Pass in a selector that returns the posts slice of state
-} = postsAdapter.getSelectors((state) => selectPostsData(state) ?? initialState);
+} = postsAdapter.getSelectors(
+  (state) => selectPostsData(state) ?? initialState
+);
 
 // //creat post
 // export const addPost = createAsyncThunk("posts/add", async (post, thunkAPI) => {

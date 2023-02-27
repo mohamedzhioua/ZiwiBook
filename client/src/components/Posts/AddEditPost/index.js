@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 
 // features
-// import { addPost, updatePost } from "../../../app/features/post/postSlice";
+import { useAddNewPostMutation, useUpdatePostMutation } from "../../../app/features/post/postSlice";
 
 // Components
 import { CustomInput, CustomButton } from "../../index";
@@ -16,7 +15,9 @@ const AddEditPost = ({ post }) => {
   const [error, setError] = useState(null);
 
   const [picture, setPicture] = useState(null);
-  const dispatch = useDispatch();
+  const [addNewPost, { isLoading:addpostLoading, isError:addpostError, isSuccess:addpostSuccess }] = useAddNewPostMutation();
+    const [updatePost, { isLoading, isError, isSuccess}] = useUpdatePostMutation()
+
   // post id
   const id = form._id || null;
 
@@ -67,32 +68,39 @@ const AddEditPost = ({ post }) => {
   };
 
   //onsubmitHandler
-  const onsubmitHandler = (event) => {
+  const onsubmitHandler = async (event) => {
     event.preventDefault();
-    // if (Boolean(post)) {
-    //   dispatch(updatePost({ id, form }))
-    //     .unwrap()
-    //     .then((data) => {
-    //       toast.success("Post updated successfully", {
-    //         position: toast.POSITION.TOP_RIGHT,
-    //       });
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // } else {
-    //   dispatch(addPost(form))
-    //     .unwrap()
-    //     .then((data) => {
-    //       toast.success("Post added successfully", {
-    //         position: toast.POSITION.TOP_RIGHT,
-    //       });
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }
-    // clear();
+   
+    if (Boolean(post)) {
+      let dataForm = new FormData();
+      dataForm.append("text", form.text);
+      dataForm.append("image", form.image);
+      await updatePost({ id , dataForm })
+             .unwrap()
+        .then((data) => {
+          toast.success("Post updated successfully", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      let dataForm = new FormData();
+      dataForm.append("text", form.text);
+      dataForm.append("image", form.image);
+    await addNewPost(dataForm)
+      .unwrap()
+      .then((data) => {
+        toast.success("Post added successfully", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+    clear();
   };
   return (
     <>
