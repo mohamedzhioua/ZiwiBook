@@ -12,21 +12,18 @@
     width: 40px;
     border-radius: 50%;
   }
+
   .header .middle {
     display: flex;
     flex-direction: column;
     width: 100%;
   }
+ 
   @media (max-width: 1175px) {
     .post {
       width: 84%;
     }
-    .profilePhoto_wrap img {
-      width: 280px;
-    }
-    .profilePhoto_wrap {
-      height: 370px;
-    }
+  
   }
   @media (max-width: 1030px) {
     .post {
@@ -55,10 +52,6 @@
       width: 100%;
     }
   
-    .post .body {
-      padding: 5px;
-    }
-
   }
   
   

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import moment from "moment";
 //features
 import {
-  addCommentReply,
-  deleteComment,
-  likeComment,
-  updateComment,
+  selectAllComments,
+  selectCommentById,
+  useAddCommentReplyMutation,
+  useDeleteCommentMutation,
+  useFetchCommentsQuery,
+  useLikeCommentMutation,
+  useUpdateCommentMutation,
 } from "../../../../app/features/comment/commentSlice";
 //components
 import CommentForm from "./CommentForm";
@@ -21,17 +24,22 @@ import { CgDetailsMore } from "react-icons/cg";
 import { Link } from "react-router-dom";
 
 const Comment = ({ comment }) => {
-  const dispatch = useDispatch();
+
   const { user } = useSelector((state) => state.auth);
-  const { comments, status } = useSelector((state) => state.comment);
   const [areRepliesHidden, setAreRepliesHidden] = useState(true);
   const [activeComment, setActiveComment] = useState(null);
   const id = activeComment?.id;
-  const LIKES = comment.likes;
+  const LIKES = comment?.likes;
+  const { isLoading: fetchIsLoading, isFetching: CommentsIsFetching } = useFetchCommentsQuery();
+  const [addCommentReply] = useAddCommentReplyMutation();
+  const [updateComment] = useUpdateCommentMutation();
+  const [likeComment] = useLikeCommentMutation();
+  const [deleteComment] = useDeleteCommentMutation();
+  const fetchLoading = fetchIsLoading || CommentsIsFetching;
   // replies
-  const getReplies = comments
-    .filter((i) => i.parentId === comment._id)
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  const getReplies = useSelector(selectAllComments)?.filter(
+    (i) => i.parentId === comment?._id
+  );
 
   //User Can Edit or Delete his own comment
   const canDeleteEdit = Boolean(
@@ -49,9 +57,7 @@ const Comment = ({ comment }) => {
     activeComment.id === comment._id;
 
   //comment old text field
-  const InitialText = useSelector((state) =>
-    state.comment.comments.find((comment) => comment._id === id)
-  );
+   const InitialText = useSelector((state) => selectCommentById(state, id));
 
   //onsubmitHandler
   const addComment = (text) => {
@@ -61,7 +67,7 @@ const Comment = ({ comment }) => {
       Boolean(activeComment.type === "editing") && Boolean(text);
     if (canAddReply) {
       try {
-        dispatch(addCommentReply({ id, text })).unwrap();
+        addCommentReply({ id, text }).unwrap();
         setActiveComment(null);
       } catch (error) {
         console.error("failed to save the comment", error);
@@ -70,7 +76,7 @@ const Comment = ({ comment }) => {
 
     if (canEditComment) {
       try {
-        dispatch(updateComment({ id, text })).unwrap();
+        updateComment({ id, text }).unwrap();
         setActiveComment(null);
       } catch (error) {
         console.error("failed to save the comment", error);
@@ -91,7 +97,7 @@ const Comment = ({ comment }) => {
           >
             <img
               className="comment-image"
-              src={comment?.owner?.image}
+              src={comment?.owner?.photo}
               alt="."
             />
           </Link>
@@ -99,7 +105,7 @@ const Comment = ({ comment }) => {
             to={`/profile/${comment?.owner?.username}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <span className="author">{comment?.owner?.name}</span>
+            <span className="author">{comment?.owner?.firstName}</span>
           </Link>
         </div>
         <span className="date">{moment(comment?.createdAt).fromNow()}</span>
@@ -109,7 +115,7 @@ const Comment = ({ comment }) => {
           autoFocus
           submitLabel="update"
           onSubmit={addComment}
-          loading={status}
+          loading={fetchLoading}
           hasCancelButton
           EditCancelHandler={EditCancelHandler}
           InitialText={InitialText.text}
@@ -120,8 +126,8 @@ const Comment = ({ comment }) => {
       <div className="comment-actions">
         {!isEditing && (
           <>
-            <div onClick={() => dispatch(likeComment(comment._id))}>
-              <Likes userId={user._id} LIKES={LIKES} />
+            <div onClick={() => likeComment(comment?._id)}>
+              <Likes userId={user?._id} LIKES={LIKES} />
             </div>
 
             <CustomButton
@@ -143,7 +149,7 @@ const Comment = ({ comment }) => {
                   type="submit"
                   Icon={BsTrash}
                   onClick={() =>
-                    dispatch(deleteComment(comment?._id))
+                   deleteComment(comment?._id)
                       .unwrap()
                       .then((data) => {
                         console.log(data);
@@ -164,7 +170,7 @@ const Comment = ({ comment }) => {
             autoFocus
             submitLabel="Reply"
             onSubmit={addComment}
-            loading={status}
+            loading={fetchLoading}
           />
         </div>
       )}

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 //components
@@ -9,6 +9,7 @@ import {
   Friends,
   Photos,
   PostList,
+  PostSkeleton,
   ProfileCover,
   ProfileMenu,
 } from "../../components";
@@ -17,7 +18,10 @@ import {
 import "./index.css";
 import { BsCameraFill } from "react-icons/bs";
 import { MdVerified } from "react-icons/md";
-import { selectPostIds ,useFetchPostsByUserQuery} from "../../app/features/post/postSlice";
+import {
+  selectPostIds,
+  useFetchPostsByUserQuery,
+} from "../../app/features/post/postSlice";
 
 function Profile() {
   const [showProfilePhoto, setShowProfilePhoto] = useState(false);
@@ -26,22 +30,24 @@ function Profile() {
 
   const usernameID = username ? username : user?.username;
   const isVisitor = !(usernameID === user?.username);
-  const sortedPosts = useSelector(selectPostIds)
+  const sortedPosts = useSelector(selectPostIds);
 
-const {
-  data,
-  isLoading,
-  isSuccess,
-  isError,
-  error
-} = useFetchPostsByUserQuery(usernameID);  
-
+  const {
+    data,
+    isLoading: postsLoading,
+    isFetching: postsIsFetching,
+    isSuccess: postsIsSuccess,
+    isError,
+    error,
+  } = useFetchPostsByUserQuery(usernameID);
+  const postsSkelton = postsLoading || postsIsFetching;
+  const postsSkeltonHide = postsIsSuccess && !postsLoading && !error;
   return (
     <div className="profile">
       <div className="top">
         <div className="top-wrapper">
           <div className="header">
-            <ProfileCover isVisitor={isVisitor} user={user}/>
+            <ProfileCover isVisitor={isVisitor} user={user} />
             <div className="COntent">
               <div className="photo_wrap">
                 <div className="photo">
@@ -127,8 +133,9 @@ const {
           </div>
           <div className="posts">
             {!isVisitor && <CreatPost user={user} />}
-                    <PostList posts={sortedPosts} loading={isLoading} user={user}  />
-           </div>
+            {postsSkelton && <PostSkeleton />}
+            {postsSkeltonHide && <PostList posts={sortedPosts} user={user} />}
+          </div>
         </div>
       </div>
     </div>

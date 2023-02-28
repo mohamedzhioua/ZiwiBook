@@ -1,9 +1,12 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // features
 import { openModal } from "../../../app/features/modal/modalSlice";
-import { selectPostById ,useLikePostMutation} from "../../../app/features/post/postSlice";
+import {
+  selectPostById,
+  useLikePostMutation,
+} from "../../../app/features/post/postSlice";
 
 // Components
 import { Comments, CustomButton, Likes, PostHead, Card } from "../../index";
@@ -13,39 +16,45 @@ import CommentForm from "./Comments/CommentForm";
 import { GoComment } from "react-icons/go";
 import { BsTrash } from "react-icons/bs";
 import "./index.css";
-import { AddComment } from "../../../app/features/comment/commentSlice";
+import {
+  selectAllComments,
+  useAddNewCommentMutation,
+} from "../../../app/features/comment/commentSlice";
 
-const Post = ({ postId , user }) => {
-  const [likePost]=useLikePostMutation()
+const Post = ({ postId, user }) => {
+  const [likePost] = useLikePostMutation();
+  const [addNewComment] =useAddNewCommentMutation();
+
   const [commentOpen, setCommentOpen] = useState(false);
   const dispatch = useDispatch();
-  const post = useSelector(state => selectPostById(state, postId))
+  const post = useSelector((state) => selectPostById(state, postId));
   const LIKES = post?.likes;
-  const canDelete = Boolean((user?._id === post?.owner?._id) || (user?._id === post?.owner ))
+  const canDelete = Boolean(
+    user?._id === post?.owner?._id || user?._id === post?.owner
+  );
 
   //filetring comments by post and sorting them
-  const comments = useSelector((state) => state.comment.comments)
-    .filter((comment) => comment.post === post?._id)
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  const comments = useSelector(selectAllComments)?.filter(
+    (comment) => comment.post === post?._id
+  );
 
   //rootcomments that have no parent
   const rootComments = comments.filter((comment) => comment.parentId === null);
 
   // onsubmitHandler
-  function addComment(text) {
+  async function addComment(text) {
     if (Boolean(text)) {
-      try {
-        dispatch(AddComment({ id: post?._id, text })).unwrap();
-      } catch (error) {
-        console.error("failed to save the comment", error);
-      }
+      let id = post?._id;
+      await addNewComment({ id , text }).unwrap();
     }
   }
-return (
+  return (
     <Card>
       <PostHead post={post} userId={user?._id} />
       <p className="post-text">{post?.text.substring(0, 20)}</p>
-      {post?.image && <img src={post?.image} className="post-image" alt="..." />}
+      {post?.image && (
+        <img src={post?.image} className="post-image" alt="..." />
+      )}
       <hr />
       <div className="post_footer-row" style={{ padding: "10px" }}>
         <div onClick={() => likePost(post?._id)}>
@@ -64,10 +73,10 @@ return (
                 }`}
           </CustomButton>
         </div>
-       
-          <div>
-          {canDelete && ( 
-          <CustomButton
+
+        <div>
+          {canDelete && (
+            <CustomButton
               Icon={BsTrash}
               onClick={() => {
                 dispatch(
@@ -80,9 +89,8 @@ return (
             >
               &nbsp;Delete
             </CustomButton>
-            )}
-          </div>
-        
+          )}
+        </div>
       </div>
       {commentOpen && (
         <section>

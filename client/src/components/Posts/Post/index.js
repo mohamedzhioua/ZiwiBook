@@ -1,17 +1,13 @@
 import React from "react";
 import Post from "./Post";
 import "./index.css";
-import FormLoader from "../../FormLoader";
 
-const PostList = ({ posts,loading , wordEntered = "", user }) => {
-  if (posts?.length === 0) {
+const PostList = ({ posts, wordEntered = "", user }) => {
+
     return (
-      <h1 className="text-center">No Memories Found!....You can Share One</h1>
-    );
-  } else {
-    return (
-      <FormLoader loading={loading}>
-        {posts
+      <>
+           
+        { posts
           // ?.filter((post) =>
           //   post?.text?.toLowerCase().includes(wordEntered?.toLowerCase())
           // )
@@ -20,9 +16,9 @@ const PostList = ({ posts,loading , wordEntered = "", user }) => {
               <Post  postId={postId} user={user} />
             </React.Fragment>
           ))}
-      </FormLoader>
+      </>
     );
   }
-};
+
 
 export default PostList;

@@ -5,14 +5,15 @@ import styles from"./skeleton.module.css"
 
 function PostSkeleton() {
   return (
-    <Card className={styles.post}>
+    <Card>
+      <div className={styles.post}>
       <div className={styles.header}>
         <div className={styles.left}>
           <Skeleton
             circle
             height={40}
             width={40}
-            containerClassName="avatar-skeleton"
+           containerClassName="avatar-skeleton"           
           />
         </div>
         <div className={styles.middle}>
@@ -22,13 +23,15 @@ function PostSkeleton() {
             style={{
               transform: "translateY(4px)",
             }}
+            
           />
-          <Skeleton width={80} height={8} />
+          <Skeleton width={80} height={8}  />
         </div>
       </div>
       <div className={styles.body} style={{ padding: "10px" }}>
-        <Skeleton count={3} height={18} width="100%" />
-        <Skeleton count={2} height={10} width="100%" />
+        <Skeleton count={3} height={18} width="100%"  />
+        <Skeleton count={2} height={10} width="100%"  />
+      </div>
       </div>
     </Card>
   );

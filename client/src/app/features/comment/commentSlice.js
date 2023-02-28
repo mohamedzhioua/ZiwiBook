@@ -1,198 +1,106 @@
-import {
-  createSlice,
-  createAsyncThunk,
-    // createEntityAdapter,
-} from "@reduxjs/toolkit";
-import commentService from "./commentService";
+import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
+import { apiSlice } from "../../api/apiSlice";
 
-
-
-const initialState = {
-  comments: [], 
-  error: null,
-  status: "idle", //'idle' | 'loading' | 'fulfilled' | 'failed'
-};
-
-//creat a Comment
-export const AddComment = createAsyncThunk(
-  "comment/AddComment",
-  async ({ id, text }, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      return await commentService.AddComment(id, text);
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
-//Add Reply to a Comment
-export const addCommentReply = createAsyncThunk(
-  "comment/addCommentReply",
-  async ({ id, text }, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      return await commentService.addCommentReply(id, text);
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
-// fetch all Comments
-export const fetchComments = createAsyncThunk(
-  "comment/fetchComments",
-  async (_, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      return await commentService.fetchComments();
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
-// delete a comment
-export const deleteComment = createAsyncThunk(
-  "comment/deleteComment",
-  async (id, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      return await commentService.deleteComment(id);
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
-// update a comment
-export const updateComment = createAsyncThunk(
-  "comment/updateComment",
-  async ({ id, text }, thunkAPI) => {
-    const { rejectWithValue } = thunkAPI;
-    try {
-      return await commentService.updateComment(id, text);
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
-//like  comment
-export const likeComment = createAsyncThunk(
-  "comment/likeComment",
-  async (id, thunkAPI) => {
-    console.log("🚀 ~ file: commentSlice.js:85 ~ id", id)
-    const { rejectWithValue } = thunkAPI;
-    try {
-      return await commentService.likeComment(id);
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-
-export const commentSlice = createSlice({
-  name: "comment",
-  initialState,
-  reducers: {
-    reset: (state) => {
-      state.error = null;
-      state.status = "idle";
-    },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(AddComment.pending, (state, action) => {
-        state.status = "Loading";
-        state.error = null;
-      })
-      .addCase(AddComment.fulfilled, (state, action) => {
-        state.status = "fulfilled";
-        state.comments = [action.payload, ...state.comments];
-      })
-      .addCase(AddComment.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      })
-      .addCase(fetchComments.pending, (state, action) => {
-        state.status = "Loading";
-        state.error = null;
-      })
-      .addCase(fetchComments.fulfilled, (state, action) => {
-        state.status = "fulfilled";
-        state.comments = action.payload;
-      })
-      .addCase(fetchComments.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      })
-
-      .addCase(addCommentReply.pending, (state, action) => {
-        state.status = "Loading";
-        state.error = null;
-      })
-      .addCase(addCommentReply.fulfilled, (state, action) => {
-        state.status = "fulfilled";
-        state.comments = [action.payload, ...state.comments];
-      })
-      .addCase(addCommentReply.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      })
-      .addCase(deleteComment.pending, (state, action) => {
-        state.status = "Loading";
-        state.error = null;
-      })
-      .addCase(deleteComment.fulfilled, (state, action) => {
-        state.status = "fulfilled";
-        const { arg } = action.meta;
-        if (arg) {
-          state.comments = state.comments.filter((item) => item._id !== arg);
-        }
-      })
-
-      .addCase(deleteComment.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      })
-      .addCase(updateComment.pending, (state, action) => {
-        state.status = "Loading";
-        state.error = null;
-      })
-      .addCase(updateComment.fulfilled, (state, action) => {
-        state.status = "fulfilled";
-        const {
-          arg: { id },
-        } = action.meta;
-        if (id) {
-          state.comments = state.comments.map((item) =>
-            item._id === id ? action.payload.updatedComment : item
-          );
-        }
-      })
-      .addCase(updateComment.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      })
-      .addCase(likeComment.pending, (state, action) => {
-        state.status = "Loading";
-        state.error = null;
-      })
-      .addCase(likeComment.fulfilled, (state, action) => {
-        state.status = "fulfilled";
-        const { arg } = action.meta;
-        if (arg) {
-          const comments = state.comments.filter((item) => item._id !== arg);
-          state.comments = [...comments, action.payload];
-        }
-      })
-      .addCase(likeComment.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      });
-  },
+const commentsAdapter = createEntityAdapter({
+  selectId: (comment) => comment._id,
+  sortComparer: (a, b) => b.createdAt.localeCompare(a.createdAt),
 });
 
-export const { reset } = commentSlice.actions;
-export default commentSlice.reducer;
+const initialState = commentsAdapter.getInitialState();
+
+export const CommentApiSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    fetchComments: builder.query({
+      query: () => "/post/getComments",
+      transformResponse: (responseData) => {
+        return commentsAdapter.setAll(initialState, responseData);
+      },
+      providesTags: (result, error, arg) => [
+        { type: "Comment", id: "LIST" },
+        ...result.ids.map((id) => ({ type: "Comment", id })),
+      ],
+    }),
+
+    addNewComment: builder.mutation({
+      query: ({ id, text }) => {
+        console.log("🚀 ~ file: commentSlice.js:36 ~ text:", text);
+
+        return {
+          url: `/post/addComment/${id}`,
+          method: "POST",
+          body: {text},
+        };
+      },
+      invalidatesTags: [{ type: "Comment", id: "LIST" }],
+    }),
+
+    addCommentReply: builder.mutation({
+      query: ({ id, text }) => ({
+        url: `/post/addCommentReply/${id}`,
+        method: "POST",
+        body: {text},
+      }),
+      invalidatesTags: [{ type: "Comment", id: "LIST" }],
+    }),
+
+    updateComment: builder.mutation({
+      query: ({ id, text }) => ({
+        url: `/post/updateComment/${id}`,
+        method: "PUT",
+        body: {text},
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Comment", id: arg.id },
+      ],
+    }),
+
+    deleteComment: builder.mutation({
+      query: (id) => ({
+        url: `/post/deleteComment/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Comment", id: arg.id },
+      ],
+    }),
+
+    likeComment: builder.mutation({
+      query: (id) => ({
+        url: `/post/Commentlike/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Comment", id: arg.id },
+      ],
+    }),
+  }),
+});
+
+export const {
+  useFetchCommentsQuery,
+  useAddNewCommentMutation,
+  useAddCommentReplyMutation,
+  useUpdateCommentMutation,
+  useDeleteCommentMutation,
+  useLikeCommentMutation,
+} = CommentApiSlice;
+
+// returns the query result object
+export const selectCommentsResult =
+  CommentApiSlice.endpoints.fetchComments.select();
+
+// Creates memoized selector
+const selectCommentsData = createSelector(
+  selectCommentsResult,
+  (commentResult) => commentResult.data // normalized state object with ids & entities
+);
+
+//getSelectors creates these selectors and we rename them with aliases using destructuring
+export const {
+  selectAll: selectAllComments,
+  selectById: selectCommentById,
+  selectIds: selectCommentIds,
+  // Pass in a selector that returns the posts slice of state
+} = commentsAdapter.getSelectors(
+  (state) => selectCommentsData(state) ?? initialState
+);
