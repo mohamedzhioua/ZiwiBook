@@ -14,10 +14,10 @@ router.get("/getOnePost/:id",checkAuth, PostController.getOnePost);
 router.get("/getAllPost",PostController.getAllPost);
 
 // GET request
-router.get("/getAllPostbyUser",checkAuth, PostController.getAllPostbyUser);
+router.get("/:username/posts",checkAuth, PostController.getAllPostbyUser);
 
 // PUT request
-router.put("/updatePost/:id",checkAuth,multerUploads, PostController.updatePost);
+router.patch("/updatePost/:id",checkAuth,multerUploads, PostController.updatePost);
 
 // DELETE request
 router.delete("/deletePost/:id",checkAuth, PostController.deletePost);

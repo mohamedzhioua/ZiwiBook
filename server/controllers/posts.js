@@ -1,8 +1,9 @@
 const Post = require("../models/post");
+const User = require("../models/user");
 const Comment = require("../models/comment");
 const PostValidation = require("../validator/PostValidation");
 const cloudinary = require("../utils/cloudinary");
-const sharp = require('sharp');
+const sharp = require("sharp");
 
 module.exports = {
   //  ----------------------//addPost method //--------------------------- //
@@ -10,22 +11,19 @@ module.exports = {
   addPost: async (req, res) => {
     const { errors, isValid } = PostValidation(req.body);
     const { file } = req;
-    const id = req.user.id
+    const id = req.user.id;
     try {
       if (!isValid) {
         return res.status(404).json(errors);
       }
       if (file) {
         const path = `${process.env.APP_NAME}/users/${id}/posts_photos/`;
-        const data  = await sharp(req.file.buffer)
-        .toFormat('webp')
+        const data = await sharp(req.file.buffer)
+        .toFormat("webp")
         .webp({ quality: 90 })
         .toBuffer();
 
-        const imageDetails = await cloudinary.uploadToCloudinary(
-          data ,
-          path
-        );
+        const imageDetails = await cloudinary.uploadToCloudinary(data, path);
         req.body.owner = id;
         req.body.image = imageDetails.url;
         req.body.cloudinary_id = imageDetails.public_id;
@@ -46,28 +44,25 @@ module.exports = {
     const { errors, isValid } = PostValidation(req.body);
     const { file } = req;
     try {
-      const data = await Post.findById({ _id: req.params.id });
-      if (data.cloudinary_id) {
-        await cloudinary.removeFromCloudinary(data.cloudinary_id);
-      }
       if (!isValid) {
         return res.status(404).json(errors);
-      }
+      }      
+      const data = await Post.findById({ _id: req.params.id });
+      if (file && data.cloudinary_id) {
+        await cloudinary.removeFromCloudinary(data.cloudinary_id);
+      }   
       if (file) {
         const path = `${process.env.APP_NAME}/users/${req.user.id}/posts_photos/`;
-        const data  = await sharp(req.file.buffer)
-        .toFormat('webp')
-        .webp({ quality: 90 })
-        .toBuffer();
+        const data = await sharp(req.file.buffer)
+          .toFormat("webp")
+          .webp({ quality: 90 })
+          .toBuffer();
 
-        const imageDetails = await cloudinary.uploadToCloudinary(
-          data ,
-          path
-        );
+        const imageDetails = await cloudinary.uploadToCloudinary(data, path);
         const post = {
           text: req.body.text || data.text,
-          image: imageDetails.url || data.image,
-          cloudinary_id: imageDetails.public_id || data.cloudinary_id,
+          image: imageDetails.url ,
+          cloudinary_id: imageDetails.public_id ,
         };
         const memo = await Post.findByIdAndUpdate(
           { _id: req.params.id },
@@ -123,6 +118,7 @@ module.exports = {
         "firstName",
         "lastName",
         "photo",
+        "username",
       ]);
       res.status(200).json(memo);
     } catch (error) {
@@ -131,9 +127,16 @@ module.exports = {
   },
   //  -----------------------//getAllPost by userID method //--------------------------- //
   getAllPostbyUser: async (req, res) => {
+    const { username } = req.params;
     try {
-      const memo = await Post.find({ owner: req.user.id });
-      res.status(200).json(memo);
+      const user = await User.findOne({ username });
+      if (!user) {
+        return res
+          .status(404)
+          .json({ message: "No user found with that username" });
+      }
+      const posts = await Post.find({ owner: user._id });
+      res.status(200).json(posts);
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
@@ -211,6 +214,7 @@ module.exports = {
         "firstName",
         "lastName",
         "photo",
+        "username",
       ]);
       res.status(200).json(comments);
     } catch (error) {

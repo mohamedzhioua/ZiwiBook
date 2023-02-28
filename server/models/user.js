@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 // Load Comment model
 const Post = require("./post");
 // Load username generator method
-const { generateFromEmail } = require('unique-username-generator');
+const { generateFromEmail } = require("unique-username-generator");
 
 const UserSchema = new Schema(
   {
@@ -97,11 +97,12 @@ UserSchema.pre("remove", async function (next) {
   await Post.deleteMany({ owner: user._id });
   next();
 });
-// generate a username from the user email 
-UserSchema.pre('save',  function (next) {
+
+// generate a username from the user email
+UserSchema.pre("save", function (next) {
   if (this.isNew) {
     const user = this;
-    user.username =  generateFromEmail(user.email, 4);
+    user.username = generateFromEmail(user.email, 4);
   }
   next();
 });

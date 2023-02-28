@@ -21,6 +21,6 @@ router.get("/logout", UserController.logout);
 router.post("/update/profile/cover",checkAuth, multerUploads,sharpMiddleware.resizeProfileCover, UserProfileController.updateProfileCover);
 
 // Post request to update the User profile image.
-router.post("/update/profile/cover",checkAuth, multerUploads,sharpMiddleware.resizeProfilePhoto, UserProfileController.updateProfilePhoto);
+router.post("/update/profile/Photo",checkAuth, multerUploads,sharpMiddleware.resizeProfilePhoto, UserProfileController.updateProfilePhoto);
 
 module.exports = router;
