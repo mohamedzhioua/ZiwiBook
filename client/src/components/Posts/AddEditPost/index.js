@@ -1,25 +1,43 @@
 import React, { useEffect, useState } from "react";
 
 // features
-import { useAddNewPostMutation, useUpdatePostMutation } from "../../../app/features/post/postSlice";
+import {
+  useAddNewPostMutation,
+  useUpdatePostMutation,
+} from "../../../app/features/post/postSlice";
 
 // Components
-import { CustomInput, CustomButton } from "../../index";
+import { CustomInput, CustomButton, FormLoader } from "../../index";
 
 // Styles
 import "./index.css";
 import { toast } from "react-toastify";
+import { closeModal } from "../../../app/features/modal/modalSlice";
+import { useDispatch } from "react-redux";
 
 const AddEditPost = ({ post }) => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({ text: "", image: "" });
   const [error, setError] = useState(null);
-
   const [picture, setPicture] = useState(null);
-  const [addNewPost, { isLoading:addpostLoading, isError:addpostError, isSuccess:addpostSuccess }] = useAddNewPostMutation();
-    const [updatePost, { isLoading, isError, isSuccess}] = useUpdatePostMutation()
-
   // post id
   const id = form._id || null;
+  const [addNewPost, { isLoading, isError, isSuccess }] =useAddNewPostMutation();
+  const [ updatePost, { isLoading: updateIsLoading, isError:updateError, isSuccess: updateIsSuccess }] = useUpdatePostMutation();
+
+  useEffect(() => {
+    if(isError ||updateError ){
+      setError("something went wrong")
+    }
+
+    if (isSuccess || updateIsSuccess) {
+      clear();
+      dispatch(closeModal());
+    }
+    toast.error(error, {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  }, [isSuccess, updateIsSuccess,isError,updateError,error,dispatch]);
 
   //displaying picture after upload handler
   const onChangePicture = (e) => {
@@ -55,9 +73,6 @@ const AddEditPost = ({ post }) => {
       file.type !== "image/jpg"
     ) {
       setError(`${file.name} format is not supported.`);
-      toast.error(`${file.name} format is not supported.`, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
       return;
     }
     setForm({
@@ -70,40 +85,17 @@ const AddEditPost = ({ post }) => {
   //onsubmitHandler
   const onsubmitHandler = async (event) => {
     event.preventDefault();
-   
+    let dataForm = new FormData();
+    dataForm.append("text", form.text);
+    dataForm.append("image", form.image);
     if (Boolean(post)) {
-      let dataForm = new FormData();
-      dataForm.append("text", form.text);
-      dataForm.append("image", form.image);
-      await updatePost({ id , dataForm })
-             .unwrap()
-        .then((data) => {
-          toast.success("Post updated successfully", {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      await updatePost({ id, dataForm });
     } else {
-      let dataForm = new FormData();
-      dataForm.append("text", form.text);
-      dataForm.append("image", form.image);
-    await addNewPost(dataForm)
-      .unwrap()
-      .then((data) => {
-        toast.success("Post added successfully", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      await addNewPost(dataForm);
     }
-    clear();
   };
   return (
-    <>
+    <FormLoader loading={updateIsLoading || isLoading}>
       <div className="Post-list-item">
         <h1 className="New-Post-Title">
           {post ? "Update your " : "Share a "}Memorie
@@ -144,7 +136,7 @@ const AddEditPost = ({ post }) => {
           />
         </form>
       </div>
-    </>
+    </FormLoader>
   );
 };
 

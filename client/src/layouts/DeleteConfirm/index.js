@@ -14,19 +14,18 @@ import { toast } from "react-toastify";
 
 const DeleteConfirm = ({ id }) => {
   const dispatch = useDispatch();
-  const [deletePost] = useDeletePostMutation();
-  const onDeletePostClicked = async () => {
-    await deletePost(id)
-      .unwrap()
-      .then((data) => {
-        toast.success("Post deleted successfully", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      })
-      .catch((error) => {
-        console.error("Failed to delete the post", error);
-      });
-  };
+  const [deletePost, {isLoading, isSuccess, isError, error }] = useDeletePostMutation();
+  if(isSuccess){
+    toast.success("Post deleted successfully", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  }
+  if(isError){
+    toast.error(error, {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  }
+ 
   return (
     <>
       <h4 class="title">Are you sure?</h4>
@@ -46,7 +45,7 @@ const DeleteConfirm = ({ id }) => {
         <CustomButton
           className="deletebtn"
           value="delete"
-          onClick={onDeletePostClicked}
+          onClick={()=>{deletePost(id) ;dispatch(closeModal())}}
         />
       </div>
     </>

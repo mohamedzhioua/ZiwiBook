@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // features
 import { openModal } from "../../../app/features/modal/modalSlice";
-import { selectPostById } from "../../../app/features/post/postSlice";
+import { selectPostById ,useLikePostMutation} from "../../../app/features/post/postSlice";
 
 // Components
 import { Comments, CustomButton, Likes, PostHead, Card } from "../../index";
@@ -16,6 +16,7 @@ import "./index.css";
 import { AddComment } from "../../../app/features/comment/commentSlice";
 
 const Post = ({ postId , user }) => {
+  const [likePost]=useLikePostMutation()
   const [commentOpen, setCommentOpen] = useState(false);
   const dispatch = useDispatch();
   const post = useSelector(state => selectPostById(state, postId))
@@ -47,8 +48,7 @@ return (
       {post?.image && <img src={post?.image} className="post-image" alt="..." />}
       <hr />
       <div className="post_footer-row" style={{ padding: "10px" }}>
-        {/* <div onClick={() => dispatch(likePost(post?._id))}> */}
-        <div>
+        <div onClick={() => likePost(post?._id)}>
           <Likes userId={user?._id} LIKES={LIKES} />
         </div>
         <div>

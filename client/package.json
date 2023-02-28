@@ -20,6 +20,7 @@
     "react-dom": "^18.2.0",
     "react-easy-crop": "^4.6.3",
     "react-icons": "^4.7.1",
+    "react-loading-skeleton": "^3.1.1",
     "react-popper": "^2.3.0",
     "react-redux": "^8.0.5",
     "react-responsive": "^9.0.2",

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { boolean } from "yup";
 import { selectPostIds , useFetchPostsQuery } from "../../app/features/post/postSlice";
 
 // Components
-import { CreatPost, PostList, SearchBar } from "../../components";
+import { CreatPost, PostList, PostSkeleton, SearchBar } from "../../components";
 
 // Styles
 import "./index.css";
@@ -13,6 +14,7 @@ function Home() {
   const { user } = useSelector((state) => state.auth);
   const {
     isLoading,
+    isFetching,
     isSuccess,
     isError,
     error
@@ -31,6 +33,12 @@ function Home() {
         <div className="home-posts">
          <SearchBar onChange={FilterQuery} />
          <CreatPost user={user} />
+         {boolean(isLoading || isFetching) && (
+            <>
+              <PostSkeleton />
+              <PostSkeleton />
+            </>
+          )}
           <PostList posts={sortedPosts}  user={user} wordEntered={wordEntered} />
         </div>
       </div>

@@ -7,7 +7,6 @@ const FormLoader = ({ loading, children, type }) => {
   return (
     <div className={Boolean(loading === "Loading" || loading) ? "Loader-wrap" : ""}>
       {loading ? <div className="loaderback" /> : ""}
-
       {loading ? (
         <div className="loader">
           {type === 2 ? (

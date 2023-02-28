@@ -36,9 +36,6 @@ const {
   error
 } = useFetchPostsByUserQuery(usernameID);  
 
-
-    
-
   return (
     <div className="profile">
       <div className="top">
