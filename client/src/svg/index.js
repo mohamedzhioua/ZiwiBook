@@ -6,4 +6,5 @@ import Watch from "./watch";
 import Friends from "./friends";
 import FriendsActive from "./friendsActive";
 import SearchIcon from "./search"
-export { HomeActive, Market, Notifications, Home , Watch,FriendsActive,Friends,SearchIcon};
+import Dots from "./dots"
+export { HomeActive, Market, Notifications, Home , Watch,FriendsActive,Friends,SearchIcon ,Dots};

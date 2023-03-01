@@ -1,0 +1,15 @@
+.reaction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    width: 35%;
+    height: 100%;
+    border-radius: 10px;
+  }
+  .react_span {
+    font-size: 14px;
+    font-weight: 600;
+    color:  #65676b;
+  }

@@ -8,6 +8,7 @@
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
+  color:  #050505;
 }
 body {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;

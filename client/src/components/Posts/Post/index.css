@@ -1,8 +1,16 @@
 /* Post */
-.post_footer-row {
+.POST{
+  padding: 0;
+}
+.post_footer {
   display: flex;
-  align-items: center;
   justify-content: space-around;
+  height: 40px;
+  margin: 0 16px 10px;
+  padding: 3px 0;
+  position: relative;
+  border-top: 1px solid  #d6d7d9;
+  border-bottom: 1px solid  #d6d7d9;
   }
 .post-image {
   width: 100%;
@@ -31,4 +39,36 @@
 /* PostList */
 .text-center {
   margin-top: 150px;
+}
+@media (max-width: 1175px) {
+  .POST {
+    width: 84%;
+  }
+}
+@media (max-width: 1030px) {
+  .POST {
+    width: 100%;
+  }
+}
+@media (max-width: 960px) {
+  .POST {
+    width: 93%;
+  }
+}
+
+@media (max-width: 885px) {
+  .POST {
+    width: 100%;
+  }
+}
+
+@media (max-width: 620px) {
+  .POST {
+    width: 100%;
+  }
+}
+@media (max-width: 400px) {
+  .POST {
+    width: 100%;
+  }
 }

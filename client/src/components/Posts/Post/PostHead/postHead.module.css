@@ -1,16 +1,15 @@
-.post-row {
+.post_row {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.user-profile {
+.user_profile {
   display: flex;
   align-items: center;
 }
-.profile-image {
-  width: 55px;
+.user_profile .left img {
+  width: 40px;
   border-radius: 50%;
-  object-fit: cover;
 }
 .username {
   display: flex;
@@ -31,4 +30,13 @@
 }
 .date:hover {
   text-decoration: underline;
+}
+.dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }

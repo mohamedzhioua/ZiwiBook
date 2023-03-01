@@ -16,3 +16,23 @@
   background-repeat: no-repeat;
   display: inline-block;
 }
+.like_icon {
+  background-image: url("../icons/icons5.png");
+  background-position: 0 -243px;
+  background-size: auto;
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  filter: invert(40%);
+}
+.comment_icon {
+  background-image: url("../icons/icons5.png");
+  background-position: 0 -205px;
+  background-size: auto;
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  filter: invert(40%);
+}

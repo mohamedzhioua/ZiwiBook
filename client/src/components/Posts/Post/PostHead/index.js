@@ -2,15 +2,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import { Link } from "react-router-dom";
-// features
 import { openModal } from "../../../../app/features/modal/modalSlice";
-
-//components
-import { CustomButton } from "../../../index";
-
-// Styles
-import { BsThreeDots } from "react-icons/bs";
-import "./index.css";
+import style from  "./postHead.module.css";
+import { Dots } from "../../../../svg";
 
 const PostHead = ({ post, userId }) => {
   const dispatch = useDispatch();
@@ -18,27 +12,28 @@ const PostHead = ({ post, userId }) => {
     userId === post?.owner?._id || userId === post?.owner
   );
   return (
-    <div className="post-row">
-      <div className="user-profile">
+    <div className={style.post_row}>
+      <div className={style.user_profile}>
+        <div className={style.left}>
         <Link
           to={`/profile/${post?.owner?.username}`}
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <img src={post?.owner?.image} className="profile-image" alt="..." />
+          <img src={post?.owner?.photo} alt="..." />
         </Link>
+        </div>
         <div>
           <Link
             to={`/profile/${post?.owner?.username}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <span className="username">{post?.owner?.firstName}</span>
+            <span className={style.username}>{post?.owner?.firstName}</span>
           </Link>
-          <span className="date">{moment(post?.createdAt).fromNow()}</span>
+          <span className={style.date}>{moment(post?.createdAt).fromNow()}</span>
         </div>
       </div>
       {canEdit && (
-        <CustomButton
-          Icon={BsThreeDots}
+        <div className={`${style.dots} hover1`}
           onClick={() =>
             dispatch(
               openModal({
@@ -47,7 +42,9 @@ const PostHead = ({ post, userId }) => {
               })
             )
           }
-        />
+        >
+          <Dots color="#828387" />
+        </div>
       )}
     </div>
   );

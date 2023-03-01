@@ -1,28 +1,34 @@
 import React from "react";
-// Styles
-import { AiFillLike, AiOutlineLike } from "react-icons/ai";
-import { CustomButton } from "../../../index";
-
+import IconStyle from "../../../../styles/icons.module.css";
+import style from "./react.module.css";
 const Likes = ({ LIKES, userId }) => {
   if (LIKES?.length > 0) {
     return LIKES?.find((like) => like === userId) ? (
-      
-      <CustomButton Icon={AiFillLike}>
-       &nbsp;{LIKES.length > 2
-          ? `You and ${LIKES?.length - 1} others`
-          : `${LIKES?.length} like${LIKES?.length > 1 ? "s" : ""}`}
-      </CustomButton>
-
+      <>
+        <i className={IconStyle.like_icon} />
+        {/* &nbsp; */}
+        <span className={style.react_span}>
+          {LIKES.length > 2
+            ? `You and ${LIKES?.length - 1} others`
+            : `${LIKES?.length} like${LIKES?.length > 1 ? "s" : ""}`}
+        </span>
+      </>
     ) : (
-
-      <CustomButton Icon={AiOutlineLike}>
-        &nbsp;{LIKES?.length} {LIKES?.length === 1 ? "Like" : "Likes"}
-      </CustomButton>
-      
+      <>
+        <i className={IconStyle.like_icon} /> 
+        <span className={style.react_span}>
+          {LIKES?.length} {LIKES?.length === 1 ? "Like" : "Likes"}
+        </span>
+      </>
     );
   }
 
-  return <CustomButton Icon={AiOutlineLike}>&nbsp;Like</CustomButton>;
+  return (
+    <>
+      <i className={IconStyle.like_icon}/> 
+      <span className={style.react_span}>Like</span>
+    </>
+  );
 };
 
 export default Likes;

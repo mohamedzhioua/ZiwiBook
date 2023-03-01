@@ -4,21 +4,22 @@ import BeatLoader from "react-spinners/BeatLoader";
 import "./index.css";
 
 const FormLoader = ({ loading, children, type }) => {
+  console.log("🚀 ~ file: index.js:7 ~ FormLoader ~ loading:", loading)
   return (
-    <div className={Boolean(loading === "Loading" || loading) ? "Loader-wrap" : ""}>
+    <div className={Boolean(loading === "Loading" ) ? "Loader-wrap" : ""}>
       {loading ? <div className="loaderback" /> : ""}
       {loading ? (
         <div className="loader">
           {type === 2 ? (
             <PulseLoader
               color="#878787"
-              loading={Boolean(loading === "Loading" || loading)}
+              loading={Boolean(loading === "Loading")}
               size={10}
             />
           ) : (
             <BeatLoader
               color=" #5c6e58"
-              loading={Boolean(loading === "Loading" || loading)}
+              loading={Boolean(loading === "Loading")}
               size={20}
             />
           )}
@@ -26,7 +27,7 @@ const FormLoader = ({ loading, children, type }) => {
       ) : (
         ""
       )}
-      <div className={Boolean(loading === "Loading" || loading) ? "loader-content" : ""}>
+      <div className={Boolean(loading === "Loading") ? "loader-content" : ""}>
         {children}
       </div>
     </div>
