@@ -1,7 +1,14 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Edu+SA+Beginner&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Mochiy+Pop+One&family=Pacifico&family=Roboto:ital,wght@0,400;1,300;1,400&family=Rubik+Gemstones&family=Rubik+Moonrocks&display=swap");
-body {
-  background-color: #f7f7f7 !important;
-} */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
 body {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   background: #f0f2f5 !important ;

@@ -5,5 +5,5 @@ import Home from "./home";
 import Watch from "./watch";
 import Friends from "./friends";
 import FriendsActive from "./friendsActive";
-
-export { HomeActive, Market, Notifications, Home , Watch,FriendsActive,Friends};
+import SearchIcon from "./search"
+export { HomeActive, Market, Notifications, Home , Watch,FriendsActive,Friends,SearchIcon};

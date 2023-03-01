@@ -19,6 +19,7 @@ header {
 .navbar_search {
   margin-left: -10px;
 }
+
 .navbar_left {
   display: flex;
   align-items: center;

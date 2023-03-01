@@ -10,24 +10,7 @@ label {
   font-size: 17px;
   cursor: "pointer";
 }
-.search-input {
-  background: #f0f2f5;
-  outline: none;
-  border: none;
-  border-radius: 15px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  font-size: 16px;
-  font-family: "Roboto";
-  padding: 10px ;
-  height: 40px;
-  min-width: 200px;
-  cursor: text;
-}
 
-.search-input:focus {
-  outline: none;
-}
 .commentInput {
   height: 50px;
   width: 100%;

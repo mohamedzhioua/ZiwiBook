@@ -2,7 +2,6 @@ import {useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-//components
 import {
   CreatPost,
   CustomButton,
@@ -14,9 +13,8 @@ import {
   ProfileMenu,
 } from "../../components";
 
-// Styles
 import "./index.css";
-import { BsCameraFill } from "react-icons/bs";
+import IconStyle from "../../styles/icons.module.css"
 import { MdVerified } from "react-icons/md";
 import {
   selectPostIds,
@@ -43,10 +41,10 @@ function Profile() {
   const postsSkelton = postsLoading || postsIsFetching;
   const postsSkeltonHide = postsIsSuccess && !postsLoading && !error;
   return (
-    <div className="profile">
-      <div className="top">
-        <div className="top-wrapper">
-          <div className="header">
+    <div className="profilee">
+      <div className="topp">
+        <div className="top-wrapperr">
+          <div className="headerr">
             <ProfileCover isVisitor={isVisitor} user={user} />
             <div className="COntent">
               <div className="photo_wrap">
@@ -62,7 +60,7 @@ function Profile() {
                         className="add_photo small_circle hover1"
                         onClick={() => setShowProfilePhoto((perv) => !perv)}
                       >
-                        <BsCameraFill />
+                         <i className={IconStyle.camera_filled_icon}></i>
                       </div>
                       {/* {showProfilePhoto && (
                         <ProfilePhoto

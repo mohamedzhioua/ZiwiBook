@@ -28,7 +28,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         return postsAdapter.setAll(initialState, responseData);
       },
       providesTags: (result, error, arg) => {
-        console.log("🚀 ~ file: postSlice.js:35 ~ result:", result);
         return [...result.ids.map((id) => ({ type: "Post", id }))];
       },
     }),

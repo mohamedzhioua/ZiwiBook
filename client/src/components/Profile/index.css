@@ -58,8 +58,8 @@
 .save-cover {
   position: fixed;
   left: 0;
-  top: 70px;
-  height: 60px;
+  top: 56px;
+  height: 56px;
   width: 100%;
   background: rgb(0 0 0 / 70%);
   z-index: 1;

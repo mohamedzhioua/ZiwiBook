@@ -5,8 +5,7 @@ import { CustomButton, CustomInput, Card, FormLoader } from "../index";
 import { updateCoverPhoto } from "../../app/features/auth/authSlice";
 import getCroppedImg from "../../utils/getCroppedImg";
 import "./index.css";
-import { MdPublic } from "react-icons/md";
-import { BsCameraFill } from "react-icons/bs";
+import IconStyle from "../../styles/icons.module.css"
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
@@ -130,12 +129,7 @@ function ProfileCover({ isVisitor, user }) {
         <>
           <div className="save-cover">
             <div className="left">
-              <MdPublic
-                style={{
-                  width: "16px",
-                  height: "16px",
-                }}
-              />
+            <i className={IconStyle.public_icon}></i>
               Your cover is public
             </div>
             <div className="cover-btns">
@@ -186,7 +180,7 @@ function ProfileCover({ isVisitor, user }) {
               className="edit-cover"
               onClick={() => setShowCoverMenu((prev) => !prev)}
             >
-              <BsCameraFill />
+             <i className={IconStyle.camera_filled_icon}></i>
               <span>Add Cover Photo</span>
             </div>
             {showCoverMneu && (

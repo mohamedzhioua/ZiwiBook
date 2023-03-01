@@ -1,8 +1,6 @@
 import React from "react";
-//Components
+import { SearchIcon } from "../../svg";
 import {CustomInput} from "../index";
-//Styles
-import { ImSearch } from "react-icons/im";
 import "./index.css";
 
 const Search = ({ onChange }) => {
@@ -14,9 +12,7 @@ const Search = ({ onChange }) => {
         placeholder="Search in ZIWIBook . . . . ."
         onChange={onChange}
       />
-      <div className="searchIcon">
-        <ImSearch />
-      </div>
+        <SearchIcon color={"#65676b"}/>
     </div>
   );
 };
