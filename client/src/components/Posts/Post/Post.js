@@ -63,7 +63,10 @@ const Post = ({ postId, user }) => {
             <div className={PostStyle.reaction_infos_left}>
               <Likes userId={user?._id} LIKES={LIKES} />
             </div>
-            <div className={PostStyle.reaction_infos_right}>
+            <div
+              className={PostStyle.reaction_infos_right}
+              onClick={() => setCommentOpen(!commentOpen)}
+            >
               <span>
                 {comments.length === 0
                   ? "comment"
@@ -83,7 +86,7 @@ const Post = ({ postId, user }) => {
             </div>
             <div
               className={`${reactionStyle.reaction} hover1`}
-              onClick={() => setCommentOpen(!commentOpen)}
+              onClick={() => setCommentOpen(true)}
             >
               <i className={IconStyle.comment_icon} />
               <span className={reactionStyle.react_span}>comment</span>
@@ -91,7 +94,7 @@ const Post = ({ postId, user }) => {
 
             {canDelete && (
               <div
-              className={`${reactionStyle.reaction} hover1`}
+                className={`${reactionStyle.reaction} hover1`}
                 onClick={() => {
                   dispatch(
                     openModal({
@@ -110,7 +113,11 @@ const Post = ({ postId, user }) => {
         </div>
         {commentOpen && (
           <section>
-            <CommentForm submitLabel="write" onSubmit={addComment} />
+            <CommentForm
+              submitLabel="write"
+              onSubmit={addComment}
+              placholdertxt={`write a Comment ....`}
+            />
             {rootComments != null && rootComments.length > 0 && (
               <div className={PostStyle.comments_section}>
                 <Comments rootComments={rootComments} />

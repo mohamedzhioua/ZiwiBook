@@ -188,6 +188,7 @@ const Comment = ({ comment }) => {
             submitLabel="Reply"
             onSubmit={addComment}
             loading={fetchLoading}
+            placholdertxt={`@${comment?.owner?.firstName} ${comment?.owner?.lastName} reply ...`}
           />
         </div>
       )}

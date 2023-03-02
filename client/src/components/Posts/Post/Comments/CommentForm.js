@@ -6,6 +6,7 @@ import { CustomInput, CustomButton } from "../../../index";
 import "./index.css";
 
 const CommentForm = ({
+  placholdertxt,
   submitLabel,
   onSubmit,
   InitialText = "",
@@ -13,7 +14,7 @@ const CommentForm = ({
   EditCancelHandler,
   autoFocus = false,
 }) => {
-  const CurrentUserImage = useSelector((state) => state.auth.user.image);
+    const CurrentUserImage = useSelector((state) => state.auth.user.photo);
   const [text, setText] = useState(InitialText);
   const isTextareaDisabled = text.length === 0 || text === InitialText;
 
@@ -24,16 +25,20 @@ const CommentForm = ({
     setText("");
   }
   return (
-    <div>
+    <div className="comment_form_container">
       {!(submitLabel === "update") && (
+        <div className="comment_form_left"> 
         <img className="comments-img" src={CurrentUserImage} alt="." />
+        </div>
       )}
-      <form onSubmit={handleSubmit}>
+      <div className="comment_form_right">
+        <div className="comment_form_inputs">
+       <form  onSubmit={handleSubmit}>
         <CustomInput
           autoFocus={autoFocus}
           type="textarea"
           className="commentInput"
-          placeholder="write a Comment . . . ."
+          placeholder={placholdertxt}
           name="text"
           value={text}
           onChange={(event) => setText(event.target.value)}
@@ -54,6 +59,9 @@ const CommentForm = ({
           />
         )}
       </form>
+      </div>
+       </div>
+     
     </div>
   );
 };

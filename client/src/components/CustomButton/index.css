@@ -4,12 +4,12 @@
   color: #f7f4e9;
   border: none;
   outline: none;
-   padding: 8.5px 12px;
+  padding: 8.5px 12px;
   border-radius: 7px;
   font-family: inherit;
   font-weight: 700;
   font-size: 14px;
-   display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
@@ -128,7 +128,7 @@
   padding: 3px;
   cursor: pointer;
   border-radius: 5px;
-  width: 100px;
+  min-width: 70px;
 }
 .commentbtn:hover:enabled {
   cursor: pointer;
@@ -145,7 +145,7 @@
   padding: 3px;
   cursor: pointer;
   border-radius: 5px;
-  width: 100px;
+  width: 70px;
   margin-left: 10px;
 }
 
