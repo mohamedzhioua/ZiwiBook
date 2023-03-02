@@ -14,10 +14,10 @@ import CommentForm from "./Comments/CommentForm";
 
 // Styles
 import IconStyle from "../../../styles/icons.module.css";
-import style from "./Likes/react.module.css";
+import reactionStyle from "./Likes/react.module.css";
+import PostStyle from "./post.module.css";
 
 import { BsTrash } from "react-icons/bs";
-import "./index.css";
 import {
   selectAllComments,
   useAddNewCommentMutation,
@@ -52,37 +52,46 @@ const Post = ({ postId, user }) => {
   }
   return (
     <Card>
-      <div className="POST">
+      <div className={PostStyle.post}>
         <PostHead post={post} userId={user?._id} />
-        <p className="post-text">{post?.text.substring(0, 20)}</p>
+        <p className={PostStyle.post_text}>{post?.text.substring(0, 20)}</p>
         {post?.image && (
-          <img src={post?.image} className="post-image" alt="..." />
+          <img src={post?.image} className={PostStyle.post_image} alt="..." />
         )}
-        <div className="post_footer">
-          <div
-            className={`${style.reaction} hover1`}
-            onClick={() => likePost(post?._id)}
-          >
-            <Likes userId={user?._id} LIKES={LIKES} />
+        <div className={PostStyle.footer}>
+          <div className={PostStyle.reaction_infos}>
+            <div className={PostStyle.reaction_infos_left}>
+              <Likes userId={user?._id} LIKES={LIKES} />
+            </div>
+            <div className={PostStyle.reaction_infos_right}>
+              <span>
+                {comments.length === 0
+                  ? "comment"
+                  : `${comments.length} ${
+                      comments.length > 1 ? "comments" : "comment"
+                    }`}
+              </span>
+            </div>
           </div>
-          <div
-            className={`${style.reaction} hover1`}
-            onClick={() => setCommentOpen(!commentOpen)}
-          >
-            <i className={IconStyle.comment_icon} />
-            <span className={style.react_span}>
-              {comments.length === 0
-                ? "comment"
-                : `${comments.length} ${
-                    comments.length > 1 ? "comments" : "comment"
-                  }`}
-            </span>
-          </div>
+          <div className={PostStyle.reaction}>
+            <div
+              className={`${reactionStyle.reaction} hover1`}
+              onClick={() => likePost(post?._id)}
+            >
+              <i className={IconStyle.like_icon} />
+              <span className={reactionStyle.react_span}>Like</span>
+            </div>
+            <div
+              className={`${reactionStyle.reaction} hover1`}
+              onClick={() => setCommentOpen(!commentOpen)}
+            >
+              <i className={IconStyle.comment_icon} />
+              <span className={reactionStyle.react_span}>comment</span>
+            </div>
 
-          <div>
             {canDelete && (
-              <CustomButton
-                Icon={BsTrash}
+              <div
+              className={`${reactionStyle.reaction} hover1`}
                 onClick={() => {
                   dispatch(
                     openModal({
@@ -92,17 +101,18 @@ const Post = ({ postId, user }) => {
                   );
                 }}
               >
-                &nbsp;Delete
-              </CustomButton>
+                <i className={IconStyle.trash_icon} />
+
+                <span className={reactionStyle.react_span}>Delete</span>
+              </div>
             )}
           </div>
         </div>
-
         {commentOpen && (
           <section>
             <CommentForm submitLabel="write" onSubmit={addComment} />
             {rootComments != null && rootComments.length > 0 && (
-              <div className="comments-section">
+              <div className={PostStyle.comments_section}>
                 <Comments rootComments={rootComments} />
               </div>
             )}

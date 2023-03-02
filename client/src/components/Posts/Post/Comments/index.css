@@ -13,48 +13,102 @@
 }
 
 /* Comment */
-
+.comment {
+  width: 100%;
+  margin: 20px 0;
+  padding: 0.5rem;
+  border: 1px solid #5c6e58;
+  border-radius: 0.5rem;
+}
 .comment-header {
-  color: hsl(235, 50%, 67%);
+  color: "#5c6e58";
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.25rem;
   font-size: 0.75em;
 }
+.comment-header-left {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+.comment-header-right {
+  width: 100%;
+}
+.comment_info {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  gap: 2px;
+  min-width: 170px;
+  max-width: max-content;
+  position: relative;
+  padding-right: 30px;
+  background: #f0f2f5;
+}
+.comment_info_auther {
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
 .comment-image {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
-.comment-header .author {
-  font-weight: 500;
-  font-size: 14px;
-}
-.comment-header .author:hover {
+
+.author:hover {
   text-decoration: underline;
 }
-.comment-header .date {
+.date {
   font-size: 9px;
   color: grey;
-  align-self: center;
+  align-self: flex-end;
 }
-.comment-header .date:hover {
+.date:hover {
   text-decoration: underline;
 }
 
-.comment-text {
-  white-space: pre-wrap;
+.comment_info_text {
+  font-size: 14px;
+  font-weight: 400;
   word-break: break-all;
-  margin-left: 10px;
-  margin-right: 10px;
-  /* display: inline;
-  white-space: initial; */
+}
+.comment_info_likes {
+  cursor: pointer;
+  background: #ffffff;
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: -15px;
+  bottom: -10px;
+  gap: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .comment-actions {
   display: flex;
   margin-top: 8px;
   gap: 7px;
+}
+.actions {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+.actions:hover {
+  text-decoration: underline;
+}
+.comment_date {
+  font-size: 12px;
 }
 .replying {
   margin-top: 10px;

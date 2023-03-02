@@ -1,6 +1,5 @@
 import React from "react";
 import Post from "./Post";
-import "./index.css";
 
 const PostList = ({ posts, wordEntered = "", user }) => {
 

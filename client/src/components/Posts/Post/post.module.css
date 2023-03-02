@@ -1,38 +1,67 @@
 /* Post */
-.POST{
+.post {
   padding: 0;
 }
-.post_footer {
+.footer {
+  display: flex;
+  flex-direction: column;
+}
+.reaction {
   display: flex;
   justify-content: space-around;
   height: 40px;
   margin: 0 16px 10px;
   padding: 3px 0;
   position: relative;
-  border-top: 1px solid  #d6d7d9;
-  border-bottom: 1px solid  #d6d7d9;
-  }
-.post-image {
+  border-top: 1px solid #d6d7d9;
+  border-bottom: 1px solid #d6d7d9;
+}
+.reaction_infos {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+}
+.reaction_infos_left {
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.reaction_infos_right {
+  display: flex;
+  gap: 5px;
+  color: #65676b;
+  font-size: 15px;
+}
+.reaction_infos_right span {
+  cursor: pointer;
+}
+
+.reaction_infos_right span:hover {
+  text-decoration: underline;
+}
+
+.post_image {
   width: 100%;
   border-radius: 4px;
   margin-bottom: 5px;
 }
-.edit-link {
+.edit_link {
   color: black !important;
 }
 
-.profile-img {
+.profile_img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.post-comments-section {
+.post_comments_section {
   width: 100%;
   height: 100%;
 }
-.comments-section {
+.comments_section {
   margin-top: 1rem;
 }
 
@@ -41,34 +70,34 @@
   margin-top: 150px;
 }
 @media (max-width: 1175px) {
-  .POST {
+  .post {
     width: 84%;
   }
 }
 @media (max-width: 1030px) {
-  .POST {
+  .post {
     width: 100%;
   }
 }
 @media (max-width: 960px) {
-  .POST {
+  .post {
     width: 93%;
   }
 }
 
 @media (max-width: 885px) {
-  .POST {
+  .post {
     width: 100%;
   }
 }
 
 @media (max-width: 620px) {
-  .POST {
+  .post {
     width: 100%;
   }
 }
 @media (max-width: 400px) {
-  .POST {
+  .post {
     width: 100%;
   }
 }

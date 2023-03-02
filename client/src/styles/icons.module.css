@@ -36,3 +36,12 @@
   display: inline-block;
   filter: invert(40%);
 }
+.trash_icon {
+  background-image: url("../icons/icons2.png");
+  background-position: 0px -799px;
+  background-size: auto;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
