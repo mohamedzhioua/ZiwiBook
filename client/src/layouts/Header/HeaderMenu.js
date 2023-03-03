@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout, reset } from "../../app/features/auth/authSlice";
 import style from "./Header.module.css";
 import styleIcons from "../../styles/icons.module.css";
-function HeaderMenu({ user }) {
+function HeaderMenu({ user ,setShowHeaderMenu}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,6 +21,7 @@ function HeaderMenu({ user }) {
           <Link
             className={`${style.head} hover1`}
             to={`/profile/${user?.username}`}
+            onClick={() => setShowHeaderMenu(false)}
           >
             <img
               src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg"

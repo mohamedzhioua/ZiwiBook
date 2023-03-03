@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-  
 //Styles
 import style from "./Header.module.css";
 import ZIWIBook from "../../icons/ZIWIBook.png";
@@ -17,14 +16,20 @@ import {
   Notifications,
 } from "../../svg";
 import HeaderMenu from "./HeaderMenu";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
+import NotificationMenu from "./NotificationMenu/NotificationMenu";
 const Header = () => {
   const { user } = useSelector((state) => state.auth);
-  const [showUserMenu, setShowUserMenu] = useState(false);
-
-  // const [expand, updateExpanded] = useState(false);
-
-  
-
+  const [showHeaderMenu, setShowHeaderMenu] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const notificationMenu = useRef(null);
+  const headerMenu = useRef(null);
+  useOnClickOutside(headerMenu, showHeaderMenu, () => {
+    setShowHeaderMenu(false);
+  });
+  useOnClickOutside(notificationMenu, showNotification, () => {
+    setShowNotification(false);
+  });
 
   return (
     <header className={style.header}>
@@ -78,43 +83,35 @@ const Header = () => {
         </NavLink>
       </div>
       <div className={style.navbar_right}>
-        <NavLink className={style.circle_icons}>
-          <Notifications />
-        </NavLink>
-        <div
-          className={style.circle_icons}
-          onClick={() => {
-            setShowUserMenu((prev) => !prev);
-          }}
-        >
-          <img
-            src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg"
-            alt=""
-            className={style.navbar_profile}
-          />
+        <div ref={notificationMenu}>
+          <div
+            className={style.circle_icons}
+            onClick={() => {
+              setShowNotification((prev) => !prev);
+            }}
+          >
+            <Notifications />
+          </div>
+          {showNotification && <NotificationMenu />}
         </div>
-        {showUserMenu && (
-          <HeaderMenu setShowUserMenu={setShowUserMenu} user={user} />
-        )}
-        {/* {!(status === "isConnected" || token) ? (
-          <>
-            <NavLink className={style.navbar_middle_icon} to="/login">
-              <FaSignInAlt /> <b>login</b>
-            </NavLink>
-          </>
-        ) : (
-          <>
-            <NavLink
-              className={style.navbar_middle_icon}
-              to="#"
-              onClick={LogoutHandler}
-            >
-              <FaSignOutAlt /> <b>logout</b>
-            </NavLink>
-          </>
-        )} */}
+        <div ref={headerMenu}>
+          <div
+            className={style.circle_icons}
+            onClick={() => {
+              setShowHeaderMenu((prev) => !prev);
+            }}
+          >
+            <img
+              src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg"
+              alt=""
+              className={style.navbar_profile}
+            />
+          </div>
+          {showHeaderMenu && (
+            <HeaderMenu setShowHeaderMenu={setShowHeaderMenu} user={user} />
+          )}
+        </div>
       </div>
-      {/* </Navbar.Collapse> */}
     </header>
   );
 };
