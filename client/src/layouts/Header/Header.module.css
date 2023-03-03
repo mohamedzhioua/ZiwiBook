@@ -1,4 +1,4 @@
-header {
+.header {
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: 56px;
@@ -62,22 +62,77 @@ header {
   top: 50%;
   transform: translateY(-50%);
 }
+.circle_icons {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f2f5;
+  cursor: pointer;
+}
 .navbar_profile {
   cursor: pointer;
+  width: 47px;
+  height: 47px;
+  border-radius: 50%;
+}
+
+/* HeaderMenu */
+.header_menu {
+  padding: 0 0.3rem;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 360px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  user-select: none;
+  padding: 10px;
+  border: 1px solid #5c6e58;
+}
+.head {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  text-decoration: none;
+  gap: 5px;
+}
+.menu_image {
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
 
-/* .hamburger {
-  background-color: #5c6e58;
-} */
+.menu_user {
+  font-weight: 600;
+  font-size: 15px;
+}
 
-/* .navbar-icon {
-  font-size: 20px;
-  margin-bottom: 2px;
-} */
-
-/* .toggle {
-  background-color: #5c6e58;
-} */
+.menu_splitter {
+  width: 100%;
+  height: 1px;
+  background: #e4e6eb;
+  margin-top: 5px;
+}
+.menu_action {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  padding: 7px;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 10px;
+}
+.Arrow {
+  right: 10px;
+  transform: translateY(-50%);
+  top: 30px;
+  position: absolute;
+}
+.action_span {
+  font-size: 14px;
+}

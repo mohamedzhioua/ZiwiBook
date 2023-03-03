@@ -1,0 +1,20 @@
+.home_container {
+  min-height: 100vh;
+  background-color:  #f0f2f5;;
+}
+
+.home_middle {
+  margin: 0 auto;
+  max-width: 590px;
+  margin-top: 60px;
+  /* left: 50%;
+  position: absolute;
+  transform: translateX(-50%); */
+
+}
+.home_posts {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}

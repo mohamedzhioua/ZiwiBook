@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
+import {  useSelector } from "react-redux";
 
-//features
-import { logout, reset } from "../../app/features/auth/authSlice";
-
+  
 //Styles
-import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import style from "./Header.module.css";
 import ZIWIBook from "../../icons/ZIWIBook.png";
 import { SearchBar } from "../../components";
@@ -17,23 +14,20 @@ import {
   Watch,
   FriendsActive,
   Friends,
+  Notifications,
 } from "../../svg";
+import HeaderMenu from "./HeaderMenu";
 const Header = () => {
-  const { token, status, user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
-  const [expand, updateExpanded] = useState(false);
+  // const [expand, updateExpanded] = useState(false);
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  
 
-  const LogoutHandler = () => {
-    dispatch(logout());
-    dispatch(reset());
-    navigate("/login");
-  };
 
   return (
-    <header expanded={expand}>
+    <header className={style.header}>
       <div className={style.navbar_left}>
         <Link to="/">
           <img src={ZIWIBook} alt="" className={style.logo} />
@@ -57,29 +51,22 @@ const Header = () => {
               : `${style.navbar_middle_icon} hover1`
           }
           to="/"
-          onClick={() => {
-            updateExpanded(false);
-          }}
         >
           <HomeActive className={style.active_icon} />
           <Home className={style.notActive_icon} />
         </NavLink>
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? `${style.active} ${style.navbar_middle_icon}`
-              : `${style.navbar_middle_icon} hover1`
-          }
-          to="/"
-          onClick={() => {
-            updateExpanded(false);
-          }}
-        >
-          <span className={style.active_icon} style={{ transform: "translateY(10%)" }}>
-            <FriendsActive  />
+        <NavLink>
+          <span
+            className={style.active_icon}
+            style={{ transform: "translateY(10%)" }}
+          >
+            <FriendsActive />
           </span>
-          <span className={style.notActive_icon} style={{ transform: "translateY(10%)" }}>
-            <Friends  />
+          <span
+            className={style.notActive_icon}
+            style={{ transform: "translateY(10%)" }}
+          >
+            <Friends />
           </span>
         </NavLink>
         <NavLink className={`${style.navbar_middle_icon} hover1`} to="#">
@@ -91,10 +78,13 @@ const Header = () => {
         </NavLink>
       </div>
       <div className={style.navbar_right}>
-        <NavLink
-          to={`/profile/${user?.username}`}
+        <NavLink className={style.circle_icons}>
+          <Notifications />
+        </NavLink>
+        <div
+          className={style.circle_icons}
           onClick={() => {
-            updateExpanded(false);
+            setShowUserMenu((prev) => !prev);
           }}
         >
           <img
@@ -102,9 +92,11 @@ const Header = () => {
             alt=""
             className={style.navbar_profile}
           />
-        </NavLink>
-
-        {!(status === "isConnected" || token) ? (
+        </div>
+        {showUserMenu && (
+          <HeaderMenu setShowUserMenu={setShowUserMenu} user={user} />
+        )}
+        {/* {!(status === "isConnected" || token) ? (
           <>
             <NavLink className={style.navbar_middle_icon} to="/login">
               <FaSignInAlt /> <b>login</b>
@@ -120,7 +112,7 @@ const Header = () => {
               <FaSignOutAlt /> <b>logout</b>
             </NavLink>
           </>
-        )}
+        )} */}
       </div>
       {/* </Navbar.Collapse> */}
     </header>
