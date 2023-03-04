@@ -18,7 +18,7 @@ const CustomButton = ({
       onClick={onClick}
       disabled={disabled}
     >
-      {value}
+      {children} {value}
     </button>
   ) : (
     <button

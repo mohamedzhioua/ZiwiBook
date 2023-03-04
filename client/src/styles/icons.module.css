@@ -100,3 +100,32 @@
   background-repeat: no-repeat;
   display: inline-block;
 }
+.exit_icon {
+  background-image: url("../icons/icons6.png");
+  background-position: -126px -71px;
+  background-size: auto;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  filter: invert(40%);
+  -webkit-transition: -webkit-transform 0.25s, opacity 0.25s;
+  -moz-transition: -moz-transform 0.25s, opacity 0.25s;
+  transition: transform 0.25s, opacity 0.25s;
+  opacity: 0.5;
+}
+.exit_icon:hover {
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  transform: rotate(270deg);
+  opacity: 1;
+}
+.addPhoto_icon {
+  background-image: url("../icons/icons7.png");
+  background-position: -25px -292px;
+  background-size: auto;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}

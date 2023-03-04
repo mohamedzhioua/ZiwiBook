@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // features
 import {
@@ -10,24 +10,36 @@ import {
 import { CustomInput, CustomButton, FormLoader } from "../../index";
 
 // Styles
-import "./index.css";
+import style from "./Post.module.css";
 import { toast } from "react-toastify";
 import { closeModal } from "../../../app/features/modal/modalSlice";
 import { useDispatch } from "react-redux";
-
-const AddEditPost = ({ post }) => {
+import { Photo } from "../../../svg";
+import styleIcons from "../../../styles/icons.module.css";
+const AddEditPost = ({ post, user }) => {
   const dispatch = useDispatch();
   const [form, setForm] = useState({ text: "", image: "" });
+  console.log("🚀 ~ file: index.js:22 ~ AddEditPost ~ form:", form);
   const [error, setError] = useState(null);
   const [picture, setPicture] = useState(null);
-  // post id
+  const [showOldCover, setShowOldCover] = useState(false);
+  const refImageInput = useRef(null);
+  const [showImageContainer, setShowImageContainer] = useState(false);
   const id = form._id || null;
-  const [addNewPost, { isLoading, isError, isSuccess }] =useAddNewPostMutation();
-  const [ updatePost, { isLoading: updateIsLoading, isError:updateError, isSuccess: updateIsSuccess }] = useUpdatePostMutation();
+  const [addNewPost, { isLoading, isError, isSuccess }] =
+    useAddNewPostMutation();
+  const [
+    updatePost,
+    {
+      isLoading: updateIsLoading,
+      isError: updateError,
+      isSuccess: updateIsSuccess,
+    },
+  ] = useUpdatePostMutation();
 
   useEffect(() => {
-    if(isError ||updateError ){
-      setError("something went wrong")
+    if (isError || updateError) {
+      setError("something went wrong");
     }
 
     if (isSuccess || updateIsSuccess) {
@@ -37,7 +49,7 @@ const AddEditPost = ({ post }) => {
     toast.error(error, {
       position: toast.POSITION.TOP_CENTER,
     });
-  }, [isSuccess, updateIsSuccess,isError,updateError,error,dispatch]);
+  }, [isSuccess, updateIsSuccess, isError, updateError, error, dispatch]);
 
   //displaying picture after upload handler
   const onChangePicture = (e) => {
@@ -52,6 +64,9 @@ const AddEditPost = ({ post }) => {
   //clearing the state for the newest user inputs
   const clear = () => {
     setForm({ text: "", image: "" });
+  };
+  const clearImage = () => {
+    setForm({ image: null });
   };
 
   //onChangeHandler
@@ -95,48 +110,106 @@ const AddEditPost = ({ post }) => {
     }
   };
   return (
-    <FormLoader loading={updateIsLoading || isLoading}>
-      <div className="Post-list-item">
-        <h1 className="New-Post-Title">
-          {post ? "Update your " : "Share a "}Memorie
-        </h1>
-        <form className="New-Post-Form" onSubmit={onsubmitHandler}>
+    <div className={style.post_container}>
+      <FormLoader loading={updateIsLoading || isLoading}>
+        <div className={style.post_head}>
+          <span>{post ? "Update your " : "Create "}post</span>
+        </div>
+        {/* <div className={style.splitter} /> */}
+
+        <div className={style.post_auther}>
+          <img
+            src={user.photo}
+            alt="userphoto"
+            className={style.auther_photo}
+          />
+          <span className={style.auther_name}>
+            {`${user.firstName} ${user.lastName}`}
+          </span>
+        </div>
+        <div className={style.post_content}>
           <CustomInput
-            label="Description :"
             type="textarea"
-            placeholder="content...."
+            placeholder={`What's on your mind, ${user?.firstName}?`}
             name="text"
             onChange={onChangeHandler}
             value={form.text}
-          />
-          <hr />
-          <img
-            id="output"
-            src={picture && picture}
-            alt="your_image"
-            width="100"
-            height="100"
-          />
-          {/* <hr /> */}
-          <CustomInput
-            type="file"
-            accept="image/jpeg,image/png,image/webp,image/gif"
-            onChange={(e) => {
-              onChangePicture(e);
-              onChangefile(e);
-            }}
-            name="image"
+            className={style.textarea}
           />
 
-          <CustomButton
+          <div>
+            <CustomInput
+              type="file"
+              innerRef={refImageInput}
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              onChange={(e) => {
+                onChangePicture(e);
+                onChangefile(e);
+              }}
+              name="image"
+              hidden
+            />
+            {showImageContainer && (
+              <div className={style.post_image_container}>
+                {picture ? (
+                  <div className={`${style.add_image} ${style.imge}`}>
+                    <div
+                      className={`${style.exit} ${style.small_white_circle}`}
+                      onClick={() => {
+                        setShowImageContainer(false);
+                        clearImage();
+                      }}
+                    >
+                      <i className={styleIcons.exit_icon} />
+                    </div>
+                    <img
+                      id="output"
+                      src={picture && picture}
+                      alt="your_image"
+                      className={style.img}
+                    />
+                  </div>
+                ) : (
+                  <div className={`${style.add_image} hover2`}>
+                    <div
+                      className={`${style.exit} ${style.small_white_circle}`}
+                      onClick={() => setShowImageContainer(false)}
+                    >
+                      <i className={styleIcons.exit_icon} />
+                    </div>
+                    <div>
+                      <CustomButton
+                        className={style.post_btn}
+                        onClick={() => {
+                          refImageInput.current.click();
+                        }}
+                      >
+                        <i className={styleIcons.addPhoto_icon} />
+                        Add A photo
+                      </CustomButton>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          {/* <CustomButton
             className="button button8"
             value={post ? "update" : "submit"}
             type="submit"
             disabled={!form.text || error}
-          />
-        </form>
+            onClick={() => {onsubmitHandler()}}
+          />  */}
+        </div>
+        {/* <div className={style.splitter} /> */}
+      </FormLoader>
+      <div className={style.post_footer}>
+        <div className={style.footer_text}>Add to your post</div>
+        <div className="hover1" onClick={() => setShowImageContainer(true)}>
+          <Photo color="#45bd62" />
+        </div>
       </div>
-    </FormLoader>
+    </div>
   );
 };
 

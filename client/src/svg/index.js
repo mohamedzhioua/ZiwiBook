@@ -1,10 +1,14 @@
-import HomeActive from "./homeActive";
-import Market from "./market";
-import Notifications from "./notifications";
-import Home from "./home";
-import Watch from "./watch";
-import Friends from "./friends";
-import FriendsActive from "./friendsActive";
-import SearchIcon from "./search"
-import Dots from "./dots"
-export { HomeActive, Market, Notifications, Home , Watch,FriendsActive,Friends,SearchIcon ,Dots};
+export {default as HomeActive } from './homeActive'
+export {default as Market } from './market'
+export {default as Notifications } from './notifications'
+export {default as Home } from './home'
+export {default as Watch } from './watch'
+export {default as Friends } from './friends'
+export {default as FriendsActive } from './friendsActive'
+export {default as Dots } from './dots'
+export {default as Feeling } from './feeling'
+export {default as LiveVideo } from './liveVideo'
+export {default as Photo } from './photo'
+export {default as SearchIcon } from './search'
+
+

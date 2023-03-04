@@ -24,6 +24,7 @@ const Header = () => {
   const [showNotification, setShowNotification] = useState(false);
   const notificationMenu = useRef(null);
   const headerMenu = useRef(null);
+
   useOnClickOutside(headerMenu, showHeaderMenu, () => {
     setShowHeaderMenu(false);
   });
@@ -41,13 +42,6 @@ const Header = () => {
           <SearchBar />
         </div>
       </div>
-      {/* <Navbar.Toggle
-          aria-controls="responsive-navbar-nav"
-          onClick={() => {
-            updateExpanded(expand ? false : "expanded");
-          }}
-        ></Navbar.Toggle>
-        <Navbar.Collapse  className={style.hamburger" id="responsive-navbar-nav"> */}
       <div className={style.navbar_middle}>
         <NavLink
           className={({ isActive }) =>
@@ -60,7 +54,7 @@ const Header = () => {
           <HomeActive className={style.active_icon} />
           <Home className={style.notActive_icon} />
         </NavLink>
-        <NavLink>
+        <NavLink  className={`${style.navbar_middle_icon} hover1`} to="#">
           <span
             className={style.active_icon}
             style={{ transform: "translateY(10%)" }}

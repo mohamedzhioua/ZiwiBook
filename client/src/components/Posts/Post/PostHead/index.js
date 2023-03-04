@@ -3,24 +3,24 @@ import { useDispatch } from "react-redux";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { openModal } from "../../../../app/features/modal/modalSlice";
-import style from  "./postHead.module.css";
+import style from "./postHead.module.css";
 import { Dots } from "../../../../svg";
 
-const PostHead = ({ post, userId }) => {
+const PostHead = ({ post, user }) => {
   const dispatch = useDispatch();
   const canEdit = Boolean(
-    userId === post?.owner?._id || userId === post?.owner
+    user?._id === post?.owner?._id || user?._id === post?.owner
   );
   return (
     <div className={style.post_row}>
       <div className={style.user_profile}>
         <div className={style.left}>
-        <Link
-          to={`/profile/${post?.owner?.username}`}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <img src={post?.owner?.photo} alt="..." />
-        </Link>
+          <Link
+            to={`/profile/${post?.owner?.username}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <img src={post?.owner?.photo} alt="..." />
+          </Link>
         </div>
         <div>
           <Link
@@ -29,16 +29,19 @@ const PostHead = ({ post, userId }) => {
           >
             <span className={style.username}>{post?.owner?.firstName}</span>
           </Link>
-          <span className={style.date}>{moment(post?.createdAt).fromNow()}</span>
+          <span className={style.date}>
+            {moment(post?.createdAt).fromNow()}
+          </span>
         </div>
       </div>
       {canEdit && (
-        <div className={`${style.dots} hover1`}
+        <div
+          className={`${style.dots} hover1`}
           onClick={() =>
             dispatch(
               openModal({
                 name: "AddEditPost",
-                childrenProps: { post: post },
+                childrenProps: { post: post, user: user },
               })
             )
           }

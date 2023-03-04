@@ -53,7 +53,7 @@ const Post = ({ postId, user }) => {
   return (
     <Card>
       <div className={PostStyle.post}>
-        <PostHead post={post} userId={user?._id} />
+        <PostHead post={post} user={user} />
         <p className={PostStyle.post_text}>{post?.text.substring(0, 20)}</p>
         {post?.image && (
           <img src={post?.image} className={PostStyle.post_image} alt="..." />
