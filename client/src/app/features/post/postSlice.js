@@ -58,14 +58,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result, error, arg) => [{ type: "Post", id: arg.id }],
     }),
-
-    likePost: builder.mutation({
-      query: (id) => ({
-        url: `/post/like/${id}`,
-        method: "PUT",
-      }),
-      invalidatesTags: (result, error, arg) => [{ type: "Post", id: arg.id }],
-    }),
   }),
 });
 
@@ -75,7 +67,6 @@ export const {
   useAddNewPostMutation,
   useUpdatePostMutation,
   useDeletePostMutation,
-  useLikePostMutation,
 } = extendedApiSlice;
 
 // returns the query result object

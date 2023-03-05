@@ -1,7 +1,6 @@
 import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 import { apiSlice } from "../../api/apiSlice";
 
-
 const reactionAdapter = createEntityAdapter({
   selectId: (reaction) => reaction._id,
 });
@@ -10,9 +9,11 @@ const initialState = reactionAdapter.getInitialState();
 
 export const reactionApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    
     fetchReactions: builder.query({
-      query: () => "/post/getAllReaction",
-      transformResponse: (responseData) => {
+      query: (id) => `/post/getPostReactions/${id}`,
+      transformResponse: (responseData) => {        console.log("🚀 ~ file: reactionSlice.js:17 ~ responseData:", responseData)
+
         return reactionAdapter.setAll(initialState, responseData);
       },
       providesTags: (result, error, arg) => [
@@ -26,18 +27,20 @@ export const reactionApiSlice = apiSlice.injectEndpoints({
         url: `/post/like/${id}`,
         method: "PUT",
       }),
-      invalidatesTags: (result, error, arg) => [{ type: "Reaction", id: arg.id }],
+      invalidatesTags: (result, error, arg) => [
+        { type: "Reaction", id: arg.id },
+      ],
+      
     }),
   }),
+  
 });
 
-export const {
-  useFetchReactionsQuery,
-  useLikePostMutation,
-} = reactionApiSlice;
+export const { useFetchReactionsQuery, useLikePostMutation } = reactionApiSlice;
 
 // returns the query result object
-export const selectReactionsResult = reactionApiSlice.endpoints.fetchReactions.select();
+export const selectReactionsResult =
+  reactionApiSlice.endpoints.fetchReactions.select();
 
 // Creates memoized selector
 const selectReactionsData = createSelector(

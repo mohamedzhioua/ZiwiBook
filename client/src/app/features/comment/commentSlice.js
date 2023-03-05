@@ -23,8 +23,6 @@ export const CommentApiSlice = apiSlice.injectEndpoints({
 
     addNewComment: builder.mutation({
       query: ({ id, text }) => {
-        console.log("🚀 ~ file: commentSlice.js:36 ~ text:", text);
-
         return {
           url: `/post/addComment/${id}`,
           method: "POST",
