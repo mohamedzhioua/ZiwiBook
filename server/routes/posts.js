@@ -22,8 +22,11 @@ router.patch("/updatePost/:id",checkAuth,multerUploads, PostController.updatePos
 // DELETE request
 router.delete("/deletePost/:id",checkAuth, PostController.deletePost);
 
-// PATCH request
+// PUT request
 router.put("/like/:id",checkAuth, PostController.like);
+
+// GET request
+router.get("/getPostReactions/:id", PostController.getPostReactions);
 
 
 //-------------------------------------Comments-------------------------------//

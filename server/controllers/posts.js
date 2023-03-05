@@ -150,7 +150,7 @@ module.exports = {
     try {
       const post = await Post.findById(id);
       if (!post) {
-        return res.status(404).json("this post no more exist");
+        return res.status(404).json({message :"this post no more exist"});
       }
       const data = await Reaction.findOne({
         post: id,
@@ -163,11 +163,24 @@ module.exports = {
         return res.status(200).json(like);
       } else {
       await data.remove()
+      return res.status(200).json({message:"reaction removed"});
       }
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
   },
+    //  -----------------------//getAllLikes method //--------------------------- //
+
+    getPostReactions: async (req, res) => {
+      const {postId } = req.params;
+
+      try {
+        const reaction = await Reaction.find({postId});
+         res.status(200).json(reaction);
+      } catch (error) {
+        res.status(404).json({ message: error.message });
+      }
+    },
   //  ----------------------//add Comment method //--------------------------- //
   addComment: async (req, res) => {
     const { id } = req.params;
