@@ -1,6 +1,7 @@
 .post_container {
   display: flex;
   flex-direction: column;
+  max-width: 500px;
 }
 .post_head {
   display: flex;
@@ -40,6 +41,10 @@
 }
 
 .post_footer {
+display: flex;
+flex-direction: column;
+}
+.post_action{
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -112,4 +117,13 @@
   max-height: inherit;
   border-radius: 10px;
   object-fit: cover;
+}
+
+.post_footer {
+  margin: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-top: 10px;
 }

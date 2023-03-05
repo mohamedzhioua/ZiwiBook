@@ -1,10 +1,19 @@
-import { LoginForm } from "../../components";
+import { useState } from "react";
+import { LoginForm, RegisterForm } from "../../components";
 
 function Login() {
+  const [showRegister, setShowRegister] = useState(false);
+
   return (
-    <>
-      <LoginForm />
-    </>
+    <div>
+      <LoginForm setShowRegister={setShowRegister} />
+      {showRegister && (
+        <RegisterForm
+          showRegister={showRegister}
+          setShowRegister={setShowRegister}
+        />
+      )}
+    </div>
   );
 }
 

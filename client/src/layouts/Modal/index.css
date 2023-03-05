@@ -11,6 +11,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.4s;
+  backdrop-filter: blur(2px);
 }
 
 .modal-container {
@@ -27,7 +28,6 @@
   transform: translate(-50%, -50%);
   transition: all 0.3s;
   padding: 20px 40px;
-  /* overflow: auto; */
   margin: 0 auto;
  
  }

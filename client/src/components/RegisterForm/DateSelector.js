@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import "./index.css";
+import classes from "./register.module.css";
 import { Field } from "formik";
 import {Popper} from "../index";
 import { MdOutlineErrorOutline } from "react-icons/md";
@@ -28,13 +28,13 @@ function DateSelector({ birthDay, birthMonth, birthYear , dateError}) {
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
     >
-      <div className="colHeader">Birthday
+      <div className={classes.colHeader}>Birthday
       {dateError && 
          <MdOutlineErrorOutline
-         className="err_icon"
+         className={classes.err_icon}
        />}
        </div>
-      <div className="select-grid">
+      <div className={classes.select_grid}>
         <Field 
         name="birthDay" 
         as="select"
@@ -46,14 +46,14 @@ function DateSelector({ birthDay, birthMonth, birthYear , dateError}) {
             </option>
           ))}
         </Field>
-        <Field name="birthMonth" as="select"  className={dateError ? "ERROR" : ""}>
+        <Field name="birthMonth" as="select"  className={dateError ? `${classes.ERROR}` : ""}>
           {months.map((month, i) => (
             <option value={month} key={i}>
               {month}
             </option>
           ))}
         </Field>
-        <Field name="birthYear" as="select"  className={dateError ? "ERROR" : ""}>
+        <Field name="birthYear" as="select"  className={dateError ? `${classes.ERROR}` : ""}>
           {years.map((year, i) => (
             <option value={year} key={i}>
               {year}

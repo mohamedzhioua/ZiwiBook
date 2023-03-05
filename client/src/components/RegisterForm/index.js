@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,15 +9,17 @@ import * as Yup from "yup";
 import { register, reset } from "../../app/features/auth/authSlice";
 
 // Components
-import { CustomButton, AuthInput, FormLoader } from "../../components";
+import { CustomButton, AuthInput, FormLoader, Card } from "../../components";
 
 // Styles
-import "./index.css";
-
+import classes from "./register.module.css";
+import IconStyle from "../../styles/icons.module.css"
 import { FaUser } from "react-icons/fa";
 import DateSelector from "./DateSelector";
 import GenderSelector from "./GenderSelector";
-function RegisterForm() {
+
+function RegisterForm({setShowRegister,showRegister}) {
+  const registerRef = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const form = {
@@ -56,6 +58,7 @@ function RegisterForm() {
   const Eye2 = () => {
     setPasswordConfirmVisible(!passwordConfirmVisible);
   };
+
 
   useEffect(() => {}, [error, status, dispatch, navigate]);
 
@@ -100,12 +103,16 @@ function RegisterForm() {
   });
 
   return (
-    <div class="signup-card">
-      <div class="signup-header">
-        <span className="signup-header-title">
+    <div className="blur">
+    <Card className={classes.signup_card}  innerRef={registerRef}>
+
+      <div className={classes.signup_header}>
+      <i className={IconStyle.exit_icon} onClick={() => setShowRegister(false)}></i>
+
+        <span className={classes.signup_header_title}>
           <FaUser /> Create an account
         </span>
-        <span className="signup-header-title1">it's quick and easy</span>
+        <span className={classes.signup_header_title1}>it's quick and easy</span>
       </div>
       <Formik
         enableReinitialize={false}
@@ -158,7 +165,7 @@ function RegisterForm() {
       >
         {(formik) => {
           return (
-            <Form className="signup-form" noValidate>
+            <Form className={classes.signup_form} noValidate>
               <FormLoader loading={status}>
                 <div className="LINE">
                   <AuthInput
@@ -207,14 +214,15 @@ function RegisterForm() {
         }}
       </Formik>
 
-      <div className="register">
+      <div className={classes.register}>
         <p>
           Have already an account?
-          <Link to="/" className="login-link">
+          <Link to="/" className={classes.login_link}>
           &nbsp;Login here
           </Link>
         </p>
       </div>
+    </Card>
     </div>
   );
 }

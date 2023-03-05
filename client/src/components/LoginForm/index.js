@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 
 // features
-import { login} from "../../app/features/auth/authSlice";
+import { login } from "../../app/features/auth/authSlice";
 
 // Components
-import { AuthInput, CustomButton, FormLoader } from "../../components";
+import { AuthInput, Card, CustomButton, FormLoader } from "../../components";
 
 // Styles
 import { FaSignInAlt } from "react-icons/fa";
 import "./index.css";
-import ZIWIBook from "../../icons/ZIWIBook.png"
-const LoginForm = () => {
+import ZIWIBook from "../../icons/ZIWIBook.png";
+const LoginForm = ({ setShowRegister }) => {
   const form = { email: "", password: "" };
   const { email, password } = form;
 
@@ -27,10 +27,9 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { error,status } = useSelector((state) => state.auth);
+  const { error, status } = useSelector((state) => state.auth);
 
-  useEffect(() => {}, [error , navigate, status, dispatch]);
-
+  useEffect(() => {}, [error, navigate, status, dispatch]);
 
   const loginValidation = Yup.object({
     email: Yup.string()
@@ -43,17 +42,15 @@ const LoginForm = () => {
   return (
     <div class="login-container">
       <div className="login-head">
-      <img src={ZIWIBook} alt=""  className="login-image"/>
+        <img src={ZIWIBook} alt="" className="login-image" />
         <span className="login-span">
           ZIWIbook helps you connect and share with the people in your life.
         </span>
       </div>
-      <div class="login-card">
-        <div class="d-flex justify-content-center">
-          <h1>
-            <FaSignInAlt /> Sing In
-          </h1>
-        </div>
+      <Card className="login-card">
+        <h1>
+          <FaSignInAlt /> Sing In
+        </h1>
         <Formik
           enableReinitialize={false}
           validationSchema={loginValidation}
@@ -96,15 +93,10 @@ const LoginForm = () => {
           }}
         </Formik>
 
-        <div class="login">
-          <p>
-            Not a member?
-            <Link to="/signup" class="signup-link">
-            &nbsp;  Register
-             </Link>
-          </p>
+        <div className="login" onClick={() => setShowRegister(true)}>
+          <span className="login_link">Not a member? Register</span>
         </div>
-      </div>
+      </Card>
     </div>
   );
 };

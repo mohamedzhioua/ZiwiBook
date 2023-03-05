@@ -37,6 +37,7 @@ const CustomInput = ({
             placeholder={placeholder}
             value={value}
             defaultValue={defaultValue}
+            ref={innerRef}
           />
         ) : (
           <input
@@ -61,13 +62,13 @@ const CustomInput = ({
           />
         )}
         {name === "password" ? (
-          <>
+          <span>
             {type === "password" ? (
               <FaRegEyeSlash onClick={onClick} className="Icon" />
             ) : (
               <FaRegEye onClick={onClick} className="Icon" />
             )}
-          </>
+          </span>
         ) : (
           ""
         )}

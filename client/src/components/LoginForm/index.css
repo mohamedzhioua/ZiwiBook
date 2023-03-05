@@ -17,23 +17,17 @@
 }
 
 .login-card {
-  background: #fff;
   width: 350px;
-  height: fit-content;
-  border-radius: 10px;
-  border: none;
   padding: 20px;
-  box-shadow: 0 6px 16px 0 rgb(0 0 0 / 10%);
   margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
 }
-.login-card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-}
+
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .login {
@@ -42,17 +36,20 @@
   display: flex;
   margin-top: 10px;
 }
-.signup-link{
+.login_link:hover {
+  text-decoration: underline;
+  color: #5c6e58;
+}
+.signup-link {
   cursor: pointer;
   font-size: 14px;
   font-weight: 700;
   color: #5c6e58;
-  text-decoration: none
+  text-decoration: none;
 }
 .signup-link:hover {
   text-decoration: underline;
   color: #5c6e58;
-
 }
 
 @media (min-width: 900px) {

@@ -12,8 +12,8 @@ export const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-        <ModalManager />
-        <Router />
+         <ModalManager />
+         <Router />
         <Footer />
         <ToastContainer />
     </QueryClientProvider>

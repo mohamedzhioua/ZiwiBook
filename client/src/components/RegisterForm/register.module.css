@@ -1,19 +1,13 @@
-.signup-card {
+.signup_card {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
   width: 350px;
-  border-radius: 10px;
-  border: none;
   padding: 20px;
-  box-shadow: 0 6px 16px 0 rgb(0 0 0 / 10%);
 }
-.signup-card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-}
-.signup-header {
+
+.signup_header {
   border-bottom: 1px solid #e4e6eb;
   display: flex;
   flex-direction: column;
@@ -22,34 +16,39 @@
   position: relative;
   margin-bottom: 10px;
 }
-.signup-header-title {
+.signup_header i {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+}
+.signup_header_title {
   font-size: 32px;
   font-weight: 700;
 }
-.signup-header-title1 {
+.signup_header_title1 {
   color: #65676b;
   font-size: 15px;
 }
-.signup-form {
+.signup_form {
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 .LINE {
   display: flex;
   gap: 15px;
 }
 
-.login-link{
+.login_link {
   cursor: pointer;
   font-size: 14px;
   font-weight: 700;
   color: #5c6e58;
-  text-decoration: none
+  text-decoration: none;
 }
-.login-link:hover {
+.login_link:hover {
   text-decoration: underline;
   color: #5c6e58;
-
 }
 .register {
   justify-content: center;
@@ -73,7 +72,7 @@
   font-size: 13px;
   gap: 4px;
 }
-.select-grid {
+.select_grid {
   grid-gap: 10px;
   display: grid;
   gap: 10px;
@@ -85,7 +84,7 @@
 .gender {
   grid-template-columns: repeat(2, 1fr);
 }
-.select-grid select {
+.select_grid select {
   border-radius: 5px;
   color: #050505;
   cursor: pointer;
@@ -94,7 +93,7 @@
   padding: 0 10px;
   background: #fff;
 }
-.select-grid label {
+.select_grid label {
   border-radius: 5px;
   align-items: center;
   border: 1px solid #65676b;
@@ -113,7 +112,7 @@
 }
 
 @media (min-width: 540px) {
-  .signup-card {
+  .signup_card {
     width: 400px;
   }
 }

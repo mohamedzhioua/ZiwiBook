@@ -64,9 +64,11 @@ const AddEditPost = ({ post, user }) => {
   //clearing the state for the newest user inputs
   const clear = () => {
     setForm({ text: "", image: "" });
+    setPicture(null);
   };
   const clearImage = () => {
-    setForm({ image: null });
+    setForm({ image: "" });
+    setPicture(null);
   };
 
   //onChangeHandler
@@ -101,6 +103,7 @@ const AddEditPost = ({ post, user }) => {
   const onsubmitHandler = async (event) => {
     event.preventDefault();
     let dataForm = new FormData();
+    console.log("🚀 ~ file: index.js:106 ~ onsubmitHandler ~ dataForm:", dataForm)
     dataForm.append("text", form.text);
     dataForm.append("image", form.image);
     if (Boolean(post)) {
@@ -115,7 +118,6 @@ const AddEditPost = ({ post, user }) => {
         <div className={style.post_head}>
           <span>{post ? "Update your " : "Create "}post</span>
         </div>
-        {/* <div className={style.splitter} /> */}
 
         <div className={style.post_auther}>
           <img
@@ -193,22 +195,24 @@ const AddEditPost = ({ post, user }) => {
               </div>
             )}
           </div>
-          {/* <CustomButton
+        </div>
+        <div className={style.post_footer}>
+          <div className={style.post_action}>
+            <div className={style.footer_text}>Add to your post</div>
+            <div className="hover1" onClick={() => setShowImageContainer(true)}>
+              <Photo color="#45bd62" />
+            </div>
+          </div>
+          <CustomButton
             className="button button8"
             value={post ? "update" : "submit"}
-            type="submit"
             disabled={!form.text || error}
-            onClick={() => {onsubmitHandler()}}
-          />  */}
+            onClick={
+              onsubmitHandler
+            }
+          />
         </div>
-        {/* <div className={style.splitter} /> */}
       </FormLoader>
-      <div className={style.post_footer}>
-        <div className={style.footer_text}>Add to your post</div>
-        <div className="hover1" onClick={() => setShowImageContainer(true)}>
-          <Photo color="#45bd62" />
-        </div>
-      </div>
     </div>
   );
 };

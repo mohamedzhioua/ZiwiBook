@@ -2,6 +2,11 @@
 .post {
   padding: 0;
 }
+.post_body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .footer {
   display: flex;
   flex-direction: column;
@@ -42,9 +47,11 @@
 }
 
 .post_image {
+  height: inherit;
   width: 100%;
+  max-height: inherit;
+  object-fit: cover;
   border-radius: 4px;
-  margin-bottom: 5px;
 }
 .edit_link {
   color: black !important;

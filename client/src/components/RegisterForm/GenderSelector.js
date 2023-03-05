@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import "./index.css";
+import classes from "./register.module.css";
 import { Field, ErrorMessage, useField } from "formik";
 import {Popper} from "../index";
 import { MdOutlineErrorOutline } from "react-icons/md";
@@ -24,15 +24,15 @@ function GenderSelector() {
     onMouseEnter={() => setShow(true)}
     onMouseLeave={() => setShow(false)}
   >
-    <div className="colHeader">
+    <div className={classes.colHeader}>
       Gender 
       {genderError &&
        <MdOutlineErrorOutline
-         className="err_icon"
+         className={classes.err_icon}
        />}
     </div>
-    <div className="select-grid gender">
-      <label htmlFor="male"   className={genderError ? "ERROR" : ""}>
+    <div className={`${classes.select_grid} ${classes.gender}`}>
+      <label htmlFor="male"   className={genderError ? `${classes.ERROR}` : ""}>
         Male
         <Field
           type="radio"
@@ -41,7 +41,7 @@ function GenderSelector() {
           value="male"
         />
       </label>
-      <label htmlFor="female"   className={genderError ? "ERROR" : ""}>
+      <label htmlFor="female"   className={genderError ? `${classes.ERROR}` : ""}>
         Female
         <Field
           type="radio"

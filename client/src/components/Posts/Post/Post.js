@@ -9,7 +9,7 @@ import {
 } from "../../../app/features/post/postSlice";
 
 // Components
-import { Comments, CustomButton, Likes, PostHead, Card } from "../../index";
+import { Comments, Likes, PostHead, Card } from "../../index";
 import CommentForm from "./Comments/CommentForm";
 
 // Styles
@@ -17,7 +17,6 @@ import IconStyle from "../../../styles/icons.module.css";
 import reactionStyle from "./Likes/react.module.css";
 import PostStyle from "./post.module.css";
 
-import { BsTrash } from "react-icons/bs";
 import {
   selectAllComments,
   useAddNewCommentMutation,
@@ -51,13 +50,14 @@ const Post = ({ postId, user }) => {
     }
   }
   return (
-    <Card>
-      <div className={PostStyle.post}>
-        <PostHead post={post} user={user} />
+    <Card className={PostStyle.post}>
+         <PostHead post={post} user={user} />
+         <div className={PostStyle.post_body}>
         <p className={PostStyle.post_text}>{post?.text.substring(0, 20)}</p>
         {post?.image && (
           <img src={post?.image} className={PostStyle.post_image} alt="..." />
         )}
+        </div>
         <div className={PostStyle.footer}>
           <div className={PostStyle.reaction_infos}>
             <div className={PostStyle.reaction_infos_left}>
@@ -125,8 +125,7 @@ const Post = ({ postId, user }) => {
             )}
           </section>
         )}
-      </div>
-    </Card>
+     </Card>
   );
 };
 

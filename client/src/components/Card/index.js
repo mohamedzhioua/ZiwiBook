@@ -1,9 +1,9 @@
 import React from "react";
-import  "./index.css";
+import  styles from "./Card.module.css";
 
 function Card({className,innerRef, children}) {
   return (
-    <div ref={innerRef} className={className ? className : "card-container"}>
+    <div ref={innerRef} className={`${styles.card_container} ${className}`}>
       {children}
     </div>
   );
