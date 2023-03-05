@@ -1,6 +1,8 @@
 const Post = require("../models/post");
 const User = require("../models/user");
 const Comment = require("../models/comment");
+const Reaction = require("../models/reaction");
+
 const PostValidation = require("../validator/PostValidation");
 const cloudinary = require("../utils/cloudinary");
 const sharp = require("sharp");
@@ -19,9 +21,9 @@ module.exports = {
       if (file) {
         const path = `${process.env.APP_NAME}/users/${id}/posts_photos/`;
         const data = await sharp(req.file.buffer)
-        .toFormat("webp")
-        .webp({ quality: 90 })
-        .toBuffer();
+          .toFormat("webp")
+          .webp({ quality: 90 })
+          .toBuffer();
 
         const imageDetails = await cloudinary.uploadToCloudinary(data, path);
         req.body.owner = id;
@@ -46,11 +48,11 @@ module.exports = {
     try {
       if (!isValid) {
         return res.status(404).json(errors);
-      }      
+      }
       const data = await Post.findById({ _id: req.params.id });
       if (file && data.cloudinary_id) {
         await cloudinary.removeFromCloudinary(data.cloudinary_id);
-      }   
+      }
       if (file) {
         const path = `${process.env.APP_NAME}/users/${req.user.id}/posts_photos/`;
         const data = await sharp(req.file.buffer)
@@ -61,8 +63,8 @@ module.exports = {
         const imageDetails = await cloudinary.uploadToCloudinary(data, path);
         const post = {
           text: req.body.text || data.text,
-          image: imageDetails.url ,
-          cloudinary_id: imageDetails.public_id ,
+          image: imageDetails.url,
+          cloudinary_id: imageDetails.public_id,
         };
         const memo = await Post.findByIdAndUpdate(
           { _id: req.params.id },
@@ -146,17 +148,22 @@ module.exports = {
     const { id } = req.params;
 
     try {
-      const data = await Post.findById(id);
-      const index = data.likes.findIndex((id) => id === String(req.user.id));
-      if (index === -1) {
-        data.likes.push(req.user.id);
-      } else {
-        data.likes = data.likes.filter((id) => id !== String(req.user.id));
+      const post = await Post.findById(id);
+      if (!post) {
+        return res.status(404).json("this post no more exist");
       }
-      const memo = await Post.findByIdAndUpdate(id, data, {
-        new: true,
+      const data = await Reaction.findOne({
+        post: id,
+        owner: String(req?.user?.id)
       });
-      res.status(200).json(memo);
+      if (!data) {
+        req.body.post = id;
+        req.body.owner = req?.user?.id;
+        const like = await Reaction.create(req.body);
+        return res.status(200).json(like);
+      } else {
+      await data.remove()
+      }
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
@@ -167,7 +174,7 @@ module.exports = {
     const { text } = req.body;
     const owner = req.user.id;
     try {
-      if (!id)
+      if (!id || !text)
         return res
           .status(404)
           .json({ message: "Please provide comment data and post" });

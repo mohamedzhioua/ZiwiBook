@@ -23,7 +23,7 @@ router.patch("/updatePost/:id",checkAuth,multerUploads, PostController.updatePos
 router.delete("/deletePost/:id",checkAuth, PostController.deletePost);
 
 // PATCH request
-router.patch("/like/:id",checkAuth, PostController.like);
+router.put("/like/:id",checkAuth, PostController.like);
 
 
 //-------------------------------------Comments-------------------------------//
