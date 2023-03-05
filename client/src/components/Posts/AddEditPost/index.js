@@ -1,31 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
-
-// features
 import {
   useAddNewPostMutation,
   useUpdatePostMutation,
 } from "../../../app/features/post/postSlice";
-
-// Components
 import { CustomInput, CustomButton, FormLoader } from "../../index";
-
-// Styles
-import style from "./Post.module.css";
 import { toast } from "react-toastify";
 import { closeModal } from "../../../app/features/modal/modalSlice";
 import { useDispatch } from "react-redux";
 import { Photo } from "../../../svg";
 import styleIcons from "../../../styles/icons.module.css";
+import style from "./Post.module.css";
+
 const AddEditPost = ({ post, user }) => {
   const dispatch = useDispatch();
-  const [form, setForm] = useState({ text: "", image: "" });
-  console.log("🚀 ~ file: index.js:22 ~ AddEditPost ~ form:", form);
+  const [text, setText] = useState("");
+  const [image, setImage] = useState("");
   const [error, setError] = useState(null);
   const [picture, setPicture] = useState(null);
-  const [showOldCover, setShowOldCover] = useState(false);
   const refImageInput = useRef(null);
   const [showImageContainer, setShowImageContainer] = useState(false);
-  const id = form._id || null;
+  const id = post?._id || null;
   const [addNewPost, { isLoading, isError, isSuccess }] =
     useAddNewPostMutation();
   const [
@@ -58,26 +52,21 @@ const AddEditPost = ({ post, user }) => {
 
   //handling the memorie old fields for the update
   useEffect(() => {
-    if (post) setForm({ ...post });
+    if (post) {
+      setImage(post?.image);
+      setText(post?.text);
+    }
   }, [post]);
 
   //clearing the state for the newest user inputs
   const clear = () => {
-    setForm({ text: "", image: "" });
+    setImage("");
+    setText("");
     setPicture(null);
   };
   const clearImage = () => {
-    setForm({ image: "" });
+    setImage("");
     setPicture(null);
-  };
-
-  //onChangeHandler
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
   };
 
   //onChangefile
@@ -92,10 +81,7 @@ const AddEditPost = ({ post, user }) => {
       setError(`${file.name} format is not supported.`);
       return;
     }
-    setForm({
-      ...form,
-      [e.target.name]: file,
-    });
+    setImage(file);
     setError(null);
   };
 
@@ -103,9 +89,8 @@ const AddEditPost = ({ post, user }) => {
   const onsubmitHandler = async (event) => {
     event.preventDefault();
     let dataForm = new FormData();
-    console.log("🚀 ~ file: index.js:106 ~ onsubmitHandler ~ dataForm:", dataForm)
-    dataForm.append("text", form.text);
-    dataForm.append("image", form.image);
+    dataForm.append("text", text);
+    dataForm.append("image", image);
     if (Boolean(post)) {
       await updatePost({ id, dataForm });
     } else {
@@ -134,8 +119,8 @@ const AddEditPost = ({ post, user }) => {
             type="textarea"
             placeholder={`What's on your mind, ${user?.firstName}?`}
             name="text"
-            onChange={onChangeHandler}
-            value={form.text}
+            onChange={(e) => setText(e.target.value)}
+            value={text}
             className={style.textarea}
           />
 
@@ -206,10 +191,8 @@ const AddEditPost = ({ post, user }) => {
           <CustomButton
             className="button button8"
             value={post ? "update" : "submit"}
-            disabled={!form.text || error}
-            onClick={
-              onsubmitHandler
-            }
+            disabled={!text || error}
+            onClick={onsubmitHandler}
           />
         </div>
       </FormLoader>

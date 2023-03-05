@@ -35,14 +35,6 @@ const Router = () => {
           </ForceRedirect>
         }
       />
-      <Route
-        path="/Signup"
-        element={
-          <ForceRedirect>
-            <Register />
-          </ForceRedirect>
-        }
-      />
 
       <Route path="*" element={<NotFound />} />
     </Routes>
