@@ -53,7 +53,7 @@ const UserSchema = new Schema(
     photo: {
       type: String,
       default:
-        "https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg",
+        "https://avatars.githubusercontent.com/u/107249637?s=400&u=17dbde1786dbbc67d2c6cfadb99be42c7b97c3f0&v=4",
     },
 
     cover: { type: String },

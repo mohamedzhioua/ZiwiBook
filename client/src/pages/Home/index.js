@@ -8,7 +8,7 @@ import style from "./home.module.css";
 
 function Home() {
   // const [wordEntered, setWordEntered] = useState("");
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
   const { isLoading, isFetching, isSuccess, isError, error } = useFetchPostsQuery();
   const sortedPosts = useSelector(selectPostIds);
   const postSkeleton = isFetching || isLoading;

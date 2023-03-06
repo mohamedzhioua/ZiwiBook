@@ -23,7 +23,7 @@ import {
 
 function Profile() {
   const [showProfilePhoto, setShowProfilePhoto] = useState(false);
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
   const { username } = useParams();
 
   const usernameID = username ? username : user?.username;

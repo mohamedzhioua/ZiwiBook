@@ -1,16 +1,24 @@
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logout, reset } from "../../app/features/auth/authSlice";
+import { logOut } from "../../app/features/user/userSlice";
 import style from "./Header.module.css";
 import styleIcons from "../../styles/icons.module.css";
+import { useEffect } from "react";
+import { useLogoutMutation } from "../../app/features/auth/authSlice";
 function HeaderMenu({ user, setShowHeaderMenu }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [Logout, { isLoading, isSuccess, error, isError }] = useLogoutMutation();
 
-  const LogoutHandler = () => {
-    dispatch(logout());
-    dispatch(reset());
-    navigate("/login");
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(logOut());
+      navigate("/login");
+    }
+  }, [isSuccess,dispatch]);
+
+  const LogoutHandler = async () => {
+    Logout();
   };
   return (
     <div className={style.header_menu}>

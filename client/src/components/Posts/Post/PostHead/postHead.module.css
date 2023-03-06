@@ -6,6 +6,7 @@
 .user_profile {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 .user_profile .left img {
   width: 40px;

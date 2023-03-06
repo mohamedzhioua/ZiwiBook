@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 
 
 const ForceRedirect = ({ children }) => {
- const { token , status} = useSelector((state) => state.auth);
+ const { token } = useSelector((state) => state.user);
 
-  if (status==="isConnected" ||token) {
+  if (token) {
     return <Navigate to="/" replace/>;
   }
   return children;

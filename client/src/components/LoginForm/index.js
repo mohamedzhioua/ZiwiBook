@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
-
-// features
-import { login } from "../../app/features/auth/authSlice";
-
-// Components
+import { setCredentials } from "../../app/features/user/userSlice";
 import { AuthInput, Card, CustomButton, FormLoader } from "../../components";
-
-// Styles
 import { FaSignInAlt } from "react-icons/fa";
 import "./index.css";
 import ZIWIBook from "../../icons/ZIWIBook.png";
+import { useLoginMutation } from "../../app/features/auth/authSlice";
+
 const LoginForm = ({ setShowRegister }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const form = { email: "", password: "" };
   const { email, password } = form;
+  const [login, { isLoading,isSuccess }] = useLoginMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/");
+    }
+  }, [navigate, dispatch, isSuccess]);
 
   // eye show hide handler
   const [passwordVisible, setPasswordVisible] = useState(false);
   const Eye = () => {
     setPasswordVisible(!passwordVisible);
   };
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const { error, status } = useSelector((state) => state.auth);
-
-  useEffect(() => {}, [error, navigate, status, dispatch]);
 
   const loginValidation = Yup.object({
     email: Yup.string()
@@ -59,21 +57,19 @@ const LoginForm = ({ setShowRegister }) => {
             password,
           }}
           onSubmit={async (values, { setFieldError }) => {
-            dispatch(login(values))
-              .unwrap()
-              .then((data) => {
-                navigate("/");
-              })
-              .catch((error) => {
-                setFieldError("email", error.email);
-                setFieldError("password", error.password);
-              });
+            try {
+              const userData = await login(values).unwrap();
+              dispatch(setCredentials({ ...userData }));
+            } catch (error) {
+              setFieldError("email", error.data.email);
+              setFieldError("password", error.data.password);
+            }
           }}
         >
           {(formik) => {
             return (
               <Form className="login-form">
-                <FormLoader loading={status}>
+                <FormLoader loading={isLoading}>
                   <AuthInput
                     type="text"
                     name="email"

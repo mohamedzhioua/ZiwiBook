@@ -26,7 +26,7 @@ router.delete("/deletePost/:id",checkAuth, PostController.deletePost);
 router.put("/like/:id",checkAuth, PostController.like);
 
 // GET request
-router.get("/getPostReactions/:id", PostController.getPostReactions);
+router.get("/getPostsReactions", PostController.getPostsReactions);
 
 
 //-------------------------------------Comments-------------------------------//

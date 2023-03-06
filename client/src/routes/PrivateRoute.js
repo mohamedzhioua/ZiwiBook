@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import { Header } from "../layouts";
 
 const PrivateRoute = ({ children }) => {
-  const { status, token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.user);
 
-  return status === "isConnected" || token ? (
+  return token ? (
     <>
       <Header />
       {children}

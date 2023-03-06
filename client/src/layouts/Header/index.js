@@ -19,7 +19,7 @@ import HeaderMenu from "./HeaderMenu";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import NotificationMenu from "./NotificationMenu/NotificationMenu";
 const Header = () => {
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
   const [showHeaderMenu, setShowHeaderMenu] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const notificationMenu = useRef(null);

@@ -171,11 +171,10 @@ module.exports = {
   },
     //  -----------------------//getAllLikes method //--------------------------- //
 
-    getPostReactions: async (req, res) => {
-      const {postId } = req.params;
-
+    getPostsReactions: async (req, res) => {
+  
       try {
-        const reaction = await Reaction.find({postId});
+        const reaction = await Reaction.find();
          res.status(200).json(reaction);
       } catch (error) {
         res.status(404).json({ message: error.message });

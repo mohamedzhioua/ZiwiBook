@@ -6,20 +6,20 @@ import "./index.css";
 const FormLoader = ({ loading, children, type }) => {
   console.log("🚀 ~ file: index.js:7 ~ FormLoader ~ loading:", loading)
   return (
-    <div className={Boolean(loading === "Loading" ) ? "Loader-wrap" : ""}>
+    <div className={loading ? "Loader-wrap" : ""}>
       {loading ? <div className="loaderback" /> : ""}
       {loading ? (
         <div className="loader">
           {type === 2 ? (
             <PulseLoader
               color="#878787"
-              loading={Boolean(loading === "Loading")}
+              loading={loading}
               size={10}
             />
           ) : (
             <BeatLoader
               color=" #5c6e58"
-              loading={Boolean(loading === "Loading")}
+              loading={loading}
               size={20}
             />
           )}
@@ -27,7 +27,7 @@ const FormLoader = ({ loading, children, type }) => {
       ) : (
         ""
       )}
-      <div className={Boolean(loading === "Loading") ? "loader-content" : ""}>
+      <div className={loading ? "loader-content" : ""}>
         {children}
       </div>
     </div>

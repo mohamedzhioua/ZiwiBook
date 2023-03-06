@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Cropper from "react-easy-crop";
 import { CustomButton, CustomInput, Card, FormLoader } from "../index";
-import { updateCoverPhoto } from "../../app/features/auth/authSlice";
+// import { updateCoverPhoto } from "../../app/features/auth/authSlice";
 import getCroppedImg from "../../utils/getCroppedImg";
 import "./index.css";
 import IconStyle from "../../styles/icons.module.css"
@@ -98,7 +98,7 @@ function ProfileCover({ isVisitor, user }) {
   useEffect(()=>{
     if ( isSuccess&& data) {
       coverRef.current.style.backgroundImage = `url(${data.data.cover})`;
-      dispatch(updateCoverPhoto(data.data.cover));
+      // dispatch(updateCoverPhoto(data.data.cover));
       setTimeout(() => {
         setImage(null);
       }, 200);

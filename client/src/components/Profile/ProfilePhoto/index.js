@@ -9,7 +9,6 @@ import Portal from "../../../utils/Portal";
 
 function ProfilePhoto({ showProfilePhoto, setShowProfilePhoto }) {
   const refInput = useRef(null);
-  const coverRef = useRef(null);
   const slider = useRef(null);
 
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -25,37 +24,6 @@ function ProfilePhoto({ showProfilePhoto, setShowProfilePhoto }) {
       });
     }
   }, [error]);
-
-  const zoomIn = () => {
-    slider.current.stepUp();
-    setZoom(slider.current.value);
-  };
-
-  const zoomOut = () => {
-    slider.current.stepDown();
-    setZoom(slider.current.value);
-  };
-  const getCroppedImage = useCallback(
-    async (show) => {
-      try {
-        const croppedImage = await getCroppedImg(image, croppedAreaPixels);
-        if (show) {
-          setZoom(1);
-          setCrop({ x: 0, y: 0 });
-          console.log("donee", { croppedImage });
-          setImage(croppedImage);
-        } else {
-          return croppedImage;
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    [croppedAreaPixels]
-  );
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-    setCroppedAreaPixels(croppedAreaPixels);
-  }, []);
 
   //onChangefile
   const handleImage = (e) => {
@@ -77,6 +45,48 @@ function ProfilePhoto({ showProfilePhoto, setShowProfilePhoto }) {
     reader.onload = (event) => {
       setImage(event.target.result);
     };
+  };
+  const zoomIn = () => {
+    slider.current.stepUp();
+    setZoom(slider.current.value);
+  };
+
+  const zoomOut = () => {
+    slider.current.stepDown();
+    setZoom(slider.current.value);
+  };
+  const getCroppedImage = useCallback(
+    async (show) => {
+      try {
+        const croppedImage = await getCroppedImg(image, croppedAreaPixels);
+        if (show) {
+          setZoom(1);
+          setCrop({ x: 0, y: 0 });
+          setImage(croppedImage);
+        } else {
+          return croppedImage;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [croppedAreaPixels]
+  );
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
+
+  const updateProfielPicture = async (e) => {
+    e.preventDefault();
+    try {
+      let img = await getCroppedImage(false);
+      let blob = await fetch(img).then((r) => r.blob());
+      let form = new FormData();
+      form.append("image", blob);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Portal>
@@ -150,7 +160,7 @@ function ProfilePhoto({ showProfilePhoto, setShowProfilePhoto }) {
                     </CustomButton>
                     <CustomButton
                       className={`blue_btn btns`}
-                      // onClick={() => updateProfielPicture()}
+                      onClick={updateProfielPicture}
                     >
                       Save
                     </CustomButton>
