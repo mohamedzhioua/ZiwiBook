@@ -8,7 +8,7 @@
   display: inline-block;
 }
 .public_icon {
-  background-image: url(../icons/publicpack.png);
+  background-image: url("../icons/publicpack.png");
   background-position: 0px -109px;
   background-size: auto;
   width: 20px;
@@ -46,7 +46,7 @@
   display: inline-block;
 }
 .logout_filled_icon {
-  background-image: url(../icons/icons15.png);
+  background-image: url("../icons/icons15.png");
   background-position: 0px -46px;
   background-size: auto;
   width: 20px;
@@ -55,7 +55,7 @@
   display: inline-block;
 }
 .right_icon {
-  background-image: url(../icons/icons18.png);
+  background-image: url("../icons/icons18.png");
   background-position: -83px -13px;
   background-size: auto;
   width: 24px;
@@ -65,7 +65,7 @@
   filter: invert(50%);
 }
 .dark_filled_icon {
-  background-image: url(../icons/icons17.png);
+  background-image: url("../icons/icons17.png");
   background-position: 0px -340px;
   background-size: auto;
   width: 20px;
@@ -74,7 +74,7 @@
   display: inline-block;
 }
 .help_filled_icon {
-  background-image: url(../icons/icons17.png);
+  background-image: url("../icons/icons17.png");
   background-position: 0px -487px;
   background-size: auto;
   width: 20px;
@@ -83,7 +83,7 @@
   display: inline-block;
 }
 .report_filled_icon {
-  background-image: url(../icons/icons15.png);
+  background-image: url("../icons/icons15.png");
   background-position: 0px -25px;
   background-size: auto;
   width: 20px;
@@ -92,7 +92,7 @@
   display: inline-block;
 }
 .settings_filled_icon {
-  background-image: url(../icons/icons16.png);
+  background-image: url("../icons/icons16.png");
   background-position: -21px -228px;
   background-size: auto;
   width: 20px;
@@ -123,6 +123,33 @@
 .addPhoto_icon {
   background-image: url("../icons/icons7.png");
   background-position: -25px -292px;
+  background-size: auto;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+.confirmed_icon {
+  background-image: url("../icons/icons41.png");
+  background-position: -176px -102px;
+  background-size: 190px 204px;
+  width: 14px;
+  height: 14px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+.minus_icon {
+  background-image: url("../icons/icons33.png");
+  background-position: 0px -50px;
+  background-size: auto;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+.plus_icon {
+  background-image: url("../icons/icons32.png");
+  background-position: 0px -25px;
   background-size: auto;
   width: 20px;
   height: 20px;

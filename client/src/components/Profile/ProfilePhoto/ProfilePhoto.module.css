@@ -1,0 +1,102 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile_photo_container {
+  width: 100%;
+  max-width: 500px;
+  min-height: 400px;
+  padding: 0;
+  margin: 8px;
+}
+.header_exit {
+  border-bottom: 1px solid #e4e6eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  position: relative;
+  padding: 16px;
+}
+.exit {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+}
+.profile_photo_content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.crooper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 300px;
+  width: 100%;
+}
+
+.crooper img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.slider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 25px 0;
+  gap: 10px;
+}
+.slider input[type="range"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 55%;
+    height: 4px;
+    background:  #5c6e58;
+    cursor: pointer;
+  }
+  
+  .slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    outline: none;
+    border-radius: 50%;
+    background: #5c6e58;
+
+  }
+  .slider_circle {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .buttons{
+    display: flex;
+    gap: 10px;
+    padding: 0 20px 20px 20px;
+  }
+.upload_btn {
+  border: none;
+  outline: none;
+  background: #f0f2f5;
+  padding: 8.5px 12px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  color: #050505;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.upload_btn:hover {
+  background: #e4e6eb;
+}

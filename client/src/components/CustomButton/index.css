@@ -141,7 +141,7 @@
 .commentcancelbtn {
   border: none;
   background: #e40c2b;
-  color: white;
+  color: #ffffff;
   padding: 3px;
   cursor: pointer;
   border-radius: 5px;
@@ -193,7 +193,7 @@
   bottom: 0;
   left: 50%;
   width: 1px;
-  background-color: #eba63f;
+  background-color:  #5c6e58;
   transition: background-color 100ms ease-in-out;
 }
 

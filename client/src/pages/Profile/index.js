@@ -1,4 +1,4 @@
-import {useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -11,11 +11,11 @@ import {
   PostSkeleton,
   ProfileCover,
   ProfileMenu,
+  ProfilePhoto,
 } from "../../components";
 
 import style from "./profile.module.css";
-import IconStyle from "../../styles/icons.module.css"
-import { MdVerified } from "react-icons/md";
+import IconStyle from "../../styles/icons.module.css";
 import {
   selectPostIds,
   useFetchPostsByUserQuery,
@@ -60,16 +60,14 @@ function Profile() {
                         className={`${style.add_photo} small_circle hover1`}
                         onClick={() => setShowProfilePhoto((perv) => !perv)}
                       >
-                         <i className={IconStyle.camera_filled_icon}></i>
+                        <i className={IconStyle.camera_filled_icon}></i>
                       </div>
-                      {/* {showProfilePhoto && (
+                      {showProfilePhoto && (
                         <ProfilePhoto
                           setShowProfilePhoto={setShowProfilePhoto}
                           showProfilePhoto={showProfilePhoto}
-                          pRef={pRef}
-                          photosData={photosData?.data}
                         />
-                      )} */}
+                      )}
                     </>
                   )}
                 </div>
@@ -77,12 +75,9 @@ function Profile() {
               <div className={style.profile_info}>
                 <h2 className={style.user_name}>
                   zhioua mohamed
-                  <MdVerified
-                    style={{
-                      marginLeft: "10px",
-                      width: "16px",
-                      height: "16px",
-                    }}
+                  <i
+                    style={{ marginLeft: "10px" }}
+                    className={IconStyle.confirmed_icon}
                   />
                 </h2>
                 <span className={style.friends}>50 friends</span>
@@ -103,7 +98,7 @@ function Profile() {
                       value="Add to story"
                     />
                     <CustomButton
-                     className={`gray_btn btns`}
+                      className={`gray_btn btns`}
                       value="Edit profile"
                     />
                   </>
