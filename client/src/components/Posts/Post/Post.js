@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // features
@@ -31,10 +31,12 @@ const Post = ({ postId, user }) => {
   const canDelete = Boolean(
     user?._id === post?.owner?._id || user?._id === post?.owner
   );
-const {data}=useFetchReactionsQuery(post?._id, { refetchOnMountOrArgChange: true })
-console.log("🚀 ~ file: Post.js:35 ~ Post ~ data:", data)
+
   //filtering reactions by post
-  const Reactions = useSelector(selectAllReactions)
+  const Reactions = useSelector(selectAllReactions).filter(
+    (react) => react?.post === post?._id
+  );
+
   //filetring comments by post and sorting them
   const comments = useSelector(selectAllComments)?.filter(
     (comment) => comment?.post === post?._id

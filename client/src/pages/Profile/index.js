@@ -13,7 +13,7 @@ import {
   ProfileMenu,
 } from "../../components";
 
-import "./index.css";
+import style from "./profile.module.css";
 import IconStyle from "../../styles/icons.module.css"
 import { MdVerified } from "react-icons/md";
 import {
@@ -41,23 +41,23 @@ function Profile() {
   const postsSkelton = postsLoading || postsIsFetching;
   const postsSkeltonHide = postsIsSuccess && !postsLoading && !error;
   return (
-    <div className="profilee">
-      <div className="topp">
-        <div className="top-wrapperr">
-          <div className="headerr">
+    <div className={style.profile_container}>
+      <div className={style.head}>
+        <div className={style.head_container}>
+          <div className={style.top_head}>
             <ProfileCover isVisitor={isVisitor} user={user} />
-            <div className="COntent">
-              <div className="photo_wrap">
-                <div className="photo">
+            <div className={style.top_head_content}>
+              <div className={style.photo_container}>
+                <div className={style.photo}>
                   <img
-                    src="https://edge.99images.com/photos/wallpapers/anime/luffy%20android-iphone-desktop-hd-backgrounds-wallpapers-1080p-4k-ox4p8.jpg"
-                    className="profile-photo"
+                    src={user?.photo}
+                    className={style.user_photo}
                     alt="..."
                   />
                   {!isVisitor && (
                     <>
                       <div
-                        className="add_photo small_circle hover1"
+                        className={`${style.add_photo} small_circle hover1`}
                         onClick={() => setShowProfilePhoto((perv) => !perv)}
                       >
                          <i className={IconStyle.camera_filled_icon}></i>
@@ -74,8 +74,8 @@ function Profile() {
                   )}
                 </div>
               </div>
-              <div className="profile-info">
-                <h2 className="Name">
+              <div className={style.profile_info}>
+                <h2 className={style.user_name}>
                   zhioua mohamed
                   <MdVerified
                     style={{
@@ -85,25 +85,25 @@ function Profile() {
                     }}
                   />
                 </h2>
-                <span className="friends">50 friends</span>
+                <span className={style.friends}>50 friends</span>
               </div>
-              <div className="profile-batns">
+              <div className={style.profile_btns}>
                 {isVisitor ? (
                   <>
                     <CustomButton
                       value="Add as A friend"
-                      className="blue_btn butns"
+                      className={`blue_btn btns`}
                     />
-                    <CustomButton className="gray_btn butns" value="Message" />
+                    <CustomButton className={`gray_btn btns`} value="Message" />
                   </>
                 ) : (
                   <>
                     <CustomButton
-                      className="blue_btn butns"
+                      className={`blue_btn btns`}
                       value="Add to story"
                     />
                     <CustomButton
-                      className="gray_btn butns"
+                     className={`gray_btn btns`}
                       value="Edit profile"
                     />
                   </>
@@ -111,16 +111,16 @@ function Profile() {
               </div>
             </div>
           </div>
-          <div className="line"></div>
+          <div className={style.line}></div>
 
           <ProfileMenu />
         </div>
       </div>
-      <div className="bottom">
-        <div className="bottom-wrapper">
-          <div className="details">
+      <div className={style.footer}>
+        <div className={style.footer_container}>
+          <div className={style.details}>
             <div
-              className="details_con"
+              className={style.details_con}
               style={{
                 top: "65px",
               }}
@@ -129,7 +129,7 @@ function Profile() {
               <Friends />
             </div>
           </div>
-          <div className="posts">
+          <div className={style.posts}>
             {!isVisitor && <CreatPost user={user} />}
             {postsSkelton && <PostSkeleton />}
             {postsSkeltonHide && <PostList posts={sortedPosts} user={user} />}

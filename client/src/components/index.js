@@ -9,7 +9,7 @@ export { default as SearchBar } from "./SearchBar";
 export { default as Loading } from "./Loading";
 export { default as FormLoader } from "./FormLoader";
 export { default as Card } from "./Card";
-export { default as PostList } from "./Posts/Post";
+export { default as PostList } from "./Posts/Post/PostList";
 export { default as LoginForm } from "./LoginForm";
 export { default as RegisterForm } from "./RegisterForm";
 export { default as UserProfile } from "./Profile";

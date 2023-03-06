@@ -128,28 +128,6 @@
   min-width: 400px;
 } */
 
-/* profile menu */
-
-.profile-menu-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.profile-menu {
-  display: flex;
-  align-items: center;
-}
-.profile-menu a {
-  padding: 10px;
-  font-family: "Roboto", sans-serif;
-  font-size: 300;
-  color: var(--color-secondary);
-}
-.profile-menu .active {
-  color: var(--blue-color);
-  border-bottom: 2px solid #5c6e58;
-  margin-bottom: -3px;
-}
 
 /* photos / friends */
 

@@ -11,9 +11,8 @@ export const reactionApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     
     fetchReactions: builder.query({
-      query: (id) => `/post/getPostReactions/${id}`,
-      transformResponse: (responseData) => {        console.log("🚀 ~ file: reactionSlice.js:17 ~ responseData:", responseData)
-
+      query: () => "/post/getPostsReactions/",
+      transformResponse: (responseData) => {
         return reactionAdapter.setAll(initialState, responseData);
       },
       providesTags: (result, error, arg) => [
@@ -30,10 +29,8 @@ export const reactionApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: (result, error, arg) => [
         { type: "Reaction", id: arg.id },
       ],
-      
     }),
   }),
-  
 });
 
 export const { useFetchReactionsQuery, useLikePostMutation } = reactionApiSlice;

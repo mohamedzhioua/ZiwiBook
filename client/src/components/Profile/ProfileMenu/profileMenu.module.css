@@ -1,0 +1,24 @@
+/* profile menu */
+
+.profile_menu_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.profile_menu {
+  display: flex;
+  align-items: center;
+}
+.profile_menu a {
+  padding: 10px;
+  font-family: "Roboto", sans-serif;
+  font-size: 300;
+}
+.profile_menu .active {
+  color: #5c6e58;
+  border-bottom: 2px solid #5c6e58;
+  margin-bottom: -3px;
+}
+.link {
+  text-decoration: none;
+}
