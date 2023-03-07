@@ -36,7 +36,6 @@ module.exports = {
 
   signin: async (req, res) => {
     const { email, password } = req.body;
-    console.log("🚀 ~ file: users.js:39 ~ signin: ~  req.body:",  req.body)
     const { errors, isValid } = SigninValidation(req.body);
 
     try {

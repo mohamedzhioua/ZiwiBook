@@ -14,6 +14,7 @@ module.exports = {
     }
   },
   updateProfilePhoto: async (req, res) => {
+    console.log("🚀 ~ file: usersProfile.js:17 ~ updateProfilePhoto: ~ req:", req.body)
     const id = req.user.id;
     try {
         const user = await User.findByIdAndUpdate(id, req.body,{new: true})
