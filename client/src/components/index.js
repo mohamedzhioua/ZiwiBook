@@ -14,7 +14,7 @@ export { default as LoginForm } from "./LoginForm";
 export { default as RegisterForm } from "./RegisterForm";
 export { default as UserProfile } from "./Profile";
 export { default as ProfileMenu } from "./Profile/ProfileMenu";
-export {default as ProfileCover} from "./Profile/ProfileCover"
+export {default as ProfileCover} from "./Profile/ProfileCover/ProfileCover"
 export {default as ProfileInfo} from "./Profile/ProfileInfo"
 export {default as Photos} from "./Profile/Photos"
 export {default as Friends} from "./Profile/Friends"

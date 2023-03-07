@@ -4,7 +4,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
-        url: "user/signin",
+        url: "/user/signin",
         method: "POST",
         body: { ...credentials },
       }),
@@ -13,7 +13,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
     register: builder.mutation({
       query: (credentials) => {
         return {
-          url: "user/signup",
+          url: "/user/signup",
           method: "POST",
           body: { ...credentials },
         };
@@ -23,7 +23,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
     Logout: builder.mutation({
       query: () => {
         return {
-          url: "user/logout",
+          url: "/user/logout",
           method: "GET",
         };
       },
@@ -36,8 +36,21 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body: credentials,
       }),
     }),
+
+    updateProfilePhoto: builder.mutation({
+      query: (credentials) => ({
+        url: "/user/update/profile/Photo",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation , useUpdateCoverPhotoMutation } =
-  authApiSlice;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useLogoutMutation,
+  useUpdateCoverPhotoMutation,
+  useUpdateProfilePhotoMutation,
+} = authApiSlice;

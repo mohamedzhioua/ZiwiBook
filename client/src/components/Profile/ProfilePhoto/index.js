@@ -6,17 +6,21 @@ import { toast } from "react-toastify";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../../../utils/getCroppedImg";
 import Portal from "../../../utils/Portal";
+import { useUpdateProfilePhotoMutation } from "../../../app/features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { Updatephoto } from "../../../app/features/user/userSlice";
 
 function ProfilePhoto({ showProfilePhoto, setShowProfilePhoto }) {
   const refInput = useRef(null);
   const slider = useRef(null);
+  const dispatch = useDispatch();
 
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [error, setError] = useState(null);
   const [image, setImage] = useState(null);
-
+  const [updateProfilePhoto, { isLoading }] = useUpdateProfilePhotoMutation();
   useEffect(() => {
     if (error) {
       toast.error(error, {
@@ -76,16 +80,21 @@ function ProfilePhoto({ showProfilePhoto, setShowProfilePhoto }) {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
-
   const updateProfielPicture = async (e) => {
     e.preventDefault();
+    setShowProfilePhoto(false);
     try {
       let img = await getCroppedImage(false);
       let blob = await fetch(img).then((r) => r.blob());
       let form = new FormData();
       form.append("image", blob);
+      let photoData = await updateProfilePhoto(form).unwrap();
+      dispatch(Updatephoto(photoData.photo));
+      setTimeout(() => {
+        setImage(null);
+      }, 200);
     } catch (error) {
-      console.log(error);
+      setError("something went wrong please try again");
     }
   };
   return (
@@ -129,7 +138,7 @@ function ProfilePhoto({ showProfilePhoto, setShowProfilePhoto }) {
                       className="small_circle hover1"
                       onClick={() => zoomOut()}
                     >
-                      <i className={IconStyle.minus_icon}/>
+                      <i className={IconStyle.minus_icon} />
                     </div>
                     <input
                       ref={slider}
@@ -148,7 +157,7 @@ function ProfilePhoto({ showProfilePhoto, setShowProfilePhoto }) {
                       className="small_circle hover1"
                       onClick={() => zoomIn()}
                     >
-                      <i className={IconStyle.plus_icon}/>
+                      <i className={IconStyle.plus_icon} />
                     </div>
                   </div>
                   <div className={classes.buttons}>

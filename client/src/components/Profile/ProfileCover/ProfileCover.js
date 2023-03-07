@@ -1,14 +1,14 @@
 import { useDispatch } from "react-redux";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Cropper from "react-easy-crop";
-import { CustomButton, CustomInput, Card, FormLoader } from "../index";
-import getCroppedImg from "../../utils/getCroppedImg";
-import "./index.css";
-import IconStyle from "../../styles/icons.module.css";
+import { CustomButton, CustomInput, Card, FormLoader } from "../../index";
+import getCroppedImg from "../../../utils/getCroppedImg";
+import classes from "./cover.module.css";
+import IconStyle from "../../../styles/icons.module.css";
 import { toast } from "react-toastify";
-import useOnClickOutside from "../../hooks/useOnClickOutside";
-import { useUpdateCoverPhotoMutation } from "../../app/features/auth/authSlice";
-import { UpdateCover } from "../../app/features/user/userSlice";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import { useUpdateCoverPhotoMutation } from "../../../app/features/auth/authSlice";
+import { UpdateCover } from "../../../app/features/user/userSlice";
 
 function ProfileCover({ isVisitor, user }) {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ function ProfileCover({ isVisitor, user }) {
   useEffect(() => {
     setWidth(coverRef.current.clientWidth);
     setHeight(coverRef.current.clientHeight);
-  }, [window.innerWidth]);
+  }, []);
 
   useEffect(() => {
     if (error) {
@@ -53,7 +53,6 @@ function ProfileCover({ isVisitor, user }) {
         if (show) {
           setZoom(1);
           setCrop({ x: 0, y: 0 });
-          console.log("donee", { croppedImage });
           setImage(croppedImage);
         } else {
           return croppedImage;
@@ -94,7 +93,7 @@ function ProfileCover({ isVisitor, user }) {
       let blob = await fetch(img).then((r) => r.blob());
       let form = new FormData();
       form.append("image", blob);
-      const coverData = await updateCoverPhoto(form).unwrap();
+      let coverData = await updateCoverPhoto(form).unwrap();
       dispatch(UpdateCover(coverData.cover));
       coverRef.current.style.backgroundImage = `url(${coverData.cover})`;
       setTimeout(() => {
@@ -107,7 +106,7 @@ function ProfileCover({ isVisitor, user }) {
 
   return (
     <div
-      className="profile-cover"
+      className={classes.cover_container}
       ref={coverRef}
       style={{
         backgroundImage: `url(${user?.cover})`,
@@ -115,30 +114,30 @@ function ProfileCover({ isVisitor, user }) {
     >
       {image && (
         <>
-          <div className="save-cover">
-            <div className="left">
+          <div className={classes.btns_container}>
+            <div className={classes.left}>
               <i className={IconStyle.public_icon}></i>
               Your cover is public
             </div>
-            <div className="cover-btns">
+            <div className={classes.btns}>
               <CustomButton
-                className="gray_btn cover"
+                className={`gray_btn ${classes.cover}`}
                 onClick={() => setImage(null)}
                 value="Cancel"
               />
 
               <CustomButton
-                className="blue_btn cover"
+                className={`blue_btn ${classes.cover}`}
                 value="Save"
                 onClick={updateCover}
               />
             </div>
           </div>
           <FormLoader loading={isLoading}>
-            <div className="cover_cropper">
+            <div className={classes.cropper}>
               <Cropper
                 classes={{
-                  mediaClassName: "mediaClassName",
+                  mediaClassName: classes.mediaClassName,
                 }}
                 image={image}
                 crop={crop}
@@ -156,7 +155,7 @@ function ProfileCover({ isVisitor, user }) {
       )}
       {!isVisitor && (
         <>
-          <div className="edit-cover-container">
+          <div className={classes.edit_container}>
             <CustomInput
               type="file"
               innerRef={refInput}
@@ -165,26 +164,29 @@ function ProfileCover({ isVisitor, user }) {
               accept="image/jpeg,image/png,image/webp,image/gif"
             />
             <div
-              className="edit-cover"
+              className={classes.edit}
               onClick={() => setShowCoverMenu((prev) => !prev)}
             >
               <i className={IconStyle.camera_filled_icon}></i>
               <span>Add Cover Photo</span>
             </div>
             {showCoverMneu && (
-              <Card className="cover_upload_menu" innerRef={CoverMenuRef}>
+              <Card
+                className={classes.cover_upload_menu}
+                innerRef={CoverMenuRef}
+              >
                 <div
-                  className="open_cover_menu_item hover1"
+                  className={`${classes.open_cover_menu_item} hover1`}
                   onClick={() => setShowOldCover(true)}
                 >
                   <i className="photo_icon"></i>
                   Select Photo
                 </div>
                 <div
-                  className="open_cover_menu_item hover1"
+                  className={`${classes.open_cover_menu_item} hover1`}
                   onClick={() => refInput.current.click()}
                 >
-                  <i className="upload_icon"></i>
+                  <i className={IconStyle.upload_icon}></i>
                   Upload Photo
                 </div>
               </Card>

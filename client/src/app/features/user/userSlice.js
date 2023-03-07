@@ -26,6 +26,12 @@ export const userSlice = createSlice({
         expires: 90,
       });
     },
+    Updatephoto: (state, action) => {
+      state.user.photo = action.payload;
+      Cookies.set("user", JSON.stringify(state.user), {
+        expires: 90,
+      });
+    },
     logOut: (state, action) => {
       state.user = null;
       state.token = null;
@@ -35,5 +41,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { logOut, setCredentials, UpdateCover } = userSlice.actions;
+export const { logOut, setCredentials, UpdateCover, Updatephoto } =
+  userSlice.actions;
 export default userSlice.reducer;
