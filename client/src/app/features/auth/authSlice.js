@@ -28,8 +28,16 @@ export const authApiSlice = apiSlice.injectEndpoints({
         };
       },
     }),
+
+    updateCoverPhoto: builder.mutation({
+      query: (credentials) => ({
+        url: "/user/update/profile/cover",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation , useUpdateCoverPhotoMutation } =
   authApiSlice;

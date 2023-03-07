@@ -1,55 +1,39 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import userService from "./userService";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
 
-// const initialState = {
-//   user: Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null,
-//   token: Cookies.get("token") ? JSON.parse(Cookies.get("token")) : null,
-//   // error: null,
-//   // message: "",
-//   // status: "idle",
-// };
-
-// //Register user
-// export const register = createAsyncThunk(
-//   "auth/register",
-//   async (user, thunkAPI) => {
-//     try {
-//       return await userService.register(user);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error.response.data);
-//     }
-//   }
-// );
-
-// //login user
-// export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
-//   try {
-//     return await userService.login(user);
-//   } catch (error) {
-//     return thunkAPI.rejectWithValue(error.response.data);
-//   }
-// });
-// //logout user
-// export const logout = createAsyncThunk("auth/logout", async () => {
-//   await userService.logout();
-// });
+const initialState = {
+  user: Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null,
+  token: Cookies.get("token") ? JSON.parse(Cookies.get("token")) : null,
+};
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: { user: null, token: null },
+  initialState,
   reducers: {
-      setCredentials: (state, action) => {
-          state.user = action.payload.user
-          console.log("🚀 ~ file: userSlice.js:44 ~  action.payload:",  action.payload)
-          state.token = action.payload.token
-      },
-      logOut: (state, action) => {
-          state.user = null
-          state.token = null
-      }
+    setCredentials: (state, action) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      Cookies.set("user", JSON.stringify(action.payload.user), {
+        expires: 90,
+      });
+      Cookies.set("token", JSON.stringify(action.payload.token), {
+        expires: 90,
+      });
+    },
+    UpdateCover: (state, action) => {
+      state.user.cover = action.payload;
+      Cookies.set("user", JSON.stringify(state.user), {
+        expires: 90,
+      });
+    },
+    logOut: (state, action) => {
+      state.user = null;
+      state.token = null;
+      Cookies.set("user", null);
+      Cookies.set("token", null);
+    },
   },
 });
 
-export const {  logOut, setCredentials } = userSlice.actions;
+export const { logOut, setCredentials, UpdateCover } = userSlice.actions;
 export default userSlice.reducer;

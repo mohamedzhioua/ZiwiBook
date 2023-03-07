@@ -2,18 +2,17 @@ import { useDispatch } from "react-redux";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Cropper from "react-easy-crop";
 import { CustomButton, CustomInput, Card, FormLoader } from "../index";
-// import { updateCoverPhoto } from "../../app/features/auth/authSlice";
 import getCroppedImg from "../../utils/getCroppedImg";
 import "./index.css";
-import IconStyle from "../../styles/icons.module.css"
+import IconStyle from "../../styles/icons.module.css";
 import { toast } from "react-toastify";
-import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
+import { useUpdateCoverPhotoMutation } from "../../app/features/auth/authSlice";
+import { UpdateCover } from "../../app/features/user/userSlice";
 
 function ProfileCover({ isVisitor, user }) {
-    const dispatch = useDispatch();
-
+  const dispatch = useDispatch();
+  const [updateCoverPhoto, { isLoading }] = useUpdateCoverPhotoMutation();
   const [image, setImage] = useState(null);
   const [showCoverMneu, setShowCoverMenu] = useState(false);
   const [showOldCover, setShowOldCover] = useState(false);
@@ -26,6 +25,7 @@ function ProfileCover({ isVisitor, user }) {
   const [error, setError] = useState(null);
   const [width, setWidth] = useState();
   const [height, setHeight] = useState();
+
   useOnClickOutside(CoverMenuRef, showCoverMneu, () => {
     setShowCoverMenu(false);
   });
@@ -86,37 +86,25 @@ function ProfileCover({ isVisitor, user }) {
       setImage(event.target.result);
     };
   };
-  const updateCover =  (form) => {
-    return   axios.post("/user/update/profile/cover", form,{ headers: {
-      "Content-Type": "multipart/form-data",
-    }});
-  };
 
-  const { data, isLoading, isSuccess, mutate } = useMutation({
-    mutationFn: updateCover,
-  });
-  useEffect(()=>{
-    if ( isSuccess&& data) {
-      coverRef.current.style.backgroundImage = `url(${data.data.cover})`;
-      // dispatch(updateCoverPhoto(data.data.cover));
-      setTimeout(() => {
-        setImage(null);
-      }, 200);
-    }
-  },[isSuccess , data])
-
-  const updateCoverHandler = async (e) => {
+  const updateCover = async (e) => {
     e.preventDefault();
     try {
       let img = await getCroppedImage(false);
       let blob = await fetch(img).then((r) => r.blob());
       let form = new FormData();
       form.append("image", blob);
-      mutate(form);
+      const coverData = await updateCoverPhoto(form).unwrap();
+      dispatch(UpdateCover(coverData.cover));
+      coverRef.current.style.backgroundImage = `url(${coverData.cover})`;
+      setTimeout(() => {
+        setImage(null);
+      }, 200);
     } catch (error) {
-      console.log(error);
+      setError("something went wrong please try again");
     }
   };
+
   return (
     <div
       className="profile-cover"
@@ -129,7 +117,7 @@ function ProfileCover({ isVisitor, user }) {
         <>
           <div className="save-cover">
             <div className="left">
-            <i className={IconStyle.public_icon}></i>
+              <i className={IconStyle.public_icon}></i>
               Your cover is public
             </div>
             <div className="cover-btns">
@@ -142,27 +130,27 @@ function ProfileCover({ isVisitor, user }) {
               <CustomButton
                 className="blue_btn cover"
                 value="Save"
-                onClick={updateCoverHandler}
+                onClick={updateCover}
               />
             </div>
           </div>
           <FormLoader loading={isLoading}>
-          <div className="cover_cropper">
-            <Cropper
-              classes={{
-                mediaClassName: "mediaClassName",
-              }}
-              image={image}
-              crop={crop}
-              zoom={zoom}
-              aspect={width / height}
-              onCropChange={setCrop}
-              onCropComplete={onCropComplete}
-              onZoomChange={setZoom}
-              showGrid={true}
-              objectFit="horizontal-cover"
-            />
-          </div>
+            <div className="cover_cropper">
+              <Cropper
+                classes={{
+                  mediaClassName: "mediaClassName",
+                }}
+                image={image}
+                crop={crop}
+                zoom={zoom}
+                aspect={width / height}
+                onCropChange={setCrop}
+                onCropComplete={onCropComplete}
+                onZoomChange={setZoom}
+                showGrid={true}
+                objectFit="horizontal-cover"
+              />
+            </div>
           </FormLoader>
         </>
       )}
@@ -180,7 +168,7 @@ function ProfileCover({ isVisitor, user }) {
               className="edit-cover"
               onClick={() => setShowCoverMenu((prev) => !prev)}
             >
-             <i className={IconStyle.camera_filled_icon}></i>
+              <i className={IconStyle.camera_filled_icon}></i>
               <span>Add Cover Photo</span>
             </div>
             {showCoverMneu && (
