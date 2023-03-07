@@ -10,5 +10,6 @@ export {default as Feeling } from './feeling'
 export {default as LiveVideo } from './liveVideo'
 export {default as Photo } from './photo'
 export {default as SearchIcon } from './search'
+export {default as ReturnIcon } from './ReturnIcon'
 
 

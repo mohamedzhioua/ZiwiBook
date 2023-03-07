@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 //Styles
 import style from "./Header.module.css";
 import ZIWIBook from "../../icons/ZIWIBook.png";
- import { SearchBar } from "../../components";
+import { SearchBar } from "../../components";
 import {
   Home,
   HomeActive,
@@ -18,12 +18,14 @@ import {
 import HeaderMenu from "./HeaderMenu/HeaderMenu";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import NotificationMenu from "./NotificationMenu/NotificationMenu";
+import SearchMenu from "../../components/Search/SearchMenu/SearchMenu";
 const Header = () => {
   const { user } = useSelector((state) => state.user);
   const [showHeaderMenu, setShowHeaderMenu] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const notificationMenu = useRef(null);
   const headerMenu = useRef(null);
+  const [showSearchMenu, setShowSearchMenu] = useState(false);
 
   useOnClickOutside(headerMenu, showHeaderMenu, () => {
     setShowHeaderMenu(false);
@@ -35,13 +37,25 @@ const Header = () => {
   return (
     <header className={style.header}>
       <div className={style.navbar_left}>
-        <Link to="/">
-          <img src={ZIWIBook} alt="" className={style.logo} />
-        </Link>
+        {!showSearchMenu && (
+          <Link to="/">
+            <img src={ZIWIBook} alt="" className={style.logo} />
+          </Link>
+        )}
         <div className={style.navbar_search}>
-          <SearchBar />
+          <SearchBar
+            showSearchMenu={showSearchMenu}
+            setShowSearchMenu={setShowSearchMenu}
+          />
         </div>
       </div>
+      {showSearchMenu && (
+        <SearchMenu
+          showSearchMenu={showSearchMenu}
+          setShowSearchMenu={setShowSearchMenu}
+        />
+      )}
+
       <div className={style.navbar_middle}>
         <NavLink
           className={({ isActive }) =>
@@ -54,7 +68,7 @@ const Header = () => {
           <HomeActive className={style.active_icon} />
           <Home className={style.notActive_icon} />
         </NavLink>
-        <NavLink  className={`${style.navbar_middle_icon} hover1`} to="#">
+        <NavLink className={`${style.navbar_middle_icon} hover1`} to="#">
           <span
             className={style.active_icon}
             style={{ transform: "translateY(10%)" }}

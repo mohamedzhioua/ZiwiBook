@@ -5,7 +5,7 @@ export { default as CustomButton } from "./CustomButton";
 export { default as CustomInput } from "./input/CustomInput";
 export { default as Likes } from "./Posts/Post/Likes";
 export { default as PostHead } from "./Posts/Post/PostHead";
-export { default as SearchBar } from "./SearchBar";
+export { default as SearchBar } from "./Search";
 export { default as Loading } from "./Loading";
 export { default as FormLoader } from "./FormLoader";
 export { default as Card } from "./Card";

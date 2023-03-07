@@ -2,6 +2,8 @@ import React from "react";
 import "./index.css";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 const CustomInput = ({
+  onFocus,
+  onBlur,
   name,
   label,
   type,
@@ -41,6 +43,8 @@ const CustomInput = ({
           />
         ) : (
           <input
+          onFocus={onFocus}
+          onBlur={onBlur}
             autoFocus={autoFocus}
             onClick={onClick}
             type={type}
