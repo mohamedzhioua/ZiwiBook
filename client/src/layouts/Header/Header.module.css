@@ -11,6 +11,11 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
+.navbar_left {
+  display: flex;
+  align-items: center;
+  transform: translateX(-30px);
+}
 .logo {
   width: 200px;
   cursor: pointer;
@@ -20,15 +25,10 @@
   margin-left: -10px;
 }
 
-.navbar_left {
-  display: flex;
-  align-items: center;
-  transform: translateX(-30px);
-}
 .navbar_middle {
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 40px;
 }
 .navbar_middle_icon {
   display: flex;
@@ -79,101 +79,30 @@
   border-radius: 50%;
 }
 
-/* HeaderMenu */
-.header_menu {
-  padding: 0 0.3rem;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 360px;
-  border-radius: 10px;
-  background: #ffffff;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
-  user-select: none;
-  padding: 10px;
-  border: 1px solid #5c6e58;
-}
-.head {
-  display: flex;
-  align-items: center;
-  border-radius: 10px;
-  text-decoration: none;
-  gap: 5px;
-}
-.menu_image {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-.menu_user {
-  font-weight: 600;
-  font-size: 15px;
-}
-
-.menu_splitter {
-  width: 100%;
-  height: 1px;
-  background: #e4e6eb;
-  margin-top: 5px;
-}
-.menu_action {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-top: 5px;
-  padding: 7px;
-  font-weight: 600;
-  font-size: 14px;
-  border-radius: 10px;
-}
-.Arrow {
-  right: 10px;
-  transform: translateY(-50%);
-  top: 30px;
-  position: absolute;
-}
-.action_span {
-  font-size: 14px;
-}
-@media (max-width: 1100px) {
- 
-  .navbar_middle {
-    transform: translateX(-15%);
-  }
-}
-@media (max-width: 960px) {
-  .navbar_middle {
-    transform: translateX(-22%);
-  }
-  .navbar_middle_icon:nth-child(5) {
-    display: none;
-  }
-}
-
-@media (max-width: 860px) {
-  .middle {
-    transform: translateX(-37%);
-  }
-
-  .navbar_middle_icon:nth-child(4) {
-    display: none;
-  }
-}
 @media (max-width: 760px) {
-  .navbar_middle_icon:nth-child(3) {
-    display: none;
-  }
-}
-
-
-@media (max-width: 550px) {
   .navbar_middle_icon:nth-child(2) {
     display: none;
   }
+  .navbar_middle_icon:nth-child(3) {
+    display: none;
+  }
+  .navbar_middle_icon:nth-child(4) {
+    display: none;
+  }
 
+  .navbar_left {
+    transform: translateX(-33px);
+  }
+}
+
+@media (max-width: 550px) {
   .navbar_middle {
     transform: translateX(-20%);
   }
+}
 
+@media (max-width: 400px) {
+  .navbar_middle {
+    transform: translateX(-43%);
+  }
 }

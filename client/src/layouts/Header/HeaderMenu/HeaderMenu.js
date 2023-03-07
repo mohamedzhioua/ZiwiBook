@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logOut } from "../../app/features/user/userSlice";
-import style from "./Header.module.css";
-import styleIcons from "../../styles/icons.module.css";
+import { logOut } from "../../../app/features/user/userSlice";
+import style from "./HeaderMenu.module.css";
+import styleIcons from "../../../styles/icons.module.css";
 import { useEffect } from "react";
-import { useLogoutMutation } from "../../app/features/auth/authSlice";
+import { useLogoutMutation } from "../../../app/features/auth/authSlice";
+
 function HeaderMenu({ user, setShowHeaderMenu }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();

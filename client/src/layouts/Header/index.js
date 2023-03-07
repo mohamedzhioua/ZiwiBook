@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 //Styles
 import style from "./Header.module.css";
 import ZIWIBook from "../../icons/ZIWIBook.png";
-import { SearchBar } from "../../components";
+ import { SearchBar } from "../../components";
 import {
   Home,
   HomeActive,
@@ -15,7 +15,7 @@ import {
   Friends,
   Notifications,
 } from "../../svg";
-import HeaderMenu from "./HeaderMenu";
+import HeaderMenu from "./HeaderMenu/HeaderMenu";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import NotificationMenu from "./NotificationMenu/NotificationMenu";
 const Header = () => {
