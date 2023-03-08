@@ -2,6 +2,68 @@ const Friend = require("../models/friend");
 const User = require("../models/user");
 
 module.exports = {
+  //  ----------------------//getFriends method //--------------------------- //
+  getFriends: async (req, res) => {
+    const userId = req.user.id;
+    try {
+      // received friend requests
+      const friends = await Friend.find({
+        $or: [{ sender: userId }, { recipient: userId }],
+        requestStatus: "accepted",
+      })
+        .sort({ createdAt: -1 })
+        .limit(100)
+        .populate({
+          path: "sender recipient",
+          select: "firstName lastName photo username",
+        });
+      const friendLists = friends.map((friend) => {
+        if (friend.sender._id.equals(userId)) {
+          return friend.recipient;
+        } else {
+          return friend.sender;
+        }
+      });
+
+      //  recived friend requests
+      const recivedRequestsNumber = await Friend.countDocuments({
+        recipient: userId,
+        requestStatus: "pending",
+      });
+      const recivedRequests = await Friend.find({
+        recipient: userId,
+        requestStatus: "pending",
+      })
+        .sort({ createdAt: -1 })
+        .limit(100)
+        .populate({
+          path: "sender",
+          select: "firstName lastName photo username",
+        });
+      //  sent requests
+      const sentRequests = await Friend.find({
+        sender: userId,
+        requestStatus: "pending",
+      })
+        .sort({ createdAt: -1 })
+        .limit(100)
+        .populate({
+          path: "recipient",
+          select: "firstName lastName photo username",
+        });
+      res.status(200).json({
+        data: {
+          recivedRequestsNumber,
+          friendLists,
+          recivedRequests,
+          sentRequests,
+        },
+      });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
+  //  ----------------------//addFriend method //--------------------------- //
   addFriend: async (req, res) => {
     const senderId = req.user.id;
     const recipientId = req.params.id;
@@ -41,12 +103,10 @@ module.exports = {
           .status(201)
           .json({ message: "friend Request sent with success" });
       } else {
-        return res
-          .status(404)
-          .json({
-            message:
-              "You aleardy sent a request or this user alerady sent you a request",
-          });
+        return res.status(404).json({
+          message:
+            "You aleardy sent a request or this user alerady sent you a request",
+        });
       }
     } catch (error) {
       res.status(404).json({ message: error.message });
