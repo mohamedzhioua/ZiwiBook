@@ -1,12 +1,12 @@
 /* ProfileCover */
-.cover_container {
+.coverContainer {
     width: 100%;
     padding: 18%;
     background: #e4e6eb;
     border-radius: 0 0 10px 10px;
     position: relative;
     min-height: 170px;
-    /* background-size: cover; */
+    /* background-size: cover ; */
     background-size: auto 100%;
     background-position: center;
   }

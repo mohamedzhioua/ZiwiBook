@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card } from "../index";
 // Styles
-import "./index.css";
+import style from  "./index.module.css";
 function Friends() {
   const data = [
     {
@@ -67,22 +67,22 @@ function Friends() {
   ];
   return (
     <Card>
-      <div className="card-header">
+      <div className={style.card_header}>
         Friends
-        <Link className="photo-friends-link" to="#">
+        <Link className={style.photo_friends_link} to="#">
           See all Friends
         </Link>
       </div>
-      <div className="photo-friends-content">
-        <div className="photo-friends-content-info">{`${data?.length} Friends`}</div>
-        <div className="friends-grid">
+      <div className={style.photo_friends_content}>
+        <div className={style.photo_friends_content_info}>{`${data?.length} Friends`}</div>
+        <div className={style.friends_grid}>
           {data.slice(0, 9).map((user, i) => (
             <Link to={`/profile/${user?.username}`} key={i}>
               <div
-                className="friend-card"
+                className={style.friend_card}
                 style={{ backgroundImage: `url(${user?.photo})` }}
               ></div>
-              <span className="friend-name">{user?.username}</span>
+              <span className={style.friend_name}>{user?.username}</span>
             </Link>
           ))}
         </div>

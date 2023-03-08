@@ -1,6 +1,5 @@
 //components
  // Styles
-import "./index.css";
 
 function UserProfile () {
   return (

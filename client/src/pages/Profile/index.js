@@ -31,14 +31,15 @@ function Profile() {
   const isVisitor = !(usernameID === user?.username);
   const sortedPosts = useSelector(selectPostIds);
   const {
-    data: photosData,
-    isLoading: photosLoading,
+    data: photosData = [],
+    isLoading: photosloading,
     isFetching: photosIsFetching,
     isSuccess: photosIsSuccess,
   } = useFetchPhotosQuery(usernameID);
+  const photosSkelton = photosloading || photosIsFetching;
 
   const {
-    data,
+    data = [],
     isLoading: postsLoading,
     isFetching: postsIsFetching,
     isSuccess: postsIsSuccess,
@@ -52,7 +53,11 @@ function Profile() {
       <div className={style.head}>
         <div className={style.head_container}>
           <div className={style.top_head}>
-            <ProfileCover isVisitor={isVisitor} user={user} />
+            <ProfileCover
+              isVisitor={isVisitor}
+              user={user}
+              photosData={photosData?.data}
+            />
             <div className={style.top_head_content}>
               <div className={style.photo_container}>
                 <div className={style.photo}>
@@ -73,6 +78,7 @@ function Profile() {
                         <ProfilePhoto
                           setShowProfilePhoto={setShowProfilePhoto}
                           showProfilePhoto={showProfilePhoto}
+                          photosData={photosData?.data}
                         />
                       )}
                     </>
@@ -127,7 +133,10 @@ function Profile() {
                 top: "65px",
               }}
             >
-              <Photos photosData={photosData?.data}/>
+              <Photos
+                photosData={photosData?.data}
+                photosSkelton={photosSkelton}
+              />
               <Friends />
             </div>
           </div>

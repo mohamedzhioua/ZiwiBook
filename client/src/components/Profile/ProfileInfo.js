@@ -1,20 +1,20 @@
 //components
 import { CustomButton } from "../index";
 // Styles
-import "./index.css";
+import style from  "./index.module.css";
 
 function ProfileInfo({ isVisitor }) {
   return (
-    <div className="profile-info">
-      <div className="left">
-        <span className="profile-user-name">ziwi</span>
+    <div className={style.profile_info}>
+      <div className={style.left}>
+        <span className={style.profile_user_name}>ziwi</span>
       </div>
-      <div className="center">
-        <span className="profile-user-name">ziwi</span>
-        <span className="profile-user-info">ziwi</span>
+      <div className={style.cente}r>
+        <span className={style.profile_user_name}>ziwi</span>
+        <span className={style.profile_user_info}>ziwi</span>
       </div>
-      <div className="right">
-        <div className="btns">
+      <div className={style.right}>
+        <div className={style.btns}>
         {isVisitor ? (
           <CustomButton value="Add as A friend" className="profileBTN" />
         ) : (

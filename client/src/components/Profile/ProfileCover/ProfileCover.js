@@ -7,10 +7,11 @@ import classes from "./cover.module.css";
 import IconStyle from "../../../styles/icons.module.css";
 import { toast } from "react-toastify";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
-import { useUpdateCoverPhotoMutation } from "../../../app/features/auth/authSlice";
 import { UpdateCover } from "../../../app/features/user/userSlice";
+import { useUpdateCoverPhotoMutation } from "../../../app/features/user/photosSlice";
+import OldCovers from "./OldCovers/OldCovers.js"
 
-function ProfileCover({ isVisitor, user }) {
+function ProfileCover({ isVisitor, user , photosData }) {
   const dispatch = useDispatch();
   const [updateCoverPhoto, { isLoading }] = useUpdateCoverPhotoMutation();
   const [image, setImage] = useState(null);
@@ -26,13 +27,14 @@ function ProfileCover({ isVisitor, user }) {
   const [width, setWidth] = useState();
   const [height, setHeight] = useState();
 
+
   useOnClickOutside(CoverMenuRef, showCoverMneu, () => {
     setShowCoverMenu(false);
   });
   useEffect(() => {
     setWidth(coverRef.current.clientWidth);
     setHeight(coverRef.current.clientHeight);
-  }, []);
+  }, [window.innerWidth]);
 
   useEffect(() => {
     if (error) {
@@ -106,10 +108,10 @@ function ProfileCover({ isVisitor, user }) {
 
   return (
     <div
-      className={classes.cover_container}
+      className={classes.coverContainer}
       ref={coverRef}
       style={{
-        backgroundImage: `url(${user?.cover})`,
+        backgroundImage: `${!isLoading ? `url(${user.cover})` : ""}`,
       }}
     >
       {image && (
@@ -192,6 +194,14 @@ function ProfileCover({ isVisitor, user }) {
               </Card>
             )}
           </div>
+          {showOldCover && (
+            <OldCovers
+              showOldCover={showOldCover}
+              photosData={photosData}
+              setShowOldCover={setShowOldCover}
+              setImage={setImage}
+            />
+          )}
         </>
       )}
     </div>

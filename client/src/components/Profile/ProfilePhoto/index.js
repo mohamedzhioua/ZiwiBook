@@ -6,11 +6,11 @@ import { toast } from "react-toastify";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../../../utils/getCroppedImg";
 import Portal from "../../../utils/Portal";
-import { useUpdateProfilePhotoMutation } from "../../../app/features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { Updatephoto } from "../../../app/features/user/userSlice";
+import { useUpdateProfilePhotoMutation } from "../../../app/features/user/photosSlice";
 
-function ProfilePhoto({ showProfilePhoto, setShowProfilePhoto }) {
+function ProfilePhoto({ setShowProfilePhoto ,photosData }) {
   const refInput = useRef(null);
   const slider = useRef(null);
   const dispatch = useDispatch();
@@ -185,12 +185,38 @@ function ProfilePhoto({ showProfilePhoto, setShowProfilePhoto }) {
                   <i className={IconStyle.addPhoto_icon} />
                   Upload photo
                 </CustomButton>
-                {/* {photosData?.length > 0 && (
-                <div>Choose from old profile picture</div>
-                <div className={classes.old_photos}></div>
-                )} */}
-              </>
-            )}
+                {photosData?.profilePhotos.length > 0 && (
+                  <div className={classes.old}>
+                    <span>Choose from old profile photos</span>
+                    <div className={classes.old_photos}>
+                      {photosData?.profilePhotos.map((photo) => (
+                        <img
+                          src={photo.url}
+                          alt={photo.id}
+                          onClick={() => setImage(photo.url)}
+                          key={photo.id}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {photosData?.resources.length > 0 && (
+                  <div className={classes.old}>
+                    <span >Choose from your  photos</span>
+                    <div className={classes.old_photos}>
+                      {photosData?.resources.map((photo) => (
+                        <img
+                          src={photo.url}
+                          alt={photo.id}
+                          onClick={() => setImage(photo.url)}
+                          key={photo.id}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+                      </>)}
+   
           </div>
         </Card>
       </div>

@@ -17,7 +17,7 @@
   justify-content: center;
   font-weight: 700;
   position: relative;
-  padding: 16px;
+  padding: 16px 0;
 }
 .exit {
   cursor: pointer;
@@ -99,4 +99,23 @@
 }
 .upload_btn:hover {
   background: #e4e6eb;
+}
+.old{
+  padding: 0 8px;
+}
+.old_photos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  margin: 10px 0;
+  max-height: 150px;
+  overflow: auto;
+}
+.old_photos img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
 }
