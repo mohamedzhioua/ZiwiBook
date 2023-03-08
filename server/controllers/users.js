@@ -1,8 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-// Load User model
 const User = require("../models/user");
-// Load input validation
 const SignupValidation = require("../validator/SignupValidation");
 const SigninValidation = require("../validator/SigninValidation");
 

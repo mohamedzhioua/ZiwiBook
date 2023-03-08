@@ -2,7 +2,6 @@ const Post = require("../models/post");
 const User = require("../models/user");
 const Comment = require("../models/comment");
 const Reaction = require("../models/reaction");
-
 const PostValidation = require("../validator/PostValidation");
 const cloudinary = require("../utils/cloudinary");
 const sharp = require("sharp");

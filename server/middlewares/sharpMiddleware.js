@@ -9,7 +9,7 @@ module.exports = {
     if (!file) {
       return res.status(404).json({ message: "Please provide a  photo " });
     } else {
-      const path = `${process.env.APP_NAME}/users/${id}/profile_cover/`;
+      const path = `${process.env.APP_NAME}/users/${id}/profile_covers/`;
       const data = await sharp(req.file.buffer)
         .resize(500, 500)
         .toFormat("webp")
