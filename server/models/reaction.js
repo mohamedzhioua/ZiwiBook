@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// Load Comment model
 
 const ReactionSchema = new Schema(
   {

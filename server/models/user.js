@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// Load Comment model
 const Post = require("./post");
-// Load username generator method
 const { generateFromEmail } = require("unique-username-generator");
 
 const UserSchema = new Schema(
