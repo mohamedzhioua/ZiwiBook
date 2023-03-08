@@ -192,7 +192,7 @@ function ProfilePhoto({ setShowProfilePhoto ,photosData }) {
                       {photosData?.profilePhotos.map((photo) => (
                         <img
                           src={photo.url}
-                          alt={photo.id}
+                          alt=""
                           onClick={() => setImage(photo.url)}
                           key={photo.id}
                         />
@@ -207,7 +207,7 @@ function ProfilePhoto({ setShowProfilePhoto ,photosData }) {
                       {photosData?.resources.map((photo) => (
                         <img
                           src={photo.url}
-                          alt={photo.id}
+                          alt=""
                           onClick={() => setImage(photo.url)}
                           key={photo.id}
                         />

@@ -28,7 +28,7 @@ function OldCovers({ setShowOldCover, setImage, photosData, showOldCover }) {
                 {photosData?.profileCovers.map((photo) => (
                   <img
                     src={photo.url}
-                    alt={photo.id}
+                    alt=""
                     onClick={() => {
                       setImage(photo.url);
                       setShowOldCover(false);
@@ -46,7 +46,7 @@ function OldCovers({ setShowOldCover, setImage, photosData, showOldCover }) {
                 {photosData?.resources.map((photo) => (
                   <img
                     src={photo.url}
-                    alt={photo.id}
+                    alt=""
                     onClick={() => {
                       setImage(photo.url);
                       setShowOldCover(false);
