@@ -10,7 +10,7 @@ const FriendSchema = new Schema(
       ref: "user",
       required: true,
     },
-    status: {
+    requestStatus: {
       type: String,
       enum: ["pending", "accepted", "cancelled"],
       required: true,
