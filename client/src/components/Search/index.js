@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { SearchIcon } from "../../svg";
 import { CustomInput } from "../index";
 import "./index.css";
-const Search = ({ onChange, showSearchMenu, setShowSearchMenu }) => {
+const Search = ({ onChange , setShowSearchMenu }) => {
   const [showIcon, setShowIcon] = useState(true);
   const input = useRef(null);
   return (
@@ -14,7 +14,7 @@ const Search = ({ onChange, showSearchMenu, setShowSearchMenu }) => {
             setShowSearchMenu(true);
           }}
         >
-          {showIcon && <SearchIcon color={"#65676b"} />}
+          {showIcon && <SearchIcon color={"#5c6e58"} />}
           <CustomInput
             innerRef={input}
             className="search-input"

@@ -4,7 +4,6 @@ import chekedlike from "../../../../svg/like.svg";
 
 const Likes = ({ Reactions, userId }) => {
   if (Reactions?.length > 0) {  
-  console.log("🚀 ~ file: index.js:7 ~ Likes ~ Reactions?.length:", Reactions?.length)
 
     return Reactions?.find((reaction) => reaction.owner === userId) ? (
       

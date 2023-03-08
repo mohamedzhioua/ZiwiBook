@@ -20,6 +20,7 @@ import {
   selectPostIds,
   useFetchPostsByUserQuery,
 } from "../../app/features/post/postSlice";
+import { useFetchPhotosQuery } from "../../app/features/user/photosSlice";
 
 function Profile() {
   const [showProfilePhoto, setShowProfilePhoto] = useState(false);
@@ -29,6 +30,12 @@ function Profile() {
   const usernameID = username ? username : user?.username;
   const isVisitor = !(usernameID === user?.username);
   const sortedPosts = useSelector(selectPostIds);
+  const {
+    data: photosData,
+    isLoading: photosLoading,
+    isFetching: photosIsFetching,
+    isSuccess: photosIsSuccess,
+  } = useFetchPhotosQuery(usernameID);
 
   const {
     data,
@@ -120,7 +127,7 @@ function Profile() {
                 top: "65px",
               }}
             >
-              <Photos />
+              <Photos photosData={photosData?.data}/>
               <Friends />
             </div>
           </div>

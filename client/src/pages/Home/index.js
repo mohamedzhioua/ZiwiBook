@@ -13,7 +13,6 @@ function Home() {
   const sortedPosts = useSelector(selectPostIds);
   const postSkeleton = isFetching || isLoading;
   const hidePostSkeleton = isSuccess && !isLoading && !error && sortedPosts
-
   //search User input
   // const FilterQuery = (e) => {
   //   const wordEntered = e.target.value.trim();

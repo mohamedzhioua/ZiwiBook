@@ -1,8 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-//Styles
 import style from "./Header.module.css";
 import ZIWIBook from "../../icons/ZIWIBook.png";
 import { SearchBar } from "../../components";
@@ -19,6 +17,7 @@ import HeaderMenu from "./HeaderMenu/HeaderMenu";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import NotificationMenu from "./NotificationMenu/NotificationMenu";
 import SearchMenu from "../../components/Search/SearchMenu/SearchMenu";
+
 const Header = () => {
   const { user } = useSelector((state) => state.user);
   const [showHeaderMenu, setShowHeaderMenu] = useState(false);
@@ -33,7 +32,9 @@ const Header = () => {
   useOnClickOutside(notificationMenu, showNotification, () => {
     setShowNotification(false);
   });
-
+  useOnClickOutside(headerMenu, showHeaderMenu, () => {
+    setShowHeaderMenu(false);
+  });
   return (
     <header className={style.header}>
       <div className={style.navbar_left}>
@@ -110,7 +111,7 @@ const Header = () => {
             }}
           >
             <img
-              src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg"
+              src={user?.photo}
               alt=""
               className={style.navbar_profile}
             />

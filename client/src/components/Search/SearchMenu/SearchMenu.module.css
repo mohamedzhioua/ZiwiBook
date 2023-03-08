@@ -14,22 +14,18 @@
   min-height: 400px;
   max-height: 700px;   
   z-index: 1;
-  transition: all 0.2s;
-  -webkit-font-smoothing: antialiased;
-  height: 100%;
-
 }
 
 .SearchMenu_wrap {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 15px;
 }
-.SearchMenu_container .search {
+/* .SearchMenu_container .search {
     padding: 10px 44px 10px 12px;
     width: 252px;
     gap: 4px;
-  }
+  } */
 .search {
   display: flex;
   align-items: center;
@@ -38,5 +34,14 @@
   padding: 10px 20px 10px 13px;
   border-radius: 50px;
   cursor: text;
-  min-width: 233px;
+  min-width:250px;
 }
+.search_input {
+    outline: none;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    font-family: inherit;
+    padding-left: 2px;
+  }
+  

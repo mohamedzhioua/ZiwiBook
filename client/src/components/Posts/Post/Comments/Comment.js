@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
-//features
 import {
   selectAllComments,
   selectCommentById,
@@ -11,19 +10,15 @@ import {
   useLikeCommentMutation,
   useUpdateCommentMutation,
 } from "../../../../app/features/comment/commentSlice";
-//components
 import CommentForm from "./CommentForm";
 import { Comments, CustomButton } from "../../../index";
 import chekedlike from "../../../../svg/like.svg";
-
-// Styles
 import "./index.css";
-
 import { CgDetailsMore } from "react-icons/cg";
 import { Link } from "react-router-dom";
 
 const Comment = ({ comment }) => {
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
   const [areRepliesHidden, setAreRepliesHidden] = useState(true);
   const [activeComment, setActiveComment] = useState(null);
   const id = activeComment?.id;
