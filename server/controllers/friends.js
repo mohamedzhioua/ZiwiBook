@@ -1,5 +1,6 @@
 const Friend = require("../models/friend");
 const User = require("../models/user");
+const { getRelationship } = require("../utils/getRelationship");
 
 module.exports = {
   //  ----------------------//getFriends method //--------------------------- //
@@ -120,13 +121,13 @@ module.exports = {
       const friendRequest = await Friend.findById(friendRequestId);
       if (
         !friendRequest ||
-        friendRequest.status !== "pending" ||
+        friendRequest.requestStatus !== "pending" ||
         (friendRequest.recipient.toString() !== senderId &&
           friendRequest.sender.toString() !== senderId)
       ) {
         return res.status(404).json({ message: "No friend request found" });
       } else {
-        friendRequest.status = "cancelled";
+        friendRequest.requestStatus = "cancelled";
         await friendRequest.save();
         const friendship = await getRelationship(
           senderId,
@@ -136,6 +137,36 @@ module.exports = {
         // Send reponse
         res.status(200).json({
           message: "Request cancelled",
+          friendship,
+        });
+      }
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
+
+  //  ----------------------//accept friend Request method //--------------------------- //
+  acceptRequest: async (req, res) => {
+    const friendRequestId = req.params.friendRequestId;
+    const senderId = req.user.id;
+    try {
+      const friendRequest = await Friend.findById(friendRequestId);
+
+      if (
+        !friendRequest ||
+        friendRequest.status !== "pending" ||
+        friendRequest.recipient.toString() !== recipientID
+      ) {
+        return res.status(404).json({ message: "No friend request found" });
+      } else {
+        friendRequest.status = "accepted";
+        await friendRequest.save();
+        const friendship = await getRelationship(
+          recipientID,
+          friendRequest.sender
+        );
+        return res.status(200).json({
+          message: "Request accepted",
           friendship,
         });
       }
