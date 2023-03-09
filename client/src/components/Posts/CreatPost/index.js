@@ -1,11 +1,13 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // features
 import { openModal } from "../../../app/features/modal/modalSlice";
 // styles
 import classe from "./postbody.module.css";
 import { Feeling, LiveVideo, Photo } from "../../../svg";
 
-function CreatPost({ user }) {
+function CreatPost() {
+  const { user } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   return (
     <div className={classe.post_body}>

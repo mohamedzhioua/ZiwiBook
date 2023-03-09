@@ -1,12 +1,14 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { openModal } from "../../../../app/features/modal/modalSlice";
 import style from "./postHead.module.css";
 import { Dots } from "../../../../svg";
 
-const PostHead = ({ post, user }) => {
+const PostHead = ({ post}) => {
+  const { user } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   const canEdit = Boolean(
     user?._id === post?.owner?._id || user?._id === post?.owner

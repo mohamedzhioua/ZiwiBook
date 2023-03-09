@@ -9,12 +9,14 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { extendedApiSlice } from "./app/features/post/postSlice";
 import { CommentApiSlice } from "./app/features/comment/commentSlice";
 import { reactionApiSlice } from "./app/features/reaction/reactionSlice";
+import { usersApiSlice } from "./app/features/user/usersSlice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 store.dispatch(extendedApiSlice.endpoints.fetchPosts.initiate());
 store.dispatch(CommentApiSlice.endpoints.fetchComments.initiate());
 store.dispatch(reactionApiSlice.endpoints.fetchReactions.initiate());
+store.dispatch(usersApiSlice.endpoints.fetchUsers.initiate());
 
 root.render(
   <React.StrictMode>

@@ -3,12 +3,13 @@ import { apiSlice } from "../../api/apiSlice";
 export const FriendsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     FetchFriends: builder.query({
-      query: () => `/user/Friends`,
+      query: () => `/friend/getAllfriends`,
       providesTags: ["Friend"],
     }),
+    
     addFriend: builder.mutation({
       query: (id) => ({
-        url: `/user/add/${id}`,
+        url: `/friend/add/${id}`,
         method: "PUT",
       }),
       invalidatesTags: ["Friend"],

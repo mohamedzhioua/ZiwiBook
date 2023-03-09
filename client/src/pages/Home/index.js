@@ -22,7 +22,7 @@ function Home() {
   return (
     <div className={style.home_container}>
       <div className={style.home_middle}>
-        <CreatPost user={user} />
+        <CreatPost  />
         <div className={style.home_posts}>
           {postSkeleton && (
             <>

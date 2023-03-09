@@ -20,9 +20,11 @@ import {
   selectAllComments,
   useAddNewCommentMutation,
 } from "../../../app/features/comment/commentSlice";
-import { selectAllReactions , useFetchReactionsQuery, useLikePostMutation} from "../../../app/features/reaction/reactionSlice";
+import { selectAllReactions , useLikePostMutation} from "../../../app/features/reaction/reactionSlice";
 
-const Post = ({ postId, user }) => {
+const Post = ({ postId }) => {
+  console.log("🚀 ~ file: Post.js:26 ~ Post ~ postId:", postId)
+  const { user } = useSelector((state) => state.user);
   const [likePost] = useLikePostMutation();
   const [addNewComment] = useAddNewCommentMutation();
   const [commentOpen, setCommentOpen] = useState(false);
@@ -37,7 +39,7 @@ const Post = ({ postId, user }) => {
     (react) => react?.post === post?._id
   );
 
-  //filetring comments by post and sorting them
+  //filetring comments by post 
   const comments = useSelector(selectAllComments)?.filter(
     (comment) => comment?.post === post?._id
   );
@@ -54,7 +56,7 @@ const Post = ({ postId, user }) => {
   }
   return (
     <Card className={PostStyle.post}>
-      <PostHead post={post} user={user} />
+      <PostHead post={post}  />
       <div className={PostStyle.post_body}>
         <p className={PostStyle.post_text}>{post?.text.substring(0, 20)}</p>
         {post?.image && (

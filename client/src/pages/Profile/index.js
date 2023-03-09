@@ -17,10 +17,10 @@ import {
 import style from "./profile.module.css";
 import IconStyle from "../../styles/icons.module.css";
 import {
-  selectPostIds,
   useFetchPostsByUserQuery,
 } from "../../app/features/post/postSlice";
 import { useFetchPhotosQuery } from "../../app/features/user/photosSlice";
+import { useFetchFriendsQuery } from "../../app/features/friend/friendSlice";
 
 function Profile() {
   const [showProfilePhoto, setShowProfilePhoto] = useState(false);
@@ -29,7 +29,14 @@ function Profile() {
 
   const usernameID = username ? username : user?.username;
   const isVisitor = !(usernameID === user?.username);
-  const sortedPosts = useSelector(selectPostIds);
+  const  userdata = useSelector((state) => state.user.filter((user)=>user.username===usernameID));
+  console.log("🚀 ~ file: index.js:33 ~ Profile ~ userdata:", userdata)
+
+  // const {
+  //   data: friends = [],
+  //   isLoading: friendsloading,
+  //   isFetching: friendsIsFetching,
+  // } = useFetchFriendsQuery();
   const {
     data: photosData = [],
     isLoading: photosloading,
@@ -39,7 +46,7 @@ function Profile() {
   const photosSkelton = photosloading || photosIsFetching;
 
   const {
-    data = [],
+    data:posts =[],
     isLoading: postsLoading,
     isFetching: postsIsFetching,
     isSuccess: postsIsSuccess,
@@ -55,7 +62,7 @@ function Profile() {
           <div className={style.top_head}>
             <ProfileCover
               isVisitor={isVisitor}
-              user={user}
+              user={userdata}
               photosData={photosData?.data}
             />
             <div className={style.top_head_content}>
@@ -87,7 +94,7 @@ function Profile() {
               </div>
               <div className={style.profile_info}>
                 <h2 className={style.user_name}>
-                  zhioua mohamed
+                  {`${userdata?.firstName} ${userdata?.lastName}`}
                   <i
                     style={{ marginLeft: "10px" }}
                     className={IconStyle.confirmed_icon}
@@ -141,9 +148,10 @@ function Profile() {
             </div>
           </div>
           <div className={style.posts}>
-            {!isVisitor && <CreatPost user={user} />}
+            {!isVisitor && <CreatPost user={userdata} />}
             {postsSkelton && <PostSkeleton />}
-            {postsSkeltonHide && <PostList posts={sortedPosts} user={user} />}
+          
+            {postsSkeltonHide && <PostList posts={posts?.ids}  />}
           </div>
         </div>
       </div>

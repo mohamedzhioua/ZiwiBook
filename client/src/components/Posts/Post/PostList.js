@@ -1,18 +1,14 @@
 import React from "react";
 import Post from "./Post";
 
-const PostList = ({ posts, wordEntered = "", user }) => {
+const PostList = ({ posts, wordEntered = ""}) => {
 
     return (
       <>
            
-        { posts
-          // ?.filter((post) =>
-          //   post?.text?.toLowerCase().includes(wordEntered?.toLowerCase())
-          // )
-          ?.map((postId) => (
+        { posts?.map((postId) => (
             <React.Fragment key={postId}>
-              <Post  postId={postId} user={user} />
+              <Post  postId={postId}  />
             </React.Fragment>
           ))}
       </>
