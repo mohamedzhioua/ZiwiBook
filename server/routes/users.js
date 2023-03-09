@@ -15,8 +15,7 @@ router.post("/signin", UserController.signin);
 // GET request to logout the  User .
 router.get("/logout", UserController.logout);
 
-// GET request to get a user profile.
-router.get("/getUserProfile/:username", UserController.getUser)
+
 
                  /*   User  Profile   */
 
@@ -28,5 +27,8 @@ router.post("/update/profile/Photo",checkAuth, multerUploads,sharpMiddleware.res
 
 // GET request to get all the  User photos .
 router.get("/:username/photos",checkAuth, UserProfileController.getPhotos);
+
+// GET request to get a user profile.
+router.get("/getUserProfile/:username",checkAuth, UserProfileController.getUserProfile)
 
 module.exports = router;

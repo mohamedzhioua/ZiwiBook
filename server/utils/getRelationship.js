@@ -10,15 +10,15 @@ module.exports = {
   });
 
   const friendship = {
-    friends: realationship?.status === 'accepted' ? true : false,
+    friends: realationship?.requestStatus === 'accepted' ? true : false,
     requestSent:
       realationship?.sender.toString() === userId &&
-      realationship?.status === 'pending'
+      realationship?.requestStatus === 'pending'
         ? true
         : false,
     requestReceived:
       realationship?.sender.toString() === profileId &&
-      realationship?.status === 'pending'
+      realationship?.requestStatus === 'pending'
         ? true
         : false,
     requestID: realationship?.id ? realationship?.id : null,

@@ -6,6 +6,11 @@ const FriendController = require ("../controllers/friends")
 // PUT request to send a friend request .
 router.put('/add/:id', checkAuth,FriendController.addFriend);
 
+// PUT request to cancel a friend request .
+router.put('/cancel/:friendRequestId', FriendController.cancelRequest);
+
+// PUT request to accept a friend request .
+// router.put('/acceptRequest/:friendRequestId', FriendController.acceptRequest);
 // GET request to get user's friend list .
 router.get('/getAllfriends', checkAuth , FriendController.getFriends);
 

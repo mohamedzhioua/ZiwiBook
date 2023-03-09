@@ -83,19 +83,5 @@ module.exports = {
         res.status(404).json({ message: error.message });
     }
   },
-      //  --------------------------------------- // get All ZIWIBook Users method //--------------------------- //
-
-  getUser:async (req, res) => {
-    const { username } = req.params;
-
-    try {
-      const user = await User.findOne({ username })
-      if (!user) {
-        return res.status(404).json({message:"No user found with that username"});
-      }
-          res.status(200).json(user);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-  },
+   
 };

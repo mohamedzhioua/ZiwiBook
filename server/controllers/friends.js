@@ -112,4 +112,35 @@ module.exports = {
       res.status(404).json({ message: error.message });
     }
   },
+  //  ----------------------//cancelRequest method //--------------------------- //
+  cancelRequest: async (req, res) => {
+    const friendRequestId = req.params.friendRequestId;
+    const senderId = req.user.id;
+    try {
+      const friendRequest = await Friend.findById(friendRequestId);
+      if (
+        !friendRequest ||
+        friendRequest.status !== "pending" ||
+        (friendRequest.recipient.toString() !== senderId &&
+          friendRequest.sender.toString() !== senderId)
+      ) {
+        return res.status(404).json({ message: "No friend request found" });
+      } else {
+        friendRequest.status = "cancelled";
+        await friendRequest.save();
+        const friendship = await getRelationship(
+          senderId,
+          friendRequest.recipient.toString()
+        );
+
+        // Send reponse
+        res.status(200).json({
+          message: "Request cancelled",
+          friendship,
+        });
+      }
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
 };

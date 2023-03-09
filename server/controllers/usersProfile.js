@@ -1,5 +1,7 @@
 const User = require("../models/user");
+const Friend = require("../models/friend");
 const cloudinary = require("../utils/cloudinary");
+const { getRelationship } = require("../utils/getRelationship");
 
 module.exports = {
   //  --------------------------------------- //updateProfileCover method to change user's profile cover//--------------------------- //
@@ -22,7 +24,7 @@ module.exports = {
       res.status(404).json({ message: error.message });
     }
   },
-  //  --------------------------------------- //getPhotos method to get all user photos from cloudinary //--------------------------- //
+  //  --------------------------------------- //getPhotos method to get all user's photos from cloudinary //--------------------------- //
   getPhotos: async (req, res) => {
     const { username } = req.params;
     try {
@@ -63,6 +65,46 @@ module.exports = {
           profilePhotos,
           profileCovers,
         },
+      });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
+  //  --------------------------------------- // get A user profile method //--------------------------- //
+
+  getUserProfile: async (req, res) => {
+    const { username } = req.params;
+    const userId = req.user.id;
+    try {
+      const user = await User.findOne({ username });
+      if (!user) {
+        return res
+          .status(404)
+          .json({ message: "No user found with that username" });
+      }
+      const profileId = user.id;
+      const friendship = await getRelationship(userId, profileId);
+      const friendRequestsAccepted = await Friend.find({
+        $or: [{ sender: profileId }, { recipient: profileId }],
+        requestStatus: "accepted",
+      })
+        .sort({ createdAt: -1 })
+        .limit(9)
+        .populate({
+          path: "sender recipient",
+          select: "firstName lastName photo username ",
+        });
+
+      // Map the friend documents to an array of user documents
+      const friends = friendRequestsAccepted.map((friendRequestAccepted) => {
+        if (friendRequestAccepted.sender._id.equals(profileId)) {
+          return friendRequestAccepted.recipient;
+        } else {
+          return friendRequestAccepted.sender;
+        }
+      });
+      return res.status(200).json({
+        data: { user, friendship, friends },
       });
     } catch (error) {
       res.status(404).json({ message: error.message });
