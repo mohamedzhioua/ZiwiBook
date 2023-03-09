@@ -8,25 +8,26 @@
   white-space: nowrap;
   position: relative;
 }
-.open_cover {
+.open_menu {
   position: absolute;
-  top: 100%;
+  top: 60%;
   right: auto;
   padding: 5px;
   width: 80%;
+  border: solid 1px #5c6e58;
 }
-.open_cover:before {
+.open_menu:before {
   content: "";
   position: absolute;
   top: 0px;
   margin-top: -23px;
   right: 50%;
   border: solid 12px transparent;
-  border-bottom-color:#ffffff;
+  border-bottom-color:  #5c6e58;
   z-index: 1;
 }
 
-.open_cover .item {
+.item {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -41,10 +42,18 @@
   .container {
     width: 50%;
   }
+
+  .open_cover {
+    right: 50%;
+  }
+  .open_cover:before {
+    right: 20px;
+  }
 }
 @media (min-width: 900px) {
   .container {
     width: 30%;
     margin-left: auto;
   }
+
 }
