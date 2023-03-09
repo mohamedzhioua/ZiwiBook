@@ -1,15 +1,15 @@
 import { apiSlice } from "../../api/apiSlice";
 
-export const FriendsApiSlice = apiSlice.injectEndpoints({
+export const FriendsApiSlic = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     FetchFriends: builder.query({
       query: () => `/friend/getAllfriends`,
       providesTags: ["Friend"],
     }),
-    
-    addFriend: builder.mutation({
-      query: (id) => ({
-        url: `/friend/add/${id}`,
+
+    FriendFunc: builder.mutation({
+      query: ({ id, type }) => ({
+        url: `/friend/${type}/${id}`,
         method: "PUT",
       }),
       invalidatesTags: ["Friend"],
@@ -25,7 +25,4 @@ export const FriendsApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const {
-useFetchFriendsQuery,
-useAddFriendMutation,
-} = FriendsApiSlice;
+export const { useFetchFriendsQuery, useFriendFuncMutation } = FriendsApiSlic;

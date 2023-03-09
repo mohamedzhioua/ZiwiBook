@@ -6,6 +6,7 @@ import {
   CreatPost,
   CustomButton,
   Friends,
+  Friendship,
   Photos,
   PostList,
   PostSkeleton,
@@ -16,11 +17,9 @@ import {
 
 import style from "./profile.module.css";
 import IconStyle from "../../styles/icons.module.css";
-import {
-  useFetchPostsByUserQuery,
-} from "../../app/features/post/postSlice";
+import { useFetchPostsByUserQuery } from "../../app/features/post/postSlice";
 import { useFetchPhotosQuery } from "../../app/features/user/photosSlice";
-import { useFetchUserProfileQuery } from "../../app/features/user/usersSlice";
+import { useFetchUserProfileQuery } from "../../app/features/user/userProfileSlice";
 
 function Profile() {
   const [showProfilePhoto, setShowProfilePhoto] = useState(false);
@@ -28,10 +27,12 @@ function Profile() {
   const { username } = useParams();
   const usernameID = username ? username : user?.username;
   const isVisitor = !(usernameID === user?.username);
-  const {data:userdata=[]}= useFetchUserProfileQuery(usernameID)
-console.log("🚀 ~ file: index.js:33 ~ Profile ~ userdata:", userdata)
+  const { data } = useFetchUserProfileQuery(usernameID);
+  const userdata = data?.data?.user;
+  const userfriendsdata = data?.data?.friends;
+  const userfriendshipdata = data?.data?.friendship;
 
-// const {
+  // const {
   //   data: friends = [],
   //   isLoading: friendsloading,
   //   isFetching: friendsIsFetching,
@@ -45,7 +46,7 @@ console.log("🚀 ~ file: index.js:33 ~ Profile ~ userdata:", userdata)
   const photosSkelton = photosloading || photosIsFetching;
 
   const {
-    data:posts =[],
+    data: posts = [],
     isLoading: postsLoading,
     isFetching: postsIsFetching,
     isSuccess: postsIsSuccess,
@@ -54,6 +55,7 @@ console.log("🚀 ~ file: index.js:33 ~ Profile ~ userdata:", userdata)
   } = useFetchPostsByUserQuery(usernameID);
   const postsSkelton = postsLoading || postsIsFetching;
   const postsSkeltonHide = postsIsSuccess && !postsLoading && !error;
+
   return (
     <div className={style.profile_container}>
       <div className={style.head}>
@@ -101,28 +103,19 @@ console.log("🚀 ~ file: index.js:33 ~ Profile ~ userdata:", userdata)
                 </h2>
                 <span className={style.friends}>50 friends</span>
               </div>
-              <div className={style.profile_btns}>
-                {isVisitor ? (
-                  <>
-                    <CustomButton
-                      value="Add as A friend"
-                      className={`blue_btn btns`}
-                    />
-                    <CustomButton className={`gray_btn btns`} value="Message" />
-                  </>
-                ) : (
-                  <>
-                    <CustomButton
-                      className={`blue_btn btns`}
-                      value="Add to story"
-                    />
-                    <CustomButton
-                      className={`gray_btn btns`}
-                      value="Edit profile"
-                    />
-                  </>
-                )}
-              </div>
+              {!isVisitor && (
+                <div className={style.profile_btns}>
+                  <CustomButton
+                    className={`blue_btn btns`}
+                    value="Add to story"
+                  />
+                  <CustomButton
+                    className={`gray_btn btns`}
+                    value="Edit profile"
+                  />
+                </div>
+              )}
+              {isVisitor && <Friendship userId={userdata?._id} userfriendshipdata={userfriendshipdata}/>}
             </div>
           </div>
           <div className={style.line}></div>
@@ -149,8 +142,8 @@ console.log("🚀 ~ file: index.js:33 ~ Profile ~ userdata:", userdata)
           <div className={style.posts}>
             {!isVisitor && <CreatPost user={userdata} />}
             {postsSkelton && <PostSkeleton />}
-          
-            {postsSkeltonHide && <PostList posts={posts?.ids}  />}
+
+            {postsSkeltonHide && <PostList posts={posts?.ids} />}
           </div>
         </div>
       </div>

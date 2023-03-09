@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px;
+  white-space: nowrap;
+  position: relative;
+}
+.open_cover {
+  position: absolute;
+  top: 100%;
+  right: auto;
+  padding: 5px;
+  width: 80%;
+}
+.open_cover:before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  margin-top: -23px;
+  right: 50%;
+  border: solid 12px transparent;
+  border-bottom-color:#ffffff;
+  z-index: 1;
+}
+
+.open_cover .item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+@media (min-width: 495px) {
+  .container {
+    width: 50%;
+  }
+}
+@media (min-width: 900px) {
+  .container {
+    width: 30%;
+    margin-left: auto;
+  }
+}

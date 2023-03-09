@@ -1,20 +1,12 @@
 import { apiSlice } from "../../api/apiSlice";
 
-
-
-
-export const UsersApiSlice = apiSlice.injectEndpoints({
+export const UserProfileApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-
     fetchUserProfile: builder.query({
       query: (username) => `/user/getUserProfile/${username}`,
-      providesTags:["Users"],
+      providesTags: ["Users"],
     }),
-
   }),
 });
 
-export const {
-useFetchUserProfileQuery,
-} = UsersApiSlice;
-
+export const { useFetchUserProfileQuery } = UserProfileApiSlice;

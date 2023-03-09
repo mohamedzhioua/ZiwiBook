@@ -111,7 +111,7 @@ function ProfileCover({ isVisitor, user , photosData }) {
       className={classes.coverContainer}
       ref={coverRef}
       style={{
-        backgroundImage: `${!isLoading ? `url(${user.cover})` : ""}`,
+        backgroundImage: `${!isLoading ? `url(${user?.cover})` : ""}`,
       }}
     >
       {image && (

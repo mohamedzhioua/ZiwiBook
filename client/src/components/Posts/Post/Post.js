@@ -1,26 +1,21 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-// features
 import { openModal } from "../../../app/features/modal/modalSlice";
-import {
-  selectPostById,
-} from "../../../app/features/post/postSlice";
-
-// Components
+import { selectPostById } from "../../../app/features/post/postSlice";
 import { Comments, Likes, PostHead, Card } from "../../index";
 import CommentForm from "./Comments/CommentForm";
-
-// Styles
+import chekedlike from "../../../svg/like.svg";
 import IconStyle from "../../../styles/icons.module.css";
 import reactionStyle from "./Likes/react.module.css";
 import PostStyle from "./post.module.css";
-
 import {
   selectAllComments,
   useAddNewCommentMutation,
 } from "../../../app/features/comment/commentSlice";
-import { selectAllReactions , useLikePostMutation} from "../../../app/features/reaction/reactionSlice";
+import {
+  selectAllReactions,
+  useLikePostMutation,
+} from "../../../app/features/reaction/reactionSlice";
 
 const Post = ({ postId }) => {
   const { user } = useSelector((state) => state.user);
@@ -38,7 +33,7 @@ const Post = ({ postId }) => {
     (react) => react?.post === post?._id
   );
 
-  //filetring comments by post 
+  //filetring comments by post
   const comments = useSelector(selectAllComments)?.filter(
     (comment) => comment?.post === post?._id
   );
@@ -55,7 +50,7 @@ const Post = ({ postId }) => {
   }
   return (
     <Card className={PostStyle.post}>
-      <PostHead post={post}  />
+      <PostHead post={post} />
       <div className={PostStyle.post_body}>
         <p className={PostStyle.post_text}>{post?.text.substring(0, 20)}</p>
         {post?.image && (
@@ -85,7 +80,11 @@ const Post = ({ postId }) => {
             className={`${reactionStyle.reaction} hover1`}
             onClick={() => likePost(post?._id)}
           >
-            <i className={IconStyle.like_icon} />
+            {Reactions?.find((reaction) => reaction.owner === user?._id) ? (
+              <img src={chekedlike} alt="" style={{ width: "18px" }} />
+            ) : (
+              <i className={IconStyle.like_icon} />
+            )}
             <span className={reactionStyle.react_span}>Like</span>
           </div>
           <div
