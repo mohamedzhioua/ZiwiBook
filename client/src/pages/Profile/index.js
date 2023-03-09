@@ -20,19 +20,18 @@ import {
   useFetchPostsByUserQuery,
 } from "../../app/features/post/postSlice";
 import { useFetchPhotosQuery } from "../../app/features/user/photosSlice";
-import { useFetchFriendsQuery } from "../../app/features/friend/friendSlice";
+import { useFetchUserProfileQuery } from "../../app/features/user/usersSlice";
 
 function Profile() {
   const [showProfilePhoto, setShowProfilePhoto] = useState(false);
   const { user } = useSelector((state) => state.user);
   const { username } = useParams();
-
   const usernameID = username ? username : user?.username;
   const isVisitor = !(usernameID === user?.username);
-  const  userdata = useSelector((state) => state.user.filter((user)=>user.username===usernameID));
-  console.log("🚀 ~ file: index.js:33 ~ Profile ~ userdata:", userdata)
+  const {data:userdata=[]}= useFetchUserProfileQuery(usernameID)
+console.log("🚀 ~ file: index.js:33 ~ Profile ~ userdata:", userdata)
 
-  // const {
+// const {
   //   data: friends = [],
   //   isLoading: friendsloading,
   //   isFetching: friendsIsFetching,
@@ -69,7 +68,7 @@ function Profile() {
               <div className={style.photo_container}>
                 <div className={style.photo}>
                   <img
-                    src={user?.photo}
+                    src={userdata?.photo}
                     className={style.user_photo}
                     alt="..."
                   />

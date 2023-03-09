@@ -23,7 +23,6 @@ import {
 import { selectAllReactions , useLikePostMutation} from "../../../app/features/reaction/reactionSlice";
 
 const Post = ({ postId }) => {
-  console.log("🚀 ~ file: Post.js:26 ~ Post ~ postId:", postId)
   const { user } = useSelector((state) => state.user);
   const [likePost] = useLikePostMutation();
   const [addNewComment] = useAddNewCommentMutation();
