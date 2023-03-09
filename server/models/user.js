@@ -50,8 +50,8 @@ const UserSchema = new Schema(
     },
     photo: {
       type: String,
-      default:
-        "https://avatars.githubusercontent.com/u/107249637?s=400&u=17dbde1786dbbc67d2c6cfadb99be42c7b97c3f0&v=4",
+      default: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
+
     },
 
     cover: { type: String },

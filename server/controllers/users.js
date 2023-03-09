@@ -83,4 +83,14 @@ module.exports = {
         res.status(404).json({ message: error.message });
     }
   },
+      //  --------------------------------------- // get All ZIWIBook Users method //--------------------------- //
+
+  getAllUsers:async (req, res) => {
+    try {
+    const users = User.find()
+      res.status(200).json(users);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+  },
 };

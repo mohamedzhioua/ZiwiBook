@@ -23,8 +23,10 @@ app.use(cookieParser())
 //Require application Route modules
 const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
+const friendRoutes = require("./routes/friends");
 app.use("/user", userRoutes);
 app.use("/post", postRoutes);
+app.use("/friend", friendRoutes);
  
 app.use(
   cors({

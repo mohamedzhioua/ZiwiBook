@@ -15,6 +15,9 @@ router.post("/signin", UserController.signin);
 // GET request to logout the  User .
 router.get("/logout", UserController.logout);
 
+// GET request to get All ZIWIBook Users.
+router.get("/getAllUsers", UserController.getAllUsers)
+
                  /*   User  Profile   */
 
 // Post request to update the User profile Cover.
