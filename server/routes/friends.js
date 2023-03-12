@@ -15,7 +15,7 @@ router.put(
 
 // PUT request to accept a friend request .
 router.put(
-  "/acceptRequest/:friendRequestId",
+  "/accept/:friendRequestId",
   checkAuth,
   FriendController.acceptRequest
 );

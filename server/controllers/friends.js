@@ -7,7 +7,7 @@ module.exports = {
   getFriends: async (req, res) => {
     const userId = req.user.id;
     try {
-      // received friend requests
+      // friends
       const friends = await Friend.find({
         $or: [{ sender: userId }, { recipient: userId }],
         requestStatus: "accepted",
@@ -26,7 +26,7 @@ module.exports = {
         }
       });
 
-      //  recived friend requests
+      //  received friend requests
       const recivedRequestsNumber = await Friend.countDocuments({
         recipient: userId,
         requestStatus: "pending",
@@ -89,7 +89,7 @@ module.exports = {
         if (friendRequestFromRecipient) {
           await friendRequestFromRecipient.remove();
         }
-        // Create a new friend request with the status "pending"
+        // Create a new friend request
         req.body.sender = senderId;
         req.body.recipient = recipient._id;
         req.body.requestStatus = "pending";
@@ -97,8 +97,9 @@ module.exports = {
         return res
           .status(201)
           .json({ message: "friend Request sent with success" });
-      } else if (friendRequestFromSender.status === "cancelled") {
-        friendRequestFromSender.status = "pending";
+      } else if (friendRequestFromSender.requestStatus === "cancelled") {
+          // Create a new friend request in case of cancceled one existance
+        friendRequestFromSender.requestStatus = "pending";
         await friendRequestFromSender.save();
         return res
           .status(201)
@@ -136,8 +137,10 @@ module.exports = {
 
         // Send reponse
         res.status(200).json({
-          message: "Request cancelled",
-          friendship,
+          data: {
+            message: "Request cancelled",
+            friendship,
+          },
         });
       }
     } catch (error) {
@@ -148,26 +151,28 @@ module.exports = {
   //  ----------------------//accept friend Request method //--------------------------- //
   acceptRequest: async (req, res) => {
     const friendRequestId = req.params.friendRequestId;
-    const senderId = req.user.id;
+    const recipientId = req.user.id;
     try {
       const friendRequest = await Friend.findById(friendRequestId);
 
       if (
         !friendRequest ||
-        friendRequest.status !== "pending" ||
-        friendRequest.recipient.toString() !== recipientID
+        friendRequest.requestStatus !== "pending" ||
+        friendRequest.recipient.toString() !== recipientId
       ) {
         return res.status(404).json({ message: "No friend request found" });
       } else {
-        friendRequest.status = "accepted";
+        friendRequest.requestStatus = "accepted";
         await friendRequest.save();
         const friendship = await getRelationship(
-          recipientID,
+          recipientId,
           friendRequest.sender
         );
         return res.status(200).json({
-          message: "Request accepted",
-          friendship,
+          data: {
+            message: "Request accepted",
+            friendship,
+          },
         });
       }
     } catch (error) {
