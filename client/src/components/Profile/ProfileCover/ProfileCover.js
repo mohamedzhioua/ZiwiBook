@@ -8,7 +8,7 @@ import IconStyle from "../../../styles/icons.module.css";
 import { toast } from "react-toastify";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import { UpdateCover } from "../../../app/features/user/userSlice";
-import { useUpdateCoverPhotoMutation } from "../../../app/features/user/photosSlice";
+import { useUpdateCoverPhotoMutation } from "../../../app/features/user/photosApi";
 import OldCovers from "./OldCovers/OldCovers.js"
 
 function ProfileCover({ isVisitor, user , photosData }) {

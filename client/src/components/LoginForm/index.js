@@ -8,7 +8,7 @@ import { AuthInput, Card, CustomButton, FormLoader } from "../../components";
 import { FaSignInAlt } from "react-icons/fa";
 import "./index.css";
 import ZIWIBook from "../../icons/ZIWIBook.png";
-import { useLoginMutation } from "../../app/features/auth/authSlice";
+import { useLoginMutation } from "../../app/features/auth/authApi";
 
 const LoginForm = ({ setShowRegister }) => {
   const navigate = useNavigate();

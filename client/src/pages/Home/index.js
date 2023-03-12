@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import {
   selectPostIds,
   useFetchPostsQuery,
-} from "../../app/features/post/postSlice";
+} from "../../app/features/post/postApi";
 import { CreatPost, PostList, PostSkeleton,  } from "../../components";
 import style from "./home.module.css";
 

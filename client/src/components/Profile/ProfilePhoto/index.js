@@ -8,7 +8,7 @@ import getCroppedImg from "../../../utils/getCroppedImg";
 import Portal from "../../../utils/Portal";
 import { useDispatch } from "react-redux";
 import { Updatephoto } from "../../../app/features/user/userSlice";
-import { useUpdateProfilePhotoMutation } from "../../../app/features/user/photosSlice";
+import { useUpdateProfilePhotoMutation } from "../../../app/features/user/photosApi";
 
 function ProfilePhoto({ setShowProfilePhoto ,photosData }) {
   const refInput = useRef(null);

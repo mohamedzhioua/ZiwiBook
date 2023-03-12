@@ -17,9 +17,9 @@ import {
 
 import style from "./profile.module.css";
 import IconStyle from "../../styles/icons.module.css";
-import { useFetchPostsByUserQuery } from "../../app/features/post/postSlice";
-import { useFetchPhotosQuery } from "../../app/features/user/photosSlice";
-import { useFetchUserProfileQuery } from "../../app/features/user/userProfileSlice";
+import { useFetchPostsByUserQuery } from "../../app/features/post/postApi";
+import { useFetchPhotosQuery } from "../../app/features/user/photosApi";
+import { useFetchUserProfileQuery } from "../../app/features/user/userProfileApi";
 
 function Profile() {
   const [showProfilePhoto, setShowProfilePhoto] = useState(false);
@@ -115,7 +115,13 @@ function Profile() {
                   />
                 </div>
               )}
-              {isVisitor && <Friendship userId={userdata?._id} userfriendshipdata={userfriendshipdata}/>}
+              {isVisitor && (
+                <Friendship
+                  userId={userdata?._id}
+                  userfriendshipdata={userfriendshipdata}
+                  usernameID={usernameID}
+                />
+              )}
             </div>
           </div>
           <div className={style.line}></div>
@@ -136,7 +142,7 @@ function Profile() {
                 photosData={photosData?.data}
                 photosSkelton={photosSkelton}
               />
-              <Friends />
+              <Friends userfriendsdata={userfriendsdata}/>
             </div>
           </div>
           <div className={style.posts}>

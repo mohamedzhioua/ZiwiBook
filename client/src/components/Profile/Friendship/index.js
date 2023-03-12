@@ -1,35 +1,53 @@
-import { useRef, useState } from "react";
-import { useFriendFuncMutation } from "../../../app/features/friend/friendSlice";
+import { useEffect, useRef, useState } from "react";
+import { useFetchUserProfileQuery,useFriendFuncMutation } from "../../../app/features/user/userProfileApi";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import { Card, CustomButton } from "../../index";
 import style from "./Friendship.module.css";
 
-function Friendship({ userId ,userfriendshipdata}) {
+function Friendship({ userId ,userfriendshipdata,usernameID}) {
   const menu = useRef(null);
   const menuRef = useRef(null);
   const [respondMenu, setRespondMenu] = useState(false);
   const [friendsMenu, setFriendsMenu] = useState(false);
+  const [requestStatus, setRequestStatus] = useState(userfriendshipdata);
+  console.log("🚀 ~ file: index.js:13 ~ Friendship ~ requestStatus:", requestStatus)
+  const [FriendFunc , {isSuccess}] = useFriendFuncMutation();
+  const { data } = useFetchUserProfileQuery(usernameID);
 
-  const [FriendFunc] = useFriendFuncMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setRequestStatus( data?.data?.friendship);
+    }
+  }, [data , usernameID ,isSuccess]);
+
+  useEffect(() => {
+    setRequestStatus(userfriendshipdata);
+  }, [userfriendshipdata]);
+
   useOnClickOutside(menu, respondMenu, () => {
     setRespondMenu(false);
+  });
+  useOnClickOutside(menu, friendsMenu, () => {
+    setFriendsMenu(false);
   });
 
   const addFriendHandler = () => {
     FriendFunc({ id: userId , type: "add"});
   };
   const acceptRequestHanlder = () => {
-    FriendFunc({ id: userfriendshipdata.requestID, type: "accept" });
+    FriendFunc({ id: requestStatus.requestID, type: "accept" });
     setRespondMenu(false);
   };
 
   const cancelRequestHandler = () => {
-    FriendFunc({ id: userfriendshipdata.requestID, type: "cancel" });
+    FriendFunc({ id: requestStatus.requestID, type: "cancel" });
+    setRespondMenu(false);
   };
 
   return (
     <div className={style.container}>
-      {userfriendshipdata?.friends ? (
+      {requestStatus?.friends ? (
         <>
           <CustomButton
           value="Friends"
@@ -48,8 +66,8 @@ function Friendship({ userId ,userfriendshipdata}) {
           )}
         </>
       ):( 
-     !userfriendshipdata?.requestSent &&
-     !userfriendshipdata?.requestReceived &&
+     !requestStatus?.requestSent &&
+     !requestStatus?.requestReceived &&
       (<CustomButton
         value="Add as A friend"
         className={`blue_btn btns`}
@@ -57,14 +75,14 @@ function Friendship({ userId ,userfriendshipdata}) {
       />
       )
       )}
-        {userfriendshipdata?.requestSent ? (
+        {requestStatus?.requestSent ? (
         <CustomButton className="blue_btn btns"
         value="Cancel Request"
          onClick={() => cancelRequestHandler()}
          >
          </CustomButton>
          ) : (
-          userfriendshipdata?.requestReceived && (
+          requestStatus?.requestReceived && (
             <>
               <CustomButton
               value="Respond"
@@ -72,7 +90,7 @@ function Friendship({ userId ,userfriendshipdata}) {
                 onClick={() => setRespondMenu((perv) => !perv)}
               >
               </CustomButton>
-              {respondMenu && userfriendshipdata?.requestReceived && (
+              {respondMenu && requestStatus?.requestReceived && (
                 <Card className={style.open_menu} innerRef={menu}>
                   <div
                     className={`${style.item} hover1`}

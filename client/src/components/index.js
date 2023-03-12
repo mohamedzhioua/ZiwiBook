@@ -12,7 +12,6 @@ export { default as Card } from "./Card";
 export { default as PostList } from "./Posts/Post/PostList";
 export { default as LoginForm } from "./LoginForm";
 export { default as RegisterForm } from "./RegisterForm";
-export { default as UserProfile } from "./Profile";
 export { default as ProfileMenu } from "./Profile/ProfileMenu";
 export {default as ProfileCover} from "./Profile/ProfileCover/ProfileCover"
 export {default as ProfileInfo} from "./Profile/ProfileInfo"

@@ -9,7 +9,7 @@ import {
   useFetchCommentsQuery,
   useLikeCommentMutation,
   useUpdateCommentMutation,
-} from "../../../../app/features/comment/commentSlice";
+} from "../../../../app/features/comment/commentApi";
 import CommentForm from "./CommentForm";
 import { Comments, CustomButton } from "../../../index";
 import chekedlike from "../../../../svg/like.svg";

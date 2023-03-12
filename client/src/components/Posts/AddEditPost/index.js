@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   useAddNewPostMutation,
   useUpdatePostMutation,
-} from "../../../app/features/post/postSlice";
+} from "../../../app/features/post/postApi";
 import { CustomInput, CustomButton, FormLoader } from "../../index";
 import { toast } from "react-toastify";
 import { closeModal } from "../../../app/features/modal/modalSlice";

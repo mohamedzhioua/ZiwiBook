@@ -4,7 +4,7 @@ import { logOut } from "../../../app/features/user/userSlice";
 import style from "./HeaderMenu.module.css";
 import styleIcons from "../../../styles/icons.module.css";
 import { useEffect } from "react";
-import { useLogoutMutation } from "../../../app/features/auth/authSlice";
+import { useLogoutMutation } from "../../../app/features/auth/authApi";
 
 function HeaderMenu({ user, setShowHeaderMenu }) {
   const dispatch = useDispatch();

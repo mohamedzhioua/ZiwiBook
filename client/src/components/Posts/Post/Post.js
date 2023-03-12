@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../../app/features/modal/modalSlice";
-import { selectPostById } from "../../../app/features/post/postSlice";
+import { selectPostById } from "../../../app/features/post/postApi";
 import { Comments, Likes, PostHead, Card } from "../../index";
 import CommentForm from "./Comments/CommentForm";
 import chekedlike from "../../../svg/like.svg";
@@ -11,11 +11,11 @@ import PostStyle from "./post.module.css";
 import {
   selectAllComments,
   useAddNewCommentMutation,
-} from "../../../app/features/comment/commentSlice";
+} from "../../../app/features/comment/commentApi";
 import {
   selectAllReactions,
   useLikePostMutation,
-} from "../../../app/features/reaction/reactionSlice";
+} from "../../../app/features/reaction/reactionApi";
 
 const Post = ({ postId }) => {
   const { user } = useSelector((state) => state.user);

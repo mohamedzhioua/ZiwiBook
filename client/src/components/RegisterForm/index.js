@@ -8,7 +8,7 @@ import IconStyle from "../../styles/icons.module.css";
 import { FaUser } from "react-icons/fa";
 import DateSelector from "./DateSelector";
 import GenderSelector from "./GenderSelector";
-import { useRegisterMutation } from "../../app/features/auth/authSlice";
+import { useRegisterMutation } from "../../app/features/auth/authApi";
 
 function RegisterForm({ setShowRegister, showRegister }) {
   const registerRef = useRef();
