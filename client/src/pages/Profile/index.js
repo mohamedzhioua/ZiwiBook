@@ -14,12 +14,13 @@ import {
   ProfileMenu,
   ProfilePhoto,
 } from "../../components";
-
+import classes from "../../components/Profile/ProfileCover/cover.module.css";
 import style from "./profile.module.css";
 import IconStyle from "../../styles/icons.module.css";
 import { useFetchPostsByUserQuery } from "../../app/features/post/postApi";
 import { useFetchPhotosQuery } from "../../app/features/user/photosApi";
 import { useFetchUserProfileQuery } from "../../app/features/user/userProfileApi";
+import Skeleton from "react-loading-skeleton";
 
 function Profile() {
   const [showProfilePhoto, setShowProfilePhoto] = useState(false);
@@ -27,10 +28,15 @@ function Profile() {
   const { username } = useParams();
   const usernameID = username ? username : user?.username;
   const isVisitor = !(usernameID === user?.username);
-  const { data } = useFetchUserProfileQuery(usernameID);
+  const {
+    data,
+    isLoading: friendsloading,
+    isFetching: friendsIsFetching,
+  } = useFetchUserProfileQuery(usernameID);
   const userdata = data?.data?.user;
   const userfriendsdata = data?.data?.friends;
   const userfriendshipdata = data?.data?.friendship;
+  const userdataSkelton = friendsloading || friendsIsFetching;
 
   // const {
   //   data: friends = [],
@@ -61,19 +67,32 @@ function Profile() {
       <div className={style.head}>
         <div className={style.head_container}>
           <div className={style.top_head}>
-            <ProfileCover
-              isVisitor={isVisitor}
-              user={userdata}
-              photosData={photosData?.data}
-            />
+            {userdataSkelton ? (
+              <Skeleton className={classes.coverContainer} />
+            ) : (
+              <ProfileCover
+                isVisitor={isVisitor}
+                user={userdata}
+                photosData={photosData?.data}
+              />
+            )}
             <div className={style.top_head_content}>
               <div className={style.photo_container}>
                 <div className={style.photo}>
-                  <img
-                    src={userdata?.photo}
-                    className={style.user_photo}
-                    alt="..."
-                  />
+                  {userdataSkelton ? (
+                    <Skeleton
+                      width="160px"
+                      height="160px"
+                      circle
+                      containerClassName="avatar-skeleton"
+                    />
+                  ) : (
+                    <img
+                      src={userdata?.photo}
+                      className={style.user_photo}
+                      alt="..."
+                    />
+                  )}
                   {!isVisitor && (
                     <>
                       <div
@@ -101,7 +120,7 @@ function Profile() {
                     className={IconStyle.confirmed_icon}
                   />
                 </h2>
-                <span className={style.friends}>50 friends</span>
+                <span className={style.friends}>{`${userfriendsdata?.length} friends`}</span>
               </div>
               {!isVisitor && (
                 <div className={style.profile_btns}>
@@ -142,7 +161,10 @@ function Profile() {
                 photosData={photosData?.data}
                 photosSkelton={photosSkelton}
               />
-              <Friends userfriendsdata={userfriendsdata}/>
+              <Friends
+                userfriendsdata={userfriendsdata}
+                photosSkelton={photosSkelton}
+              />
             </div>
           </div>
           <div className={style.posts}>

@@ -7,17 +7,11 @@ import { CreatPost, PostList, PostSkeleton,  } from "../../components";
 import style from "./home.module.css";
 
 function Home() {
-  // const [wordEntered, setWordEntered] = useState("");
   const { user } = useSelector((state) => state.user);
   const { isLoading, isFetching, isSuccess, isError, error } = useFetchPostsQuery();
   const sortedPosts = useSelector(selectPostIds);
   const postSkeleton = isFetching || isLoading;
   const hidePostSkeleton = isSuccess && !isLoading && !error && sortedPosts
-  //search User input
-  // const FilterQuery = (e) => {
-  //   const wordEntered = e.target.value.trim();
-  //   setWordEntered(wordEntered);
-  // };
 
   return (
     <div className={style.home_container}>
@@ -35,7 +29,6 @@ function Home() {
             <PostList
               posts={sortedPosts}
               user={user}
-              // wordEntered={wordEntered}
             />
           )}
         </div>

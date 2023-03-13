@@ -71,7 +71,14 @@
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .friend_name:hover {
   text-decoration: underline;
 }
+.link{
+  text-decoration: none;
+}
+

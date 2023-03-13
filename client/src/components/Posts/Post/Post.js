@@ -16,9 +16,10 @@ import {
   selectAllReactions,
   useLikePostMutation,
 } from "../../../app/features/reaction/reactionApi";
-
+import { useAddNotifMutation } from "../../../app/features/notification/notificationApi";
 const Post = ({ postId }) => {
   const { user } = useSelector((state) => state.user);
+  const [addNotif] = useAddNotifMutation();
   const [likePost] = useLikePostMutation();
   const [addNewComment] = useAddNewCommentMutation();
   const [commentOpen, setCommentOpen] = useState(false);
@@ -48,6 +49,7 @@ const Post = ({ postId }) => {
       await addNewComment({ id, text }).unwrap();
     }
   }
+
   return (
     <Card className={PostStyle.post}>
       <PostHead post={post} />
@@ -78,7 +80,10 @@ const Post = ({ postId }) => {
         <div className={PostStyle.reaction}>
           <div
             className={`${reactionStyle.reaction} hover1`}
-            onClick={() => likePost(post?._id)}
+            onClick={() => {
+              likePost(post?._id);
+              addNotif(post)
+            }}
           >
             {Reactions?.find((reaction) => reaction.owner === user?._id) ? (
               <img src={chekedlike} alt="" style={{ width: "18px" }} />

@@ -33,6 +33,7 @@ export const reactionApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
+
 export const { useFetchReactionsQuery, useLikePostMutation } = reactionApiSlice;
 
 // returns the query result object
