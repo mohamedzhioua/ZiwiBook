@@ -2,7 +2,8 @@
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require('cookie-parser')
- 
+const socket = require("socket.io");
+
 // database
 const db = require("./config/db");
 //load env variables
