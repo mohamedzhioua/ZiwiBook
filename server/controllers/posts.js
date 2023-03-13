@@ -36,7 +36,7 @@ module.exports = {
         return res.status(200).json(memo);
       }
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      return res.status(404).json({ message: error.message });
     }
   },
   //  ----------------------//updatePost method //--------------------------- //
@@ -84,7 +84,7 @@ module.exports = {
         res.status(200).json(memo);
       }
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      return res.status(404).json({ message: error.message });
     }
   },
   //  ----------------------//deletePost method //--------------------------- //
@@ -98,7 +98,7 @@ module.exports = {
       await memo.remove();
       return res.status(200).json({ message: "post deleted successfully" });
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      return res.status(404).json({ message: error.message });
     }
   },
   //  -----------------------//getOnePost method //--------------------------- //
@@ -123,7 +123,7 @@ module.exports = {
       ]);
       res.status(200).json(memo);
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      return res.status(404).json({ message: error.message });
     }
   },
   //  -----------------------//getAllPost by userID method //--------------------------- //
@@ -139,7 +139,7 @@ module.exports = {
       const posts = await Post.find({ owner: user._id });
       res.status(200).json(posts);
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      return res.status(404).json({ message: error.message });
     }
   },
   //  ----------------------//like Post method //--------------------------- //
@@ -149,11 +149,11 @@ module.exports = {
     try {
       const post = await Post.findById(id);
       if (!post) {
-        return res.status(404).json({message :"this post no more exist"});
+        return res.status(404).json({ message: "this post no more exist" });
       }
       const data = await Reaction.findOne({
         post: id,
-        owner: String(req?.user?.id)
+        owner: String(req?.user?.id),
       });
       if (!data) {
         req.body.post = id;
@@ -161,24 +161,23 @@ module.exports = {
         const like = await Reaction.create(req.body);
         return res.status(200).json(like);
       } else {
-      await data.remove()
-      return res.status(200).json({message:"reaction removed"});
+        await data.remove();
+        return res.status(200).json({ message: "reaction removed" });
       }
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      return res.status(404).json({ message: error.message });
     }
   },
-    //  -----------------------//getAllLikes method //--------------------------- //
+  //  -----------------------//getAllLikes method //--------------------------- //
 
-    getPostsReactions: async (req, res) => {
-  
-      try {
-        const reaction = await Reaction.find();
-         res.status(200).json(reaction);
-      } catch (error) {
-        res.status(404).json({ message: error.message });
-      }
-    },
+  getPostsReactions: async (req, res) => {
+    try {
+      const reaction = await Reaction.find();
+      res.status(200).json(reaction);
+    } catch (error) {
+      return res.status(404).json({ message: error.message });
+    }
+  },
   //  ----------------------//add Comment method //--------------------------- //
   addComment: async (req, res) => {
     const { id } = req.params;
@@ -201,7 +200,7 @@ module.exports = {
 
       res.status(200).json(commentData);
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      return res.status(404).json({ message: error.message });
     }
   },
   //  ----------------------//add Reply To a Comment method //--------------------------- //
@@ -222,7 +221,7 @@ module.exports = {
       });
       res.status(200).json(commentData);
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      return res.status(404).json({ message: error.message });
     }
   },
   //  ----------------------//get all Comments method//--------------------------- //
@@ -236,7 +235,7 @@ module.exports = {
       ]);
       res.status(200).json(comments);
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      return res.status(404).json({ message: error.message });
     }
   },
   //  ----------------------//delete Comment method//--------------------------- //
@@ -247,7 +246,7 @@ module.exports = {
       const comments = await Comment.findByIdAndRemove(CommentID);
       res.status(200).json({ message: "comment deleted successefully" });
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      return res.status(404).json({ message: error.message });
     }
   },
   //  ----------------------//update Comment method//--------------------------- //
@@ -266,7 +265,7 @@ module.exports = {
         .status(200)
         .json({ message: "comment updated successfully", updatedComment });
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      return res.status(404).json({ message: error.message });
     }
   },
   //  ----------------------//like Comment method //--------------------------- //
@@ -286,7 +285,7 @@ module.exports = {
       });
       res.status(200).json(LikedComment);
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      return res.status(404).json({ message: error.message });
     }
   },
 };
