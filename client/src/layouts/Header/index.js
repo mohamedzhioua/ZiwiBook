@@ -99,7 +99,7 @@ const Header = () => {
               setShowNotification((prev) => !prev);
             }}
           >
-            <Notifications />
+            <Notifications setShowNotification={setShowNotification}/>
           </div>
           {showNotification && <NotificationMenu />}
         </div>

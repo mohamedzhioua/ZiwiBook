@@ -54,7 +54,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       query: (id) => ({
         url: `/post/deletePost/${id}`,
         method: "DELETE",
-        body: id,
       }),
       invalidatesTags: (result, error, arg) => [{ type: "Post", id: arg.id }],
     }),

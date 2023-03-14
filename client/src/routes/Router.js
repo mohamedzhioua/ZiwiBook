@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 
 //Pages
-import {Home, Login, NotFound, Profile, Register} from "../pages/index";
+import {Home, Login, NotFound, Profile} from "../pages/index";
 
 
 const Router = () => {

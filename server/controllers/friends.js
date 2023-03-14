@@ -173,6 +173,7 @@ module.exports = {
     const friendRequestId = req.params.friendRequestId;
     const recipientId = req.user.id;
     try {
+      let newNotif = null;
       const friendRequest = await Friend.findById(friendRequestId);
 
       if (
@@ -188,10 +189,18 @@ module.exports = {
           recipientId,
           friendRequest.sender
         );
+        const recipient = await User.findById(friendRequest.sender)
+        const newNotif = await new Notification({
+          recipient: recipient,
+          sender: req.user,
+          postId: req.user.username,
+          postReact: '',
+        }).AcceptFriendRequest();
         return res.status(200).json({
           data: {
             message: "Request accepted",
             friendship,
+            newNotif: newNotif ? newNotif : null,
           },
         });
       }

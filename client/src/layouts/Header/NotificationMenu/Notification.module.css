@@ -15,4 +15,41 @@
     padding: 3px;
     font-size: 17px;
    }
-  
+   .notification {
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+  }
+  .image {
+    position: relative;
+  }
+  .image img:nth-child(1) {
+    width: 56px;
+    height: 56px;
+    border-radius: 100%;
+  }
+  .content2 {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .type {
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    right: -5px;
+    bottom: 0;
+  }
+  .time {
+    font-size: 12px;
+    font-weight: 600;
+    color: #5c6e58;
+  }

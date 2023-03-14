@@ -8,15 +8,10 @@ export const NotificationsApiSlice = apiSlice.injectEndpoints({
     }),
 
     addNotif: builder.mutation({
-      query: (post) => ({
+      query: (Credential) => ({
         url: `/notification/add`,
         method: "POST",
-        body: {
-          recipient: post.owner._id,
-          url: `/post/${post._id}`,
-          content: "Liked your post.",
-          type: "react",
-        },
+        body: Credential,
       }),
       invalidatesTags: ["Notif"],
     }),
