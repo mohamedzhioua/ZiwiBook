@@ -1,4 +1,5 @@
 const Notif = require("../models/notification");
+const User = require("../models/user");
 
 module.exports = {
   getNotifcations: async (req, res) => {
@@ -6,6 +7,9 @@ module.exports = {
       const notifies = await Notif.find({ recipient: req.user.id })
         .sort("-createdAt")
         .populate("sender", ["firstName", "lastName", "photo"]);
+        const data = await User.findById(req.user.id);
+        data.unseenNotification = 0;
+        await data.save({ validateBeforeSave: false });
       return res.status(201).json(notifies);
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -22,6 +26,9 @@ module.exports = {
       } else {
         notif.seen = true;
         await notif.save();
+        const data = await User.findById(req.user.id);
+        data.unseenNotification = 0;
+        await data.save({ validateBeforeSave: false });
         return res.status(201).json(notif);
       }
     } catch (error) {

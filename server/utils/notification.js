@@ -1,4 +1,5 @@
 const Notif = require("../models/notification");
+const User = require("../models/user");
 
 module.exports = class Notification {
   constructor({ recipient, sender, postId, postReact }) {
@@ -20,7 +21,9 @@ module.exports = class Notification {
       content,
     });
     await newNotif.save();
-
+    const user = await User.findById(this.recipient._id);
+    user.unseenNotification += 1;
+    await user.save({ validateBeforeSave: false });
     return newNotif;
   }
 
