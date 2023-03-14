@@ -21,9 +21,6 @@ module.exports = class Notification {
       content,
     });
     await newNotif.save();
-    const user = await User.findById(this.recipient._id);
-    user.unseenNotification += 1;
-    await user.save({ validateBeforeSave: false });
     return newNotif;
   }
 
