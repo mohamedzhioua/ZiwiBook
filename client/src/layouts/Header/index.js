@@ -17,6 +17,7 @@ import HeaderMenu from "./HeaderMenu/HeaderMenu";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import NotificationMenu from "./NotificationMenu/NotificationMenu";
 import SearchMenu from "../../components/Search/SearchMenu/SearchMenu";
+import { useFetchNotifQuery } from "../../app/features/notification/notificationApi";
 
 const Header = () => {
   const { user } = useSelector((state) => state.user);
@@ -25,6 +26,7 @@ const Header = () => {
   const notificationMenu = useRef(null);
   const headerMenu = useRef(null);
   const [showSearchMenu, setShowSearchMenu] = useState(false);
+  const { data } = useFetchNotifQuery();
 
   useOnClickOutside(headerMenu, showHeaderMenu, () => {
     setShowHeaderMenu(false);
@@ -99,9 +101,16 @@ const Header = () => {
               setShowNotification((prev) => !prev);
             }}
           >
-            <Notifications setShowNotification={setShowNotification}/>
+            <Notifications />
+            {data?.notseenNotification > 0 && (
+              <div 
+                className={style.notification}
+              >
+                {data?.notseenNotification}
+              </div>
+            )}
           </div>
-          {showNotification && <NotificationMenu />}
+          {showNotification && <NotificationMenu setShowNotification={setShowNotification}/>}
         </div>
         <div ref={headerMenu}>
           <div

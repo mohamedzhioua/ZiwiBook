@@ -19,7 +19,6 @@ import {
 const Post = ({ postId }) => {
   const { user } = useSelector((state) => state.user);
   const [likePost , mutationResult] = useLikePostMutation();
-  console.log("🚀 ~ file: Post.js:22 ~ Post ~ mutationResult:", mutationResult)
   const [addNewComment] = useAddNewCommentMutation();
   const [commentOpen, setCommentOpen] = useState(false);
   const dispatch = useDispatch();

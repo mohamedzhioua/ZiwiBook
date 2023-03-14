@@ -7,16 +7,15 @@ export const NotificationsApiSlice = apiSlice.injectEndpoints({
       providesTags: ["Notif"],
     }),
 
-    addNotif: builder.mutation({
-      query: (Credential) => ({
-        url: `/notification/add`,
-        method: "POST",
-        body: Credential,
+    isNotifSeen: builder.mutation({
+      query: (id) => ({
+        url: `/notification/isNotifSeen/${id}`,
+        method: "PATCH",
       }),
       invalidatesTags: ["Notif"],
     }),
   }),
 });
 
-export const { useFetchNotifQuery, useAddNotifMutation } =
+export const { useFetchNotifQuery, useIsNotifSeenMutation } =
   NotificationsApiSlice;

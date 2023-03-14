@@ -1,33 +1,34 @@
 import Skeleton from "react-loading-skeleton";
-import { useNavigate } from "react-router-dom";
-import { useFetchNotifQuery } from "../../../app/features/notification/notificationApi";
+import { Link } from "react-router-dom";
+import { useFetchNotifQuery, useIsNotifSeenMutation } from "../../../app/features/notification/notificationApi";
 import style from "./Notification.module.css";
 import moment from "moment";
 import chekedlike from "../../../svg/like.svg";
 
 function NotificationMenu({ setShowNotification }) {
-  const { data, isLoading, isSuccess, isFetching } = useFetchNotifQuery();
-  const navigate = useNavigate();
+  const { data, isLoading, isSuccess } = useFetchNotifQuery();
+const [isNotifSeen]=useIsNotifSeenMutation();
 
-  return (
+return (
     <div className={style.notif_menu}>
       <h2>Notifications</h2>
       <div>
         {!isLoading &&
           isSuccess &&
-          data &&
-          (data?.length > 0
-            ? data?.map((notification) => (
+          data.notifies &&
+          (data?.notifies?.length > 0
+            ? data?.notifies?.map((notification) => (
                 <div
                   className={`${style.notification} hover2`}
                   key={notification._id}
                 >
-                  <div
+                  <Link
                     className={style.content}
-                    onClick={() => {
-                      setShowNotification(false);
-                      navigate(notification.url);
-                    }}
+                      to={`${notification.url}`}
+                      onClick={() => {
+                        setShowNotification(false)
+                        isNotifSeen(notification?._id)
+                      }}
                   >
                     <div className={style.image}>
                       <img src={notification?.sender?.photo} alt="" />
@@ -44,18 +45,18 @@ function NotificationMenu({ setShowNotification }) {
                       </span>
                     </div>
                     <div>
-                      {notification.seen === "unseen" && (
+                      {notification.seen === false && (
                         <p
                           style={{
-                            background: `#0096ff`,
-                            width: "12px",
-                            height: "12px",
+                            background: `#5c6e58`,
+                            width: "9px",
+                            height: "9px",
                             borderRadius: "100%",
                           }}
                         />
                       )}
                     </div>
-                  </div>
+                  </Link>
                 </div>
               ))
             : "No Notification")}

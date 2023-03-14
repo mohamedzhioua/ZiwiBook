@@ -32,6 +32,7 @@ export const userSlice = createSlice({
         expires: 90,
       });
     },
+
     logOut: (state, action) => {
       state.user = null;
       state.token = null;

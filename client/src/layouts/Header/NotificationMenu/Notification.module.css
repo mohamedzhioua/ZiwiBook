@@ -27,6 +27,7 @@
     font-size: 14px;
     font-weight: 400;
     cursor: pointer;
+    text-decoration: none;
   }
   .image {
     position: relative;
