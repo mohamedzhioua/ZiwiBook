@@ -11,19 +11,21 @@ module.exports = {
       return res.status(500).json({ msg: err.message });
     }
   },
-  //  ----------------------//add new notification method //--------------------------- //
+  //  ----------------------//update  notification method to make it seen//--------------------------- //
 
-  createNotifcation: async (req, res) => {
+  isNotifSeen: async (req, res) => {
     try {
-      const { recipient } = req.body;
-      if (recipient.includes(req.user.id.toString())) return;
-
-      req.body.sender = req.user.id;
-
-     const notif = await Notif.create(req.body);
-      return res.status(201).json(notif);
+      const { id } = req.params;
+      const notif = await Notif.findById(id);
+      if (!notif) {
+        return res.status(404).json({ message: "Notification not found" });
+      } else {
+        notif.seen = true;
+        await notif.save();
+        return res.status(201).json(notif);
+      }
     } catch (error) {
-       res.status(404).json({ message: error.message });
+      res.status(404).json({ message: error.message });
     }
   },
 };
