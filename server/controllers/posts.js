@@ -147,7 +147,7 @@ module.exports = {
     const { id } = req.params;
 
     try {
-      const post = await Post.findById(id);
+       const post = await Post.findById(id);
       if (!post) {
         return res.status(404).json({ message: "this post no more exist" });
       }
@@ -155,11 +155,12 @@ module.exports = {
         post: id,
         owner: String(req?.user?.id),
       });
+      
       if (!data) {
         req.body.post = id;
         req.body.owner = req?.user?.id;
         const like = await Reaction.create(req.body);
-        return res.status(200).json(like);
+        return res.status(200).json(like,newNotif);
       } else {
         await data.remove();
         return res.status(200).json({ message: "reaction removed" });
@@ -273,17 +274,20 @@ module.exports = {
     const { id } = req.params;
 
     try {
+
       const data = await Comment.findById(id);
       const index = data.likes.findIndex((id) => id === String(req.user.id));
       if (index === -1) {
         data.likes.push(req.user.id);
+
       } else {
         data.likes = data.likes.filter((id) => id !== String(req.user.id));
       }
       const LikedComment = await Comment.findByIdAndUpdate(id, data, {
         new: true,
       });
-      res.status(200).json(LikedComment);
+    
+        return res.status(200).json(LikedComment);
     } catch (error) {
       return res.status(404).json({ message: error.message });
     }

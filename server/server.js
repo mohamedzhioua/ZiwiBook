@@ -25,9 +25,11 @@ app.use(cookieParser())
 const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
 const friendRoutes = require("./routes/friends");
+const NotificationRoutes = require("./routes/notifications");
 app.use("/user", userRoutes);
 app.use("/post", postRoutes);
 app.use("/friend", friendRoutes);
+app.use("/notification", NotificationRoutes);
  
 app.use(
   cors({

@@ -1,30 +1,29 @@
-const Notif = require('../models/notification');
-
+const Notif = require("../models/notification");
 
 module.exports = {
-      //  ----------------------//add new notification method //--------------------------- //
-
-    createNotifcation: async (req, res) => {
+  getNotifcations: async (req, res) => {
     try {
-      const { recipient, url, content } = req.body;
-
-      if (recipient.includes(req.user._id.toString())) return;
-
-      const notify = new Notifies({
-        recipient,
-        url,
-        content,
-        sender: req.user._id,
-      });
-
-      await notify.save();
-      return res.json({ notify });
-    } catch (error) {
-      return res.status(404).json({ message: error.message });
+      const notifies = await Notif.find({ recipient: req.user.id })
+        .sort("-createdAt")
+        .populate("sender", ["firstName", "lastName", "photo"]);
+      return res.status(201).json(notifies);
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
     }
   },
+  //  ----------------------//add new notification method //--------------------------- //
 
- 
+  createNotifcation: async (req, res) => {
+    try {
+      const { recipient } = req.body;
+      if (recipient.includes(req.user.id.toString())) return;
+
+      req.body.sender = req.user.id;
+
+     const notif = await Notif.create(req.body);
+      return res.status(201).json(notif);
+    } catch (error) {
+       res.status(404).json({ message: error.message });
+    }
+  },
 };
-
-module.exports = notifyCtrl;

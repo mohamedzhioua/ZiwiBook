@@ -3,12 +3,18 @@ const Schema = mongoose.Schema;
 
 const NotificationSchema = new Schema(
   {
-    sender: { type: Schema.Types.ObjectId, ref: "User" },
-    recipient: { type: Schema.Types.ObjectId, ref: "User" },
-    url: String,
+    sender: { type: Schema.Types.ObjectId, ref: "user" },
+    recipient: { type: Schema.Types.ObjectId, ref: "user" },
+    url: {
+      type: String,
+    },
     content: {
       type: String,
       trim: true,
+    },
+    type: {
+      type: String,
+      enum: ['react', 'comment', 'friend'],
     },
     seen: {type:Boolean, default: false}
   },
