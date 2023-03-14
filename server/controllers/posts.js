@@ -5,7 +5,7 @@ const Reaction = require("../models/reaction");
 const PostValidation = require("../validator/PostValidation");
 const cloudinary = require("../utils/cloudinary");
 const sharp = require("sharp");
-const Notification = require("../utils/notification")
+const Notification = require("../utils/notification");
 module.exports = {
   //  ----------------------//addPost method //--------------------------- //
 
@@ -147,7 +147,7 @@ module.exports = {
     const { id } = req.params;
 
     try {
-       const post = await Post.findById(id);
+      const post = await Post.findById(id);
       if (!post) {
         return res.status(404).json({ message: "this post no more exist" });
       }
@@ -155,18 +155,21 @@ module.exports = {
         post: id,
         owner: String(req?.user?.id),
       });
-      
+
       if (!data) {
+        let newNotif = null;
         req.body.post = id;
         req.body.owner = req?.user?.id;
         const like = await Reaction.create(req.body);
         const recipient = await User.findById(post.owner);
-        const newNotif = await new Notification({
+        newNotif = await new Notification({
           recipient,
           sender: req.user,
           postId: post,
         }).PostLike();
-        return res.status(200).json({like,newNotif: newNotif ? newNotif: null});
+        return res
+          .status(200)
+          .json({ like, newNotif: newNotif ? newNotif : null });
       } else {
         await data.remove();
         return res.status(200).json({ message: "reaction removed" });
@@ -191,6 +194,7 @@ module.exports = {
     const { text } = req.body;
     const owner = req.user.id;
     try {
+      let newNotif = null;
       if (!id || !text)
         return res
           .status(404)
@@ -204,8 +208,16 @@ module.exports = {
         post: id,
         text,
       });
-
-      res.status(200).json(commentData);
+      const recipient = await User.findById(checkPost.owner);
+      newNotif = await new Notification({
+        recipient,
+        sender: req.user,
+        postId: id,
+        postReact: text.slice(0, 10),
+      }).PostComment();
+      res
+        .status(200)
+        .json({ commentData, newNotif: newNotif ? newNotif : null });
     } catch (error) {
       return res.status(404).json({ message: error.message });
     }
@@ -217,6 +229,7 @@ module.exports = {
     const { text } = req.body;
     const owner = req.user.id;
     try {
+      let newNotif = null;
       const checkComment = await Comment.findById(parentId);
       if (!checkComment)
         return res.status(404).json({ message: "No comment found" });
@@ -226,6 +239,13 @@ module.exports = {
         parentId,
         text,
       });
+      const recipient = await User.findById(checkComment.owner);
+      newNotif = await new Notification({
+        recipient,
+        sender: req.user,
+        postId: checkComment.post,
+        postReact: text.slice(0, 10),
+      }).CommentReplie();
       res.status(200).json(commentData);
     } catch (error) {
       return res.status(404).json({ message: error.message });
@@ -280,20 +300,27 @@ module.exports = {
     const { id } = req.params;
 
     try {
-
+      let newNotif = null;
       const data = await Comment.findById(id);
       const index = data.likes.findIndex((id) => id === String(req.user.id));
       if (index === -1) {
         data.likes.push(req.user.id);
-
+        const recipient = await User.findById(data.owner);
+        newNotif = await new Notification({
+          recipient,
+          sender: req.user,
+          postId: data.post,
+        }).CommentLike();
       } else {
         data.likes = data.likes.filter((id) => id !== String(req.user.id));
       }
       const LikedComment = await Comment.findByIdAndUpdate(id, data, {
         new: true,
       });
-    
-        return res.status(200).json(LikedComment);
+
+      return res
+        .status(200)
+        .json({ LikedComment, newNotif: newNotif ? newNotif : null });
     } catch (error) {
       return res.status(404).json({ message: error.message });
     }

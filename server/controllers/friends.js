@@ -1,6 +1,7 @@
 const Friend = require("../models/friend");
 const User = require("../models/user");
 const { getRelationship } = require("../utils/getRelationship");
+const Notification = require("../utils/notification");
 
 module.exports = {
   //  ----------------------//getFriends method //--------------------------- //
@@ -69,6 +70,7 @@ module.exports = {
     const senderId = req.user.id;
     const recipientId = req.params.id;
     try {
+      let newNotif = null;
       if (senderId === recipientId) {
         return res.status(404).json({ message: "you can't add yourself" });
       }
@@ -94,16 +96,34 @@ module.exports = {
         req.body.recipient = recipient._id;
         req.body.requestStatus = "pending";
         const friendRequest = await Friend.create(req.body);
+        newNotif = await new Notification({
+          recipient: recipient,
+          sender: req.user,
+          postId: req.user.username,
+          postReact: "",
+        }).FriendRequest();
         return res
           .status(201)
-          .json({ message: "friend Request sent with success" });
+          .json({
+            message: "friend Request sent with success",
+            newNotif: newNotif ? newNotif : null,
+          });
       } else if (friendRequestFromSender.requestStatus === "cancelled") {
-          // Create a new friend request in case of cancceled one existance
+        // Create a new friend request in case of cancceled one existance
         friendRequestFromSender.requestStatus = "pending";
         await friendRequestFromSender.save();
+        newNotif = await new Notification({
+          recipient: recipient,
+          sender: req.user,
+          postId: req.user.username,
+          postReact: "",
+        }).FriendRequest();
         return res
           .status(201)
-          .json({ message: "friend Request sent with success" });
+          .json({
+            message: "friend Request sent with success",
+            newNotif: newNotif ? newNotif : null,
+          });
       } else {
         return res.status(404).json({
           message:

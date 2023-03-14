@@ -47,7 +47,7 @@ module.exports = class Notification {
   async CommentLike() {
     const path = `/${this.recipient.username}/post/${this.postId}`;
     const noti = await this.createNotifcation({
-      content: `${this.sender.firstName} reacted like to your comment`,
+      content: `${this.sender.firstName}  like your comment`,
       type: "react",
       path: path,
     });
