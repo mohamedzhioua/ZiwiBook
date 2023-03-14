@@ -5,8 +5,7 @@ const Reaction = require("../models/reaction");
 const PostValidation = require("../validator/PostValidation");
 const cloudinary = require("../utils/cloudinary");
 const sharp = require("sharp");
-const Notification = require("../utils/notification");
-
+const Notification = require("../utils/notification")
 module.exports = {
   //  ----------------------//addPost method //--------------------------- //
 
@@ -88,7 +87,7 @@ module.exports = {
       return res.status(404).json({ message: error.message });
     }
   },
-  //  ----------------------//delete A Post method //--------------------------- //
+  //  ----------------------//deletePost method //--------------------------- //
 
   deletePost: async (req, res) => {
     try {
@@ -102,7 +101,7 @@ module.exports = {
       return res.status(404).json({ message: error.message });
     }
   },
-  //  -----------------------//get One Post method //--------------------------- //
+  //  -----------------------//getOnePost method //--------------------------- //
 
   getOnePost: async (req, res) => {
     try {
@@ -112,7 +111,7 @@ module.exports = {
       res.status(404).json({ message: error.message });
     }
   },
-  //  -----------------------//get All Posts method //--------------------------- //
+  //  -----------------------//getAllPost method //--------------------------- //
 
   getAllPost: async (req, res) => {
     try {
@@ -127,7 +126,7 @@ module.exports = {
       return res.status(404).json({ message: error.message });
     }
   },
-  //  -----------------------//get All Posts by userID method //--------------------------- //
+  //  -----------------------//getAllPost by userID method //--------------------------- //
   getAllPostbyUser: async (req, res) => {
     const { username } = req.params;
     try {
@@ -144,12 +143,11 @@ module.exports = {
     }
   },
   //  ----------------------//like Post method //--------------------------- //
-  postlike: async (req, res) => {
+  like: async (req, res) => {
     const { id } = req.params;
 
     try {
-      let newNotif = null;
-      const post = await Post.findById(id);
+       const post = await Post.findById(id);
       if (!post) {
         return res.status(404).json({ message: "this post no more exist" });
       }
@@ -157,45 +155,21 @@ module.exports = {
         post: id,
         owner: String(req?.user?.id),
       });
-
+      
       if (!data) {
         req.body.post = id;
         req.body.owner = req?.user?.id;
         const like = await Reaction.create(req.body);
         const recipient = await User.findById(post.owner);
-        newNotif = await new Notification({
+        const newNotif = await new Notification({
           recipient,
           sender: req.user,
           postId: post,
         }).PostLike();
-
-        return res.status(200).json(like, newNotif);
+        return res.status(200).json({like,newNotif: newNotif ? newNotif: null});
       } else {
-        return res
-          .status(200)
-          .json({ message: "You have already liked this post" });
-      }
-    } catch (error) {
-      return res.status(404).json({ message: error.message });
-    }
-  },
-  //  ----------------------//Dislike Post method //--------------------------- //
-  postDislike: async (req, res) => {
-    const { id } = req.params;
-
-    try {
-      const post = await Post.findById(id);
-      if (!post) {
-        return res.status(404).json({ message: "this post no more exist" });
-      }
-      const data = await Reaction.findOne({
-        post: id,
-        owner: String(req?.user?.id),
-      });
-
-      if (data) {
         await data.remove();
-        return res.status(200).json({ message: "Post unliked successfully" });
+        return res.status(200).json({ message: "reaction removed" });
       }
     } catch (error) {
       return res.status(404).json({ message: error.message });
@@ -306,18 +280,20 @@ module.exports = {
     const { id } = req.params;
 
     try {
+
       const data = await Comment.findById(id);
       const index = data.likes.findIndex((id) => id === String(req.user.id));
       if (index === -1) {
         data.likes.push(req.user.id);
+
       } else {
         data.likes = data.likes.filter((id) => id !== String(req.user.id));
       }
       const LikedComment = await Comment.findByIdAndUpdate(id, data, {
         new: true,
       });
-
-      return res.status(200).json(LikedComment);
+    
+        return res.status(200).json(LikedComment);
     } catch (error) {
       return res.status(404).json({ message: error.message });
     }
