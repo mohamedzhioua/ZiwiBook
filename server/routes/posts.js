@@ -23,7 +23,9 @@ router.patch("/updatePost/:id",checkAuth,multerUploads, PostController.updatePos
 router.delete("/deletePost/:id",checkAuth, PostController.deletePost);
 
 // PUT request
-router.put("/like/:id",checkAuth, PostController.like);
+router.patch("/like/:id",checkAuth, PostController.postlike);
+// PUT request
+router.patch("/Dislike/:id",checkAuth, PostController.postDislike);
 
 // GET request
 router.get("/getPostsReactions", PostController.getPostsReactions);

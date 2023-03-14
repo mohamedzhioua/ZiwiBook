@@ -12,7 +12,7 @@ module.exports = class Notification {
     let newNotif = null;
 
     newNotif = await Notif.create({
-      sender: this.sender._id,
+      sender: this.sender.id,
       recipient: this.recipient._id,
       type,
       url: path,
@@ -26,7 +26,7 @@ module.exports = class Notification {
   async PostLike() {
     const path = `/${this.recipient.username}/post/${this.postId}`;
     const noti = await this.send({
-      content: `${this.sender.firstName} reacted ${this.postReact} on your post`,
+      content: `${this.sender.firstName} reacted by like on your post`,
       type: "react",
       path: path,
     });
