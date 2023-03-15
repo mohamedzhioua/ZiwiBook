@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Comment = require("./comment");
+const Reaction = require("./reaction");
 
 const PostSchema = new Schema(
   {
@@ -28,6 +29,13 @@ const PostSchema = new Schema(
 PostSchema.pre("remove", async function (next) {
   const post = this;
   await Comment.deleteMany({ post: post._id });
+  next();
+});
+
+// delete post reactions when the post is removed
+PostSchema.pre("remove", async function (next) {
+  const post = this;
+  await Reaction.deleteMany({ post: post._id });
   next();
 });
 

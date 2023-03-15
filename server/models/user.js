@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Post = require("./post");
+const Comment = require("./comment");
+const Reaction = require("./reaction");
+const Friend = require("./friend");
+const Notification = require("./notification");
 const { generateFromEmail } = require("unique-username-generator");
 
 const UserSchema = new Schema(
@@ -50,8 +54,8 @@ const UserSchema = new Schema(
     },
     photo: {
       type: String,
-      default: "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
-
+      default:
+        "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=",
     },
 
     cover: { type: String },
@@ -97,6 +101,35 @@ UserSchema.pre("remove", async function (next) {
   next();
 });
 
+// delete user reactions when the user is removed
+UserSchema.pre("remove", async function (next) {
+  const user = this;
+  await Reaction.deleteMany({ owner: user._id });
+  next();
+});
+
+// delete user comments when the user is removed
+UserSchema.pre("remove", async function (next) {
+  const user = this;
+  await Comment.deleteMany({ owner: user._id });
+  next();
+});
+// delete user from others friends lists when the user is removed
+UserSchema.pre("remove", async function (next) {
+  const user = this;
+  await Friend.deleteMany({
+    $or: [{ sender: user._id }, { recipient: user._id }],
+  });
+  next();
+});
+// delete user Notifications when the user is removed
+UserSchema.pre("remove", async function (next) {
+  const user = this;
+  await Notification.deleteMany({
+    $or: [{ sender: user._id }, { recipient: user._id }],
+  });
+  next();
+});
 // generate a username from the user email
 UserSchema.pre("save", function (next) {
   if (this.isNew) {
