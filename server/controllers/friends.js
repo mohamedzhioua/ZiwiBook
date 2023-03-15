@@ -102,12 +102,10 @@ module.exports = {
           postId: req.user.username,
           postReact: "",
         }).FriendRequest();
-        return res
-          .status(201)
-          .json({
-            message: "friend Request sent with success",
-            newNotif: newNotif ? newNotif : null,
-          });
+        return res.status(201).json({
+          message: "friend Request sent with success",
+          newNotif: newNotif ? newNotif : null,
+        });
       } else if (friendRequestFromSender.requestStatus === "cancelled") {
         // Create a new friend request in case of cancceled one existance
         friendRequestFromSender.requestStatus = "pending";
@@ -118,12 +116,10 @@ module.exports = {
           postId: req.user.username,
           postReact: "",
         }).FriendRequest();
-        return res
-          .status(201)
-          .json({
-            message: "friend Request sent with success",
-            newNotif: newNotif ? newNotif : null,
-          });
+        return res.status(201).json({
+          message: "friend Request sent with success",
+          newNotif: newNotif ? newNotif : null,
+        });
       } else {
         return res.status(404).json({
           message:
@@ -156,12 +152,7 @@ module.exports = {
         );
 
         // Send reponse
-        res.status(200).json({
-          data: {
-            message: "Request cancelled",
-            friendship,
-          },
-        });
+        res.status(200).json(friendship);
       }
     } catch (error) {
       res.status(404).json({ message: error.message });
@@ -189,19 +180,16 @@ module.exports = {
           recipientId,
           friendRequest.sender
         );
-        const recipient = await User.findById(friendRequest.sender)
+        const recipient = await User.findById(friendRequest.sender);
         const newNotif = await new Notification({
           recipient: recipient,
           sender: req.user,
           postId: req.user.username,
-          postReact: '',
+          postReact: "",
         }).AcceptFriendRequest();
         return res.status(200).json({
-          data: {
-            message: "Request accepted",
-            friendship,
-            newNotif: newNotif ? newNotif : null,
-          },
+          friendship,
+          newNotif: newNotif ? newNotif : null,
         });
       }
     } catch (error) {

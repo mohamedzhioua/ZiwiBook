@@ -1,5 +1,4 @@
 const Notif = require("../models/notification");
-const User = require("../models/user");
 
 module.exports = {
   getNotifcations: async (req, res) => {

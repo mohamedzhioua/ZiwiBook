@@ -1,5 +1,4 @@
 const Notif = require("../models/notification");
-const User = require("../models/user");
 
 module.exports = class Notification {
   constructor({ recipient, sender, postId, postReact }) {
@@ -10,9 +9,10 @@ module.exports = class Notification {
   }
 
   async createNotifcation({ content, type, path }) {
-    if (this.recipient._id.toString().includes(this.sender._id.toString())) return;
- 
     let newNotif = null;
+
+    if (this.recipient._id.toString().includes(this.sender._id.toString()))  return;
+    
     newNotif = await Notif.create({
       sender: this.sender._id,
       recipient: this.recipient._id,
