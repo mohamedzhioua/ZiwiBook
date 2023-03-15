@@ -1,4 +1,5 @@
 import { apiSlice } from "../../api/apiSlice";
+import { socket } from "../../../routes/PrivateRoute";
 
 export const UserProfileApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -12,8 +13,15 @@ export const UserProfileApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
       }),
       invalidatesTags: ["Userprofile"],
+      transformResponse: (responseData) => {
+        const newNotification = responseData?.newNotif;
+        if (newNotification) {
+          socket.emit("notification", { notification: newNotification });
+        }
+      },
     }),
   }),
 });
 
-export const { useFetchUserProfileQuery , useFriendFuncMutation } = UserProfileApiSlice;
+export const { useFetchUserProfileQuery, useFriendFuncMutation } =
+  UserProfileApiSlice;

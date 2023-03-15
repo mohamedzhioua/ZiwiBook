@@ -1,5 +1,6 @@
 import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 import { apiSlice } from "../../api/apiSlice";
+import { socket } from "../../../routes/PrivateRoute";
 
 const commentsAdapter = createEntityAdapter({
   selectId: (comment) => comment._id,
@@ -26,26 +27,38 @@ export const CommentApiSlice = apiSlice.injectEndpoints({
         return {
           url: `/post/addComment/${id}`,
           method: "POST",
-          body: {text},
+          body: { text },
         };
       },
       invalidatesTags: [{ type: "Comment", id: "LIST" }],
+      transformResponse: (responseData) => {
+        const newNotification = responseData?.newNotif;
+        if (newNotification) {
+          socket.emit("notification", { notification: newNotification });
+        }
+      },
     }),
 
     addCommentReply: builder.mutation({
       query: ({ id, text }) => ({
         url: `/post/addCommentReply/${id}`,
         method: "POST",
-        body: {text},
+        body: { text },
       }),
       invalidatesTags: [{ type: "Comment", id: "LIST" }],
+      transformResponse: (responseData) => {
+        const newNotification = responseData?.newNotif;
+        if (newNotification) {
+          socket.emit("notification", { notification: newNotification });
+        }
+      },
     }),
 
     updateComment: builder.mutation({
       query: ({ id, text }) => ({
         url: `/post/updateComment/${id}`,
         method: "PUT",
-        body: {text},
+        body: { text },
       }),
       invalidatesTags: (result, error, arg) => [
         { type: "Comment", id: arg.id },
@@ -70,6 +83,12 @@ export const CommentApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: (result, error, arg) => [
         { type: "Comment", id: arg.id },
       ],
+      transformResponse: (responseData) => {
+        const newNotification = responseData?.newNotif;
+        if (newNotification) {
+          socket.emit("notification", { notification: newNotification });
+        }
+      },
     }),
   }),
 });

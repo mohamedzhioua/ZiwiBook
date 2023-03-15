@@ -1,4 +1,5 @@
 import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
+import  {socket}  from "../../../routes/PrivateRoute"
 import { apiSlice } from "../../api/apiSlice";
 
 const reactionAdapter = createEntityAdapter({
@@ -29,6 +30,12 @@ export const reactionApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: (result, error, arg) => [
         { type: "Reaction", id: arg.id },
       ],
+      transformResponse: (responseData) => {
+        const newNotification = responseData?.newNotif;
+        if (newNotification) {
+          socket.emit("notification", { notification: newNotification });
+        }
+      },
     }),
   }),
 });
