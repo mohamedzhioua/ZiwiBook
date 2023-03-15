@@ -7,8 +7,8 @@ export { default as Likes } from "./Posts/Post/Likes";
 export { default as PostHead } from "./Posts/Post/PostHead";
 export { default as SearchBar } from "./Search";
 export { default as Loading } from "./Loading";
-export { default as FormLoader } from "./FormLoader";
-export { default as Card } from "./Card";
+export { default as FormLoader } from "./UI/FormLoader";
+export { default as Card } from "./UI/Card";
 export { default as PostList } from "./Posts/Post/PostList";
 export { default as LoginForm } from "./LoginForm";
 export { default as RegisterForm } from "./RegisterForm";
@@ -23,3 +23,4 @@ export {default as Popper } from "./Popper"
 export{default as PostSkeleton} from "./skeleton"
 export {default as ProfilePhoto} from "./Profile/ProfilePhoto"
 export {default as Friendship} from "./Profile/Friendship"
+export {default as Notification} from "./UI/Notification"

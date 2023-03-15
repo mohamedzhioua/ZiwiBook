@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Header } from "../layouts";
 import { io } from "socket.io-client";
 import { setOnlineUsers } from "../app/features/socket/socketSlice";
+import {Notification} from "../components/index";
+import { toast } from "react-toastify";
 
 export let socket;
 
@@ -25,7 +27,17 @@ function PrivateRoute({ children }) {
       });
       socket.on("online_user", ({ type, info }) => {
         dispatch(setOnlineUsers({ type, info }));
+        console.log("🚀 ~ file: PrivateRoute.js:30 ~ socket.on ~ info:", info)
+        console.log("🚀 ~ file: PrivateRoute.js:30 ~ socket.on ~ type:", type)
       });
+      socket.on("new_notification", ({ notification }) => {
+        toast.success((t) => (
+          <Notification t={t} toast={toast} notification={notification} />
+        ));
+
+      
+      });
+   
     }
   }, []);
   return token ? (

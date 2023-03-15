@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
 import style from "./Notification.module.css";
-import chekedlike from "../../svg/like.svg";
+import chekedlike from "../.././../svg/like.svg";
 
 function Notification({ toast, t, notification }) {
   const navigate = useNavigate();
