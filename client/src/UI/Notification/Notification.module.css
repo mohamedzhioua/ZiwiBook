@@ -1,0 +1,49 @@
+.main {
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+  background:#ffffffff;
+  padding: 15px;
+  border-radius: 10px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+}
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.content2 {
+  display: flex;
+  flex-direction: column;
+}
+.image {
+  position: relative;
+}
+.image img:nth-child(1) {
+  width: 56px;
+  height: 56px;
+  border-radius: 100%;
+}
+.type {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  right: -5px;
+  bottom: 0;
+}
+
+.time {
+  font-size: 12px;
+  font-weight: 600;
+  color: #5c6e58;
+}
