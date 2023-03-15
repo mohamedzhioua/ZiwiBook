@@ -31,8 +31,8 @@ app.use("/user", userRoutes);
 app.use("/post", postRoutes);
 app.use("/friend", friendRoutes);
 app.use("/notification", NotificationRoutes);
-
 app.use(cors());
+
 const httpServer = createServer(app);
 const sio = require("./utils/socket");
 

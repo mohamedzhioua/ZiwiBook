@@ -22,5 +22,19 @@ const NotificationSchema = new Schema(
   { timestamps: true }
 );
 
+NotificationSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'sender',
+    select: 'photo',
+  });
+  next();
+});
+
+NotificationSchema.post('save', async function () {
+  this.populate({
+    path: 'sender',
+    select: 'photo',
+  });
+});
 
 module.exports = mongoose.model("notification", NotificationSchema);
