@@ -9,6 +9,12 @@
   flex-direction: column;
   align-items: center;
 }
+.title{
+  font-size: 32px;
+  font-weight: 600;
+  color: #050505;
+  align-self: flex-start;
+}
 .login-image {
   width: 80%;
 }

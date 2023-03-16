@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useField, ErrorMessage } from "formik";
-// Components
 import { Popper } from "../../index";
-// Styles
 import styles from "./style.module.css";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { useMediaQuery } from "react-responsive";
-import { FaRegEye , FaRegEyeSlash } from "react-icons/fa";
+import  CloseEye from "../../../svg/closeEye.svg";
+import  OpenEye  from ".././../../svg/openEye.svg"
 
 function AuthInput({ placeholder, dir, type, disabled ,password,onClick, ...props }) {
   const [trigger, setTrigger] = useState(null);
@@ -46,9 +45,11 @@ function AuthInput({ placeholder, dir, type, disabled ,password,onClick, ...prop
 {(field.name === "password" )|| (field.name === "passwordConfirm") ? (
           <>
             {type === "password" ? (
-              <FaRegEyeSlash onClick={onClick} />
+               <img src={CloseEye} alt=""     onClick={onClick}/>
+          
             ) : (
-              <FaRegEye onClick={onClick} />
+              <img src={OpenEye} alt=""     onClick={onClick}/>
+
             )}
           </>
         ) : (

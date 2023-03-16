@@ -36,13 +36,11 @@ function PrivateRoute({ children }) {
     }
   }, []);
   return token ? (
-    <>
-    <React.Suspense fallback={<Loading/>}>
+     <React.Suspense fallback={<Loading/>}>
       <Header />
       {children}
       </React.Suspense>
-    </>
-  ) : (
+   ) : (
     
     <Navigate to="/login" replace />
   );

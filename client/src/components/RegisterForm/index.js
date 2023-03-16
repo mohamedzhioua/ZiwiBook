@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { CustomButton, AuthInput, FormLoader, Card } from "../../components";
 import classes from "./register.module.css";
 import IconStyle from "../../styles/icons.module.css";
-import { FaUser } from "react-icons/fa";
+import userSVG from "../../svg/user.svg"
 import DateSelector from "./DateSelector";
 import GenderSelector from "./GenderSelector";
 import { useRegisterMutation } from "../../app/features/auth/authApi";
@@ -107,7 +107,7 @@ function RegisterForm({ setShowRegister, showRegister }) {
           ></i>
 
           <span className={classes.signup_header_title}>
-            <FaUser /> Create an account
+          <img src={userSVG} alt="user_icon"/> Create an account
           </span>
           <span className={classes.signup_header_title1}>
             it's quick and easy

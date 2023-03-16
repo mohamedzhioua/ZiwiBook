@@ -1,23 +1,25 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import errorImg from '../../icons/404Error.png'
-import {ImSad} from 'react-icons/im'
-import  './index.css'
-
+import React from "react";
+import { Link } from "react-router-dom";
+import classes from "./404.module.css";
+import ErrorSVG from "../../svg/404Error.svg";
 // 404 page
 const NotFound = () => {
   return (
-    <div className='text-center'>
-    <img className='error-img' alt='error' src={errorImg} />
-    <p className='mb-0 mt-3 text-error'>
-        <ImSad /> Looks like this page does not
-        exist.
-    </p>
-    <p className='mt-0 text-error'>
-        Go Back to the <Link className="link" to='/'>Home Page</Link>
-    </p>
-</div>
-  )
-}
+    <div className={classes.error_container}>
+      <img src={ErrorSVG} alt="error_svg" />
+      <div  className={classes.error_body}>
+      <h1 >
+        Looks like this page does not exist or Something Went Wrong.
+      </h1>
+      <h3>
+        Go Back to the{" "} 
+        <Link className={classes.link} to="/">
+          Home Page
+        </Link>
+      </h3>
+      </div>
+    </div>
+  );
+};
 
-export default NotFound
+export default NotFound;

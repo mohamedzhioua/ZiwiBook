@@ -9,7 +9,7 @@ const ForceRedirect = ({ children }) => {
   return token ? (
     <Navigate to="/" replace />
   ) : (
-    <React.Suspense fallback={<Loading />}>children</React.Suspense>
+    <React.Suspense fallback={<Loading />}>{children}</React.Suspense>
   );
 };
 

@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { setCredentials } from "../../app/features/user/userSlice";
 import { AuthInput, Card, CustomButton, FormLoader } from "../../components";
-import { FaSignInAlt } from "react-icons/fa";
 import "./index.css";
 import ZIWIBook from "../../icons/ZIWIBook.png";
 import { useLoginMutation } from "../../app/features/auth/authApi";
@@ -15,7 +14,7 @@ const LoginForm = ({ setShowRegister }) => {
   const dispatch = useDispatch();
   const form = { email: "", password: "" };
   const { email, password } = form;
-  const [login, { isLoading,isSuccess }] = useLoginMutation();
+  const [login, { isLoading, isSuccess }] = useLoginMutation();
 
   useEffect(() => {
     if (isSuccess) {
@@ -46,9 +45,7 @@ const LoginForm = ({ setShowRegister }) => {
         </span>
       </div>
       <Card className="login-card">
-        <h1>
-          <FaSignInAlt /> Sing In
-        </h1>
+        <h1 className="title">Sing In</h1>
         <Formik
           enableReinitialize={false}
           validationSchema={loginValidation}
