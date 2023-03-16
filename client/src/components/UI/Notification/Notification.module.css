@@ -7,8 +7,6 @@
   border-radius: 10px;
 }
 .header {
-  display: flex;
-  justify-content: space-between;
   font-size: 14px;
   font-weight: 600;
 }
@@ -20,6 +18,7 @@
   font-size: 14px;
   font-weight: 400;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .content2 {

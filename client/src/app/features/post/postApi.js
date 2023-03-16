@@ -31,6 +31,16 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         return [...result.ids.map((id) => ({ type: "Post", id }))];
       },
     }),
+  
+    fetchPost: builder.query({
+      query: (id) => `/post/getOnePost/${id}`,
+      transformResponse: (responseData) => {
+        console.log("🚀 ~ file: postApi.js:38 ~ responseData:", responseData)
+        return postsAdapter.setOne(initialState, responseData);
+      },
+      providesTags: (result, error, id) =>  [{ type: "Post", id }],
+      }
+    ),
 
     addNewPost: builder.mutation({
       query: (form) => ({
@@ -63,6 +73,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
 export const {
   useFetchPostsQuery,
   useFetchPostsByUserQuery,
+  useFetchPostQuery,
   useAddNewPostMutation,
   useUpdatePostMutation,
   useDeletePostMutation,

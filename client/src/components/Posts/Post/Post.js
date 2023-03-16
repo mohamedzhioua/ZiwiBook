@@ -18,7 +18,7 @@ import {
 } from "../../../app/features/reaction/reactionApi";
 const Post = ({ postId }) => {
   const { user } = useSelector((state) => state.user);
-  const [likePost , mutationResult] = useLikePostMutation();
+  const [likePost] = useLikePostMutation();
   const [addNewComment] = useAddNewCommentMutation();
   const [commentOpen, setCommentOpen] = useState(false);
   const dispatch = useDispatch();

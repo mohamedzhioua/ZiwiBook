@@ -1,6 +1,6 @@
 import React from "react";
 import Skeleton from "react-loading-skeleton";
-import {Card} from "../index";
+import {Card} from "../../index";
 import styles from"./skeleton.module.css"
 
 function PostSkeleton() {

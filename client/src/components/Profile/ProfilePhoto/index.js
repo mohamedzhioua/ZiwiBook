@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { Updatephoto } from "../../../app/features/user/userSlice";
 import { useUpdateProfilePhotoMutation } from "../../../app/features/user/photosApi";
 
-function ProfilePhoto({ setShowProfilePhoto ,photosData }) {
+function ProfilePhoto({ setShowProfilePhoto ,photosData ,photoRef}) {
   const refInput = useRef(null);
   const slider = useRef(null);
   const dispatch = useDispatch();
@@ -89,9 +89,10 @@ function ProfilePhoto({ setShowProfilePhoto ,photosData }) {
       let form = new FormData();
       form.append("image", blob);
       let photoData = await updateProfilePhoto(form).unwrap();
+      photoRef.current.src=photoData.photo
       dispatch(Updatephoto(photoData.photo));
       setTimeout(() => {
-        setImage(null);
+        setShowProfilePhoto(false);
       }, 200);
     } catch (error) {
       setError("something went wrong please try again");

@@ -1,11 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-
- //Routes
  import ForceRedirect from "./ForceRedirect";
 import PrivateRoute from "./PrivateRoute";
-
-//Pages
-import {Home, Login, NotFound, Profile} from "../pages/index";
+import {Home, Login, NotFound, Profile,PostPage} from "../pages/index";
 
 
 const Router = () => {
@@ -24,6 +20,14 @@ const Router = () => {
         element={
           <PrivateRoute>
             <Profile />
+          </PrivateRoute>
+        }
+      />
+          <Route
+        path="/:username/posts/:id"
+        element={
+          <PrivateRoute>
+            <PostPage />
           </PrivateRoute>
         }
       />

@@ -1,37 +1,22 @@
 import React from "react";
 import moment from "moment";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import style from "./Notification.module.css";
 import chekedlike from "../.././../svg/like.svg";
+import { useIsNotifSeenMutation } from "../../../app/features/notification/notificationApi";
 
 function Notification({ toast, t, notification }) {
-  const navigate = useNavigate();
+  const [isNotifSeen] = useIsNotifSeenMutation();
+
   return (
     <div className={style.main}>
-      <div className={style.header}>
-        <span>New notification</span>
-        <div
-          onClick={() => toast.dismiss(t.id)}
-          className="small_circle"
-          style={{
-            width: "25px",
-            height: "25px",
-            margin: "0",
-          }}
-        >
-          <i
-            className="exit_icon"
-            style={{
-              transform: "scale(0.7)",
-            }}
-          ></i>
-        </div>
-      </div>
+      <span className={style.header}> New notification</span>
       <Link
         className={style.content}
         to={`${notification.url}`}
         onClick={() => {
           toast.dismiss(t.id);
+          isNotifSeen(notification?._id);
         }}
       >
         <div className={style.image}>

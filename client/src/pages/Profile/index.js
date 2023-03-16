@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -26,6 +26,8 @@ function Profile() {
   const [showProfilePhoto, setShowProfilePhoto] = useState(false);
   const { user } = useSelector((state) => state.user);
   const { username } = useParams();
+  const photoRef = useRef(null);
+
   const usernameID = username ? username : user?.username;
   const isVisitor = !(usernameID === user?.username);
   const {
@@ -91,6 +93,7 @@ function Profile() {
                       src={userdata?.photo}
                       className={style.user_photo}
                       alt="..."
+                      ref={photoRef}
                     />
                   )}
                   {!isVisitor && (
@@ -103,6 +106,7 @@ function Profile() {
                       </div>
                       {showProfilePhoto && (
                         <ProfilePhoto
+                          photoRef={photoRef}
                           setShowProfilePhoto={setShowProfilePhoto}
                           showProfilePhoto={showProfilePhoto}
                           photosData={photosData?.data}

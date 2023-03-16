@@ -10,7 +10,6 @@ function Friendship({ userId ,userfriendshipdata,usernameID}) {
   const [respondMenu, setRespondMenu] = useState(false);
   const [friendsMenu, setFriendsMenu] = useState(false);
   const [requestStatus, setRequestStatus] = useState(userfriendshipdata);
-  console.log("🚀 ~ file: index.js:13 ~ Friendship ~ requestStatus:", requestStatus)
   const [FriendFunc , {isSuccess}] = useFriendFuncMutation();
   const { data } = useFetchUserProfileQuery(usernameID);
 
