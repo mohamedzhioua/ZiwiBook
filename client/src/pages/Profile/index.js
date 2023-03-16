@@ -1,7 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
 import {
   CreatPost,
   CustomButton,
@@ -27,18 +26,19 @@ function Profile() {
   const { user } = useSelector((state) => state.user);
   const { username } = useParams();
   const photoRef = useRef(null);
-
+  const navigate = useNavigate();
   const usernameID = username ? username : user?.username;
   const isVisitor = !(usernameID === user?.username);
   const {
     data,
-    isLoading: friendsloading,
-    isFetching: friendsIsFetching,
+    isLoading: Profileloading,
+    isFetching: ProfileIsFetching,
+    isError: ProfileIsError,
   } = useFetchUserProfileQuery(usernameID);
   const userdata = data?.data?.user;
   const userfriendsdata = data?.data?.friends;
   const userfriendshipdata = data?.data?.friendship;
-  const userdataSkelton = friendsloading || friendsIsFetching;
+  const userdataSkelton = Profileloading || ProfileIsFetching;
 
   // const {
   //   data: friends = [],
@@ -50,6 +50,7 @@ function Profile() {
     isLoading: photosloading,
     isFetching: photosIsFetching,
     isSuccess: photosIsSuccess,
+    isError: photosIsError,
   } = useFetchPhotosQuery(usernameID);
   const photosSkelton = photosloading || photosIsFetching;
 
@@ -58,11 +59,17 @@ function Profile() {
     isLoading: postsLoading,
     isFetching: postsIsFetching,
     isSuccess: postsIsSuccess,
-    isError,
+    isError: postsIsError,
     error,
   } = useFetchPostsByUserQuery(usernameID);
   const postsSkelton = postsLoading || postsIsFetching;
   const postsSkeltonHide = postsIsSuccess && !postsLoading && !error;
+
+  useEffect(() => {
+    if (ProfileIsError || photosIsError || postsIsError) {
+      navigate("/404");
+    }
+  }, [ProfileIsError, postsIsError, photosIsError]);
 
   return (
     <div className={style.profile_container}>
@@ -92,7 +99,7 @@ function Profile() {
                     <img
                       src={userdata?.photo}
                       className={style.user_photo}
-                      alt="..."
+                      alt={userdata?.firstName}
                       ref={photoRef}
                     />
                   )}
@@ -124,7 +131,9 @@ function Profile() {
                     className={IconStyle.confirmed_icon}
                   />
                 </h2>
-                <span className={style.friends}>{`${userfriendsdata?.length} friends`}</span>
+                <span
+                  className={style.friends}
+                >{`${userfriendsdata?.length} friends`}</span>
               </div>
               {!isVisitor && (
                 <div className={style.profile_btns}>

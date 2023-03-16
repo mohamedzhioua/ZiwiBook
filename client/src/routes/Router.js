@@ -1,8 +1,12 @@
+import React from "react";
 import { Route, Routes } from "react-router-dom";
- import ForceRedirect from "./ForceRedirect";
+import ForceRedirect from "./ForceRedirect";
 import PrivateRoute from "./PrivateRoute";
-import {Home, Login, NotFound, Profile,PostPage} from "../pages/index";
-
+import {NotFound} from "../pages/index";
+const Home = React.lazy(() => import("../pages/Home"));
+const Login = React.lazy(() => import("../pages/login"));
+const Profile = React.lazy(() => import("../pages/Profile"));
+const PostPage = React.lazy(() => import("../pages/Post"));
 
 const Router = () => {
   return (
@@ -23,7 +27,7 @@ const Router = () => {
           </PrivateRoute>
         }
       />
-          <Route
+      <Route
         path="/:username/posts/:id"
         element={
           <PrivateRoute>

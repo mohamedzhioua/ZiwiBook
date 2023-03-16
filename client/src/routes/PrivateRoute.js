@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Header } from "../layouts";
 import { io } from "socket.io-client";
 import { setOnlineUsers } from "../app/features/socket/socketSlice";
-import { Notification } from "../components/index";
+import { Loading, Notification } from "../components/index";
 import { toast } from "react-toastify";
 
 export let socket;
@@ -37,10 +37,13 @@ function PrivateRoute({ children }) {
   }, []);
   return token ? (
     <>
+    <React.Suspense fallback={<Loading/>}>
       <Header />
       {children}
+      </React.Suspense>
     </>
   ) : (
+    
     <Navigate to="/login" replace />
   );
 }

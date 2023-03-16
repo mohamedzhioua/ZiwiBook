@@ -35,7 +35,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     fetchPost: builder.query({
       query: (id) => `/post/getOnePost/${id}`,
       transformResponse: (responseData) => {
-        console.log("🚀 ~ file: postApi.js:38 ~ responseData:", responseData)
         return postsAdapter.setOne(initialState, responseData);
       },
       providesTags: (result, error, id) =>  [{ type: "Post", id }],
