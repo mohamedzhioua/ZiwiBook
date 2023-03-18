@@ -19,6 +19,14 @@ router.put(
   checkAuth,
   FriendController.acceptRequest
 );
+
+// PUT request to unfriend someone .
+router.put(
+  "/remove/:friendRequestId",
+  checkAuth,
+  FriendController.unfriend
+); 
+
 // GET request to get user's friend list .
 router.get("/getAllfriends", checkAuth, FriendController.getFriends);
 

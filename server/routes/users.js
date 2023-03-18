@@ -31,4 +31,5 @@ router.get("/:username/photos",checkAuth, UserProfileController.getPhotos);
 // GET request to get a user profile.
 router.get("/getUserProfile/:username",checkAuth, UserProfileController.getUserProfile)
 
+
 module.exports = router;

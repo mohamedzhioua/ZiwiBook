@@ -28,12 +28,12 @@ module.exports = {
         req.body.owner = id;
         req.body.image = imageDetails.url;
         req.body.cloudinary_id = imageDetails.public_id;
-        const memo = await Post.create(req.body);
-        return res.status(200).json(memo);
+        const postdata = await Post.create(req.body);
+        return res.status(200).json(postdata);
       } else {
         req.body.owner = id;
-        const memo = await Post.create(req.body);
-        return res.status(200).json(memo);
+        const postdata = await Post.create(req.body);
+        return res.status(200).json(postdata);
       }
     } catch (error) {
       return res.status(404).json({ message: error.message });
@@ -65,23 +65,23 @@ module.exports = {
           image: imageDetails.url,
           cloudinary_id: imageDetails.public_id,
         };
-        const memo = await Post.findByIdAndUpdate(
+        const postdata = await Post.findByIdAndUpdate(
           { _id: req.params.id },
           post,
           {
             new: true,
           }
         );
-        res.status(200).json(memo);
+        res.status(200).json(postdata);
       } else {
-        const memo = await Post.findByIdAndUpdate(
+        const postdata = await Post.findByIdAndUpdate(
           { _id: req.params.id },
           req.body,
           {
             new: true,
           }
         );
-        res.status(200).json(memo);
+        res.status(200).json(postdata);
       }
     } catch (error) {
       return res.status(404).json({ message: error.message });
@@ -91,11 +91,11 @@ module.exports = {
 
   deletePost: async (req, res) => {
     try {
-      const memo = await Post.findById({ _id: req.params.id });
-      if (memo.cloudinary_id) {
-        await cloudinary.removeFromCloudinary(memo.cloudinary_id);
+      const postdata = await Post.findById({ _id: req.params.id });
+      if (postdata.cloudinary_id) {
+        await cloudinary.removeFromCloudinary(postdata.cloudinary_id);
       }
-      await memo.remove();
+      await postdata.remove();
       return res.status(200).json({ message: "post deleted successfully" });
     } catch (error) {
       return res.status(404).json({ message: error.message });
@@ -105,8 +105,8 @@ module.exports = {
 
   getOnePost: async (req, res) => {
     try {
-      const memo = await Post.findById({ _id: req.params.id });
-      res.status(200).json(memo);
+      const postdata = await Post.findById({ _id: req.params.id });
+      res.status(200).json(postdata);
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
@@ -115,18 +115,18 @@ module.exports = {
 
   getAllPost: async (req, res) => {
     try {
-      const memo = await Post.find().populate("owner", [
+      const postdata = await Post.find().populate("owner", [
         "firstName",
         "lastName",
         "photo",
         "username",
       ]);
-      res.status(200).json(memo);
+      res.status(200).json(postdata);
     } catch (error) {
       return res.status(404).json({ message: error.message });
     }
   },
-  //  -----------------------//getAllPost by userID method //--------------------------- //
+  //  -----------------------//getAllPost by username method //--------------------------- //
   getAllPostbyUser: async (req, res) => {
     const { username } = req.params;
     try {
@@ -136,7 +136,11 @@ module.exports = {
           .status(404)
           .json({ message: "No user found with that username" });
       }
-      const posts = await Post.find({ owner: user._id });
+      const posts = await Post.find({ owner: user._id }).populate("owner", [
+        "firstName",
+        "lastName",
+        "photo",
+      ]);
       res.status(200).json(posts);
     } catch (error) {
       return res.status(404).json({ message: error.message });
@@ -165,7 +169,7 @@ module.exports = {
         newNotif = await new Notification({
           recipient,
           sender: req.user,
-          postId: post,
+          postId: id,
         }).PostLike();
         return res
           .status(200)

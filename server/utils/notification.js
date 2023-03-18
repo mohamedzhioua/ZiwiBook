@@ -11,11 +11,11 @@ module.exports = class Notification {
   async createNotifcation({ content, type, path }) {
     let newNotif = null;
 
-    if (this.recipient._id.toString().includes(this.sender._id.toString()))  return;
+    if (this.recipient._id.toString().includes(this.sender?._id.toString()))  return;
     
     newNotif = await Notif.create({
-      sender: this.sender._id,
-      recipient: this.recipient._id,
+      sender: this.sender?._id,
+      recipient: this.recipient?._id,
       type,
       url: path,
       content,
@@ -25,9 +25,9 @@ module.exports = class Notification {
   }
 
   async PostLike() {
-    const path = `/${this.recipient.username}/post/${this.postId}`;
+    const path = `/${this.recipient?.username}/posts/${this.postId}`;
     const noti = await this.createNotifcation({
-      content: `${this.sender.firstName} reacted by like on your post`,
+      content: `${this.sender?.firstName} reacted by like on your post`,
       type: "react",
       path: path,
     });
@@ -35,9 +35,9 @@ module.exports = class Notification {
   }
 
   async PostComment() {
-    const path = `/${this.recipient.username}/post/${this.postId}`;
+    const path = `/${this.recipient?.username}/posts/${this.postId}`;
     const noti = await this.createNotifcation({
-      content: `${this.sender.firstName} commented ${this.postReact} on your post`,
+      content: `${this.sender?.firstName} commented ${this.postReact} on your post`,
       type: "comment",
       path: path,
     });
@@ -45,9 +45,9 @@ module.exports = class Notification {
   }
 
   async CommentLike() {
-    const path = `/${this.recipient.username}/post/${this.postId}`;
+    const path = `/${this.recipient?.username}/posts/${this.postId}`;
     const noti = await this.createNotifcation({
-      content: `${this.sender.firstName}  like your comment`,
+      content: `${this.sender?.firstName}  like your comment`,
       type: "react",
       path: path,
     });
@@ -55,11 +55,11 @@ module.exports = class Notification {
   }
 
   async CommentReplie() {
-    const postLink = `${process.env.FRONTEND_URL}/${this.recipient.username}/posts/${this.postId}`;
-    const path = `/${this.recipient.username}/post/${this.postId}`;
+    const postLink = `${process.env.FRONTEND_URL}/${this.recipient?.username}/posts/${this.postId}`;
+    const path = `/${this.recipient?.username}/posts/${this.postId}`;
 
     const noti = await this.createNotifcation({
-      content: `${this.sender.firstName} replied ${this.postReact} on your comment`,
+      content: `${this.sender?.firstName} replied ${this.postReact} on your comment`,
       click: postLink,
       type: "comment",
       path: path,
@@ -68,9 +68,9 @@ module.exports = class Notification {
   }
 
   async FriendRequest() {
-    const path = `/profile/${this.sender.username}`;
+    const path = `/profile/${this.sender?.username}`;
     const noti = await this.createNotifcation({
-      content: `${this.sender.firstName} Sent you a friend request`,
+      content: `${this.sender?.firstName} Sent you a friend request`,
       type: "friend",
       path: path,
     });
@@ -78,9 +78,9 @@ module.exports = class Notification {
   }
 
   async AcceptFriendRequest() {
-    const path = `/profile/${this.sender.username}`;
+    const path = `/profile/${this.sender?.username}`;
     const noti = await this.createNotifcation({
-      content: `${this.sender.firstName} Accept your friend request`,
+      content: `${this.sender?.firstName} Accept your friend request`,
       type: "friend",
       path: path,
     });

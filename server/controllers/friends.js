@@ -196,4 +196,27 @@ module.exports = {
       res.status(404).json({ message: error.message });
     }
   },
+  //  ----------------------//unfriend method //--------------------------- //
+  unfriend: async (req, res) => {
+    const friendRequestId = req.params.friendRequestId;
+    const recipientId = req.user.id;
+    try {
+      const friendRequest = await Friend.findById(friendRequestId);
+      if (
+        !friendRequest ||
+        friendRequest.requestStatus !== "accepted" ||
+        (friendRequest.recipient.toString() !== recipientId &&
+          friendRequest.sender.toString() !== recipientId)
+      )
+        return res.status(404).json({ message: "No friend found" });
+
+      const friendRequestR = friendRequest.recipient.toString();
+      const friendRequestS = friendRequest.sender.toString();
+      await friendRequest.remove();
+      const friendship = await getRelationship(friendRequestR, friendRequestS);
+      res.status(200).json(friendship);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
 };
