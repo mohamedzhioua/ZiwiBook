@@ -2,7 +2,7 @@ function HomeActive({ className }) {
   return (
     <svg
       className={className}
-      fill=" #5c6e58"
+      fill="#5c6e58"
       width="28"
       height="28"
       viewBox="0 0 28 28"

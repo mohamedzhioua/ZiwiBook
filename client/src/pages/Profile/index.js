@@ -183,8 +183,7 @@ function Profile() {
           <div className={style.posts}>
             {!isVisitor && <CreatPost user={userdata} />}
             {postsSkelton && <PostSkeleton />}
-
-            {postsSkeltonHide && <PostList posts={posts?.ids} />}
+            {postsSkeltonHide && <PostList posts={posts?.ids} isVisitor={isVisitor} />}
           </div>
         </div>
       </div>

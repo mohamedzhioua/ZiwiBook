@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.css";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import  CloseEye from "../../../svg/closeEye.svg";
+import  OpenEye  from ".././../../svg/openEye.svg"
 const CustomInput = ({
   onFocus,
   onBlur,
@@ -68,9 +69,9 @@ const CustomInput = ({
         {name === "password" ? (
           <span>
             {type === "password" ? (
-              <FaRegEyeSlash onClick={onClick} className="Icon" />
+              <img src={CloseEye} alt="CloseEye"  onClick={onClick} className="Icon" />
             ) : (
-              <FaRegEye onClick={onClick} className="Icon" />
+              <img src={OpenEye} alt="OpenEye"  onClick={onClick} className="Icon" />
             )}
           </span>
         ) : (

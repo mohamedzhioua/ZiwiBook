@@ -3,7 +3,7 @@ import { useMediaQuery } from "react-responsive";
 import classes from "./register.module.css";
 import { Field, ErrorMessage, useField } from "formik";
 import {Popper} from "../index";
-import { MdOutlineErrorOutline } from "react-icons/md";
+import ErrorSVG from "../../svg/Error.svg";
 
 function GenderSelector() {
   const [trigger, setTrigger] = useState(null);
@@ -27,9 +27,7 @@ function GenderSelector() {
     <div className={classes.colHeader}>
       Gender 
       {genderError &&
-       <MdOutlineErrorOutline
-         className={classes.err_icon}
-       />}
+       <img src={ErrorSVG} alt="ErrorSVG"/>}
     </div>
     <div className={`${classes.select_grid} ${classes.gender}`}>
       <label htmlFor="male"   className={genderError ? `${classes.ERROR}` : ""}>

@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { Photo } from "../../../svg";
 import styleIcons from "../../../styles/icons.module.css";
 import style from "./Post.module.css";
+import uploadFileSVG from "../../../svg/uploadFile.svg";
 
 const AddEditPost = ({ post, user }) => {
   const dispatch = useDispatch();
@@ -171,8 +172,8 @@ const AddEditPost = ({ post, user }) => {
                           refImageInput.current.click();
                         }}
                       >
-                        <i className={styleIcons.addPhoto_icon} />
-                        Add A photo
+                        <img src={uploadFileSVG} alt="uploadFileSVG" />
+                        Upload A photo
                       </CustomButton>
                     </div>
                   </div>

@@ -106,11 +106,6 @@
 .ERROR {
   border-color: #b94a48 !important;
 }
-.err_icon {
-  color: #b94a48;
-  width: 20px;
-  height: 20px;
-}
 
 @media (min-width: 540px) {
   .signup_card {

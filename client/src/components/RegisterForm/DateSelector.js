@@ -3,7 +3,7 @@ import { useMediaQuery } from "react-responsive";
 import classes from "./register.module.css";
 import { Field } from "formik";
 import {Popper} from "../index";
-import { MdOutlineErrorOutline } from "react-icons/md";
+import ErrorSVG from "../../svg/Error.svg";
 
 function DateSelector({ birthDay, birthMonth, birthYear , dateError}) {
   const [trigger, setTrigger] = useState(null);
@@ -30,8 +30,7 @@ function DateSelector({ birthDay, birthMonth, birthYear , dateError}) {
     >
       <div className={classes.colHeader}>Birthday
       {dateError && 
-         <MdOutlineErrorOutline
-         className={classes.err_icon}
+         <img src={ErrorSVG} alt="ErrorSVG"
        />}
        </div>
       <div className={classes.select_grid}>

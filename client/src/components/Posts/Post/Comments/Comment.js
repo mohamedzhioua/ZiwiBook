@@ -13,8 +13,7 @@ import {
 import CommentForm from "./CommentForm";
 import { Comments, CustomButton } from "../../../index";
 import chekedlike from "../../../../svg/like.svg";
-import "./index.css";
-import { CgDetailsMore } from "react-icons/cg";
+import Styles from "./comment.module.css";
 import { Link } from "react-router-dom";
 
 const Comment = ({ comment }) => {
@@ -82,26 +81,26 @@ const Comment = ({ comment }) => {
   const EditCancelHandler = () => setActiveComment(null);
 
   return (
-    <div className="comment">
-      <div className="comment-header">
-        <div className="comment-header-left">
+    <div className={Styles.comment}>
+      <div className={Styles.comment_header}>
+        <div className={Styles.comment_header_left}>
           <Link
             to={`/profile/${comment?.owner?.username}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <img
-              className="comment-image"
+              className={Styles.comment_image}
               src={comment?.owner?.photo}
               alt="."
             />
           </Link>
         </div>
-        <div className="comment-header-right">
-          <div className="comment_info">
+        <div className={Styles.comment_header_right}>
+          <div className={Styles.comment_info}>
             <Link
               to={`/profile/${comment?.owner?.username}`}
               style={{ textDecoration: "none", color: "inherit" }}
-              className="comment_info_auther"
+              className={Styles.comment_info_auther}
             >
               {comment?.owner?.firstName}
             </Link>
@@ -117,28 +116,28 @@ const Comment = ({ comment }) => {
                 InitialText={InitialText.text}
               />
             ) : (
-              <div className="comment_info_text">{comment?.text}</div>
+              <div className={Styles.comment_info_text}>{comment?.text}</div>
             )}
             {Boolean(LIKES?.length > 0) && (
-              <div className="comment_info_likes">
+              <div className={Styles.comment_info_likes}>
                 <img src={chekedlike} alt="" style={{ width: "18px" }} />
                 <span>{LIKES?.length}</span>
               </div>
             )}
           </div>
 
-          <div className="comment-actions">
+          <div className={Styles.comment_actions}>
             {!isEditing && (
               <>
                 <span
-                  className="actions"
+                  className={Styles.actions}
                   onClick={() => likeComment(comment?._id)}
                 >
                   Like
                 </span>
 
                 <span
-                  className="actions"
+                  className={Styles.actions}
                   onClick={() =>
                     setActiveComment({ id: comment?._id, type: "replying" })
                   }
@@ -149,7 +148,7 @@ const Comment = ({ comment }) => {
                 {canDeleteEdit && (
                   <>
                     <span
-                      className="actions"
+                      className={Styles.actions}
                       onClick={() =>
                         setActiveComment({
                           id: comment?._id,
@@ -161,12 +160,12 @@ const Comment = ({ comment }) => {
                     </span>
 
                     <span
-                      className="actions"
+                      className={Styles.actions}
                       onClick={() => deleteComment(comment?._id)}
                     >
                       Delete
                     </span>
-                    <span className="comment_date">
+                    <span className={Styles.comment_date}>
                       {moment(comment?.createdAt).fromNow()}
                     </span>
                   </>
@@ -177,7 +176,7 @@ const Comment = ({ comment }) => {
         </div>
       </div>
       {isReplying && (
-        <div className="replying">
+        <div className={Styles.replying}>
           <CommentForm
             autoFocus
             submitLabel="Reply"
@@ -192,23 +191,22 @@ const Comment = ({ comment }) => {
       {getReplies?.length > 0 && (
         <>
           <div
-            className={`nested-replies-stack ${areRepliesHidden ? "hide" : ""}`}
+            className={`${Styles.nested_replies_stack} ${
+              areRepliesHidden ? `${Styles.hide}` : ""
+            }`}
           >
             <CustomButton
               className="collapse-line"
               area-label="Hide Replies"
               onClick={() => setAreRepliesHidden(true)}
             />
-            <div className="nested-replies">
+            <div className={Styles.nested_replies}>
               <Comments rootComments={getReplies} />
             </div>
           </div>
           {areRepliesHidden && (
-            <CustomButton
-              Icon={CgDetailsMore}
-              className={`icon icon-btn mt-1 ${
-                !areRepliesHidden ? "hide" : ""
-              }`}
+            <span
+              className={!areRepliesHidden ? `${Styles.hide}` : ""}
               area-label="Show Replies"
               onClick={() => setAreRepliesHidden(false)}
             >
@@ -216,7 +214,7 @@ const Comment = ({ comment }) => {
               {` ${getReplies.length} ${
                 getReplies.length === 1 ? " more reply" : " more replies"
               }`}
-            </CustomButton>
+            </span>
           )}
         </>
       )}

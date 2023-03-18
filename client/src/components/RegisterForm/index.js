@@ -1,24 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
-import * as Yup from "yup";
 import { CustomButton, AuthInput, FormLoader, Card } from "../../components";
 import classes from "./register.module.css";
 import IconStyle from "../../styles/icons.module.css";
-import userSVG from "../../svg/user.svg"
+import userSVG from "../../svg/user.svg";
 import DateSelector from "./DateSelector";
 import GenderSelector from "./GenderSelector";
 import { useRegisterMutation } from "../../app/features/auth/authApi";
+import { signupValidation } from "../../utils/YupValidation";
 
 function RegisterForm({ setShowRegister, showRegister }) {
   const registerRef = useRef();
   const [register, { isLoading, isSuccess, error, isError }] = useRegisterMutation();
-  console.log("🚀 ~ file: index.js:16 ~ RegisterForm ~ error:", error)
   useEffect(() => {
     if (isSuccess) {
-      setShowRegister(false)
+      setShowRegister(false);
     }
-   
   }, [isSuccess]);
 
   const form = {
@@ -57,46 +55,6 @@ function RegisterForm({ setShowRegister, showRegister }) {
     setPasswordConfirmVisible(!passwordConfirmVisible);
   };
 
-  const signupValidation = Yup.object({
-    firstName: Yup.string()
-      .required("What's your first name?")
-      .max(100)
-      .min(2)
-      .matches(
-        /^([a-zA-Z]+\s)*[a-zA-Z]+$/,
-        "You can use english charcters only"
-      ),
-    lastName: Yup.string()
-      .required("What's your last name?")
-      .max(100)
-      .min(2)
-      .matches(
-        /^([a-zA-Z]+\s)*[a-zA-Z]+$/,
-        "You can use english charcters only"
-      ),
-    email: Yup.string()
-      .required(
-        "You'll need this when you log in and if you ever need to reset your password."
-      )
-      .email("Must be a valid email.")
-      .max(100),
-    password: Yup.string()
-      .required("Password is required")
-      .min(8)
-      .matches(
-        /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$/i,
-        "Password should have at least 1 lowercase letter, 1 uppercase letter, 1 number, and be at least 8 characters long"
-      ),
-    passwordConfirm: Yup.string().test(
-      "passwords-match",
-      "Password confirm must match password !",
-      function (value) {
-        return this.parent.password === value;
-      }
-    ),
-    gender: Yup.string().required("Gender is required"),
-  });
-
   return (
     <div className="blur">
       <Card className={classes.signup_card} innerRef={registerRef}>
@@ -107,7 +65,7 @@ function RegisterForm({ setShowRegister, showRegister }) {
           ></i>
 
           <span className={classes.signup_header_title}>
-          <img src={userSVG} alt="user_icon"/> Create an account
+            <img src={userSVG} alt="user_icon" /> Create an account
           </span>
           <span className={classes.signup_header_title1}>
             it's quick and easy

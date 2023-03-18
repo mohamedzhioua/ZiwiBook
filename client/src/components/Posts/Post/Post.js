@@ -16,7 +16,7 @@ import {
   selectAllReactions,
   useLikePostMutation,
 } from "../../../app/features/reaction/reactionApi";
-const Post = ({ postId }) => {
+const Post = ({ postId ,isVisitor}) => {
   const { user } = useSelector((state) => state.user);
   const [likePost] = useLikePostMutation();
   const [addNewComment] = useAddNewCommentMutation();
@@ -50,7 +50,7 @@ const Post = ({ postId }) => {
 
   return (
     <Card className={PostStyle.post}>
-      <PostHead post={post} />
+      <PostHead post={post} isVisitor={isVisitor} />
       <div className={PostStyle.post_body}>
         <p className={PostStyle.post_text}>{post?.text.substring(0, 20)}</p>
         {post?.image && (

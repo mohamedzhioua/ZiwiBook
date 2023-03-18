@@ -6,7 +6,7 @@ export { default as CustomInput } from "./input/CustomInput";
 export { default as Likes } from "./Posts/Post/Likes";
 export { default as PostHead } from "./Posts/Post/PostHead";
 export { default as SearchBar } from "./Search";
-export { default as Loading } from "./Loading";
+export { default as Loading } from "./UI/Loading";
 export { default as FormLoader } from "./UI/FormLoader";
 export { default as Card } from "./UI/Card";
 export { default as PostList } from "./Posts/Post/PostList";

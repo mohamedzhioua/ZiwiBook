@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { setCredentials } from "../../app/features/user/userSlice";
 import { AuthInput, Card, CustomButton, FormLoader } from "../../components";
 import "./index.css";
 import ZIWIBook from "../../icons/ZIWIBook.png";
 import { useLoginMutation } from "../../app/features/auth/authApi";
+import SingninSvg from "../../svg/Signin.svg";
+import { loginValidation } from "../../utils/YupValidation";
 
 const LoginForm = ({ setShowRegister }) => {
   const navigate = useNavigate();
@@ -28,14 +29,6 @@ const LoginForm = ({ setShowRegister }) => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const loginValidation = Yup.object({
-    email: Yup.string()
-      .required("Email address is required.")
-      .email("Must be a valid email.")
-      .max(100),
-    password: Yup.string().required("Password is required").min(8),
-  });
-
   return (
     <div class="login-container">
       <div className="login-head">
@@ -45,7 +38,10 @@ const LoginForm = ({ setShowRegister }) => {
         </span>
       </div>
       <Card className="login-card">
-        <h1 className="title">Sing In</h1>
+        <div className="SingninTitle">
+          <h1 className="title">Sing In</h1>
+          <img src={SingninSvg} alt="SingninSvg" className="SingninSvg" />
+        </div>
         <Formik
           enableReinitialize={false}
           validationSchema={loginValidation}

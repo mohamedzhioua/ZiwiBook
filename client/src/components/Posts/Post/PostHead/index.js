@@ -6,7 +6,7 @@ import { openModal } from "../../../../app/features/modal/modalSlice";
 import style from "./postHead.module.css";
 import { Dots } from "../../../../svg";
 
-const PostHead = ({ post}) => {
+const PostHead = ({ post , isVisitor}) => {
   const { user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -21,7 +21,12 @@ const PostHead = ({ post}) => {
             to={`/profile/${post?.owner?.username}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <img src={post?.owner?.photo} alt="..." />
+          {isVisitor  ? (
+          <img src={post?.owner?.photo} alt="..." />
+          ):(
+            <img src={user?.photo} alt="..." />
+
+          )}
           </Link>
         </div>
         <div>

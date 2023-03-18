@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useField, ErrorMessage } from "formik";
 import { Popper } from "../../index";
 import styles from "./style.module.css";
-import { MdOutlineErrorOutline } from "react-icons/md";
+import ErrorSVG from "../../../svg/Error.svg";
 import { useMediaQuery } from "react-responsive";
 import  CloseEye from "../../../svg/closeEye.svg";
 import  OpenEye  from ".././../../svg/openEye.svg"
@@ -45,10 +45,10 @@ function AuthInput({ placeholder, dir, type, disabled ,password,onClick, ...prop
 {(field.name === "password" )|| (field.name === "passwordConfirm") ? (
           <>
             {type === "password" ? (
-               <img src={CloseEye} alt=""     onClick={onClick}/>
+               <img src={CloseEye} alt="CloseEye"     onClick={onClick}/>
           
             ) : (
-              <img src={OpenEye} alt=""     onClick={onClick}/>
+              <img src={OpenEye} alt="OpenEye"     onClick={onClick}/>
 
             )}
           </>
@@ -57,9 +57,7 @@ function AuthInput({ placeholder, dir, type, disabled ,password,onClick, ...prop
         )}
      </span>
       {meta.touched && meta.error && (
-        <MdOutlineErrorOutline
-          className={styles.ER}
-        />
+       <img src={ErrorSVG} alt="ErrorSVG" className={styles.ER}/>
       )}
     </div>
     
