@@ -1,17 +1,33 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSearchMutation } from "../../../app/features/search/searchApi";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import { ReturnIcon, SearchIcon } from "../../../svg";
 import CustomInput from "../../input/CustomInput";
 import styles from "./SearchMenu.module.css";
-
+import { Link } from "react-router-dom";
 function SearchMenu({ showSearchMenu, setShowSearchMenu }) {
   const input = useRef(null);
   const searchMenu = useRef(null);
   const [iconVisible, setIconVisible] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedTerm, setDebouncedTerm] = useState(searchTerm);
+  const [Search, { data, isLoading, isError, isSuccess }] = useSearchMutation();
   useOnClickOutside(searchMenu, showSearchMenu, () => {
     setShowSearchMenu(false);
   });
-  
+  useEffect(() => {
+    input.current.focus();
+  }, []);
+  useEffect(() => {
+    const timer = setTimeout(() => setSearchTerm(debouncedTerm), 1000);
+    return () => clearTimeout(timer);
+  }, [debouncedTerm]);
+
+  useEffect(() => {
+    if (searchTerm.trim().length > 0) {
+      Search({ term: searchTerm });
+    }
+  }, [searchTerm]);
   return (
     <div className={styles.SearchMenu_container} ref={searchMenu}>
       <div className={styles.SearchMenu_wrap}>
@@ -45,7 +61,45 @@ function SearchMenu({ showSearchMenu, setShowSearchMenu }) {
             onBlur={() => {
               setIconVisible(true);
             }}
+            onChange={(e) => setDebouncedTerm(e.target.value)}
+            value={debouncedTerm}
           />
+        </div>
+      </div>
+      <div className="scrollbar" style={{ height: "100%" }}>
+        <div className={`${styles.search_results} scrollbar`}>
+          {!isLoading &&
+          isSuccess &&
+          data.length > 0 &&
+          searchTerm.trim().length > 0 ? (
+            data?.map((user) => (
+              <Link
+                to={`/profile/${user.username}`}
+                className={`${styles.search_item} hover2`}
+                onClick={() => {
+                  setDebouncedTerm("");
+                }}
+                key={user._id}
+              >
+                <div className={`${styles.search_result}`}>
+                  <div>
+                    <img
+                      className={styles.search_result_img}
+                      src={user.photo}
+                      alt=""
+                    />
+                  </div>
+                  <span>
+                    {user.firstName} {user.lastName}
+                  </span>
+                </div>
+              </Link>
+            ))
+          ) : searchTerm ? (
+            <p style={{ padding: "10px" }}>No Search Results</p>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

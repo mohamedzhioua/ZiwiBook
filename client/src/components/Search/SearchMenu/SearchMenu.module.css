@@ -44,4 +44,45 @@
     font-family: inherit;
     padding-left: 2px;
   }
-  
+  /*---Search menu-----*/
+
+.search_results {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+}
+.search_result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #ffffffff;
+  font-weight: 600;
+}
+
+.search_result_img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.search_result span {
+  transform: translateY(-5px);
+}
+
+.search_item {
+  border-radius: 10px;
+  padding: 2px 5px;
+}
+.search_user_item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  padding-right: 10px;
+}

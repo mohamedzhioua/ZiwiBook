@@ -43,6 +43,11 @@ function Friendship({ userId ,userfriendshipdata,usernameID}) {
     FriendFunc({ id: requestStatus.requestID, type: "cancel" });
     setRespondMenu(false);
   };
+  const unfriendHandler = () => {
+    FriendFunc({ id: requestStatus.requestID, type: "remove" });
+    setFriendsMenu(false);
+
+  };
 
   return (
     <div className={style.container}>
@@ -58,7 +63,8 @@ function Friendship({ userId ,userfriendshipdata,usernameID}) {
             <Card className={style.open_menu} innerRef={menuRef}>
               <div
                 className={`${style.item} hover1`}
-              >
+                onClick={() => unfriendHandler()}
+                >
                 Unfriend
               </div>
             </Card>
