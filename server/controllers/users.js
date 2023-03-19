@@ -58,8 +58,9 @@ module.exports = {
             // Authorization
             const options = {
               expires: new Date(exp),
-              httpOnly: true,
-              sameSite: "lax",
+              httpOnly: false,
+              secure: true,
+              sameSite: "None",
             };
             res.cookie("Authorization", token, options);
             res.status(201).json({
@@ -108,6 +109,7 @@ module.exports = {
             firstName: 1,
             lastName: 1,
             photo: 1,
+            username: 1,
           },
         },
       ]);
