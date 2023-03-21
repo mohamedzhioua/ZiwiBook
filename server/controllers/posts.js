@@ -2,6 +2,8 @@ const Post = require("../models/post");
 const User = require("../models/user");
 const Comment = require("../models/comment");
 const Reaction = require("../models/reaction");
+const Friend = require('../models/friend');
+
 const PostValidation = require("../validator/PostValidation");
 const cloudinary = require("../utils/cloudinary");
 const sharp = require("sharp");
@@ -114,8 +116,23 @@ module.exports = {
   //  -----------------------//getAllPost method //--------------------------- //
 
   getAllPost: async (req, res) => {
+    const userId = req.user.id;
     try {
-      const postdata = await Post.find().populate("owner", [
+     // friends
+     const friends = await Friend.find({
+      $or: [{ sender: userId }, { recipient: userId }],
+      requestStatus: "accepted",
+    })
+    const friendsIds = friends.map((friend) => {
+      if (friend.sender._id.equals(userId)) {
+        return friend.recipient;
+      } else {
+        return friend.sender;
+      }
+    });
+      let filter = { owner: { $in: [...friendsIds, userId] } };
+
+      const postdata = await Post.find(filter).populate("owner", [
         "firstName",
         "lastName",
         "photo",

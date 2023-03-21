@@ -58,9 +58,9 @@ module.exports = {
             // Authorization
             const options = {
               expires: new Date(exp),
-              httpOnly: false,
-              secure: true,
-              sameSite: "None",
+              httpOnly: false,//accessible only by web server
+              secure: true,//https
+              sameSite: "None",//cross-site cookie
             };
             res.cookie("Authorization", token, options);
             res.status(201).json({

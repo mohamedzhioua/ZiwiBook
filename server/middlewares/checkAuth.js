@@ -2,8 +2,6 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 
 async function checkAuth(req, res, next) {
-  console.log("🚀 ~ file: checkAuth.js:5 ~ checkAuth ~ req:",  req.headers)
-  console.log("🚀 ~ file: checkAuth.js:5 ~ checkAuth ~ jjjjjjj:",req.cookies.Authorization)
   let token;
   try {
     //  check if token exist
@@ -12,9 +10,9 @@ async function checkAuth(req, res, next) {
       req.headers.authorization.startsWith("Bearer")
     ) {
       token = req.headers.authorization.split(" ")[1];
-    } else if (req.cookies.Authorization) {
+     } else if (req.cookies.Authorization) {
       token = req.cookies.Authorization;
-    }
+     }
     if (!token)
       return res
         .status(401)

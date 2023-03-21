@@ -3,11 +3,13 @@ const router = express.Router();
 const checkAuth = require("../middlewares/checkAuth");
 const NotifController = require("../controllers/notification");
 
+// PROTECT ALL ROUTES AFTER THIS MIDDLEWARE
+router.use(checkAuth);
 
 // GET request to fetch all Notif.
-router.get("/notifies", checkAuth, NotifController.getNotifcations);
+router.get("/notifies", NotifController.getNotifcations);
 
 // PATCH request to change the notif seen to true .
-router.patch("/isNotifSeen/:id", checkAuth, NotifController.isNotifSeen);
+router.patch("/isNotifSeen/:id", NotifController.isNotifSeen);
 
 module.exports = router;
