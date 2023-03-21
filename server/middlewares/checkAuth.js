@@ -10,8 +10,10 @@ async function checkAuth(req, res, next) {
       req.headers.authorization.startsWith("Bearer")
     ) {
       token = req.headers.authorization.split(" ")[1];
+      console.log("🚀 ~ file: checkAuth.js:13 ~ checkAuth ~ token:", token)
      } else if (req.cookies.Authorization) {
       token = req.cookies.Authorization;
+      console.log("🚀 ~ file: checkAuth.js:16 ~ checkAuth ~ token:", token)
      }
     if (!token)
       return res
