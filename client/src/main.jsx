@@ -6,10 +6,9 @@ import { store } from "./app/store";
 import { Provider } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import "react-loading-skeleton/dist/skeleton.css";
-import { extendedApiSlice } from "./app/features/post/postApi";
 import { CommentApiSlice } from "./app/features/comment/commentApi";
 import { reactionApiSlice } from "./app/features/reaction/reactionApi";
-
+import { extendedApiSlice } from "./app/features/post/postApi";
 
 store.dispatch(extendedApiSlice.endpoints.fetchPosts.initiate());
 store.dispatch(CommentApiSlice.endpoints.fetchComments.initiate());

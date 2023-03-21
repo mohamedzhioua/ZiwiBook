@@ -18,7 +18,7 @@ export const reactionApiSlice = apiSlice.injectEndpoints({
       },
       providesTags: (result, error, arg) => [
         { type: "Reaction", id: "LIST" },
-        ...result?.ids.map((id) => ({ type: "Reaction", id })),
+        ...result.ids.map((id) => ({ type: "Reaction", id })),
       ],
     }),
 

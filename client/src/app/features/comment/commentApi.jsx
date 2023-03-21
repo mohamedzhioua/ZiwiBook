@@ -18,7 +18,7 @@ export const CommentApiSlice = apiSlice.injectEndpoints({
       },
       providesTags: (result, error, arg) => [
         { type: "Comment", id: "LIST" },
-        ...result?.ids.map((id) => ({ type: "Comment", id })),
+        ...result.ids.map((id) => ({ type: "Comment", id })),
       ],
     }),
 

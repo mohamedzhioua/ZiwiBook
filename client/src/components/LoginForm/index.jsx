@@ -54,8 +54,8 @@ const LoginForm = ({ setShowRegister }) => {
               const userData = await login(values).unwrap();
               dispatch(setCredentials({ ...userData }));
             } catch (error) {
-              setFieldError("email", error.data.email);
-              setFieldError("password", error.data.password);
+              setFieldError("email", error?.data?.email);
+              setFieldError("password", error?.data?.password);
             }
           }}
         >

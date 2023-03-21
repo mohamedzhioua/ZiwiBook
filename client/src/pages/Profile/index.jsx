@@ -16,7 +16,7 @@ import {
 import classes from "../../components/Profile/ProfileCover/cover.module.css";
 import style from "./profile.module.css";
 import IconStyle from "../../styles/icons.module.css";
-import { useFetchPostsByUserQuery } from "../../app/features/post/postApi";
+import { selectAllPosts, useFetchPostsByUserQuery, useFetchPostsQuery } from "../../app/features/post/postApi";
 import { useFetchPhotosQuery } from "../../app/features/user/photosApi";
 import { useFetchUserProfileQuery } from "../../app/features/user/userProfileApi";
 import Skeleton from "react-loading-skeleton";
@@ -45,6 +45,8 @@ function Profile() {
   //   isLoading: friendsloading,
   //   isFetching: friendsIsFetching,
   // } = useFetchFriendsQuery();
+
+  //photosData
   const {
     data: photosData = [],
     isLoading: photosloading,
@@ -54,6 +56,7 @@ function Profile() {
   } = useFetchPhotosQuery(usernameID);
   const photosSkelton = photosloading || photosIsFetching;
 
+  // postsData
   const {
     data: posts = [],
     isLoading: postsLoading,
@@ -61,7 +64,15 @@ function Profile() {
     isSuccess: postsIsSuccess,
     isError: postsIsError,
     error,
-  } = useFetchPostsByUserQuery(usernameID);
+  } = useFetchPostsByUserQuery(usernameID)
+
+  const { data: profileUserPosts } = useFetchPostsQuery()
+  const { ids, entities } = profileUserPosts
+  let filteredIds;
+  filteredIds = ids?.filter(
+    (p) => entities[p].owner?._id === user?._id
+  );
+  const profilePostsData = isVisitor ? posts?.ids : filteredIds
   const postsSkelton = postsLoading || postsIsFetching;
   const postsSkeltonHide = postsIsSuccess && !postsLoading && !error;
 
@@ -183,7 +194,7 @@ function Profile() {
           <div className={style.posts}>
             {!isVisitor && <CreatPost user={userdata} />}
             {postsSkelton && <PostSkeleton />}
-            {postsSkeltonHide && <PostList posts={posts?.ids} isVisitor={isVisitor} />}
+            {postsSkeltonHide && <PostList posts={profilePostsData} isVisitor={isVisitor} />}
           </div>
         </div>
       </div>

@@ -6,7 +6,6 @@ import {
   selectCommentById,
   useAddCommentReplyMutation,
   useDeleteCommentMutation,
-  useFetchCommentsQuery,
   useLikeCommentMutation,
   useUpdateCommentMutation,
 } from "../../../../app/features/comment/commentApi";
@@ -16,19 +15,17 @@ import chekedlike from "../../../../assets/svg/like.svg";
 import Styles from "./comment.module.css";
 import { Link } from "react-router-dom";
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment , CommentsIsFetching ,CommentsIsLoading}) => {
   const { user } = useSelector((state) => state.user);
   const [areRepliesHidden, setAreRepliesHidden] = React.useState(true);
   const [activeComment, setActiveComment] = React.useState(null);
   const id = activeComment?.id;
   const LIKES = comment?.likes;
-  const { isLoading: fetchIsLoading, isFetching: CommentsIsFetching } =
-    useFetchCommentsQuery();
   const [addCommentReply] = useAddCommentReplyMutation();
   const [updateComment] = useUpdateCommentMutation();
   const [likeComment] = useLikeCommentMutation();
   const [deleteComment] = useDeleteCommentMutation();
-  const fetchLoading = fetchIsLoading || CommentsIsFetching;
+  const fetchLoading = CommentsIsLoading || CommentsIsFetching;
   // replies
   const getReplies = useSelector(selectAllComments)?.filter(
     (i) => i.parentId === comment?._id
@@ -211,8 +208,8 @@ const Comment = ({ comment }) => {
               onClick={() => setAreRepliesHidden(false)}
             >
               &nbsp;
-              {` ${getReplies.length} ${
-                getReplies.length === 1 ? " more reply" : " more replies"
+              {` ${getReplies?.length} ${
+                getReplies?.length === 1 ? " more reply" : " more replies"
               }`}
             </span>
           )}

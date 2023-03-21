@@ -1,5 +1,5 @@
 .camera_filled_icon {
-  background-image: url("../icons/icons25.png");
+  background-image: url("../assets/icons/icons25.png");
   background-position: 0px -444px;
   background-size: auto;
   width: 20px;
@@ -8,7 +8,7 @@
   display: inline-block;
 }
 .public_icon {
-  background-image: url("../icons/publicpack.png");
+  background-image: url("../assets/icons/publicpack.png");
   background-position: 0px -109px;
   background-size: auto;
   width: 20px;
@@ -17,7 +17,7 @@
   display: inline-block;
 }
 .like_icon {
-  background-image: url("../icons/icons5.png");
+  background-image: url("../assets/icons/icons5.png");
   background-position: 0 -243px;
   background-size: auto;
   width: 18px;
@@ -27,7 +27,7 @@
   filter: invert(40%);
 }
 .comment_icon {
-  background-image: url("../icons/icons5.png");
+  background-image: url("../assets/icons/icons5.png");
   background-position: 0 -205px;
   background-size: auto;
   width: 18px;
@@ -37,7 +37,7 @@
   filter: invert(40%);
 }
 .trash_icon {
-  background-image: url("../icons/icons2.png");
+  background-image: url("../assets/icons/icons2.png");
   background-position: 0px -799px;
   background-size: auto;
   width: 20px;
@@ -46,7 +46,7 @@
   display: inline-block;
 }
 .logout_filled_icon {
-  background-image: url("../icons/icons15.png");
+  background-image: url("../assets/icons/icons15.png");
   background-position: 0px -46px;
   background-size: auto;
   width: 20px;
@@ -55,7 +55,7 @@
   display: inline-block;
 }
 .right_icon {
-  background-image: url("../icons/icons18.png");
+  background-image: url("../assets/icons/icons18.png");
   background-position: -83px -13px;
   background-size: auto;
   width: 24px;
@@ -65,7 +65,7 @@
   filter: invert(50%);
 }
 .dark_filled_icon {
-  background-image: url("../icons/icons17.png");
+  background-image: url("../assets/icons/icons17.png");
   background-position: 0px -340px;
   background-size: auto;
   width: 20px;
@@ -74,7 +74,7 @@
   display: inline-block;
 }
 .help_filled_icon {
-  background-image: url("../icons/icons17.png");
+  background-image: url("../assets/icons/icons17.png");
   background-position: 0px -487px;
   background-size: auto;
   width: 20px;
@@ -83,7 +83,7 @@
   display: inline-block;
 }
 .report_filled_icon {
-  background-image: url("../icons/icons15.png");
+  background-image: url("../assets/icons/icons15.png");
   background-position: 0px -25px;
   background-size: auto;
   width: 20px;
@@ -92,7 +92,7 @@
   display: inline-block;
 }
 .settings_filled_icon {
-  background-image: url("../icons/icons16.png");
+  background-image: url("../assets/icons/icons16.png");
   background-position: -21px -228px;
   background-size: auto;
   width: 20px;
@@ -101,7 +101,7 @@
   display: inline-block;
 }
 .exit_icon {
-  background-image: url("../icons/icons6.png");
+  background-image: url("../assets/icons/icons6.png");
   background-position: -126px -71px;
   background-size: auto;
   width: 20px;
@@ -121,7 +121,7 @@
   opacity: 1;
 }
 .addPhoto_icon {
-  background-image: url("../icons/icons7.png");
+  background-image: url("../assets/icons/icons7.png");
   background-position: -25px -292px;
   background-size: auto;
   width: 20px;
@@ -130,7 +130,7 @@
   display: inline-block;
 }
 .confirmed_icon {
-  background-image: url("../icons/icons41.png");
+  background-image: url("../assets/icons/icons41.png");
   background-position: -176px -102px;
   background-size: 190px 204px;
   width: 14px;
@@ -139,7 +139,7 @@
   display: inline-block;
 }
 .minus_icon {
-  background-image: url("../icons/icons33.png");
+  background-image: url("../assets/icons/icons33.png");
   background-position: 0px -50px;
   background-size: auto;
   width: 20px;
@@ -148,7 +148,7 @@
   display: inline-block;
 }
 .plus_icon {
-  background-image: url("../icons/icons32.png");
+  background-image: url("../assets/icons/icons32.png");
   background-position: 0px -25px;
   background-size: auto;
   width: 20px;

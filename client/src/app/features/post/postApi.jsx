@@ -1,4 +1,4 @@
-import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
+import { createEntityAdapter ,createSelector} from "@reduxjs/toolkit";
 import { apiSlice } from "../../api/apiSlice";
 
 
@@ -12,13 +12,13 @@ const initialState = postsAdapter.getInitialState();
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     fetchPosts: builder.query({
-      query: () => "/posts/getAllPost",
+      query: () => "/posts/",
       transformResponse: (responseData) => {
         return postsAdapter.setAll(initialState, responseData);
       },
       providesTags: (result, error, arg) => [
         { type: "Post", id: "LIST" },
-        ...result?.ids.map((id) => ({ type: "Post", id })),
+        ...result.ids.map((id) => ({ type: "Post", id })),
       ],
     }),
 

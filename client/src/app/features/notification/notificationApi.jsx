@@ -3,13 +3,13 @@ import { apiSlice } from "../../api/apiSlice";
 export const NotificationsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     FetchNotif: builder.query({
-      query: () => `/notification/notifies`,
+      query: () => `/notifications/notifies`,
       providesTags: ["Notif"],
     }),
 
     isNotifSeen: builder.mutation({
       query: (id) => ({
-        url: `/notification/isNotifSeen/${id}`,
+        url: `/notifications/isNotifSeen/${id}`,
         method: "PATCH",
       }),
       invalidatesTags: ["Notif"],

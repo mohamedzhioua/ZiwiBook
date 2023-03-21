@@ -11,11 +11,13 @@ import PostStyle from "./post.module.css";
 import {
   selectAllComments,
   useAddNewCommentMutation,
+  useFetchCommentsQuery,
 } from "../../../app/features/comment/commentApi";
 import {
   selectAllReactions,
   useLikePostMutation,
 } from "../../../app/features/reaction/reactionApi";
+
 const Post = ({ postId, isVisitor }) => {
   const { user } = useSelector((state) => state.user);
   const [likePost] = useLikePostMutation();
@@ -23,6 +25,12 @@ const Post = ({ postId, isVisitor }) => {
   const [commentOpen, setCommentOpen] = React.useState(false);
   const dispatch = useDispatch();
   const post = useSelector((state) => selectPostById(state, postId));
+
+  // const { post } = useFetchPostsQuery('fetchPosts', {
+  //   selectFromResult: ({ data }) => ({
+  //     post: data?.entities[postId]
+  //   }),
+  // })
   const canDelete = Boolean(
     user?._id === post?.owner?._id || user?._id === post?.owner
   );
@@ -31,8 +39,12 @@ const Post = ({ postId, isVisitor }) => {
   const Reactions = useSelector(selectAllReactions).filter(
     (react) => react?.post === post?._id
   );
+  const {
+    data: commentsData,
+    isLoading: CommentsIsLoading,
+    isFetching: CommentsIsFetching,
+    isSuccess } = useFetchCommentsQuery('fetchComments');
 
-  //filetring comments by post
   const comments = useSelector(selectAllComments)?.filter(
     (comment) => comment?.post === post?._id
   );
@@ -67,9 +79,9 @@ const Post = ({ postId, isVisitor }) => {
             onClick={() => setCommentOpen(!commentOpen)}
           >
             <span>
-              {comments.length === 0
+              {comments?.length === 0
                 ? "comment"
-                : `${comments.length} ${comments.length > 1 ? "comments" : "comment"
+                : `${comments?.length} ${comments?.length > 1 ? "comments" : "comment"
                 }`}
             </span>
           </div>
@@ -124,7 +136,7 @@ const Post = ({ postId, isVisitor }) => {
           />
           {rootComments != null && rootComments.length > 0 && (
             <div className={PostStyle.comments_section}>
-              <Comments rootComments={rootComments} />
+              <Comments rootComments={rootComments} CommentsIsFetching={CommentsIsFetching} CommentsIsLoading={CommentsIsLoading} />
             </div>
           )}
         </section>
