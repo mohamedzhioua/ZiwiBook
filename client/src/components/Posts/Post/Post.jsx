@@ -17,14 +17,19 @@ import {
   selectAllReactions,
   useLikePostMutation,
 } from "../../../app/features/reaction/reactionApi";
+import ImageViewer from 'react-simple-image-viewer';
+import Portal from "../../../utils/Portal";
 
 const Post = ({ postId, isVisitor }) => {
   const { user } = useSelector((state) => state.user);
+  const [currentImage, setCurrentImage] = React.useState(0);
+  const [isViewerOpen, setIsViewerOpen] = React.useState(false);
   const [likePost] = useLikePostMutation();
   const [addNewComment] = useAddNewCommentMutation();
   const [commentOpen, setCommentOpen] = React.useState(false);
   const dispatch = useDispatch();
   const post = useSelector((state) => selectPostById(state, postId));
+  const images = [post?.image];
 
   // const { post } = useFetchPostsQuery('fetchPosts', {
   //   selectFromResult: ({ data }) => ({
@@ -60,13 +65,33 @@ const Post = ({ postId, isVisitor }) => {
     }
   }
 
+  //view image handlers
+  const openImageViewer = React.useCallback((index) => {
+    setCurrentImage(index);
+    setIsViewerOpen(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (isViewerOpen) {
+      document.getElementById("root").style.overflow = "hidden";
+    } else {
+      document.getElementById("root").style.overflow = "auto";
+    }
+  }, [isViewerOpen]);
+
+  const closeImageViewer = () => {
+    setCurrentImage(0);
+    setIsViewerOpen(false);
+  };
+
   return (
     <Card className={PostStyle.post}>
       <PostHead post={post} isVisitor={isVisitor} />
       <div className={PostStyle.post_body}>
         <p className={PostStyle.post_text}>{post?.text.substring(0, 20)}</p>
         {post?.image && (
-          <img src={post?.image} className={PostStyle.post_image} alt="..." />
+          <img src={post?.image} className={PostStyle.post_image} alt="..." onClick={() => openImageViewer(0)}
+          />
         )}
       </div>
       <div className={PostStyle.footer}>
@@ -139,7 +164,19 @@ const Post = ({ postId, isVisitor }) => {
               <Comments rootComments={rootComments} CommentsIsFetching={CommentsIsFetching} CommentsIsLoading={CommentsIsLoading} />
             </div>
           )}
+
         </section>
+      )}
+       {isViewerOpen && (
+        <Portal>
+          <ImageViewer
+            src={images}
+            currentIndex={currentImage}
+            disableScroll={false}
+            closeOnClickOutside={true}
+            onClose={closeImageViewer}
+          />
+        </Portal>
       )}
     </Card>
   );
