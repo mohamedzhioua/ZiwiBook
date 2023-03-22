@@ -75,7 +75,6 @@ module.exports = {
   getUserProfile: async (req, res) => {
     const { username } = req.params;
     const userId = req.user.id;
-    console.log("🚀 ~ file: usersProfile.js:78 ~ getUserProfile: ~ userId:", userId)
     try {
       const user = await User.findOne({ username });
       if (!user) {
