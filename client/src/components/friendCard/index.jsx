@@ -8,11 +8,11 @@ export default function FriendCard({ user, type, requestID }) {
   const [FriendFunc] = useFriendFuncMutation();
 
   const acceptRequestHanlder = async (requestID) => {
-    FriendFunc({ id:requestID, type: "accept" });
+    FriendFunc({ id: requestID, type: "accept" });
   };
 
   const cancelRequestHandler = async (requestID) => {
-    FriendFunc({ id:requestID, type: "cancel" });
+    FriendFunc({ id: requestID, type: "cancel" });
   };
 
 
@@ -36,9 +36,9 @@ export default function FriendCard({ user, type, requestID }) {
         </div>
       ) : type === "request" ? (
         <div className={classes.btns}>
-          <CustomButton 
-          className="blue_btn" 
-          onClick={() => acceptRequestHanlder(requestID)}
+          <CustomButton
+            className="blue_btn"
+            onClick={() => acceptRequestHanlder(requestID)}
           >
             Confirm
           </CustomButton>

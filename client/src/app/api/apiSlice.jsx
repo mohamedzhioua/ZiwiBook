@@ -13,6 +13,6 @@ export const apiSlice = createApi({
       return headers
   }
   }),
-  tagTypes: ["Post", "Comment", "Reaction", "Photo", "Friend", "Userprofile", "Notif"],
+  tagTypes: ["Post", "Comment", "Reaction", "Photo","Userprofile", "Notif"],
   endpoints: (builder) => ({}),
 });

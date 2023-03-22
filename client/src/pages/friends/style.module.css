@@ -16,7 +16,7 @@
 }
 
 .right {
-  background:  #f0f2f5;
+  background: #f0f2f5;
   padding: 1.2rem;
   top: 56px;
   left: 360px;
@@ -61,7 +61,7 @@
   display: none;
 }
 .active_friends > div {
-  background:#5c6e58;
+  background: #5c6e58;
 }
 .active_friends i {
   -webkit-filter: invert(100%);
@@ -69,7 +69,7 @@
 }
 
 .req_card {
-  background:#ffffff;
+  background: #ffffff;
   width: 210px;
   height: fit-content;
   border-radius: 10px;
@@ -126,7 +126,7 @@
   text-align: center;
   position: absolute;
   bottom: 0;
-  background:grey;
+  background: grey;
   width: 100%;
   height: 12%;
   display: flex;

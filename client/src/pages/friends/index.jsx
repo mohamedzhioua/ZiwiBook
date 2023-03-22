@@ -3,19 +3,19 @@ import { Link, useParams } from "react-router-dom";
 import classes from "./style.module.css";
 import Skeleton from "react-loading-skeleton";
 import ICONStyle from "../../styles/icons.module.css"
-import {FriendCard} from "../../components/index.jsx";
+import { FriendCard } from "../../components/index.jsx";
 import { useFetchFriendsQuery } from "../../app/features/user/userProfileApi";
 
 function FriendsPage() {
   const { type } = useParams();
 
-    const {
+  const {
     data: friends,
-    isLoading, 
+    isLoading,
     isFetching,
     isSuccess,
   } = useFetchFriendsQuery();
-  
+
   const friendsSkelton = isLoading || isFetching;
 
   return (
@@ -32,9 +32,8 @@ function FriendsPage() {
           <div className="friends_left_wrap">
             <Link
               to="/friends"
-              className={`${classes.menu_item} hover2 ${
-                type === undefined && classes.active_friends
-              }`}
+              className={`${classes.menu_item} hover2 ${type === undefined && classes.active_friends
+                }`}
             >
               <div className="small_circle">
                 <i className={ICONStyle.friends_home_icon}></i>
@@ -46,9 +45,8 @@ function FriendsPage() {
             </Link>
             <Link
               to="/friends/requests"
-              className={`${classes.menu_item} hover2 ${
-                type === "requests" && classes.active_friends
-              }`}
+              className={`${classes.menu_item} hover2 ${type === "requests" && classes.active_friends
+                }`}
             >
               <div className="small_circle">
                 <i className={ICONStyle.friends_requests_icon}></i>
@@ -60,9 +58,8 @@ function FriendsPage() {
             </Link>
             <Link
               to="/friends/sent"
-              className={`${classes.menu_item} hover2 ${
-                type === "sent" && classes.active_friends
-              }`}
+              className={`${classes.menu_item} hover2 ${type === "sent" && classes.active_friends
+                }`}
             >
               <div className="small_circle">
                 <i className={ICONStyle.friends_requests_icon}></i>
@@ -74,9 +71,8 @@ function FriendsPage() {
             </Link>
             <Link
               to="/friends/all"
-              className={`${classes.menu_item} hover2 ${
-                type === "all" && classes.active_friends
-              }`}
+              className={`${classes.menu_item} hover2 ${type === "all" && classes.active_friends
+                }`}
             >
               <div className="small_circle">
                 <i className={ICONStyle.all_friends_icon}></i>
@@ -87,9 +83,8 @@ function FriendsPage() {
               </div>
             </Link>
             <div
-              className={`${classes.menu_item} hover2 ${
-                type === "all" && "active_friends"
-              }`}
+              className={`${classes.menu_item} hover2 ${type === "all" && "active_friends"
+                }`}
             >
               <div className="small_circle">
                 <i className={ICONStyle.friends_suggestions_icon}></i>
@@ -120,15 +115,15 @@ function FriendsPage() {
                   <Skeleton className={classes.req_card} height={200} />
                 )}
                 {friends?.data?.recivedRequests &&
-                friends?.data?.recivedRequests.length > 0
+                  friends?.data?.recivedRequests.length > 0
                   ? friends?.data?.recivedRequests.map((request) => (
-                      <FriendCard
-                        user={request?.sender}
-                        key={request?._id}
-                        type="request"
-                        requestID={request?._id}
-                      />
-                    ))
+                    <FriendCard
+                      user={request?.sender}
+                      key={request?._id}
+                      type="request"
+                      requestID={request?._id}
+                    />
+                  ))
                   : isSuccess && !isLoading && <p>No friend requests</p>}
               </div>
             </div>
@@ -152,13 +147,13 @@ function FriendsPage() {
                 )}
                 {friends?.data?.sentRequests && friends?.data?.sentRequests.length > 0
                   ? friends?.data?.sentRequests.map((request) => (
-                      <FriendCard
-                        user={request?.recipient}
-                        key={request?._id}
-                        type="sent"
-                        requestID={request?._id}
-                      />
-                    ))
+                    <FriendCard
+                      user={request?.recipient}
+                      key={request?._id}
+                      type="sent"
+                      requestID={request?._id}
+                    />
+                  ))
                   : isSuccess && !isLoading && <p>No sent requests</p>}
               </div>
             </div>
@@ -182,8 +177,8 @@ function FriendsPage() {
                 )}
                 {friends?.data.friendLists && friends?.data.friendLists.length > 0
                   ? friends?.data.friendLists.map((user) => (
-                      <FriendCard user={user} key={user._id} type="friends" />
-                    ))
+                    <FriendCard user={user} key={user._id} type="friends" />
+                  ))
                   : isSuccess && !isLoading && <p>No friends</p>}
               </div>
             </div>

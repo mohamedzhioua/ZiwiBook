@@ -71,7 +71,12 @@ const Header = () => {
           <HomeActive className={style.active_icon} />
           <Home className={style.notActive_icon} />
         </NavLink>
-        <NavLink className={`${style.navbar_middle_icon} hover1`} to="/friends">
+        <NavLink className={({ isActive }) =>
+          isActive
+            ? `${style.active} ${style.navbar_middle_icon}`
+            : `${style.navbar_middle_icon} hover1`
+        } to="/friends"
+        >
           <span
             className={style.active_icon}
             style={{ transform: "translateY(10%)" }}
@@ -103,14 +108,14 @@ const Header = () => {
           >
             <Notifications />
             {data?.notseenNotification > 0 && (
-              <div 
+              <div
                 className={style.notification}
               >
                 {data?.notseenNotification}
               </div>
             )}
           </div>
-          {showNotification && <NotificationMenu setShowNotification={setShowNotification}/>}
+          {showNotification && <NotificationMenu setShowNotification={setShowNotification} />}
         </div>
         <div ref={headerMenu}>
           <div
