@@ -7,6 +7,7 @@ const Home = React.lazy(() => import("../pages/Home"));
 const Login = React.lazy(() => import("../pages/login"));
 const Profile = React.lazy(() => import("../pages/Profile"));
 const PostPage = React.lazy(() => import("../pages/Post"));
+const FriendsPage = React.lazy(() => import("../pages/friends"));
 
 const Router = () => {
   return (
@@ -32,6 +33,22 @@ const Router = () => {
         element={
           <PrivateRoute>
             <PostPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/friends/:type"
+        element={
+          <PrivateRoute>
+            <FriendsPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/friends"
+        element={
+          <PrivateRoute>
+            <FriendsPage />
           </PrivateRoute>
         }
       />

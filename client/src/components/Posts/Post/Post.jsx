@@ -90,8 +90,10 @@ const Post = ({ postId, isVisitor }) => {
       <div className={PostStyle.post_body}>
         <p className={PostStyle.post_text}>{post?.text.substring(0, 20)}</p>
         {post?.image && (
-          <img src={post?.image} className={PostStyle.post_image} alt="..." onClick={() => openImageViewer(0)}
-          />
+          <div className={`${PostStyle.image_container} `}>
+            <img src={post?.image} className={PostStyle.post_image} alt="..." onClick={() => openImageViewer(0)}
+            />
+          </div>
         )}
       </div>
       <div className={PostStyle.footer}>
@@ -167,7 +169,7 @@ const Post = ({ postId, isVisitor }) => {
 
         </section>
       )}
-       {isViewerOpen && (
+      {isViewerOpen && (
         <Portal>
           <ImageViewer
             src={images}

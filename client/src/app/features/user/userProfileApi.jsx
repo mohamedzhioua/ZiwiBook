@@ -7,6 +7,12 @@ export const UserProfileApiSlice = apiSlice.injectEndpoints({
       query: (username) => `/users/getUserProfile/${username}`,
       providesTags: ["Userprofile"],
     }),
+
+    FetchFriends: builder.query({
+      query: () => `/friends/`,
+      providesTags: ["Userprofile"],
+    }),
+
     FriendFunc: builder.mutation({
       query: ({ id, type }) => ({
         url: `/friends/${type}/${id}`,
@@ -23,5 +29,5 @@ export const UserProfileApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useFetchUserProfileQuery, useFriendFuncMutation } =
+export const { useFetchUserProfileQuery, useFriendFuncMutation, useFetchFriendsQuery } =
   UserProfileApiSlice;

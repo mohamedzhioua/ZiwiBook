@@ -14,13 +14,13 @@ body {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   background: #f0f2f5 !important ;
 }
-h1 {
+/* h1 {
   margin-top: 0;
   font-size: 35px;
   margin-bottom: 20px;
   padding: 5px;
   color: #2c3e50;
-}
+} */
 html {
   overflow-y: scroll;
 }
@@ -70,7 +70,11 @@ html {
   background: #e4e6eb;
   cursor: pointer;
 }
-
+@media (max-width: 870px) {
+  .small_circle {
+    margin-right: 0;
+  }
+}
 /*---Circles------*/
 .blur {
   position: fixed;
@@ -81,4 +85,14 @@ html {
   bottom: 0;
   z-index: 99;
   backdrop-filter: blur(2px);
+}
+/*----filters---*/
+#ReactSimpleImageViewer {
+  z-index: 19;
+  background-color: #000000f0;
+}
+#ReactSimpleImageViewer img {
+  max-height: 70%;
+  max-width: 80%;
+  border-radius: 10px;
 }

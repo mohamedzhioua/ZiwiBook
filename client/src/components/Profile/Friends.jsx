@@ -9,7 +9,7 @@ function Friends({ userfriendsdata, photosSkelton }) {
     <Card>
       <div className={style.card_header}>
         Friends
-        <Link className={style.photo_friends_link} to="#">
+        <Link className={style.photo_friends_link} to="/friends/all">
           See all Friends
         </Link>
       </div>

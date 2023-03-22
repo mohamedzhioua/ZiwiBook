@@ -71,7 +71,7 @@ const Header = () => {
           <HomeActive className={style.active_icon} />
           <Home className={style.notActive_icon} />
         </NavLink>
-        <NavLink className={`${style.navbar_middle_icon} hover1`} to="#">
+        <NavLink className={`${style.navbar_middle_icon} hover1`} to="/friends">
           <span
             className={style.active_icon}
             style={{ transform: "translateY(10%)" }}

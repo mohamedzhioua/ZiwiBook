@@ -45,13 +45,17 @@
 .reaction_infos_right span:hover {
   text-decoration: underline;
 }
-
-.post_image {
+.image_container {
   height: inherit;
   width: 100%;
   max-height: inherit;
+  margin-top: 8px;
+}
+.post_image {
+  height: inherit;
+  width: inherit;
+  max-height: inherit;
   object-fit: cover;
-  border-radius: 4px;
 }
 .edit_link {
   color: black !important;

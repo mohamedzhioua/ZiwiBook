@@ -40,11 +40,7 @@ function Profile() {
   const userfriendshipdata = data?.data?.friendship;
   const userdataSkelton = Profileloading || ProfileIsFetching;
 
-  // const {
-  //   data: friends = [],
-  //   isLoading: friendsloading,
-  //   isFetching: friendsIsFetching,
-  // } = useFetchFriendsQuery();
+
 
   //photosData
   const {
