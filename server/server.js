@@ -3,26 +3,26 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { createServer } = require("http");
+const corsOptions = require ("./utils/corsOptions")
+const allowedOrigins = require("./utils/allowedOrigins")
 const app = express();
 
-const whitelist = [
-  'http://127.0.0.1:3000',
-  'http://localhost:3000',
-];
-const corsOptions = {
-  credentials: true,
-  origin: function (origin, callback) {
-    if (!origin) {
-      return callback(null, true);
-    }
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-};
+
 app.use(cors((corsOptions)));
+
+//limiter for posts 
+// const limiter = rateLimit({
+//   windowMs: 60 * 60 * 1000 * 24,
+//   max: 20,
+
+//   handler: (request, response, next, options) =>
+//     response.status(options.statusCode).json({
+//       status: 'fail ',
+//       message:
+//         'You can only post 15 posts per day and you have reached the limit. You can post again tomorrow, have fun ',
+//     }),
+// });
+// app.use('/api/posts/addPost', limiter);
 
 // database
 const db = require("./config/db");
@@ -42,10 +42,10 @@ const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
 const friendRoutes = require("./routes/friends");
 const NotificationRoutes = require("./routes/notifications");
-app.use("/users", userRoutes);
-app.use("/posts", postRoutes);
-app.use("/friends", friendRoutes);
-app.use("/notifications", NotificationRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/api/friends", friendRoutes);
+app.use("/api/notifications", NotificationRoutes);
 
 const httpServer = createServer(app);
 const sio = require("./utils/socket");
@@ -54,7 +54,7 @@ sio.init(httpServer, {
   pingTimeout: 60000,
   pingInterval: 60000,
   cors: {
-    origin: whitelist,
+    origin: allowedOrigins,
   },
 });
 
