@@ -15,7 +15,7 @@ export const UserProfileApiSlice = apiSlice.injectEndpoints({
 
     FriendFunc: builder.mutation({
       query: ({ id, type }) => ({
-        url: `/friends/${type}/${id}`,
+        url: `/api/friends/${type}/${id}`,
         method: "PUT",
       }),
       invalidatesTags: ["Userprofile"],

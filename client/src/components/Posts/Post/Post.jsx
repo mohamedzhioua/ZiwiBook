@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../../app/features/modal/modalSlice";
-import { useFetchPostsQuery } from "../../../app/features/post/postApi";
 import { Comments, Likes, PostHead, Card } from "../../index";
 import CommentForm from "./Comments/CommentForm";
 import chekedlike from "../../../assets/svg/like.svg";
@@ -9,19 +8,18 @@ import IconStyle from "../../../styles/icons.module.css";
 import reactionStyle from "./Likes/react.module.css";
 import PostStyle from "./post.module.css";
 import {
-  selectAllComments,
   useAddNewCommentMutation,
   useFetchCommentsQuery,
 } from "../../../app/features/comment/commentApi";
 import {
-  selectAllReactions,
   useFetchReactionsQuery,
   useLikePostMutation,
 } from "../../../app/features/reaction/reactionApi";
 import ImageViewer from 'react-simple-image-viewer';
 import Portal from "../../../utils/Portal";
 
-const Post = ({ postId, isVisitor }) => {
+const Post = ({ post, isVisitor }) => {
+  console.log("🚀 ~ file: Post.jsx:25 ~ Post ~ post:", post)
   const { user } = useSelector((state) => state.user);
   const [currentImage, setCurrentImage] = React.useState(0);
   const [isViewerOpen, setIsViewerOpen] = React.useState(false);
@@ -29,13 +27,6 @@ const Post = ({ postId, isVisitor }) => {
   const [addNewComment] = useAddNewCommentMutation();
   const [commentOpen, setCommentOpen] = React.useState(false);
   const dispatch = useDispatch();
-
-  //post
-  const { post } = useFetchPostsQuery('fetchPosts', {
-    selectFromResult: ({ data }) => ({
-      post: data?.entities[postId]
-    }),
-  })
   const images = [post?.image];
 
   const canDelete = Boolean(

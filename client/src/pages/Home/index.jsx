@@ -6,8 +6,13 @@ import style from "./home.module.css";
 function Home() {
 
   const { user } = useSelector((state) => state.user);
-  const {data:sortedPosts, isLoading, isFetching, isSuccess, isError, error } = useFetchPostsQuery("fetchPosts");
-
+  const {isLoading, isFetching, isSuccess, isError, error } = useFetchPostsQuery("fetchPosts")
+  const {sortedPosts } = useFetchPostsQuery("fetchPosts", {
+    selectFromResult: ({ data }) => ({
+      sortedPosts: data?.ids.map(id => data?.entities[id])
+    }),
+  })
+  console.log("🚀 ~ file: index.jsx:14 ~ Home ~ sortedPosts:", sortedPosts)
 
   const postSkeleton = isFetching || isLoading;
   const hidePostSkeleton = isSuccess && !isLoading && !error && sortedPosts
@@ -26,7 +31,7 @@ function Home() {
           )}
           {hidePostSkeleton && (
             <PostList
-              posts={sortedPosts.ids}
+              posts={sortedPosts}
               user={user}
             />
           )}

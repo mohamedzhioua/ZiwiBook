@@ -42,7 +42,7 @@ function Profile() {
   const userdataSkelton = Profileloading || ProfileIsFetching;
   //user photosData
   const {
-    data: photosData = [],
+    data: photosData,
     isLoading: photosloading,
     isFetching: photosIsFetching,
     isSuccess: photosIsSuccess,
@@ -52,14 +52,18 @@ function Profile() {
 
   // user postsData
   const {
-    data: posts = [],
     isLoading: postsLoading,
     isFetching: postsIsFetching,
     isSuccess: postsIsSuccess,
     isError: postsIsError,
     error,
   } = useFetchPostsByUserQuery(usernameID)
-  const profilePostsData = posts?.ids
+  const {profilePostsData}=useFetchPostsByUserQuery(usernameID, {
+    selectFromResult: ({ data }) => ({
+      profilePostsData: data?.ids.map(id => data?.entities[id])
+    }),
+  })
+
   const postsSkelton = postsLoading || postsIsFetching;
   const postsSkeltonHide = postsIsSuccess && !postsLoading && !error;
 
