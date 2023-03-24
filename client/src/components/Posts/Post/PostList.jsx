@@ -4,9 +4,9 @@ const PostList = ({ posts, isVisitor }) => {
   return (
     <>
       {posts?.map((post) => (
-        <div key={post._id}>
+        <React.Fragment key={post._id}>
           <Post post={post} isVisitor={isVisitor} />
-        </div>
+        </React.Fragment>
       ))}
     </>
   );

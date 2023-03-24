@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../../app/features/modal/modalSlice";
-import { Comments, Likes, PostHead, Card } from "../../index";
+import * as component from "../../index";
 import CommentForm from "./Comments/CommentForm";
 import chekedlike from "../../../assets/svg/like.svg";
 import IconStyle from "../../../styles/icons.module.css";
@@ -19,7 +19,7 @@ import ImageViewer from 'react-simple-image-viewer';
 import Portal from "../../../utils/Portal";
 
 const Post = ({ post, isVisitor }) => {
-  console.log("🚀 ~ file: Post.jsx:25 ~ Post ~ post:", post)
+
   const { user } = useSelector((state) => state.user);
   const [currentImage, setCurrentImage] = React.useState(0);
   const [isViewerOpen, setIsViewerOpen] = React.useState(false);
@@ -83,10 +83,10 @@ const Post = ({ post, isVisitor }) => {
   };
 
   return (
-    <Card className={PostStyle.post}>
-      <PostHead post={post} isVisitor={isVisitor} />
+    <component.Card className={PostStyle.post}>
+      <component.PostHead post={post} isVisitor={isVisitor} />
       <div className={PostStyle.post_body}>
-        <p className={PostStyle.post_text}>{post?.text.substring(0, 20)}</p>
+        <p className={PostStyle.post_text}>{post?.text?.substring(0, 20)}</p>
         {post?.image && (
           <div className={`${PostStyle.image_container} `}>
             <img src={post?.image} className={PostStyle.post_image} alt="..." onClick={() => openImageViewer(0)}
@@ -97,7 +97,7 @@ const Post = ({ post, isVisitor }) => {
       <div className={PostStyle.footer}>
         <div className={PostStyle.reaction_infos}>
           <div className={PostStyle.reaction_infos_left}>
-            <Likes userId={user?._id} Reactions={Reactions} />
+            <component.Likes userId={user?._id} Reactions={Reactions} />
           </div>
           <div
             className={PostStyle.reaction_infos_right}
@@ -161,7 +161,7 @@ const Post = ({ post, isVisitor }) => {
           />
           {rootComments != null && rootComments.length > 0 && (
             <div className={PostStyle.comments_section}>
-              <Comments rootComments={rootComments} />
+              <component.Comments rootComments={rootComments} />
             </div>
           )}
 
@@ -178,7 +178,7 @@ const Post = ({ post, isVisitor }) => {
           />
         </Portal>
       )}
-    </Card>
+    </component.Card>
   );
 };
 

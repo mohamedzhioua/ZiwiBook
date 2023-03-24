@@ -21,8 +21,7 @@ const AddEditPost = ({ post, user }) => {
   const refImageInput = React.useRef(null);
   const [showImageContainer, setShowImageContainer] = React.useState(false);
   const id = post?._id || null;
-  const [addNewPost, { isLoading, isError, isSuccess }] =
-    useAddNewPostMutation();
+  const [addNewPost, { isLoading, isError, isSuccess,error:postError}] =useAddNewPostMutation();
   const [
     updatePost,
     {
@@ -34,7 +33,7 @@ const AddEditPost = ({ post, user }) => {
 
   React.useEffect(() => {
     if (isError || updateError) {
-      setError("something went wrong");
+      setError(postError.data.message);
     }
 
     if (isSuccess || updateIsSuccess) {

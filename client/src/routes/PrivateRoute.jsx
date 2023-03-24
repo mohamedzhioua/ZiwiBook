@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Header } from "../layouts";
 import { io } from "socket.io-client";
 import { setOnlineUsers } from "../app/features/socket/socketSlice";
 import { Loading, Notification } from "../components/index";
 import { toast } from "react-toastify";
-
+import notification from "../assets/sound/notification.wav"
 export let socket;
-
+function playNotificationSound() {
+  const audio = new Audio(notification);
+  audio.play();
+}
 function PrivateRoute({ children }) {
   const dispatch = useDispatch();
   const { token, user } = useSelector((state) => state.user);
@@ -29,6 +32,7 @@ function PrivateRoute({ children }) {
         dispatch(setOnlineUsers({ type, info }));
       });
       socket.on("new_notification", ({ notification }) => {
+        playNotificationSound();
         toast((t) => (
           <Notification t={t} toast={toast} notification={notification} />
         ));
@@ -36,12 +40,14 @@ function PrivateRoute({ children }) {
     }
   }, []);
   return token ? (
-     <React.Suspense fallback={<Loading/>}>
+    <>
       <Header />
-      {children}
+      <React.Suspense fallback={<Loading />}>
+       {children}
       </React.Suspense>
-   ) : (
-    
+    </>
+  ) : (
+
     <Navigate to="/login" replace />
   );
 }

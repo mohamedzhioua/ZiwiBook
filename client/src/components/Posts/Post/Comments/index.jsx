@@ -4,9 +4,9 @@ import Styles from "./comment.module.css";
 const Comments = ({ rootComments }) => {
    
   return rootComments?.map((rootComment) => (
-        <div className={Styles.comments} key={rootComment._id}>
+        <React.Fragment className={Styles.comments} key={rootComment._id}>
           <Comment comment={rootComment} />
-        </div>
+        </React.Fragment>
       ))
     }
     

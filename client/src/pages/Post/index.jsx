@@ -8,7 +8,10 @@ function PostPage() {
   const navigate = useNavigate();
 
   const { id } = useParams();
- const {data ,isLoading ,isError ,isFetching,isSuccess} = useFetchPostQuery(id)
+ const {data,isLoading ,isError ,isFetching,isSuccess} = useFetchPostQuery(id)
+ const post = data?.entities[id]
+
+
   const postsSkelton = isLoading || isFetching;
 
   useEffect(() => {
@@ -21,7 +24,7 @@ function PostPage() {
     <div className={classes.post}>
       <div className={classes.container}>
         {postsSkelton && <PostSkeleton />}
-        {isSuccess && !isLoading && <Post postId={data.ids}/>}
+        {isSuccess && !isLoading && <Post post={post}/>}
       </div>
     </div>
   );

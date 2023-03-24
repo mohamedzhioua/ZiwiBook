@@ -11,7 +11,7 @@ const NotFound = () => {
         Looks like this page does not exist or Something Went Wrong.
       </h1>
       <h3>
-        Go Back to the{" "} 
+        Go Back to the
         <Link className={classes.link} to="/">
           Home Page
         </Link>

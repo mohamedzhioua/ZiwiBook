@@ -1,22 +1,11 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  CreatPost,
-  CustomButton,
-  Friends,
-  Friendship,
-  Photos,
-  PostList,
-  PostSkeleton,
-  ProfileCover,
-  ProfileMenu,
-  ProfilePhoto,
-} from "../../components";
+import * as component from "../../components";
 import classes from "../../components/Profile/ProfileCover/cover.module.css";
 import style from "./profile.module.css";
 import IconStyle from "../../styles/icons.module.css";
-import { useFetchPostsByUserQuery, useFetchPostsQuery } from "../../app/features/post/postApi";
+import { useFetchPostsByUserQuery } from "../../app/features/post/postApi";
 import { useFetchPhotosQuery } from "../../app/features/user/photosApi";
 import { useFetchUserProfileQuery } from "../../app/features/user/userProfileApi";
 import Skeleton from "react-loading-skeleton";
@@ -58,7 +47,7 @@ function Profile() {
     isError: postsIsError,
     error,
   } = useFetchPostsByUserQuery(usernameID)
-  const {profilePostsData}=useFetchPostsByUserQuery(usernameID, {
+  const { profilePostsData } = useFetchPostsByUserQuery(usernameID, {
     selectFromResult: ({ data }) => ({
       profilePostsData: data?.ids.map(id => data?.entities[id])
     }),
@@ -81,7 +70,7 @@ function Profile() {
             {userdataSkelton ? (
               <Skeleton className={classes.coverContainer} />
             ) : (
-              <ProfileCover
+              <component.ProfileCover
                 isVisitor={isVisitor}
                 user={userdata}
                 photosData={photosData?.data}
@@ -114,7 +103,7 @@ function Profile() {
                         <i className={IconStyle.camera_filled_icon}></i>
                       </div>
                       {showProfilePhoto && (
-                        <ProfilePhoto
+                        <component.ProfilePhoto
                           photoRef={photoRef}
                           setShowProfilePhoto={setShowProfilePhoto}
                           showProfilePhoto={showProfilePhoto}
@@ -139,18 +128,18 @@ function Profile() {
               </div>
               {!isVisitor && (
                 <div className={style.profile_btns}>
-                  <CustomButton
+                  <component.CustomButton
                     className={`blue_btn btns`}
                     value="Add to story"
                   />
-                  <CustomButton
+                  <component.CustomButton
                     className={`gray_btn btns`}
                     value="Edit profile"
                   />
                 </div>
               )}
               {isVisitor && (
-                <Friendship
+                <component.Friendship
                   userId={userdata?._id}
                   userfriendshipdata={userfriendshipdata}
                   usernameID={usernameID}
@@ -160,7 +149,7 @@ function Profile() {
           </div>
           <div className={style.line}></div>
 
-          <ProfileMenu />
+          <component.ProfileMenu />
         </div>
       </div>
       <div className={style.footer}>
@@ -172,20 +161,20 @@ function Profile() {
                 top: "65px",
               }}
             >
-              <Photos
+              <component.Photos
                 photosData={photosData?.data}
                 photosSkelton={photosSkelton}
               />
-              <Friends
+              <component.Friends
                 userfriendsdata={userfriendsdata}
                 photosSkelton={photosSkelton}
               />
             </div>
           </div>
           <div className={style.posts}>
-            {!isVisitor && <CreatPost user={userdata} />}
-            {postsSkelton && <PostSkeleton />}
-            {postsSkeltonHide && <PostList posts={profilePostsData} isVisitor={isVisitor} />}
+            {!isVisitor && <component.CreatPost user={userdata} />}
+            {postsSkelton && <component.PostSkeleton />}
+            {postsSkeltonHide && <component.PostList posts={profilePostsData} isVisitor={isVisitor} />}
           </div>
         </div>
       </div>
