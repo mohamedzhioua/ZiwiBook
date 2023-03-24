@@ -22,10 +22,9 @@ function Home() {
         <div className={style.home_posts}>
           {postSkeleton && (
             <>
-              <component.PostSkeleton />
-              <component.PostSkeleton />
-              <component.PostSkeleton />
-            </>
+              <component.PostSkeleton  />
+              <component.PostSkeleton  />
+              </>
           )}
           {hidePostSkeleton && (
             <component.PostList
