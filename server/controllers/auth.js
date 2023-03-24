@@ -54,13 +54,18 @@ module.exports = {
           } else {
             // generate a token and send to client
             const exp = Date.now() + 1000 * 60 * 60 * 24 * 30;
-            const token = jwt.sign({ sub: user._id, exp }, "zhioua_DOING_GOOD");
+            const token = jwt.sign(
+              { "sub": user._id  },
+              process.env.ACCESS_TOKEN_SECRET,
+              { expiresIn: "7d" }
+           
+            );
             // Authorization
             const options = {
               expires: new Date(exp),
-              httpOnly: false,//accessible only by web server
-              secure: true,//https
-              sameSite: "None",//cross-site cookie
+              httpOnly: false, //accessible only by web server
+              secure: true, //https
+              sameSite: "None", //cross-site cookie
             };
             res.cookie("Authorization", token, options);
             res.status(201).json({
@@ -80,46 +85,6 @@ module.exports = {
     try {
       res.clearCookie("Authorization");
       res.status(200).json(" You are logged out , to the next login !");
-    } catch (error) {
-      res.status(404).json({ message: error.message });
-    }
-  },
-  //  --------------------------------------- // searchUsers method //--------------------------- //
-  searchUsers: async (req, res) => {
-    const { term } = req.body;
-    const userId = req.user.id;
-
-    try {
-      if (!term)
-        return res
-          .status(404)
-          .json({ message: "Please provide a search term" });
-      const results = await User.aggregate([
-        {
-          $match: {
-            $or: [
-              { firstName: { $regex: term.trim(), $options: "i" } },
-              { lastName: { $regex: term.trim(), $options: "i" } },
-              { email: { $regex: term.trim(), $options: "i" } },
-            ],
-          },
-        },
-        {
-          $project: {
-            firstName: 1,
-            lastName: 1,
-            photo: 1,
-            username: 1,
-          },
-        },
-      ]);
-
-      const filteredResults = results.filter(
-        (x) => x._id.toString() !== userId
-      );
-
-      // Send reponse
-      res.status(200).json(filteredResults);
     } catch (error) {
       res.status(404).json({ message: error.message });
     }

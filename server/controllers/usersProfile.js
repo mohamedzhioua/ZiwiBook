@@ -110,5 +110,44 @@ module.exports = {
       res.status(404).json({ message: error.message });
     }
   },
+ //  --------------------------------------- // searchUsers method //--------------------------- //
+ searchUsers: async (req, res) => {
+  const { term } = req.body;
+  const userId = req.user.id;
+
+  try {
+    if (!term)
+      return res
+        .status(404)
+        .json({ message: "Please provide a search term" });
+    const results = await User.aggregate([
+      {
+        $match: {
+          $or: [
+            { firstName: { $regex: term.trim(), $options: "i" } },
+            { lastName: { $regex: term.trim(), $options: "i" } },
+            { email: { $regex: term.trim(), $options: "i" } },
+          ],
+        },
+      },
+      {
+        $project: {
+          firstName: 1,
+          lastName: 1,
+          photo: 1,
+          username: 1,
+        },
+      },
+    ]);
+
+    const filteredResults = results.filter(
+      (x) => x._id.toString() !== userId
+    );
+
+    res.status(200).json(filteredResults);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+},
 
 };

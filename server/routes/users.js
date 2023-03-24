@@ -2,24 +2,24 @@ const express = require("express");
 const router = express.Router();
 const multerUploads = require("../middlewares/multerMiddleware");
 const checkAuth = require("../middlewares/checkAuth");
-const UserController = require("../controllers/users");
+const AuthController = require("../controllers/auth");
 const UserProfileController = require("../controllers/usersProfile");
 const sharpMiddleware = require("../middlewares/sharpMiddleware");
 
 // POST request for creating a new User.
-router.post("/signup", UserController.signup);
+router.post("/signup", AuthController.signup);
 
 // GET request for user login.
-router.post("/signin", UserController.signin);
+router.post("/signin", AuthController.signin);
 
 // GET request to logout the  User .
-router.get("/logout", UserController.logout);
+router.get("/logout", AuthController.logout);
 
 // PROTECT ALL ROUTES AFTER THIS MIDDLEWARE
 router.use(checkAuth);
 
 // POST request to filter users by user term .
-router.post("/search", UserController.searchUsers);
+router.post("/search", UserProfileController.searchUsers);
 
 /*   User  Profile   */
 

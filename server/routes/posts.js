@@ -3,11 +3,11 @@ const router = express.Router();
 const PostController = require("../controllers/posts");
 const multerUploads = require("../middlewares/multerMiddleware");
 const checkAuth = require("../middlewares/checkAuth");
-
+const limiter = require("../middlewares/postsLimiter")
 // PROTECT ALL ROUTES AFTER THIS MIDDLEWARE
 router.use(checkAuth);
 // POST request
-router.post("/addPost", multerUploads, PostController.addPost);
+router.post("/addPost",limiter, multerUploads, PostController.addPost);
 
 // GET request
 router.get("/getOnePost/:id", PostController.getOnePost);
