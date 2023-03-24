@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import ForceRedirect from "./ForceRedirect";
 import PrivateRoute from "./PrivateRoute";
 import {NotFound} from "../pages/index";
+import Prefetch from "../app/features/auth/prefetch";
 const Home = React.lazy(() => import("../pages/Home"));
 const Login = React.lazy(() => import("../pages/login"));
 const Profile = React.lazy(() => import("../pages/Profile"));
@@ -17,6 +18,13 @@ const Router = () => {
         element={
           <PrivateRoute>
             <Home />
+          </PrivateRoute>
+        }
+      />
+       <Route
+        element={
+          <PrivateRoute>
+            <Prefetch />
           </PrivateRoute>
         }
       />

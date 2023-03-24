@@ -12,7 +12,7 @@ const initialState = commentsAdapter.getInitialState();
 export const CommentApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     fetchComments: builder.query({
-      query: () => "/posts/getComments",
+      query: () => "/api/posts/getComments",
       transformResponse: (responseData) => {
         return commentsAdapter.setAll(initialState, responseData);
       },
@@ -25,7 +25,7 @@ export const CommentApiSlice = apiSlice.injectEndpoints({
     addNewComment: builder.mutation({
       query: ({ id, text }) => {
         return {
-          url: `/posts/addComment/${id}`,
+          url: `/api/posts/addComment/${id}`,
           method: "POST",
           body: { text },
         };
@@ -41,7 +41,7 @@ export const CommentApiSlice = apiSlice.injectEndpoints({
 
     addCommentReply: builder.mutation({
       query: ({ id, text }) => ({
-        url: `/posts/addCommentReply/${id}`,
+        url: `/api/posts/addCommentReply/${id}`,
         method: "POST",
         body: { text },
       }),
@@ -56,7 +56,7 @@ export const CommentApiSlice = apiSlice.injectEndpoints({
 
     updateComment: builder.mutation({
       query: ({ id, text }) => ({
-        url: `/posts/updateComment/${id}`,
+        url: `/api/posts/updateComment/${id}`,
         method: "PUT",
         body: { text },
       }),
@@ -67,7 +67,7 @@ export const CommentApiSlice = apiSlice.injectEndpoints({
 
     deleteComment: builder.mutation({
       query: (id) => ({
-        url: `/posts/deleteComment/${id}`,
+        url: `/api/posts/deleteComment/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: (result, error, arg) => [
@@ -77,7 +77,7 @@ export const CommentApiSlice = apiSlice.injectEndpoints({
 
     likeComment: builder.mutation({
       query: (id) => ({
-        url: `/posts/Commentlike/${id}`,
+        url: `/api/posts/Commentlike/${id}`,
         method: "PATCH",
       }),
       invalidatesTags: (result, error, arg) => [

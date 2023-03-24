@@ -14,13 +14,7 @@ body {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   background: #f0f2f5 !important ;
 }
-/* h1 {
-  margin-top: 0;
-  font-size: 35px;
-  margin-bottom: 20px;
-  padding: 5px;
-  color: #2c3e50;
-} */
+
 html {
   overflow-y: scroll;
 }
@@ -70,11 +64,7 @@ html {
   background: #e4e6eb;
   cursor: pointer;
 }
-@media (max-width: 870px) {
-  .small_circle {
-    margin-right: 0;
-  }
-}
+
 /*---Circles------*/
 .blur {
   position: fixed;
@@ -95,4 +85,7 @@ html {
   max-height: 70%;
   max-width: 80%;
   border-radius: 10px;
+}
+.reactEasyCrop_CropArea {
+  color: rgba(255, 255, 255, 0.5) !important;
 }

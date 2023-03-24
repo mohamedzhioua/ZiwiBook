@@ -31,10 +31,19 @@ function ProfileCover({ isVisitor, user, photosData }) {
   useOnClickOutside(CoverMenuRef, showCoverMneu, () => {
     setShowCoverMenu(false);
   });
+
   React.useEffect(() => {
     setWidth(coverRef.current.clientWidth);
     setHeight(coverRef.current.clientHeight);
   }, [window.innerWidth]);
+
+  React.useEffect(() => {
+    if (showOldCover) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "auto";
+    }
+  }, [showOldCover]);
 
   React.useEffect(() => {
     if (error) {
@@ -43,10 +52,6 @@ function ProfileCover({ isVisitor, user, photosData }) {
       });
     }
   }, [error]);
-
-  const onCropComplete = React.useCallback((croppedArea, croppedAreaPixels) => {
-    setCroppedAreaPixels(croppedAreaPixels);
-  }, []);
 
   const getCroppedImage = React.useCallback(
     async (show) => {
@@ -88,6 +93,10 @@ function ProfileCover({ isVisitor, user, photosData }) {
     };
   };
 
+  const onCropComplete = React.useCallback((croppedAreaPercentage, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+  
   const updateCover = async (e) => {
     e.preventDefault();
     try {
@@ -136,7 +145,7 @@ function ProfileCover({ isVisitor, user, photosData }) {
             </div>
           </div>
           <FormLoader loading={isLoading}>
-            <div className={classes.cropper}>
+            <div className={classes.cover_cropper}>
               <Cropper
                 classes={{
                   mediaClassName: classes.mediaClassName,

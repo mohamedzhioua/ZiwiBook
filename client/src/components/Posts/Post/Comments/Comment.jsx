@@ -2,10 +2,10 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import {
-  selectAllComments,
   selectCommentById,
   useAddCommentReplyMutation,
   useDeleteCommentMutation,
+  useFetchCommentsQuery,
   useLikeCommentMutation,
   useUpdateCommentMutation,
 } from "../../../../app/features/comment/commentApi";
@@ -15,7 +15,7 @@ import chekedlike from "../../../../assets/svg/like.svg";
 import Styles from "./comment.module.css";
 import { Link } from "react-router-dom";
 
-const Comment = ({ comment , CommentsIsFetching ,CommentsIsLoading}) => {
+const Comment = ({ comment }) => {
   const { user } = useSelector((state) => state.user);
   const [areRepliesHidden, setAreRepliesHidden] = React.useState(true);
   const [activeComment, setActiveComment] = React.useState(null);
@@ -25,11 +25,19 @@ const Comment = ({ comment , CommentsIsFetching ,CommentsIsLoading}) => {
   const [updateComment] = useUpdateCommentMutation();
   const [likeComment] = useLikeCommentMutation();
   const [deleteComment] = useDeleteCommentMutation();
-  const fetchLoading = CommentsIsLoading || CommentsIsFetching;
+
   // replies
-  const getReplies = useSelector(selectAllComments)?.filter(
-    (i) => i.parentId === comment?._id
-  );
+  const {
+    getReplies,
+    isLoading: CommentsIsLoading,
+    isFetching: CommentsIsFetching,
+    isSuccess } = useFetchCommentsQuery('fetchComments', {
+      selectFromResult: ({ data }) => ({
+        getReplies: data?.ids.map(id => data?.entities[id]).filter(
+          (i) => i.parentId === comment?._id)
+      }),
+    })
+  const fetchLoading = CommentsIsLoading || CommentsIsFetching;
 
   //User Can Edit or Delete his own comment
   const canDeleteEdit = Boolean(
@@ -47,7 +55,11 @@ const Comment = ({ comment , CommentsIsFetching ,CommentsIsLoading}) => {
     activeComment.id === comment._id;
 
   //comment old text field
-  const InitialText = useSelector((state) => selectCommentById(state, id));
+  const { InitialText } = useFetchCommentsQuery('fetchComments', {
+    selectFromResult: ({ data }) => ({
+      InitialText: data?.entities[id]
+    }),
+  })
 
   //onsubmitHandler
   const addComment = (text) => {
@@ -188,9 +200,8 @@ const Comment = ({ comment , CommentsIsFetching ,CommentsIsLoading}) => {
       {getReplies?.length > 0 && (
         <>
           <div
-            className={`${Styles.nested_replies_stack} ${
-              areRepliesHidden ? `${Styles.hide}` : ""
-            }`}
+            className={`${Styles.nested_replies_stack} ${areRepliesHidden ? `${Styles.hide}` : ""
+              }`}
           >
             <CustomButton
               className="collapse-line"
@@ -208,9 +219,8 @@ const Comment = ({ comment , CommentsIsFetching ,CommentsIsLoading}) => {
               onClick={() => setAreRepliesHidden(false)}
             >
               &nbsp;
-              {` ${getReplies?.length} ${
-                getReplies?.length === 1 ? " more reply" : " more replies"
-              }`}
+              {` ${getReplies?.length} ${getReplies?.length === 1 ? " more reply" : " more replies"
+                }`}
             </span>
           )}
         </>

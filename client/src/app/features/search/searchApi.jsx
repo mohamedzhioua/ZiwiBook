@@ -4,7 +4,7 @@ export const SearchApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     Search: builder.mutation({
       query: (credentials) => ({
-        url: "/users/search",
+        url: "/api/users/search",
         method: "POST",
         body: credentials,
       }),

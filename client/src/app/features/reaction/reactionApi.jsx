@@ -12,7 +12,7 @@ export const reactionApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     
     fetchReactions: builder.query({
-      query: () => "/posts/getPostsReactions/",
+      query: () => "/api/posts/getPostsReactions/",
       transformResponse: (responseData) => {
         return reactionAdapter.setAll(initialState, responseData);
       },
@@ -24,7 +24,7 @@ export const reactionApiSlice = apiSlice.injectEndpoints({
 
     likePost: builder.mutation({
       query: (id) => ({
-        url: `/posts/like/${id}`,
+        url: `/api/posts/like/${id}`,
         method: "PUT",
       }),
       invalidatesTags: (result, error, arg) => [
@@ -59,4 +59,4 @@ export const {
   selectIds: selectReactionIds,
 } = reactionAdapter.getSelectors(
   (state) => selectReactionsData(state) ?? initialState
-);
+  );

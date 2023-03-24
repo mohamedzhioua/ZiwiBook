@@ -69,7 +69,6 @@
 }
 
 .req_card {
-  background: #ffffff;
   width: 210px;
   height: fit-content;
   border-radius: 10px;
@@ -105,9 +104,12 @@
 }
 
 .see_link {
-  color: #e4e6eb;
+  color: #5c6e58;
   padding: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  width: 60px;
+  height: 40px;
 }
 .flex_wrap {
   margin-top: 10px;

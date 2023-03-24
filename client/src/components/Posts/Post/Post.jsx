@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../../app/features/modal/modalSlice";
-import { selectPostById } from "../../../app/features/post/postApi";
+import { useFetchPostsQuery } from "../../../app/features/post/postApi";
 import { Comments, Likes, PostHead, Card } from "../../index";
 import CommentForm from "./Comments/CommentForm";
 import chekedlike from "../../../assets/svg/like.svg";
@@ -15,6 +15,7 @@ import {
 } from "../../../app/features/comment/commentApi";
 import {
   selectAllReactions,
+  useFetchReactionsQuery,
   useLikePostMutation,
 } from "../../../app/features/reaction/reactionApi";
 import ImageViewer from 'react-simple-image-viewer';
@@ -28,34 +29,40 @@ const Post = ({ postId, isVisitor }) => {
   const [addNewComment] = useAddNewCommentMutation();
   const [commentOpen, setCommentOpen] = React.useState(false);
   const dispatch = useDispatch();
-  const post = useSelector((state) => selectPostById(state, postId));
+
+  //post
+  const { post } = useFetchPostsQuery('fetchPosts', {
+    selectFromResult: ({ data }) => ({
+      post: data?.entities[postId]
+    }),
+  })
   const images = [post?.image];
 
-  // const { post } = useFetchPostsQuery('fetchPosts', {
-  //   selectFromResult: ({ data }) => ({
-  //     post: data?.entities[postId]
-  //   }),
-  // })
   const canDelete = Boolean(
     user?._id === post?.owner?._id || user?._id === post?.owner
   );
 
-  //filtering reactions by post
-  const Reactions = useSelector(selectAllReactions).filter(
-    (react) => react?.post === post?._id
-  );
+  // filtering reactions by post
+  const { Reactions } = useFetchReactionsQuery('fetchReactions', {
+    selectFromResult: ({ data }) => ({
+      Reactions: data?.ids.map(id => data?.entities[id]).filter((react) => react?.post === post?._id)
+    }),
+  })
+
   const {
-    data: commentsData,
+    comments,
     isLoading: CommentsIsLoading,
     isFetching: CommentsIsFetching,
-    isSuccess } = useFetchCommentsQuery('fetchComments');
+    isSuccess } = useFetchCommentsQuery('fetchComments', {
+      selectFromResult: ({ data }) => ({
+        comments: data?.ids.map(id => data?.entities[id]).filter(
+          (comment) => comment?.post === post?._id)
+      }),
+    })
 
-  const comments = useSelector(selectAllComments)?.filter(
-    (comment) => comment?.post === post?._id
-  );
 
   //rootcomments that have no parent
-  const rootComments = comments.filter((comment) => comment.parentId === null);
+  const rootComments = comments?.filter((comment) => comment.parentId === null);
 
   // onsubmitHandler
   async function addComment(text) {
@@ -73,9 +80,9 @@ const Post = ({ postId, isVisitor }) => {
 
   React.useEffect(() => {
     if (isViewerOpen) {
-      document.getElementById("root").style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
     } else {
-      document.getElementById("root").style.overflow = "auto";
+      document.documentElement.style.overflow = "auto";
     }
   }, [isViewerOpen]);
 
@@ -163,7 +170,7 @@ const Post = ({ postId, isVisitor }) => {
           />
           {rootComments != null && rootComments.length > 0 && (
             <div className={PostStyle.comments_section}>
-              <Comments rootComments={rootComments} CommentsIsFetching={CommentsIsFetching} CommentsIsLoading={CommentsIsLoading} />
+              <Comments rootComments={rootComments} />
             </div>
           )}
 

@@ -5,13 +5,6 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000" ,
     credentials: "include",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().user.token
-      if (token) {
-          headers.set("authorization", `Bearer ${token}`)
-      }
-      return headers
-  }
   }),
   tagTypes: ["Post", "Comment", "Reaction", "Photo","Userprofile", "Notif"],
   endpoints: (builder) => ({}),

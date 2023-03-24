@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
-import { selectPostIds, useFetchPostsQuery } from "../../app/features/post/postApi";
+import {  useFetchPostsQuery } from "../../app/features/post/postApi";
 import { CreatPost, PostList, PostSkeleton } from "../../components";
 import style from "./home.module.css";
 
 function Home() {
 
   const { user } = useSelector((state) => state.user);
-  const { isLoading, isFetching, isSuccess, isError, error } = useFetchPostsQuery("fetchPosts");
+  const {data:sortedPosts, isLoading, isFetching, isSuccess, isError, error } = useFetchPostsQuery("fetchPosts");
 
-  const sortedPosts = useSelector(selectPostIds);
+
   const postSkeleton = isFetching || isLoading;
   const hidePostSkeleton = isSuccess && !isLoading && !error && sortedPosts
 
@@ -26,7 +26,7 @@ function Home() {
           )}
           {hidePostSkeleton && (
             <PostList
-              posts={sortedPosts}
+              posts={sortedPosts.ids}
               user={user}
             />
           )}

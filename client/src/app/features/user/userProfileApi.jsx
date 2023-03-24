@@ -4,12 +4,12 @@ import { socket } from "../../../routes/PrivateRoute";
 export const UserProfileApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     fetchUserProfile: builder.query({
-      query: (username) => `/users/getUserProfile/${username}`,
+      query: (username) => `/api/users/getUserProfile/${username}`,
       providesTags: ["Userprofile"],
     }),
 
     FetchFriends: builder.query({
-      query: () => `/friends/`,
+      query: () => `/api/friends/`,
       providesTags: ["Userprofile"],
     }),
 

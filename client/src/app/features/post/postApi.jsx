@@ -12,7 +12,7 @@ const initialState = postsAdapter.getInitialState();
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     fetchPosts: builder.query({
-      query: () => "/posts/",
+      query: () => "/api/posts/",
       transformResponse: (responseData) => {
         return postsAdapter.setAll(initialState, responseData);
       },
@@ -23,7 +23,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     }),
 
     fetchPostsByUser: builder.query({
-      query: (usernameID) => `/posts/${usernameID}/posts`,
+      query: (usernameID) => `/api/posts/${usernameID}/posts`,
       transformResponse: (responseData) => {
         return postsAdapter.setAll(initialState, responseData);
       },
@@ -33,7 +33,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     }),
 
     fetchPost: builder.query({
-      query: (id) => `/posts/getOnePost/${id}`,
+      query: (id) => `/api/posts/getOnePost/${id}`,
       transformResponse: (responseData) => {
         return postsAdapter.setOne(initialState, responseData);
       },
@@ -43,7 +43,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
 
     addNewPost: builder.mutation({
       query: (form) => ({
-        url: "/posts/addPost",
+        url: "/api/posts/addPost",
         method: "POST",
         body: form,
       }),
@@ -52,7 +52,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
 
     updatePost: builder.mutation({
       query: ({ id, dataForm }) => ({
-        url: `/posts/updatePost/${id}`,
+        url: `/api/posts/updatePost/${id}`,
         method: "PATCH",
         body: dataForm,
       }),
@@ -61,7 +61,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
 
     deletePost: builder.mutation({
       query: (id) => ({
-        url: `/posts/deletePost/${id}`,
+        url: `/api/posts/deletePost/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: (result, error, arg) => [{ type: "Post", id: arg.id }],

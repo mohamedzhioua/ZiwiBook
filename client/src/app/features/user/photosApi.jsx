@@ -4,13 +4,13 @@ export const PhotosApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
 
     FetchPhotos: builder.query({
-      query: (username) => `/users/${username}/photos`,
+      query: (username) => `/api/users/${username}/photos`,
       providesTags: ["Photo"],
     }),
 
     updateCoverPhoto: builder.mutation({
       query: (credentials) => ({
-        url: "/users/update/profile/cover",
+        url: "/api/users/update/profile/cover",
         method: "POST",
         body: credentials,
       }),
@@ -19,7 +19,7 @@ export const PhotosApiSlice = apiSlice.injectEndpoints({
     
     updateProfilePhoto: builder.mutation({
       query: (credentials) => ({
-        url: "/users/update/profile/Photo",
+        url: "/api/users/update/profile/Photo",
         method: "POST",
         body: credentials,
       }),

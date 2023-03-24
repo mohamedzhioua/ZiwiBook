@@ -26,7 +26,11 @@ const Header = () => {
   const notificationMenu = React.useRef(null);
   const headerMenu = React.useRef(null);
   const [showSearchMenu, setShowSearchMenu] = React.useState(false);
-  const { data } = useFetchNotifQuery();
+  const { data } = useFetchNotifQuery('', {
+    pollingInterval: 15000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
 
   useOnClickOutside(headerMenu, showHeaderMenu, () => {
     setShowHeaderMenu(false);
@@ -42,7 +46,7 @@ const Header = () => {
       <div className={style.navbar_left}>
         {!showSearchMenu && (
           <Link to="/">
-            <img src={ZIWIBook} alt="" className={style.logo} />
+            <img src={ZIWIBook} alt="ZIWIBook" className={style.logo} />
           </Link>
         )}
         <div className={style.navbar_search}>

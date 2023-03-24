@@ -29,6 +29,7 @@ function Profile() {
   const navigate = useNavigate();
   const usernameID = username ? username : user?.username;
   const isVisitor = !(usernameID === user?.username);
+  //user profileData
   const {
     data,
     isLoading: Profileloading,
@@ -39,10 +40,7 @@ function Profile() {
   const userfriendsdata = data?.data?.friends;
   const userfriendshipdata = data?.data?.friendship;
   const userdataSkelton = Profileloading || ProfileIsFetching;
-
-
-
-  //photosData
+  //user photosData
   const {
     data: photosData = [],
     isLoading: photosloading,
@@ -52,7 +50,7 @@ function Profile() {
   } = useFetchPhotosQuery(usernameID);
   const photosSkelton = photosloading || photosIsFetching;
 
-  // postsData
+  // user postsData
   const {
     data: posts = [],
     isLoading: postsLoading,
