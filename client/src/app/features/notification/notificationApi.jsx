@@ -14,8 +14,15 @@ export const NotificationsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Notif"],
     }),
+    deleteNotif: builder.mutation({
+      query: (id) => ({
+        url: `/api/notifications/delete/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Notif"],
+  }),
   }),
 });
 
-export const { useFetchNotifQuery, useIsNotifSeenMutation } =
+export const { useFetchNotifQuery, useIsNotifSeenMutation  ,useDeleteNotifMutation} =
   NotificationsApiSlice;

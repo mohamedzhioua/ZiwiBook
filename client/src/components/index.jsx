@@ -26,3 +26,4 @@ export {default as ProfilePhoto} from "./Profile/ProfilePhoto"
 export {default as Friendship} from "./Profile/Friendship"
 export {default as Notification} from "./UI/Notification"
 export {default as FriendCard} from "./friendCard"
+

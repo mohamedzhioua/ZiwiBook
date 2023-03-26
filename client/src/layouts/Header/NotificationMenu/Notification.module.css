@@ -15,9 +15,11 @@
 }
 .trashIcon {
   position: absolute;
-  left: 85%;
+  left: 83%;
 }
- 
+.trashIcon:hover {
+  transform: scale(1.2);
+}
 .notif_menu h2 {
   padding: 3px;
   font-size: 17px;
@@ -27,7 +29,8 @@
   border-radius: 10px;
   display: flex;
   justify-content: center;
-  align-items: center;}
+  align-items: center;
+}
 
 .content {
   display: flex;

@@ -79,6 +79,7 @@ function SearchMenu({ showSearchMenu, setShowSearchMenu }) {
                 className={`${styles.search_item} hover2`}
                 onClick={() => {
                   setDebouncedTerm("");
+                  setShowSearchMenu(false);
                 }}
                 key={user._id}
               >

@@ -4,6 +4,12 @@ import Cookies from "js-cookie";
 const initialState = {
   user: Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null,
   token: Cookies.get("token") ? JSON.parse(Cookies.get("token")) : null,
+  theme: Cookies.get("theme")
+  ? JSON.parse(Cookies.get("theme"))
+  : window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ? "dark"
+  : "light",
 };
 
 export const userSlice = createSlice({
@@ -39,9 +45,13 @@ export const userSlice = createSlice({
       Cookies.set("user", null);
       Cookies.set("token", null);
     },
+    changeTheme: (state, action) => {
+      state.theme = action.payload;
+      Cookies.set("theme", JSON.stringify(action.payload));
+    },
   },
 });
 
-export const { logOut, setCredentials, UpdateCover, Updatephoto } =
+export const { logOut, setCredentials, UpdateCover, Updatephoto ,changeTheme} =
   userSlice.actions;
 export default userSlice.reducer;

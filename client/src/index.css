@@ -102,3 +102,11 @@ html {
 .reactEasyCrop_CropArea {
   color: rgba(255, 255, 255, 0.5) !important;
 }
+
+.dark .react-loading-skeleton {
+  --base-color: #2d2d2d !important;
+  --highlight-color: #484848 !important;
+  --animation-duration: 1s;
+  --animation-direction: normal;
+  --pseudo-element-display: block;
+}

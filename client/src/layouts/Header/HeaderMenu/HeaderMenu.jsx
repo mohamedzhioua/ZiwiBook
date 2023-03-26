@@ -1,15 +1,13 @@
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { logOut } from "../../../app/features/user/userSlice";
+import { Link} from "react-router-dom";
 import style from "./HeaderMenu.module.css";
 import styleIcons from "../../../styles/icons.module.css";
-import { useEffect } from "react";
+import {  useState } from "react";
 import { useLogoutMutation } from "../../../app/features/auth/authApi";
+import DisplayAccessibility from "./DisplayAccessibility";
 
 function HeaderMenu({ user, setShowHeaderMenu }) {
-  const dispatch = useDispatch();
   const [Logout] = useLogoutMutation();
-
+const [show ,setShow]=useState(false)
   const LogoutHandler = async () => {
     Logout();
   };
@@ -45,7 +43,10 @@ function HeaderMenu({ user, setShowHeaderMenu }) {
             <i className={styleIcons.right_icon}></i>
           </div>
         </div>
-        <div className={`${style.menu_action} hover1`}>
+        <div className={`${style.menu_action} hover1`}
+         onClick={() => {
+          setShow(true);
+        }}>
           <div className={style.circle_icons}>
             <i className={styleIcons.dark_filled_icon}></i>
           </div>
@@ -72,6 +73,9 @@ function HeaderMenu({ user, setShowHeaderMenu }) {
           <span>Logout</span>
         </div>
       </div>
+      {show && (
+        <DisplayAccessibility user={user} setShow={setShow} />
+      )}
     </div>
   );
 }

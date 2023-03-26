@@ -1,21 +1,19 @@
 import { Link } from "react-router-dom";
-import { useFetchNotifQuery, useIsNotifSeenMutation } from "../../../app/features/notification/notificationApi";
+import { useDeleteNotifMutation, useFetchNotifQuery, useIsNotifSeenMutation } from "../../../app/features/notification/notificationApi";
 import style from "./Notification.module.css";
 import moment from "moment";
 import chekedlike from "../../../assets/svg/like.svg";
-import { CustomButton, NotificationSkeleton } from "../../../components";
-import { Fragment, memo, useRef, useState } from "react";
-import useHover from "../../../hooks/useHover";
+import trash from "../../../assets/svg/trash.svg";
+import { NotificationSkeleton } from "../../../components";
+import * as React from "react";
 import Portal from "../../../utils/Portal";
-import IconStyle from "../../../styles/icons.module.css";
 
 function NotificationMenu({ setShowNotification }) {
-  const notif = useRef(null)
-  // const [ref, isHovered] = useHover(notif);
+  const [deleteNotif] = useDeleteNotifMutation() 
   const { data, isLoading, isSuccess } = useFetchNotifQuery();
   const [isNotifSeen] = useIsNotifSeenMutation();
-  const [active, setActive] = useState(null);
-  const [show, setShow] = useState(false)
+  const [active, setActive] = React.useState(null);
+  const [show, setShow] = React.useState(false)
 
   return (
     <div className={style.notif_menu} >
@@ -41,16 +39,16 @@ function NotificationMenu({ setShowNotification }) {
                   setActive(null);
                 }}
               >
-                   {notification._id === active && show &&
-                    (<Portal id={notification._id}>
-                      <div className={`${style.trashIcon} smaller_circle`}onClick={() => console.log("hhhhhh")}>
-                        <i className={IconStyle.trash_icon} />
-                      </div>
-                    </Portal>
-                    )
+                {notification._id === active && show &&
+                  (<Portal id={notification._id}>
+                    <div className={`${style.trashIcon} smaller_circle`} onClick={() => deleteNotif(notification._id)}>
+                      <img src={trash} alt="trashIcon" />
+                    </div>
+                  </Portal>
+                  )
 
-                  }
-                 <Link
+                }
+                <Link
                   className={style.content}
                   to={`${notification.url}`}
                   onClick={() => {
@@ -101,6 +99,6 @@ function NotificationMenu({ setShowNotification }) {
     </div>
   );
 }
-const memoizedNotificationMenu = memo(NotificationMenu)
+const memoizedNotificationMenu = React.memo(NotificationMenu)
 
 export default memoizedNotificationMenu;
