@@ -17,20 +17,19 @@
 .modal-container {
   position: fixed;
   z-index: 1500;
-  background-color: white;
+  background-color: var(--bg-primary);
   max-width: 100%;
   max-height: 100%;
   width: 450px;
   border-radius: 15px;
-  box-shadow: 0px 0px 16px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 16px 1px var(--shadow-1);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   transition: all 0.3s;
   padding: 20px 40px;
   margin: 0 auto;
- 
- }
+}
 
 .modal-close {
   top: 6px;
@@ -74,5 +73,3 @@
   opacity: 1;
   visibility: visible;
 }
-
-

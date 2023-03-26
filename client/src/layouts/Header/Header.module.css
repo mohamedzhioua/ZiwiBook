@@ -1,6 +1,6 @@
 .header {
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-primary);
+  box-shadow: 0 2px 4px var(--shadow-1);
   height: 56px;
   width: 100%;
   top: 0px;
@@ -9,6 +9,15 @@
   z-index: 100;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+
+:global(.dark) .navbar_right svg,
+:global(.dark) .navbar_left svg {
+  fill: rgb(174, 174, 174);
+}
+
+:global(.dark) .navbar_middle svg {
+  fill: rgb(174, 174, 174);
 }
 
 .navbar_left {
@@ -42,7 +51,7 @@
 }
 
 .active {
-  border-bottom: 3px solid #5c6e58;
+  border-bottom: 3px solid var(--color-primary);
   border-radius: 0;
   height: 56px;
 }
@@ -70,7 +79,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f0f2f5;
+  background: var(--bg-forth);
   cursor: pointer;
 }
 .navbar_profile {
@@ -83,12 +92,12 @@
   position: absolute;
   top: 3px;
   right: 45px;
-  background: #5c6e58;
+  background: var(--color-primary);
   border-radius: 50px;
   padding: 1px 7px;
   font-size: 15px;
   font-weight: 600;
-  color: #ffffff;
+  color:var(--bg-primary);
 }
 
 @media (max-width: 760px) {

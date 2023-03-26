@@ -1,7 +1,7 @@
 .button {
-  background-color: #5c6e58;
+  background-color: var(--color-primary);
   border-radius: 10px;
-  color: #f7f4e9;
+  color: var(--bg-primary);
   border: none;
   outline: none;
   padding: 8.5px 12px;
@@ -31,8 +31,8 @@
   font-size: 18px;
   font-family: "Roboto";
   font-weight: 500;
-  color: #6b7280;
-  background-color: white;
+  color:var(--color-third);
+  background-color: var(--bg-primary);
 }
 .button3 {
   margin-top: 10px;
@@ -52,13 +52,13 @@
 .blue_btn {
   border: none;
   outline: none;
-  background: #0096ff;
+  background: var(--blue-color);
   padding: 8.5px 12px;
   border-radius: 7px;
   font-family: inherit;
   font-weight: 700;
   font-size: 14px;
-  color: #fff;
+  color: var(--bg-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,13 +69,13 @@
 .gray_btn {
   border: none;
   outline: none;
-  background: #e4e6eb;
+  background: var(--bg-third);
   padding: 8.5px 12px;
   border-radius: 7px;
   font-family: inherit;
   font-weight: 600;
   font-size: 14px;
-  color: #050505;
+  color:var(--color-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,8 +96,8 @@
   min-height: 45px;
   border-radius: 3px;
   margin: 0 5px;
-  background-color: #ccc;
-  color: black;
+  background-color: var(--bg-third);
+  color:var(--color-secondary);
   opacity: 0.8;
   font-size: 20px;
 }
@@ -113,8 +113,8 @@
   min-height: 45px;
   border-radius: 3px;
   margin: 0 5px;
-  background-color: #e40c2b;
-  color: white;
+  background-color:var(--red-color);
+  color: var(--bg-primary);
   opacity: 0.8;
   font-size: 20px;
 }
@@ -123,8 +123,8 @@
 }
 .commentbtn {
   border: none;
-  background: rgb(59, 130, 246);
-  color: white;
+  background: var(--blue);
+  color: var(--bg-primary);
   padding: 3px;
   cursor: pointer;
   border-radius: 5px;
@@ -140,8 +140,8 @@
 }
 .commentcancelbtn {
   border: none;
-  background: #e40c2b;
-  color: #ffffff;
+  background : var(--red-color);
+  color: var(--bg-primary);
   padding: 3px;
   cursor: pointer;
   border-radius: 5px;
@@ -149,16 +149,10 @@
   margin-left: 10px;
 }
 
-/* .button2 {background-color: #1D1D2C;}  
-  .button3 {background-color: #F7F4E9;}   
-  .button4 {background-color:#3CBCC3; }
-  .button5 {background-color: #E40C2B;}  
-   .button6 {background-color:#EBA63F;}  
-*/
 .icon {
   padding: 0.5em 1em;
   border: none;
-  color: white;
+  color: var(--bg-primary);
   font-size: 15px;
   cursor: pointer;
 }
@@ -183,9 +177,9 @@
 }
 
 .collapse-line:hover::before,
-.collapse-line:focus-visible::before {
-  background-color: #f7f4e9;
-}
+/* .collapse-line:focus-visible::before {
+  background-color:var(--bg-secondary);
+} */
 .collapse-line::before {
   content: "";
   position: absolute;
@@ -193,11 +187,10 @@
   bottom: 0;
   left: 50%;
   width: 1px;
-  background-color:  #5c6e58;
+  background-color: var(--color-primary);
   transition: background-color 100ms ease-in-out;
 }
 
 .mt-1 {
   margin-top: 20px;
 }
-

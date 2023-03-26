@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeTheme } from "../../../app/features/user/userSlice";
 import styles from "./HeaderMenu.module.css";
 import arrowBack from "../../../assets/svg/arrowBack.svg"
 import IconStyle from "../../../styles/icons.module.css"
+import { changeTheme } from "../../../app/features/user/userSlice";
+
 export default function DisplayAccessibility({ setShow }) {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.user.theme);
@@ -59,11 +60,6 @@ export default function DisplayAccessibility({ setShow }) {
           <input type="radio" name="dark" id="darkOn" defaultChecked={true} />
         )}
       </label>
-      <div className={styles.mmenu_main}>
-        <div className={styles.small_circle} style={{ width: "50px" }}>
-          <i className="compact_icon"></i>
-        </div>
-      </div>
     </div>
   );
 }

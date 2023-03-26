@@ -11,5 +11,5 @@
   .react_span {
     font-size: 14px;
     font-weight: 600;
-    color:  #65676b;
+    color: var(--color-third);
   }

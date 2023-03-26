@@ -15,10 +15,14 @@
   font-size: 300;
 }
 .profile_menu .active {
-  color: #5c6e58;
-  border-bottom: 2px solid #5c6e58;
+  color: var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
   margin-bottom: -3px;
 }
 .link {
   text-decoration: none;
+}
+
+:global(.dark) .profile_menu_container svg {
+  fill: var(--bg-primary);
 }

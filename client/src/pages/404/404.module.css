@@ -14,11 +14,11 @@ transform: translate(-50%, -50%);
 }
  
 .link{
-  color: #e1523d ;
+  color: var(--orange-color) ;
   text-decoration: none;
 }
 .link:hover{
-  color: #e1523d ;
+  color: var(--orange-color) ;
 text-decoration: underline;
 }
 

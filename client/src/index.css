@@ -8,20 +8,53 @@
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
-  color:  #050505;
+  color:  var(--color-secondary);
 }
 body {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-  background: #f0f2f5 !important ;
+  background: var(--bg-secondary) !important ;
 }
 
 html {
   overflow-y: scroll;
 }
+:root {
+
+  --bg-primary: #ffffff;
+  --bg-secondary: #f0f2f5;
+  --bg-third: #e4e6eb;
+  --bg-forth: #f0f2f5;
+  --color-primary:#5c6e58;
+  --color-secondary: #050505;
+  --color-third: #65676b;
+  --divider: #d6d7d9;
+  --dark-bg-primary: #18191a;
+  --dark-bg-secondary: #242526;
+  --dark-bg-third: #3a3b3c;
+  --dark-bg-forth: #3a3b3c;
+  --dark-color-primary: #242526;
+  --dark-color-secondary: #b0b3b8;
+  --red-color:  #e40c2b;
+  --orange-color:  #e1523d;
+  --blue-color: #0096ff;
+  --light-blue-color: #0096ff21;
+  --blue: #1876f2;
+  --green-color: #42b72a;
+  --light-blue-color: #e7f3ff;
+  --border-color: #ccced2;
+  --shadow-1: rgba(0, 0, 0, 0.1);
+  --shadow-2: rgba(0, 0, 0, 0.2);
+  --shadow-5: rgba(0, 0, 0, 0.5);
+  --shadow-8: rgba(0, 0, 0, 0.8);
+  --shadow-inset: rgba(255, 255, 255, 0.5);
+  --color-error: #b94a48;
+}
+
+
 .line {
   width: 100%;
   height: 1px;
-  background: #d6d7d9;
+  background: var(--divider);
   margin: 5px 0;
 }
 
@@ -43,10 +76,10 @@ html {
 
 /* hover */
 .hover1:hover {
-  background: #f0f2f5;
+  background: var(--bg-secondary);
 }
 .hover2:hover {
-  background: #e4e6eb;
+  background: var(--bg-third);
 }
 
 /* hover */
@@ -61,7 +94,7 @@ html {
   align-items: center;
   justify-content: center;
   margin-right: 11px;
-  background: #e4e6eb;
+  background:  var(--bg-third);
   cursor: pointer;
 }
 .smaller_circle {
@@ -74,7 +107,7 @@ html {
   align-items: center;
   justify-content: center;
   margin-right: 11px;
-  background: #fff;
+  background:  var(--bg-primary);
   cursor: pointer;
 }
 

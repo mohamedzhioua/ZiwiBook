@@ -10,21 +10,18 @@
   align-items: center;
 }
 .SingninSvg {
-  height:35px;
-  width:45px;
-
+  height: 35px;
+  width: 45px;
 }
-.SingninTitle{
+.SingninTitle {
   display: flex;
   align-items: center;
-  gap: 2px; 
-
+  gap: 2px;
 }
-.title{
+.title {
   font-size: 32px;
   font-weight: 600;
-  color: #050505; 
-
+  color: var(--color-secondary);
 }
 .login-image {
   width: 80%;
@@ -41,7 +38,6 @@
   flex-direction: column;
 }
 
-
 .login-form {
   display: flex;
   flex-direction: column;
@@ -55,18 +51,18 @@
 }
 .login_link:hover {
   text-decoration: underline;
-  color: #5c6e58;
+  color: var(--color-primary);
 }
 .signup-link {
   cursor: pointer;
   font-size: 14px;
   font-weight: 700;
-  color: #5c6e58;
+  color: var(--color-primary);
   text-decoration: none;
 }
 .signup-link:hover {
   text-decoration: underline;
-  color: #5c6e58;
+  color: var(--color-primary);
 }
 
 @media (min-width: 900px) {

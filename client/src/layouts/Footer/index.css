@@ -1,9 +1,9 @@
 footer {
-    position: fixed;
-    background-color:whitesmoke;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 8px;
-    text-align: center;
-  }
+  position: fixed;
+  background-color: var(--bg-third);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px;
+  text-align: center;
+}

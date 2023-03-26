@@ -6,11 +6,14 @@
   right: 0;
   width: 360px;
   border-radius: 10px;
-  background: #ffffff;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  background: var(--bg-primary);
+  box-shadow: 2px 2px 2px var(--shadow-1);
   user-select: none;
   padding: 10px;
-  border: 1px solid #5c6e58;
+  border: 1px solid var(--color-primary);
+}
+:global(.dark) .header_menu i {
+  filter: invert(100%);
 }
 .head {
   display: flex;
@@ -33,7 +36,7 @@
 .menu_splitter {
   width: 100%;
   height: 1px;
-  background: #e4e6eb;
+  background: var(--bg-third);
   margin-top: 5px;
 }
 .menu_action {
@@ -62,7 +65,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f0f2f5;
+  background: var(--bg-forth);
   cursor: pointer;
 }
 :global(.dark) .menu i {
@@ -78,7 +81,7 @@
   left: 0;
   width: 360px;
   border-radius: 10px;
-  background: #ffffff;
+  background: var(--bg-primary);
   user-select: none;
   padding: 10px;
 }
@@ -106,7 +109,7 @@
 .absolute_container label input {
   width: 20px;
   height: 20px;
-  accent-color: #5c6e58;
+  accent-color: var(--color-primary);
 }
 .mmenu_col {
   display: flex;
@@ -115,7 +118,7 @@
 }
 
 .mmenu_col span:first-of-type {
-  color:  #050505;
+  color: var(--color-secondary);
   font-weight: 600;
   font-size: 15px;
   letter-spacing: 1px;
@@ -136,7 +139,7 @@
 .mmenu_splitter {
   width: 100%;
   height: 1px;
-  background:  #e4e6eb;
+  background: var(--bg-third);
   margin-top: 5px;
 }
 
@@ -146,7 +149,7 @@
 
 .mmenu_span2 {
   font-size: 12px !important;
-  color: #65676b;
+  color: var(--color-third);
 }
 
 .mmenu_item {

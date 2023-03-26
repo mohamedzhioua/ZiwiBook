@@ -18,8 +18,8 @@
   margin: 0 16px 10px;
   padding: 3px 0;
   position: relative;
-  border-top: 1px solid #d6d7d9;
-  border-bottom: 1px solid #d6d7d9;
+  border-top: 1px solid var(--divider);
+  border-bottom: 1px solid var(--divider);
 }
 .reaction_infos {
   display: flex;
@@ -35,7 +35,7 @@
 .reaction_infos_right {
   display: flex;
   gap: 5px;
-  color: #65676b;
+  color: var(--color-third);
   font-size: 15px;
 }
 .reaction_infos_right span {
@@ -58,7 +58,7 @@
   object-fit: cover;
 }
 .edit_link {
-  color: black !important;
+  color: var(--color-secondary) !important;
 }
 
 .profile_img {

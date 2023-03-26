@@ -27,7 +27,7 @@
   font-weight: 400;
   display: flex;
   gap: 5px;
-  color: grey;
+  color:var(--color-third);
 }
 .date:hover {
   text-decoration: underline;

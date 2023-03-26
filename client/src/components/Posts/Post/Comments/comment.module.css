@@ -17,11 +17,11 @@
   width: 100%;
   margin: 20px 0;
   padding: 0.5rem;
-  border: 1px solid #5c6e58;
+  border: 1px solid var(--color-primary);
   border-radius: 0.5rem;
 }
 .comment_header {
-  color: "#5c6e58";
+  color: var(--color-primary);
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.25rem;
@@ -45,7 +45,7 @@
   max-width: max-content;
   position: relative;
   padding-right: 30px;
-  background: #f0f2f5;
+  background:  var(--bg-forth);
 }
 .comment_info_auther {
   font-size: 12px;
@@ -67,7 +67,7 @@
 }
 .date {
   font-size: 9px;
-  color: grey;
+  color: var(--color-third);
   align-self: flex-end;
 }
 .date:hover {
@@ -81,7 +81,7 @@
 }
 .comment_info_likes {
   cursor: pointer;
-  background: #ffffff;
+  background: var(--bg-primary);
   width: 35px;
   height: 35px;
   border-radius: 50px;
@@ -92,7 +92,7 @@
   right: -15px;
   bottom: -10px;
   gap: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--shadow-1);
 }
 .comment_actions {
   display: flex;
@@ -146,8 +146,8 @@
   border-radius: 50%;
 }
 .comment_form_right {
-  background: #f0f2f5;
-  color: #65676b;
+  background: var(--bg-forth);
+  color:var(--color-secondary);
   height: 38px;
   flex: 1 1;
   border-radius: 50px;
@@ -160,7 +160,7 @@
   gap: 10px;
 }
 .comment_form_right:hover {
-  background: #e4e6eb;
+  background:var(--bg-third);
 }
 .comment_form_inputs {
   width: 100%;

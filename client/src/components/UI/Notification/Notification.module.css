@@ -2,7 +2,7 @@
   display: flex;
   gap: 6px;
   flex-direction: column;
-  background:#ffffffff;
+  background:var(--bg-primary);
   padding: 15px;
   border-radius: 10px;
 }
@@ -44,5 +44,5 @@
 .time {
   font-size: 12px;
   font-weight: 600;
-  color: #5c6e58;
+  color:var(--color-primary);
 }
