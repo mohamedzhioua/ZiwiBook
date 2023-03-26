@@ -11,9 +11,6 @@ const app = express();
 // connectDB()
 app.use(cors((corsOptions)));
 
-
-
-// database
 //load env variables
 require("dotenv").config();
 const PORT = process.env.PORT || 3070;

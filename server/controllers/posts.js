@@ -107,7 +107,12 @@ module.exports = {
 
   getOnePost: async (req, res) => {
     try {
-      const postdata = await Post.findById({ _id: req.params.id });
+      const postdata = await Post.findById({ _id: req.params.id }).populate("owner", [
+        "firstName",
+        "lastName",
+        "photo",
+        "username",
+      ]);
       res.status(200).json(postdata);
     } catch (error) {
       res.status(404).json({ message: error.message });

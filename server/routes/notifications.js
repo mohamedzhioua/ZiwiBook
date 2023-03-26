@@ -12,4 +12,7 @@ router.get("/notifies", NotifController.getNotifcations);
 // PATCH request to change the notif seen to true .
 router.patch("/isNotifSeen/:id", NotifController.isNotifSeen);
 
+// DELETE a specific Notif.
+router.delete("/delete/:id", NotifController.deleteNotif);
+
 module.exports = router;
