@@ -2,7 +2,6 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import {
-  selectCommentById,
   useAddCommentReplyMutation,
   useDeleteCommentMutation,
   useFetchCommentsQuery,
@@ -228,5 +227,6 @@ const Comment = ({ comment }) => {
     </div>
   );
 };
+const memoizedComment = React.memo(Comment)
 
-export default Comment;
+export default memoizedComment;

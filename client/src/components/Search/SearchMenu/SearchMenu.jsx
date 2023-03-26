@@ -5,6 +5,7 @@ import { ReturnIcon, SearchIcon } from "../../../assets/svg";
 import CustomInput from "../../input/CustomInput";
 import styles from "./SearchMenu.module.css";
 import { Link } from "react-router-dom";
+
 function SearchMenu({ showSearchMenu, setShowSearchMenu }) {
   const input = React.useRef(null);
   const searchMenu = React.useRef(null);

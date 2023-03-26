@@ -8,15 +8,7 @@ import { useLogoutMutation } from "../../../app/features/auth/authApi";
 
 function HeaderMenu({ user, setShowHeaderMenu }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [Logout, { isLoading, isSuccess, error, isError }] = useLogoutMutation();
-
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(logOut());
-      navigate("/login");
-    }
-  }, [isSuccess,dispatch]);
+  const [Logout] = useLogoutMutation();
 
   const LogoutHandler = async () => {
     Logout();

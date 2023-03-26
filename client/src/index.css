@@ -64,6 +64,19 @@ html {
   background: #e4e6eb;
   cursor: pointer;
 }
+.smaller_circle {
+  position: relative;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 1px solid #5c6e58;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 11px;
+  background: #fff;
+  cursor: pointer;
+}
 
 /*---Circles------*/
 .blur {

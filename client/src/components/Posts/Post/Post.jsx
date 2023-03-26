@@ -181,5 +181,6 @@ const Post = ({ post, isVisitor }) => {
     </component.Card>
   );
 };
+const memoizedPost = React.memo(Post)
 
-export default Post;
+export default memoizedPost;
