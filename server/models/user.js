@@ -59,7 +59,6 @@ const UserSchema = new Schema(
     },
 
     cover: { type: String },
-    unseenNotification: { type: Number, default: 0 },
     details: {
       bio: {
         type: String,
