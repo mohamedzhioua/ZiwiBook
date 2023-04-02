@@ -1,4 +1,4 @@
-import * as  React  from "react";
+import * as  React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Formik, Form } from "formik";
@@ -28,7 +28,13 @@ const LoginForm = ({ setShowRegister }) => {
   const Eye = () => {
     setPasswordVisible(!passwordVisible);
   };
-
+const GuestHandler = async()=>{
+  const userData  = await login({
+    email: "donziwi@gmail.com",
+    password: "Aaa12345",
+  }).unwrap();
+  dispatch(setCredentials({ ...userData }));
+}
   return (
     <div className="login-container">
       <div className="login-head">
@@ -76,7 +82,9 @@ const LoginForm = ({ setShowRegister }) => {
                     onClick={Eye}
                   />
                 </FormLoader>
-                <CustomButton className="button" type="submit" value="submit" />
+                <CustomButton className="button" type="submit" value="Login" />
+                <CustomButton className="gray_btn"  value="Login With Guest Account" disabled={isLoading}
+                  onClick={GuestHandler} />
               </Form>
             );
           }}
