@@ -53,6 +53,6 @@ sio.init(httpServer, {
   },
 });
 
-httpServer.listen(PORT, function () {
+const server = httpServer.listen(PORT, function () {
   console.log(`Server Runs Perfectly at http://localhost:${PORT}`);
 });
