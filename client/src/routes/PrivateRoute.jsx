@@ -12,7 +12,7 @@ function playNotificationSound() {
   const audio = new Audio(notification);
   audio.play();
 }
-function PrivateRoute({ children }) {
+function PrivateRoute() {
   const dispatch = useDispatch();
   const { token, user } = useSelector((state) => state.user);
   useEffect(() => {
@@ -43,7 +43,7 @@ function PrivateRoute({ children }) {
     <>
       <Header />
       <React.Suspense fallback={<Loading />}>
-       {children}
+      <Outlet />
       </React.Suspense>
     </>
   ) : (

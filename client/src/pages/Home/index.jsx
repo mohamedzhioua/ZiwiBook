@@ -12,7 +12,7 @@ function Home() {
     }),
   })
 
-  const postSkeleton = isFetching || isLoading;
+  const postSkeleton = isLoading;
   const hidePostSkeleton = isSuccess && !isLoading && !error && sortedPosts
 
   return (
@@ -22,9 +22,9 @@ function Home() {
         <div className={style.home_posts}>
           {postSkeleton && (
             <>
-              <component.PostSkeleton  />
-              <component.PostSkeleton  />
-              </>
+              <component.PostSkeleton />
+              <component.PostSkeleton />
+            </>
           )}
           {hidePostSkeleton && (
             <component.PostList

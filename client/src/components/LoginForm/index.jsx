@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import { setCredentials } from "../../app/features/user/userSlice";
 import { AuthInput, Card, CustomButton, FormLoader } from "..";
 import "./index.css";
-import ZIWIBook from "../../assets/icons/ZIWIBook.png";
+import ZIWIBook from "../../assets/svg/ZIWIBook.svg";
 import SingninSvg from "../../assets/svg/Signin.svg";
 import { loginValidation } from "../../utils/YupValidation";
 import { useLoginMutation } from "../../app/features/auth/authApi";

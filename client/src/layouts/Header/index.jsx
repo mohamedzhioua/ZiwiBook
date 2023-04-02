@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import style from "./Header.module.css";
-import ZIWIBook from "../../assets/icons/ZIWIBook.png";
+import ZIWIBook from "../../assets/svg/ZIWIBook.svg";
 import { SearchBar } from "../../components";
 import {
   Home,

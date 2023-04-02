@@ -30,7 +30,7 @@ const AddEditPost = ({ post, user }) => {
       isSuccess: updateIsSuccess,
     },
   ] = useUpdatePostMutation();
-
+const addloading = isLoading || isSuccess
   React.useEffect(() => {
     if (isError || updateError) {
       setError(postError.data.message);
@@ -99,7 +99,7 @@ const AddEditPost = ({ post, user }) => {
   };
   return (
     <div className={style.post_container}>
-      <FormLoader loading={updateIsLoading || isLoading}>
+      <FormLoader loading={updateIsLoading || addloading}>
         <div className={style.post_head}>
           <span>{post ? "Update your " : "Create "}post</span>
         </div>
