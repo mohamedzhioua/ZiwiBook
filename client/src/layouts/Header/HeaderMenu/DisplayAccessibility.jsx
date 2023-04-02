@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./HeaderMenu.module.css";
-import arrowBack from "../../../assets/svg/arrowBack.svg"
 import IconStyle from "../../../styles/icons.module.css"
 import { changeTheme } from "../../../app/features/user/userSlice";
 
@@ -16,7 +15,7 @@ export default function DisplayAccessibility({ setShow }) {
             setShow(false);
           }}
         >
-          <img src={arrowBack} alt="arrowBack" />
+          <i className={IconStyle.arrow_back_icon} />
         </div>
         Display & Accessibility
       </div>

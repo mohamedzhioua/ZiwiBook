@@ -205,3 +205,12 @@
   background-repeat: no-repeat;
   display: inline-block;
 }
+.arrow_back_icon {
+  background-image: url("../assets/icons/icons18.png");
+  background-position: 0px -46px;
+  background-size: auto;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
