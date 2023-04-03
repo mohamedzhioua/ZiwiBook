@@ -86,7 +86,7 @@ const Post = ({ post, isVisitor }) => {
     <component.Card className={PostStyle.post}>
       <component.PostHead post={post} isVisitor={isVisitor} />
       <div className={PostStyle.post_body}>
-        <p className={PostStyle.post_text}>{post?.text?.substring(0, 20)}</p>
+        <p className={PostStyle.post_text}>{post?.text}</p>
         {post?.image && (
           <div className={`${PostStyle.image_container} `}>
             <img src={post?.image} className={PostStyle.post_image} alt="..." onClick={() => openImageViewer(0)}

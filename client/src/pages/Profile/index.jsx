@@ -57,7 +57,7 @@ function Profile() {
   const postsSkeltonHide = postsIsSuccess && !postsLoading && !error;
 
   React.useEffect(() => {
-    if (ProfileIsError || photosIsError || postsIsError) {
+    if (ProfileIsError || postsIsError) {
       navigate("/404");
     }
   }, [ProfileIsError, postsIsError, photosIsError]);
