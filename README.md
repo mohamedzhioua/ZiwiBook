@@ -70,7 +70,10 @@ If you're looking to hire a dedicated, hardworking MERN stack developer, I would
 - 🔗 Fully responsive design with all devices using HTML/CSS mediaQuery/react-responsive
 
 ---
+## Screenshots
+![image]
 
+---
 ### ⚙ Installation
 
 - Fork & Clone the repository
