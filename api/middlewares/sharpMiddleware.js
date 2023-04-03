@@ -1,10 +1,11 @@
 const sharp = require("sharp");
+const catchAsync = require('../utils/catchAsync');
 
 // Load cloudinary methods
 const cloudinary = require("../utils/cloudinary");
 
 module.exports = {
-  resizeProfileCover: async (req, file, next) => {
+  resizeProfileCover: catchAsync(async (req, file, next) => {
     const id = req.user.id;
     if (!file) {
       return res.status(404).json({ message: "Please provide a  photo " });
@@ -20,8 +21,8 @@ module.exports = {
       req.body.cover = imageDetails.url;
       next();
     }
-  },
-  resizeProfilePhoto: async (req, file, next) => {
+  }),
+  resizeProfilePhoto: catchAsync(async (req, file, next) => {
     const id = req.user.id;
     if (!file) {
       return res.status(404).json({ message: "Please provide a  photo " });
@@ -37,5 +38,5 @@ module.exports = {
       req.body.photo = imageDetails.url;
       next();
     }
-  },
+  }),
 };

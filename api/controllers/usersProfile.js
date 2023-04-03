@@ -2,10 +2,11 @@ const User = require("../models/user");
 const Friend = require("../models/friend");
 const cloudinary = require("../utils/cloudinary");
 const { getRelationship } = require("../utils/getRelationship");
+const catchAsync = require('../utils/catchAsync');
 
 module.exports = {
   //  --------------------------------------- //updateProfileCover method to change user's profile cover//--------------------------- //
-  updateProfileCover: async (req, res) => {
+  updateProfileCover: catchAsync(async (req, res) => {
     const id = req.user.id;
     try {
       const user = await User.findByIdAndUpdate(id, req.body, { new: true });
@@ -13,9 +14,9 @@ module.exports = {
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
-  },
+  }),
   //  --------------------------------------- //updateProfileCover method to change user's profile photo//--------------------------- //
-  updateProfilePhoto: async (req, res) => {
+  updateProfilePhoto: catchAsync(async (req, res) => {
     const id = req.user.id;
     try {
       const user = await User.findByIdAndUpdate(id, req.body, { new: true });
@@ -23,9 +24,9 @@ module.exports = {
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
-  },
+  }),
   //  --------------------------------------- //getPhotos method to get all user's photos from cloudinary //--------------------------- //
-  getPhotos: async (req, res) => {
+  getPhotos: catchAsync(async (req, res) => {
     const { username } = req.params;
     try {
       const user = await User.findOne({ username });
@@ -69,7 +70,7 @@ module.exports = {
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
-  },
+  }),
   //  --------------------------------------- // get A user profile method //--------------------------- //
 
   getUserProfile: async (req, res) => {

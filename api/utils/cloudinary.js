@@ -32,8 +32,8 @@ module.exports = {
               console.log("🚀 ~ file: cloudinary.js:32 ~ .upload_stream ~ err:", err)
               reject(err);
             } else {
-              console.log(`Upload succeed: ${res}`);
               resolve(res);
+              console.log(`Upload succeed: ${res}`);
             }
           })
           .end(file);
@@ -45,7 +45,7 @@ module.exports = {
   removeFromCloudinary: async (public_id) => {
     await cloudinary.uploader.destroy(public_id, function (error, result) {
       console.log("🚀 ~ file: cloudinary.js:28 ~ result", result)
-      console.log("🚀 ~ file: cloudinary.js:28 ~ error", error)
+      console.log({ message: error.message })
       });
   },
     //  get images from cloudinary
@@ -60,9 +60,11 @@ module.exports = {
         .then((res) => {
           resolve(res);
         })
-        .catch((err) => {
-          reject(err);
+        .catch((error) => {
+          reject(error);
+          console.log({ message: error.message })
         });
+        
     });
   },
   

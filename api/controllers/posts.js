@@ -3,15 +3,16 @@ const User = require("../models/user");
 const Comment = require("../models/comment");
 const Reaction = require("../models/reaction");
 const Friend = require('../models/friend');
-
 const PostValidation = require("../validator/PostValidation");
 const cloudinary = require("../utils/cloudinary");
 const sharp = require("sharp");
 const Notification = require("../utils/notification");
+const catchAsync = require("../utils/catchAsync");
+
 module.exports = {
   //  ----------------------//addPost method //--------------------------- //
 
-  addPost: async (req, res) => {
+  addPost: catchAsync(async (req, res) => {
     const { errors, isValid } = PostValidation(req.body);
     const { file } = req;
     const id = req.user.id;
@@ -40,10 +41,10 @@ module.exports = {
     } catch (error) {
       return res.status(404).json({ message: error.message });
     }
-  },
+  }),
   //  ----------------------//updatePost method //--------------------------- //
 
-  updatePost: async (req, res) => {
+  updatePost: catchAsync(async (req, res) => {
     const { errors, isValid } = PostValidation(req.body);
     const { file } = req;
     try {
@@ -88,7 +89,7 @@ module.exports = {
     } catch (error) {
       return res.status(404).json({ message: error.message });
     }
-  },
+  }),
   //  ----------------------//deletePost method //--------------------------- //
 
   deletePost: async (req, res) => {
