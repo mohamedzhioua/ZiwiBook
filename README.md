@@ -107,10 +107,10 @@ npm install
    -   API_SECRET =${API_SECRET}
 
   - app name :
-   -   APP_NAME =${API_SECRET}
+   -   APP_NAME =${APP_NAME}
 
   - mongodb cluster :
-   -   DATABASE =${DATABASEz}
+   -   DATABASE = <MongoDB cluster url>
    -   DATABASE_PASSWORD =${DATABASE_PASSWORD}
 
   - auth :
