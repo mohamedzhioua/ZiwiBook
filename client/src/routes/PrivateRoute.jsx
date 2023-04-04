@@ -17,7 +17,6 @@ function PrivateRoute() {
   const { token, user } = useSelector((state) => state.user);
   useEffect(() => {
     if (user) {
-      // socket = io("https://ziwibook-mv8q.onrender.com");
       socket = io(import.meta.env.VITE_API_BASE_URL);
       socket.emit("setup", {
         userId: user._id,
