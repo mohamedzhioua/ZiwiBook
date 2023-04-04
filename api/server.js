@@ -6,6 +6,8 @@ const { createServer } = require("http");
 const connectDB = require("./config/db");
 const corsOptions = require ("./utils/corsOptions")
 const allowedOrigins = require("./utils/allowedOrigins")
+const xss = require('xss-clean');
+
 const app = express();
 
 // connectDB()
@@ -21,6 +23,8 @@ app.use(express.json({ limit: "5000kb" })); // LIMIT for JSON
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true, limit: "5000kb" })); // LIMIT for URL ENCODE (image data)
 app.use(cookieParser());
+// Add the xss-clean middleware to all routes
+app.use(xss());
 
 // app.use('/', express.static(path.join(__dirname, 'public')))
 
