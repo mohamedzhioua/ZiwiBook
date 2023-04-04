@@ -110,7 +110,7 @@ npm install
    -   APP_NAME =${APP_NAME}
 
   - mongodb cluster :
-   -   DATABASE = ${<MongoDB cluster url>}
+   -   DATABASE = ${MongoDB_cluster_url}
    -   DATABASE_PASSWORD =${DATABASE_PASSWORD}
 
   - auth :
