@@ -2,6 +2,11 @@
 
 ---
 
+## Demo
+https://ziwibook.netlify.app
+
+---
+
 ### Author Links
 
 👋 Hello, I'm Mohamed Zhioua.
@@ -70,18 +75,20 @@ If you're looking to hire a dedicated, hardworking MERN stack developer, I would
 - 🔗 Fully responsive design with all devices using HTML/CSS mediaQuery/react-responsive
 
 ---
+
 ## Screenshots
-<img src="https://github.com/mohamedzhioua/ZIWIBook/screenshots/ziwibook6.png" >
-<img src="https://github.com/mohamedzhioua/ZIWIBook/screenshots/ziwibook5.png" >
-<img src="https://github.com/mohamedzhioua/ZIWIBook/screenshots/ziwibook.png" >
-<img src="https://github.com/mohamedzhioua/ZIWIBook/screenshots/ziwibook1.png" >
-<img src="https://github.com/mohamedzhioua/ZIWIBook/screenshots/ziwibook7.png" >
-<img src="https://github.com/mohamedzhioua/ZIWIBook/screenshots/ziwibook2.png" >
-<img src="https://github.com/mohamedzhioua/ZIWIBook/screenshots/ziwibook3.png" >
-<img src="https://github.com/mohamedzhioua/ZIWIBook/screenshots/ziwibook4.png" >
-<img src="https://github.com/mohamedzhioua/ZIWIBook/screenshots/ziwibook8.png" >
+<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook6.png" >
+<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook5.png" >
+<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook.png" >
+<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook1.png" >
+<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook7.png" >
+<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook2.png" >
+<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook3.png" >
+<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook4.png" >
+<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook8.png" >
 
 ---
+
 ### ⚙ Installation
 
 - Fork & Clone the repository
