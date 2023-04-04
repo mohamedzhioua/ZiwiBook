@@ -82,10 +82,7 @@ If you're looking to hire a dedicated, hardworking MERN stack developer, I would
 <img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook.png" >
 <img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook1.png" >
 <img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook7.png" >
-<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook2.png" >
-<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook3.png" >
-<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook4.png" >
-<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook8.png" >
+<img src="https://github.com/mohamedzhioua/ZIWIBook/blob/main/screenshots/ziwibook11.png" >
 
 ---
 
